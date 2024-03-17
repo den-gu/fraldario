@@ -2,7 +2,7 @@ import React from 'react';
 
 const NavBar: React.FC = () => {
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar w-full sticky top-0 bg-white z-50">
             <div className="drawer">
                 <input id="my-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex items-center">
@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
                         <a className="btn btn-ghost text-xl">Barakat</a>
                     </div>
                 </div>
-                <div className="drawer-side">
+                <div className="drawer-side z-20">
                     <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 min-h-full bg-white text-base-content">
                         <li><a>Sidebar Item 1</a></li>
