@@ -1,6 +1,7 @@
 import Hero from "@/components/hero";
 import NavBar from "@/components/navbar";
 import Products from "@/components/products";
+import Services from "@/components/services";
 import Image from "next/image";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
     <div className="container px-0 pb-20 bg-[#1C1C1C]">
       <NavBar />
       <Hero />
+      <Services />
       <div className="grid grid-cols-3 gap-4 mt-20">
         <div className="card lg:card-side bg-base-100 shadow-xl">
           <figure><img src="https://daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.jpg" alt="Album" /></figure>
