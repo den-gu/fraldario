@@ -76,18 +76,18 @@ const Products: React.FC = () => {
   ]
   
   return (
-    <div className="mt-20 relative flex flex-col items-center">
+    <div className="py-24 relative flex flex-col items-center">
       <h2 className='mb-16 text-3xl font-bold text-zinc-300/85 text-center'>Explore nossa coleção</h2>
             
       <ResponsiveMasonry
       className='container z-20'
-        columnsCountBreakPoints={{ 300: 2, 500: 3, 700: 4, 900: 3 }}
+        columnsCountBreakPoints={{ 500: 1, 700: 2, 900: 3 }}
       >
         <Masonry gutter="20px">
           {products.map((item, i) => (
             <Measure key={i}>
               {({ measureRef }) => (
-                  <Card ref={measureRef} className='hover:cursor-pointer bg-[#232323] border-zinc-700/40 border-2 hover:border-green-700/40 overflow-hidden h-auto pb-0 hover:animate-in animate-out hover:scale-[1.02] transition-all'>
+                  <Card ref={measureRef} className='hover:cursor-pointer bg-[#232323] border-zinc-700/40 border-2 hover:border-green-700/40 overflow-hidden h-auto pb-0'>
             <CardHeader>
                 <CardTitle className='text-zinc-300 text-[16px] flex items-center justify-between'>
                     {item.name}

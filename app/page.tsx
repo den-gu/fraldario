@@ -1,8 +1,8 @@
+import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import NavBar from "@/components/navbar";
 import Products from "@/components/products";
 import Services from "@/components/services";
-import Image from "next/image";
 
 export default function Home() {
   return (
@@ -11,6 +11,7 @@ export default function Home() {
       <Hero />
       <Services />
       <Products />
+      <Footer />
     </div>
   );
 }
