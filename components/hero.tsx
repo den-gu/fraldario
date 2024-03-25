@@ -6,14 +6,16 @@ const Hero: React.FC = () => {
     <div className="hero min-h-screen">
       <div className="hero-content flex-col items-center">
         <h1 className="text-7xl font-bold text-zinc-300/85 text-center">
-          The Intuitive
+          Transforme
           <br />
-          <span className="text-green-500">Vue Framework</span>
+          ideias em
+          <span className="text-green-500"> Cores</span>
         </h1>
-        <p className="py-6 max-w-[60%] text-zinc-300 text-center text-[17px] font-semibold">
-          Supabase is an open source Firebase alternative. Start your project
-          with a Postgres database, Authentication, instant APIs, Edge
-          Functions, Realtime subscriptions, Storage, and Vector embeddings.
+        <p className="py-6 max-w-[60%] text-zinc-300 text-center text-[18px] font-medium">
+        Da Imaginação para o Papel.<br/>
+          Com um compromisso inabalável com a qualidade e a criatividade,
+          a Barakat vem transformando ideias em realidade visualmente
+          deslumbrante.
         </p>
         <div id="cta" className="flex gap-5 text-zinc-300 text-[18px]">
           <Button
