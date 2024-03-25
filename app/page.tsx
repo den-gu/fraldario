@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="container pb-20">
+    <div className="container px-0 pb-20 bg-[#1C1C1C]">
       <NavBar />
       <Hero />
       <div className="grid grid-cols-3 gap-4 mt-20">
