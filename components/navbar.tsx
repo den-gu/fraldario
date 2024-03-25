@@ -24,7 +24,7 @@ const navigationMenuTriggerStyle = cva(
 
 const NavBar: React.FC = () => {
   return (
-    <div id="navbar" className="container flex items-center sticky top-0 bg-[#1C1C1C] z-50 py-2 border-b border-zinc-800">
+    <nav id="navbar" className="container flex items-center sticky top-0 bg-[#1C1C1C] z-50 py-2 border-b border-zinc-800">
         <a className="text-white font-bold text-[24px] text-xl me-10">Barakat</a>
       <NavigationMenu>
         <NavigationMenuList>
@@ -87,7 +87,7 @@ const NavBar: React.FC = () => {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-    </div>
+    </nav>
     // <div className="navbar w-full sticky top-0 bg-[#1C1C1C] text-white z-50">
     //     <div className="drawer">
     //         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
