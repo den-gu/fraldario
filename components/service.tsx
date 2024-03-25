@@ -19,13 +19,9 @@ interface CardProps {
 
 const Service = (props: CardProps) => {
     return (
-        <Card className='bg-[#232323] border-zinc-700/40 overflow-hidden h-auto pb-0'>
+        <Card className='bg-[#232323] border-zinc-700/40 border-2 hover:border-green-700/40 overflow-hidden h-auto pb-0 hover:animate-in animate-out hover:scale-[1.02] transition-all'>
             <CardHeader>
-                {/* <img src={`https://picsum.photos/800/${Math.floor(
-                    Math.random() * (300 - 200 + 1) + 200
-                )}`}
-                    style={{ width: "100%" }} alt='' /> */}
-                <CardTitle className='text-zinc-300 text-[18px] flex items-center justify-between'>
+                <CardTitle className='text-zinc-300 text-[16px] flex items-center justify-between'>
                     {props.title}
                     <i className="ri-arrow-right-s-line font-extralight text-[15px] text-green-600"></i>
                 </CardTitle>

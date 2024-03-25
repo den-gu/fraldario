@@ -4,7 +4,7 @@ import Service from './service';
 const Services: React.FC = () => {
   return (
     <div id="services" className='container h-auto xl:h-screen py-4 items-center flex flex-col'>
-            <h2 className='text-3xl font-bold text-zinc-300/85 text-center'>Descubra Nossas Soluções <br/>Criativas e Profissionais</h2>
+            <h2 className='text-3xl font-bold text-zinc-300/85 text-center'>Descubra nossas soluções <br/>criativas e profissionais</h2>
             {/* <p className='py-6 max-w-[80%] text-zinc-300 text-[17px] font-semibold mt-2'>Supported by a network of early advocates, contributors, and champions.</p> */}
             <div className="services_row grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 pt-16 gap-5">
                 <Service
