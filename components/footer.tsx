@@ -9,8 +9,8 @@ const year = date.getFullYear();
 
   return (
     <div id="footer" className='container pt-24 pb-16 border-t border-zinc-800'>
-        <div className="wrapper flex flex-col xl:flex-row gap-16 xl:gap-0 justify-between pb-16">
-        <div className="logo flex-1 flex-col max-w-[450px]">
+        <div className="wrapper flex flex-col lg:flex-row gap-16 lg:gap-0 justify-between pb-16">
+        <div className="logo flex-1 flex-col max-w-[400px]">
         <a className="text-white font-bold text-[24px] text-xl me-10">Barakat</a>
         <ul className='text-zinc-400 text-[22px] mt-10 flex items-center gap-8'>
             <li>
@@ -28,7 +28,7 @@ const year = date.getFullYear();
         </ul>
         </div>
         <div id="sitemap" className='flex-1 text-zinc-400'>
-            <div className="grid grid-cols-1 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-16 md:gap-0 md:grid-cols-3">
             <ul className='flex flex-col gap-4 text-[13px]'>
                 <h4 className='text-[14px] text-white font-medium'>Mais vendidos</h4>
                 <Link href="#" className='hover:text-zinc-100 w-fit'>Banner</Link>
