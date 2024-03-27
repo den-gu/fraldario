@@ -11,7 +11,9 @@ const year = date.getFullYear();
     <div id="footer" className='container pt-24 pb-16 border-t border-zinc-800'>
         <div className="wrapper flex flex-col lg:flex-row gap-16 lg:gap-0 justify-between pb-16">
         <div className="logo flex-1 flex-col max-w-[400px]">
-        <a className="text-white font-bold text-[24px] text-xl me-10">Barakat</a>
+        <a className="text-white font-bold text-[16px] me-10 flex items-center gap-2">
+          <i className="ri-supabase-line text-[22px]"></i>Barakat
+          </a>
         <ul className='text-zinc-400 text-[22px] mt-10 flex items-center gap-8'>
             <li>
                 <Link href="#"><i className="ri-facebook-circle-line"></i></Link>

@@ -11,8 +11,8 @@ const Hero: React.FC = () => {
           Ideias em
           <span className="text-green-500"> Cores</span>
         </h1>
-        <p className="py-6 max-w-[60%] text-zinc-300 text-center text-[18px] font-medium">
-        Da Imaginação para o Papel.<br/>
+        <p className="py-6 max-w-[60%] text-zinc-300 text-center text-[17px] font-normal">
+        Inspiração que ganha vida.<br/>
           Com um compromisso inabalável com a qualidade e a criatividade,
           a Barakat vem transformando ideias em realidade visualmente
           deslumbrante.
