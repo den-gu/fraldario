@@ -9,7 +9,7 @@ const Hero: React.FC = () => {
           Transforme
           <br />
           Ideias em
-          <span className="text-green-500"> Cores</span>
+          <span className="text-green-400"> Cores</span>
         </h1>
         <p className="py-6 max-w-[60%] text-zinc-300 text-center text-[17px] font-normal">
         Inspiração que ganha vida.<br/>

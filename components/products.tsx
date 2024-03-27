@@ -20,57 +20,57 @@ const Products: React.FC = () => {
   const products = [
     {
       id: 1,
-      name: "Banner",
+      name: "DigiSoul",
       desc: "Temos banners e claro tudo ao melhor preço",
-      price: 200,
+      price: 6600,
     },
     {
       id: 2,
-      name: "RollUp",
+      name: "Yendza",
       desc: "Temos banners de diferentes tipos e qualidade e co melhor preço",
-      price: 400,
+      price: 5200,
     },
     {
       id: 3,
-      name: "Chávenas",
+      name: "Riha",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Et soluta atque voluptatum deleniti veritatis laborum natus odio, tempora suscipit ullam totam omnis possimus eos iste?",
-      price: 400,
+      price: 1700,
     },
     {
       id: 4,
-      name: "Autocolantes",
+      name: "Muyendzi",
       desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum cumque fugit modi. Vel, in cupiditate magni voluptatibus tempore sed provident odit, mollitia ratione fuga cum deleniti, ipsum voluptates pariatur similique?",
-      price: 400,
+      price: 2400,
     },
     {
       id: 5,
-      name: "Bloco de notas",
+      name: "Nhonguista Organizado",
       desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita possimus, veniam aspernatur quis soluta optio illum placeat.",
-      price: 400,
+      price: 3300,
     },
     {
       id: 6,
-      name: "Camisetes",
+      name: "Bakito Inc",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, voluptatem?",
-      price: 400,
+      price: 10000,
     },
     {
       id: 7,
-      name: "Vinil",
+      name: "Rutty SMS",
       desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor deleniti sequi, cupiditate est dolores minima quasi assumenda nulla rem vitae ad alias numquam sint et veniam optio quos perspiciatis sunt nisi delectus?",
-      price: 400,
+      price: 3400,
     },
     {
       id: 8,
-      name: "Carimbos",
+      name: "wizzo",
       desc: "Técnica de impressão versátil, ideal para materiais rígidos e flexíveis, oferecendo cores vibrantes e durabilidade.",
-      price: 400,
+      price: 2100,
     },
     {
       id: 9,
-      name: "Sacolas",
+      name: "XIMUSSI",
       desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem aliquid dicta ea voluptas voluptate iusto.",
-      price: 100,
+      price: 5900,
     },
   ];
 
@@ -88,27 +88,28 @@ const Products: React.FC = () => {
           {products.map((item, i) => (
             <Measure key={i}>
               {({ measureRef }) => (
-                <Link href="#">
+                <Link href="">
                   <Card
                     ref={measureRef}
                     className="hover:cursor-pointer bg-[#232323] border-zinc-700/40 border-2 hover:border-green-700/40 overflow-hidden h-auto pb-0"
                   >
                     <CardHeader>
-                      <CardTitle className="text-zinc-300 text-[16px] flex items-center justify-between">
+                      <CardTitle className="text-zinc-400 text-[14px] flex items-center justify-between">
                         {item.name}
+                        <span className="text-green-400 text-[13px]">$ {item.price} </span>
                         {/* <i className="ri-arrow-right-s-line font-extralight text-[15px] text-green-600"></i> */}
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <CardDescription className="line-clamp-4 text-[14px] font-medium text-zinc-400">
+                      <CardDescription className="line-clamp-4 text-[14px] font-medium text-zinc-500">
                         {item.desc}
                       </CardDescription>
                     </CardContent>
-                    <CardFooter className="bg-[#2E2E2E] py-2">
+                    {/* <CardFooter className="bg-[#2E2E2E] py-2">
                       <p className="text-[14px] font-medium text-zinc-400 text-nowrap overflow-hidden text-ellipsis">
-                        a partir de {item.price} MZN
+                      $ {item.price} 
                       </p>
-                    </CardFooter>
+                    </CardFooter> */}
                   </Card>
                 </Link>
               )}

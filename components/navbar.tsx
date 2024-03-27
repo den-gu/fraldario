@@ -35,7 +35,7 @@ const NavBar: React.FC = () => {
          
             <label
               htmlFor="my-drawer"
-              className="lg:hidden text-[20px] py-2 px-3 bg-primary text-primary-foreground shadow hover:bg-primary/90 text-zinc-300 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border-2 border-zinc-800"
+              className="text-[20px] py-2 px-3 bg-primary text-primary-foreground shadow hover:bg-primary/90 text-zinc-300 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border-2 border-zinc-800"
             >
               <i className="ri-menu-3-line"></i>
             </label>
@@ -72,7 +72,7 @@ const NavBar: React.FC = () => {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Produtos</NavigationMenuTrigger>
+              <NavigationMenuTrigger>Serviços</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <li className="row-span-3">
@@ -109,7 +109,7 @@ const NavBar: React.FC = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Serviços</NavigationMenuTrigger>
+              <NavigationMenuTrigger>Produtos</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                   {links.map((link) => (
