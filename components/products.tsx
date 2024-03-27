@@ -88,7 +88,7 @@ const Products: React.FC = () => {
           {products.map((item, i) => (
             <Measure key={i}>
               {({ measureRef }) => (
-                <Link href="">
+                <Link href="/showcase">
                   <Card
                     ref={measureRef}
                     className="hover:cursor-pointer bg-[#232323] border-zinc-700/40 border-2 hover:border-green-700/40 overflow-hidden h-auto pb-0"

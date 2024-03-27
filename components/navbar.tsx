@@ -133,15 +133,6 @@ const NavBar: React.FC = () => {
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/docs" legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent transition-colors text-slate-300 hover:text-green-600 focus:outline-none`}
-                >
-                  Promoções e Descontos
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </div>
