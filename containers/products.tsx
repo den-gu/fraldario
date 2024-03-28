@@ -4,7 +4,7 @@
 import React from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Measure from "react-measure";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 import {
   Card,
@@ -75,16 +75,12 @@ const Products: React.FC = () => {
   ];
 
   return (
-    <div className="py-24 relative flex flex-col items-center">
-      <h2 className="mb-16 text-3xl font-bold text-zinc-300/85 text-center">
-        Explore nossa colecção
-      </h2>
-
+    <div className="py-10 flex flex-col items-center mt-6">
       <ResponsiveMasonry
-        className="container z-20"
-        columnsCountBreakPoints={{ 500: 1, 700: 2, 900: 3 }}
+        className="w-full z-20"
+        columnsCountBreakPoints={{ 500: 1, 700: 2 }}
       >
-        <Masonry gutter="20px">
+        <Masonry gutter="10px">
           {products.map((item, i) => (
             <Measure key={i}>
               {({ measureRef }) => (
@@ -120,7 +116,7 @@ const Products: React.FC = () => {
       {/* <div className="shadow-gradient w-full py-20 relative top-[-100px] z-10"></div> */}
       <Button
         variant="default"
-        className="h-10 mt-16 border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-2 rounded-[5px]"
+        className="h-10 mt-10 border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-2 rounded-[5px]"
       >
         Ver mais
       </Button>
