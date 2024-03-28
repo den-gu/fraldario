@@ -1,6 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
 import React from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Measure from "react-measure";
@@ -16,7 +13,12 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
+
 const Products: React.FC = () => {
+
+    const router = useRouter()
+
   const products = [
     {
       id: 1,
@@ -92,7 +94,9 @@ const Products: React.FC = () => {
                     <CardHeader>
                       <CardTitle className="text-zinc-400 text-[14px] flex items-center justify-between">
                         {item.name}
-                        <span className="text-green-400 text-[13px]">$ {item.price} </span>
+                        <span className="text-green-400 text-[13px]">
+                          $ {item.price}{" "}
+                        </span>
                         {/* <i className="ri-arrow-right-s-line font-extralight text-[15px] text-green-600"></i> */}
                       </CardTitle>
                     </CardHeader>
@@ -116,9 +120,13 @@ const Products: React.FC = () => {
       {/* <div className="shadow-gradient w-full py-20 relative top-[-100px] z-10"></div> */}
       <Button
         variant="default"
-        className="h-10 mt-10 border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-2 rounded-[5px]"
+        className="flex items-center h-8 mt-16 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-1 rounded-[5px]"
+        onClick={
+            () =>
+            router.push('/projects')
+        }
       >
-        Ver mais
+        See more
       </Button>
     </div>
   );

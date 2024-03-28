@@ -76,8 +76,9 @@ const Products: React.FC = () => {
 
   return (
     <div className="py-24 relative flex flex-col items-center">
-      <h2 className="mb-16 text-3xl font-bold text-zinc-300/85 text-center">
-        Explore nossa colecção
+      <h2 className="mb-16 text-4xl leading-snug font-bold text-zinc-300/85 text-center">
+        Explore <br />
+        our collections
       </h2>
 
       <ResponsiveMasonry
@@ -96,7 +97,9 @@ const Products: React.FC = () => {
                     <CardHeader>
                       <CardTitle className="text-zinc-400 text-[14px] flex items-center justify-between">
                         {item.name}
-                        <span className="text-green-400 text-[13px]">$ {item.price} </span>
+                        <span className="text-green-400 text-[13px]">
+                          $ {item.price}{" "}
+                        </span>
                         {/* <i className="ri-arrow-right-s-line font-extralight text-[15px] text-green-600"></i> */}
                       </CardTitle>
                     </CardHeader>
@@ -120,9 +123,9 @@ const Products: React.FC = () => {
       {/* <div className="shadow-gradient w-full py-20 relative top-[-100px] z-10"></div> */}
       <Button
         variant="default"
-        className="h-10 mt-16 border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-2 rounded-[5px]"
+        className="flex items-center h-8 mt-16 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-1 rounded-[5px]"
       >
-        Ver mais
+        See more
       </Button>
     </div>
   );

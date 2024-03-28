@@ -12,7 +12,7 @@ const year = date.getFullYear();
         <div className="wrapper flex flex-col lg:flex-row gap-16 lg:gap-0 justify-between pb-16">
         <div className="logo flex-1 flex-col max-w-[400px]">
         <a className="text-white font-bold text-[16px] me-10 flex items-center gap-2">
-          <i className="ri-supabase-line text-[22px]"></i>Barakat
+          <i className="ri-supabase-line text-[20px]"></i>Atemporal
           </a>
         <ul className='text-zinc-400 text-[22px] mt-10 flex items-center gap-8'>
             <li>
@@ -33,10 +33,10 @@ const year = date.getFullYear();
             <div className="grid grid-cols-1 gap-16 md:gap-0 md:grid-cols-3">
             <ul className='flex flex-col gap-4 text-[13px]'>
                 <h4 className='text-[14px] text-white font-medium'>Mais vendidos</h4>
-                <Link href="#" className='hover:text-zinc-100 w-fit'>Banner</Link>
+                {/* <Link href="#" className='hover:text-zinc-100 w-fit'>Banner</Link>
                 <Link href="#" className='hover:text-zinc-100 w-fit'>RollUp</Link>
                 <Link href="#" className='hover:text-zinc-100 w-fit'>Sacolas</Link>
-                <Link href="#" className='hover:text-zinc-100 w-fit'>Chávenas</Link>
+                <Link href="#" className='hover:text-zinc-100 w-fit'>Chávenas</Link> */}
                 <Link href="#" className='hover:text-zinc-100 w-fit'>Sticker</Link>
             </ul>
             <ul className='flex flex-col gap-4 text-[13px]'>
@@ -54,7 +54,7 @@ const year = date.getFullYear();
         </div>
         </div>
         <div className="bar border-t border-zinc-800 pt-8">
-            <span className='text-zinc-300 text-[12px] font-light'>Copyright &copy; {`${year}`} - Barakat</span>
+            <span className='text-zinc-300 text-[12px] font-light'>Copyright &copy; {`${year}`} - Atemporal</span>
         </div>
     </div>
   );
