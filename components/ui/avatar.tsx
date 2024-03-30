@@ -2,12 +2,13 @@ import React from 'react';
 import Image from 'next/image';
 
 interface AvatarProps {
-    source: any
+    source: any,
+    size: number
 }
 
 const Avatar = (props: AvatarProps) => {
   return (
-    <div id="avatar" className='w-[150px] h-[150px] flex items-center justify-center bg-zinc-700 shadow-lg rounded-full overflow-hidden'>
+    <div id="avatar" className={`w-[${props.size}px] h-[${props.size}px] flex items-center justify-center bg-zinc-700 shadow-lg rounded-full overflow-hidden`}>
         <Image 
         src={props.source}
         alt=""

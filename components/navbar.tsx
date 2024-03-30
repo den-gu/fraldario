@@ -4,16 +4,16 @@ import React from "react";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 
 import links from "@/lib/navData";
 import ListItem from "./ListItem";
+import ProjectImage from "@/assets/Logo_of_Twitter.svg.png";
+import Image from "next/image";
 
 import Link from "next/link";
 import { cva } from "class-variance-authority";
@@ -73,8 +73,7 @@ const NavBar: React.FC = () => {
                     }`,
                     ["backgroundColor" as any]: `${
                       pathName === "/" ? "#29292A" : "transparent"
-                    }`
-                    
+                    }`,
                   }}
                   className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none focus:text-slate-300 focus:bg-zinc-800`}
                 >
@@ -83,14 +82,18 @@ const NavBar: React.FC = () => {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger style={{
-                    ["color" as any]: `${
-                      pathName === "/services" ? "#4ADE80" : "#CBD5E1"
-                    }`,
-                    ["backgroundColor" as any]: `${
-                      pathName === "/services" ? "#29292A" : "transparent"
-                    }`
-                  }}>Services</NavigationMenuTrigger>
+              <NavigationMenuTrigger
+                style={{
+                  ["color" as any]: `${
+                    pathName === "/services" ? "#4ADE80" : "#CBD5E1"
+                  }`,
+                  ["backgroundColor" as any]: `${
+                    pathName === "/services" ? "#29292A" : "transparent"
+                  }`,
+                }}
+              >
+                Services
+              </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <li className="row-span-3">
@@ -100,13 +103,23 @@ const NavBar: React.FC = () => {
                         href="/"
                       >
                         {/* <Icons.logo className="h-6 w-6" /> */}
+                        {/* <AvatarIcon /> */}
+                        {/* <Avatar 
+                        source={ProjectImage}
+                        size={50}
+                         /> */}
+                        <Image
+                          src={ProjectImage}
+                          alt=""
+                          quality={100}
+                          className="object-contain w-[60px] h-[60px]"
+                        />
                         <div className="mb-2 mt-4 text-lg font-medium">
-                          shadcn/ui
+                          Atemporal
                         </div>
                         <p className="text-sm leading-tight text-muted-foreground">
                           Beautifully designed components that you can copy and
-                          paste into your apps. Accessible. Customizable. Open
-                          Source.
+                          paste into your apps.
                         </p>
                       </a>
                     </NavigationMenuLink>
@@ -127,14 +140,18 @@ const NavBar: React.FC = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger style={{
-                    ["color" as any]: `${
-                      pathName === "/projects" ? "#4ADE80" : "#CBD5E1"
-                    }`,
-                    ["backgroundColor" as any]: `${
-                      pathName === "/projects" ? "#29292A" : "transparent"
-                    }`
-                  }}>Projects</NavigationMenuTrigger>
+              <NavigationMenuTrigger
+                style={{
+                  ["color" as any]: `${
+                    pathName === "/projects" ? "#4ADE80" : "#CBD5E1"
+                  }`,
+                  ["backgroundColor" as any]: `${
+                    pathName === "/projects" ? "#29292A" : "transparent"
+                  }`,
+                }}
+              >
+                Projects
+              </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                   {links.map((link) => (
@@ -152,14 +169,14 @@ const NavBar: React.FC = () => {
             <NavigationMenuItem>
               <Link href="/portfolio" legacyBehavior passHref>
                 <NavigationMenuLink
-                style={{
-                  ["color" as any]: `${
-                    pathName === "/portfolio" ? "#4ADE80" : "#CBD5E1"
-                  }`,
-                  ["backgroundColor" as any]: `${
-                    pathName === "/portfolio" ? "#29292A" : "transparent"
-                  }`
-                }}
+                  style={{
+                    ["color" as any]: `${
+                      pathName === "/portfolio" ? "#4ADE80" : "#CBD5E1"
+                    }`,
+                    ["backgroundColor" as any]: `${
+                      pathName === "/portfolio" ? "#29292A" : "transparent"
+                    }`,
+                  }}
                   className={`${navigationMenuTriggerStyle()} h-8 py-1 bg-transparent hover:bg-transparent transition-colors text-slate-300 hover:text-green-400 focus:outline-none`}
                 >
                   Portfolio
@@ -169,18 +186,18 @@ const NavBar: React.FC = () => {
           </NavigationMenuList>
         </NavigationMenu>
         <div className="flex items-center gap-4">
-        <Button
+          <Button
             variant="default"
             className="flex items-center h-8 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-1 rounded-[5px]"
           >
             <i className="ri-youtube-line text-[14px] font-thin mt-1"></i>
             Learn more
           </Button>
-        <Button
+          <Button
             variant="default"
             className="flex items-center h-8 text-[12px] border-2 border-green-500/30 bg-green-900 hover:bg-green-700/10 font-semibold gap-1 rounded-[5px]"
           >
-          <i className="ri-arrow-right-s-line text-[14px] font-thin mt-1"></i>
+            <i className="ri-arrow-right-s-line text-[14px] font-thin mt-1"></i>
             Hire us
           </Button>
         </div>

@@ -21,7 +21,7 @@ const Showcase: React.FC = () => {
 
       <div className="board pr-4 sticky top-0 left-0 pt-8 flex-1 max-w-[250px] h-screen">
         <div className="info flex flex-col items-center">
-          <Avatar source={ProjectImage} />
+          <Avatar source={ProjectImage} size={150}/>
           <CardTitle className="mt-4 text-zinc-300 font-medium">
             @Yendza
           </CardTitle>
@@ -40,9 +40,7 @@ const Showcase: React.FC = () => {
           @Yendza<sup className="text-[18px] ml-2 text-green-400">$ 5200</sup>
         </h3>
         <CardDescription className="text-[13px] mt-2 text-zinc-400 font-normal">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia non
-          tenetur est commodi officiis inventore, consequuntur quis iusto
-          tempora voluptatem.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit..
         </CardDescription>
         <div className="flex items-center gap-5 mt-4 border-0 border-zinc-800">
           <Button

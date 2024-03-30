@@ -53,8 +53,14 @@ const year = date.getFullYear();
             </div>
         </div>
         </div>
-        <div className="bar border-t border-zinc-800 pt-8">
-            <span className='text-zinc-300 text-[12px] font-light'>Copyright &copy; {`${year}`} - Made with <i className="ri-heart-line"></i> and <i className="ri-beer-line"></i> at Atemporal</span>
+        <div className="flex flex-col border-t border-zinc-800 pt-8">
+            <span className='text-zinc-300 text-[12px] font-normal'>Copyright &copy; {`${year}`} - Made with <i className="ri-heart-line"></i> and <i className="ri-beer-line"></i> at Atemporal</span>
+            <p className='text-zinc-300 text-[12px] font-normal mt-2'>Developed by 
+                <Link 
+                href="https://www.linkedin.com/in/denilson-guedes"
+                target='_blank'
+                className='text-blue-400 hover:underline ml-1'>Denilson Guedes</Link>
+            </p>
         </div>
     </div>
   );

@@ -77,7 +77,7 @@ const Products: React.FC = () => {
   ];
 
   return (
-    <div className="py-10 flex flex-col items-center mt-6">
+    <div className="py-10 flex flex-col items-center">
       <ResponsiveMasonry
         className="w-full z-20"
         columnsCountBreakPoints={{ 500: 1, 700: 2 }}
