@@ -32,29 +32,29 @@ const year = date.getFullYear();
         <div id="sitemap" className='flex-1 text-zinc-400'>
             <div className="grid grid-cols-1 gap-16 md:gap-0 md:grid-cols-3">
             <ul className='flex flex-col gap-4 text-[13px]'>
-                <h4 className='text-[14px] text-white font-medium'>Mais vendidos</h4>
-                {/* <Link href="#" className='hover:text-zinc-100 w-fit'>Banner</Link>
-                <Link href="#" className='hover:text-zinc-100 w-fit'>RollUp</Link>
-                <Link href="#" className='hover:text-zinc-100 w-fit'>Sacolas</Link>
-                <Link href="#" className='hover:text-zinc-100 w-fit'>Chávenas</Link> */}
-                <Link href="#" className='hover:text-zinc-100 w-fit'>Sticker</Link>
+                <h4 className='text-[14px] text-white font-medium'>Our Services</h4>
+                <Link href="#" className='hover:text-zinc-100 w-fit'>Business Planning</Link>
+                <Link href="#" className='hover:text-zinc-100 w-fit'>Graphic Design</Link>
+                <Link href="#" className='hover:text-zinc-100 w-fit'>Software Development</Link>
+                <Link href="#" className='hover:text-zinc-100 w-fit'>Social Media Management</Link>
+                <Link href="#" className='hover:text-zinc-100 w-fit'>Search Engine Optimization</Link>
             </ul>
             <ul className='flex flex-col gap-4 text-[13px]'>
-                <h4 className='text-[14px] text-white font-medium'>Sobre nós</h4>
-                <Link href="#" className='hover:text-zinc-100 w-fit'>Quem Somos</Link>
-                <Link href="#" className='hover:text-zinc-100 w-fit'>Termos e Condições</Link>
+                <h4 className='text-[14px] text-white font-medium'>About us</h4>
+                <Link href="#" className='hover:text-zinc-100 w-fit'>Who we are?</Link>
+                <Link href="#" className='hover:text-zinc-100 w-fit'>Terms and Conditions</Link>
             </ul>
             <ul className='flex flex-col gap-4 text-[13px]'>
-                <h4 className='text-[14px] text-white font-medium'>Contacto</h4>
-                <p>Av. da Resistência No 3519 | Maxaquene</p>
-                <Link href="mailto:geral@barakat.co.mz" className='hover:text-zinc-100 w-fit'>geral@barakat.co.mz</Link>
+                <h4 className='text-[14px] text-white font-medium'>Contact</h4>
+                {/* <p>Av. da Resistência No 3519 | Maxaquene</p> */}
+                <Link href="mailto:info@atemporal.com" className='hover:text-zinc-100 w-fit'>info@atemporal.com</Link>
                 <Link href="tel:+258844172078" className='hover:text-zinc-100 w-fit'>(+258) 84 4172 078</Link>
             </ul>
             </div>
         </div>
         </div>
         <div className="bar border-t border-zinc-800 pt-8">
-            <span className='text-zinc-300 text-[12px] font-light'>Copyright &copy; {`${year}`} - Atemporal</span>
+            <span className='text-zinc-300 text-[12px] font-light'>Copyright &copy; {`${year}`} - Made with <i className="ri-heart-line"></i> and <i className="ri-beer-line"></i> at Atemporal</span>
         </div>
     </div>
   );

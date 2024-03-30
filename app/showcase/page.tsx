@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CardDescription, CardTitle } from "@/components/ui/card";
 
 import ProjectImage from "@/assets/Logo_of_Twitter.svg.png";
-import { AvatarIcon } from "@radix-ui/react-icons";
+import { AvatarIcon, ChevronUpIcon } from "@radix-ui/react-icons";
 import Avatar from "@/components/ui/avatar";
 import Products from "@/containers/products";
 
@@ -88,7 +88,9 @@ const Showcase: React.FC = () => {
           onClick={() => descHandler(showdesc)}
           className="bg-transparent text-[12px] p-0 text-blue-400 hover:bg-transparent"
         >
-          {`${showdesc === true ? "Ocultar" : "Ver mais"}`}
+          <span className="flex items-center gap-1">{`${showdesc === true ? 'Show less' : 'Show more'}`}
+            <i className={`ri-arrow-${showdesc === true ? 'up' : 'down'}-s-line text-[12px] font-thin mt-1`}></i>
+          </span>
         </Button>
         <CardTitle className="mt-6 text-zinc-400 text-[15px]">
           Screenshots

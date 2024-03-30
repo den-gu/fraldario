@@ -1,5 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
+"use client"
 
 import React from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
@@ -104,7 +103,7 @@ const Products: React.FC = () => {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <CardDescription className="line-clamp-4 text-[14px] font-medium text-zinc-500">
+                      <CardDescription className="line-clamp-5 text-[14px] font-medium text-zinc-500">
                         {item.desc}
                       </CardDescription>
                     </CardContent>

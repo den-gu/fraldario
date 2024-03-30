@@ -22,14 +22,14 @@ const Hero: React.FC = () => {
             variant="default"
             className="flex items-center h-8 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-1 rounded-[5px]"
           >
-            <i className="ri-youtube-line text-[14px] font-thin"></i>
+            <i className="ri-youtube-line text-[14px] font-thin mt-1"></i>
             Learn more
           </Button>
         <Button
             variant="default"
             className="flex items-center h-8 text-[12px] border-2 border-green-500/30 bg-green-900 hover:bg-green-700/10 font-semibold gap-1 rounded-[5px]"
           >
-          <i className="ri-arrow-right-s-line text-[14px] font-thin"></i>
+          <i className="ri-arrow-right-s-line text-[14px] font-thin mt-1"></i>
             Hire us
           </Button>
           {/* <Button
