@@ -27,7 +27,7 @@ const Service = (props: CardProps) => {
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                <CardDescription className='text-[14px] font-medium text-zinc-400'>{props.description}</CardDescription>
+                <CardDescription className='text-[14px] font-medium text-zinc-400 line-clamp-4'>{props.description}</CardDescription>
             </CardContent>
             {/* <CardFooter className='bg-[#2E2E2E] py-2'>
                 <p className='text-[14px] font-medium text-zinc-400 text-nowrap overflow-hidden text-ellipsis'>{props.tags}</p>

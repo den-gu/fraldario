@@ -8,20 +8,29 @@ const Services: React.FC = () => {
             {/* <p className='py-6 max-w-[80%] text-zinc-300 text-[17px] font-semibold mt-2'>Supported by a network of early advocates, contributors, and champions.</p> */}
             <div className="services_row grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 pt-16 gap-5">
                 <Service
-                title='Serviços de Gráfica'
-                description='Impressão de alta qualidade em uma variedade de materiais e formatos para atender às necessidades de impressão de pequenas a grandes tiragens.'
+                title='Business Planning'
+                description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quidem obcaecati delectus, minus, hic non dolorem inventore, quod praesentium quos quasi repudiandae nobis? Quod at consequatur repellendus enim, quas qui?
+                Fugiat quo assumenda incidunt pariatur ex id facere error! Nobis impedit dolorum dolores. Veniam provident assumenda sunt distinctio atque neque aliquid accusamus pariatur, non eos nostrum magnam sapiente repellendus quidem?'
                 tags="#ImpressãoDigital #ImpressãoPersonalizada #GráficaProfissional" />
                 <Service
-                title='Serviços de Serigrafia'
-                description='Técnica de impressão versátil, ideal para materiais rígidos e flexíveis, oferecendo cores vibrantes e durabilidade.'
+                title='Graphic Design'
+                description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quidem obcaecati delectus, minus, hic non dolorem inventore, quod praesentium quos quasi repudiandae nobis? Quod at consequatur repellendus enim, quas qui?
+                Fugiat quo assumenda incidunt pariatur ex id facere error! Nobis impedit dolorum dolores. Veniam provident assumenda sunt distinctio atque neque aliquid accusamus pariatur, non eos nostrum magnam sapiente repellendus quidem?'
                 tags="#ImpressãoEmTecido #ImpressãoDeGrandeFormato #CoresVibrantes" />
                 <Service
-                title='Design Gráfico'
-                description='Desenvolvimento de identidade visual, logotipos e materiais de marketing personalizados para comunicar efetivamente a mensagem da marca.'
+                title='Software Development'
+                description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quidem obcaecati delectus, minus, hic non dolorem inventore, quod praesentium quos quasi repudiandae nobis? Quod at consequatur repellendus enim, quas qui?
+                Fugiat quo assumenda incidunt pariatur ex id facere error! Nobis impedit dolorum dolores. Veniam provident assumenda sunt distinctio atque neque aliquid accusamus pariatur, non eos nostrum magnam sapiente repellendus quidem?'
                 tags="#Branding #MarketingVisual #Logotipos #DesignCriativo #IdentidadeDeMarca" />
                 <Service
-                title='Acabamento Especial'
-                description='Adição de elementos de acabamento como laminação, verniz localizado e relevo para criar impressões sofisticadas e impactantes.'
+                title='Social Media Management'
+                description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quidem obcaecati delectus, minus, hic non dolorem inventore, quod praesentium quos quasi repudiandae nobis? Quod at consequatur repellendus enim, quas qui?
+                Fugiat quo assumenda incidunt pariatur ex id facere error! Nobis impedit dolorum dolores. Veniam provident assumenda sunt distinctio atque neque aliquid accusamus pariatur, non eos nostrum magnam sapiente repellendus quidem?'
+                tags="#ImpressãoEmTecido #ImpressãoDeGrandeFormato #CoresVibrantes" />
+                <Service
+                title='Search Engine Optimization'
+                description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat quidem obcaecati delectus, minus, hic non dolorem inventore, quod praesentium quos quasi repudiandae nobis? Quod at consequatur repellendus enim, quas qui?
+                Fugiat quo assumenda incidunt pariatur ex id facere error! Nobis impedit dolorum dolores. Veniam provident assumenda sunt distinctio atque neque aliquid accusamus pariatur, non eos nostrum magnam sapiente repellendus quidem?'
                 tags="#ImpressãoEmTecido #ImpressãoDeGrandeFormato #CoresVibrantes" />
             </div>
     </div>

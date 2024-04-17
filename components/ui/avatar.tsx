@@ -8,7 +8,7 @@ interface AvatarProps {
 
 const Avatar = (props: AvatarProps) => {
   return (
-    <div id="avatar" className={`w-[${props.size}px] h-[${props.size}px] flex items-center justify-center bg-zinc-700 shadow-lg rounded-full overflow-hidden`}>
+    <div className={`project_image flex items-center justify-center bg-zinc-700 shadow-lg rounded-full overflow-hidden`}>
         <Image 
         src={props.source}
         alt=""

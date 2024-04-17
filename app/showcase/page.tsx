@@ -23,7 +23,7 @@ const Showcase: React.FC = () => {
         <div className="info flex flex-col items-center">
           <Avatar source={ProjectImage} size={150}/>
           <CardTitle className="mt-4 text-zinc-300 font-medium">
-            @Yendza
+            @Sit_amet
           </CardTitle>
         </div>
         <CardTitle className="mt-10 text-zinc-400 text-[15px]">
@@ -37,7 +37,7 @@ const Showcase: React.FC = () => {
 
       <div className="flex-1 pt-8 border-r border-zinc-800 px-5">
         <h3 className="text-[16px] text-zinc-300 font-medium">
-          @Yendza<sup className="text-[18px] ml-2 text-green-400">$ 5200</sup>
+          @Sit_amet<sup className="text-[18px] ml-2 text-green-400">$ 5200</sup>
         </h3>
         <CardDescription className="text-[13px] mt-2 text-zinc-400 font-normal">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit..

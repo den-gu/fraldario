@@ -20,18 +20,18 @@ const Products: React.FC = () => {
     {
       id: 1,
       name: "DigiSoul",
-      desc: "Temos banners e claro tudo ao melhor preço",
+      desc: "Amet consectetur adipisicing elit. Et soluta atque voluptatum deleniti.",
       price: 6600,
     },
     {
       id: 2,
-      name: "Yendza",
-      desc: "Temos banners de diferentes tipos e qualidade e co melhor preço",
+      name: "Sit amet",
+      desc: "Et soluta atque voluptatum deleniti veritatis laborum natus odio, tempora suscipit ullam totam omnis",
       price: 5200,
     },
     {
       id: 3,
-      name: "Riha",
+      name: "Lorem",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Et soluta atque voluptatum deleniti veritatis laborum natus odio, tempora suscipit ullam totam omnis possimus eos iste?",
       price: 1700,
     },
