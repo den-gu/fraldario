@@ -49,7 +49,7 @@ const Products = () => {
                 price: projects[i].price
           })}
 
-          console.log(`${items[0].id} ${items[0].name}`)
+          // console.log(`${items[0].id} ${items[0].name}`)
           // setTimeout(() => {
             // router.push('/portfolio')
             // setLoading(!isLoading)

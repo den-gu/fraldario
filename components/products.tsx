@@ -81,7 +81,7 @@ const Products: React.FC = () => {
       </h2>
 
       <ResponsiveMasonry
-        className="container z-20"
+        className="container px-4 lg:px-8 z-20"
         columnsCountBreakPoints={{ 500: 1, 700: 2, 900: 3 }}
       >
         <Masonry gutter="20px">
@@ -93,7 +93,7 @@ const Products: React.FC = () => {
                     ref={measureRef}
                     className="hover:cursor-pointer bg-[#232323] border-zinc-700/40 border-2 hover:border-green-700/40 overflow-hidden h-auto pb-0"
                   >
-                    <CardHeader>
+                    <CardHeader className='py-4 px-6'>
                       <CardTitle className="text-zinc-400 text-[14px] flex items-center justify-between">
                         {item.name}
                         <span className="text-green-400 text-[13px]">
@@ -103,7 +103,7 @@ const Products: React.FC = () => {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <CardDescription className="line-clamp-5 text-[14px] font-medium text-zinc-500">
+                      <CardDescription className="line-clamp-5 text-[13px] font-medium text-zinc-500">
                         {item.desc}
                       </CardDescription>
                     </CardContent>

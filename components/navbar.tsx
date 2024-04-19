@@ -34,7 +34,7 @@ const NavBar: React.FC = () => {
     >
       <div className="drawer flex items-center justify-between">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex items-center gap-6">
+        <div className="drawer-content flex items-center gap-4">
           <label
             htmlFor="my-drawer"
             className="py-1 px-3 bg-primary text-primary-foreground shadow hover:bg-primary/90 hover:cursor-pointer text-zinc-300 inline-flex items-center justify-center whitespace-nowrap rounded-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border-2 border-zinc-800"
@@ -195,7 +195,7 @@ const NavBar: React.FC = () => {
           </Button>
           <Button
             variant="default"
-            className="flex items-center h-8 text-[12px] border-2 border-green-500/30 bg-green-900 hover:bg-green-700/10 font-semibold gap-1 rounded-[5px]"
+            className="hidden sm:flex items-center h-8 text-[12px] border-2 border-green-500/30 bg-green-900 hover:bg-green-700/10 font-semibold gap-1 rounded-[5px]"
           >
             <i className="ri-arrow-right-s-line text-[14px] font-thin"></i>
             Hire us
