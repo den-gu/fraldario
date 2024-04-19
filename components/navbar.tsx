@@ -30,7 +30,7 @@ const NavBar: React.FC = () => {
   return (
     <nav
       id="navbar"
-      className="container flex items-center sticky top-0 bg-[#1C1C1C] z-50 py-1 border-b border-zinc-800"
+      className="container px-4 lg:px-8 flex items-center sticky top-0 bg-[#1C1C1C] z-50 py-1 border-b border-zinc-800"
     >
       <div className="drawer flex items-center justify-between">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -188,7 +188,7 @@ const NavBar: React.FC = () => {
         <div className="flex items-center gap-4">
           <Button
             variant="default"
-            className="flex items-center h-8 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-1 rounded-[5px]"
+            className="hidden lg:flex items-center h-8 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-1 rounded-[5px]"
           >
             <i className="ri-youtube-line text-[14px] font-thin"></i>
             Learn more
