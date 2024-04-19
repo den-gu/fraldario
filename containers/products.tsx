@@ -1,7 +1,9 @@
-import React from "react";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import Measure from "react-measure";
-import { Button } from "@/components/ui/button";
+"use client"
+
+import React, { useState } from 'react';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import Measure from 'react-measure';
+import { Button } from '@/components/ui/button';
 
 import {
   Card,
@@ -10,126 +12,67 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import Link from "next/link";
+} from '@/components/ui/card';
+import Link from 'next/link';
 
-import { useRouter } from "next/navigation";
+// import { useRouter } from 'next/navigation';
 
-const Products: React.FC = () => {
+import { projects } from '@/lib/projects';
 
-    const router = useRouter()
+const Products = () => {
 
-  const products = [
-    {
-      id: 1,
-      name: "DigiSoul",
-      desc: "Temos banners e claro tudo ao melhor preço",
-      price: 6600,
-    },
-    {
-      id: 2,
-      name: "Yendza",
-      desc: "Temos banners de diferentes tipos e qualidade e co melhor preço",
-      price: 5200,
-    },
-    {
-      id: 3,
-      name: "Riha",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Et soluta atque voluptatum deleniti veritatis laborum natus odio, tempora suscipit ullam totam omnis possimus eos iste?",
-      price: 1700,
-    },
-    {
-      id: 4,
-      name: "Muyendzi",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum cumque fugit modi. Vel, in cupiditate magni voluptatibus tempore sed provident odit, mollitia ratione fuga cum deleniti, ipsum voluptates pariatur similique?",
-      price: 2400,
-    },
-    {
-      id: 5,
-      name: "Nhonguista Organizado",
-      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita possimus, veniam aspernatur quis soluta optio illum placeat.",
-      price: 3300,
-    },
-    {
-      id: 6,
-      name: "Bakito Inc",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, voluptatem?",
-      price: 10000,
-    },
-    {
-      id: 7,
-      name: "Rutty SMS",
-      desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor deleniti sequi, cupiditate est dolores minima quasi assumenda nulla rem vitae ad alias numquam sint et veniam optio quos perspiciatis sunt nisi delectus?",
-      price: 3400,
-    },
-    {
-      id: 8,
-      name: "wizzo",
-      desc: "Técnica de impressão versátil, ideal para materiais rígidos e flexíveis, oferecendo cores vibrantes e durabilidade.",
-      price: 2100,
-    },
-    {
-      id: 9,
-      name: "XIMUSSI",
-      desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem aliquid dicta ea voluptas voluptate iusto.",
-      price: 5900,
-    },
-  ];
+    // const router = useRouter();
+    const [isLoading, setLoading] = useState(true)
+    const items: {id: number; name: string; desc: string; price: number}[] = []
 
-  return (
-    <div className="py-10 flex flex-col items-center">
-      <ResponsiveMasonry
-        className="w-full z-20"
-        columnsCountBreakPoints={{ 500: 1, 700: 2 }}
-      >
-        <Masonry gutter="10px">
-          {products.map((item, i) => (
-            <Measure key={i}>
-              {({ measureRef }) => (
-                <Link href="/showcase">
-                  <Card
-                    ref={measureRef}
-                    className="hover:cursor-pointer bg-[#232323] border-zinc-700/40 border-2 hover:border-green-700/40 overflow-hidden h-auto pb-0"
-                  >
-                    <CardHeader>
-                      <CardTitle className="text-zinc-400 text-[14px] flex items-center justify-between">
-                        {item.name}
-                        <span className="text-green-400 text-[13px]">
-                          $ {item.price}{" "}
-                        </span>
-                        {/* <i className="ri-arrow-right-s-line font-extralight text-[15px] text-green-600"></i> */}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription className="line-clamp-4 text-[14px] font-medium text-zinc-500">
-                        {item.desc}
-                      </CardDescription>
-                    </CardContent>
-                    {/* <CardFooter className="bg-[#2E2E2E] py-2">
-                      <p className="text-[14px] font-medium text-zinc-400 text-nowrap overflow-hidden text-ellipsis">
-                      $ {item.price} 
-                      </p>
-                    </CardFooter> */}
-                  </Card>
-                </Link>
-              )}
-            </Measure>
-          ))}
-        </Masonry>
-      </ResponsiveMasonry>
-      {/* <div className="shadow-gradient w-full py-20 relative top-[-100px] z-10"></div> */}
-      <Button
-        variant="default"
-        className="flex items-center h-8 mt-16 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-1 rounded-[5px]"
-        onClick={
-            () =>
-            router.push('/projects')
+    const loadingHandler = (loading: boolean): void => {
+      setLoading(!loading)
+    }
+
+    const getProjects = async (): Promise<void> => {
+      try {
+        const response = await fetch('api/projects', {
+          headers: {
+            accept: 'application/json',
+            method: 'GET'
+          }
+        })
+        if(response) {
+          const data = await response.json()
+          const projects = data.projects;
+
+          for (let i = 0; i < projects.length; i++) {
+            items.push({
+                id: projects[i].id,
+                name: projects[i].name,
+                desc: projects[i].desc,
+                price: projects[i].price
+          })}
+
+          console.log(`${items[0].id} ${items[0].name}`)
+          // setTimeout(() => {
+            // router.push('/portfolio')
+            // setLoading(!isLoading)
+            // setLoading(!isLoading)
+            // loadingHandler(isLoading)
+          // }, 2000)
         }
-      >
-        See more
-      </Button>
-    </div>
-  );
-};
+      } catch(error) {
+        console.log(error)
+      }
+    }
+    getProjects()
+
+      return (
+        isLoading ? 
+          (
+          <p className='mt-10 text-white text-center font-bold'>Loading...</p>
+        ) 
+        : (
+          <p className='mt-10 text-white text-center font-bold'>Data</p>
+        )
+      ) 
+    }
+    
 
 export default Products;
