@@ -188,7 +188,7 @@ const NavBar: React.FC = () => {
         <div className="flex items-center gap-4">
           <Button
             variant="default"
-            className="hidden lg:flex items-center h-8 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-1 rounded-[5px]"
+            className="hidden xl:flex items-center h-8 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-1 rounded-[5px]"
           >
             <i className="ri-youtube-line text-[14px] font-thin"></i>
             Learn more

@@ -22,12 +22,69 @@ import { projects } from '@/lib/projects';
 const Products = () => {
 
     // const router = useRouter();
-    const [isLoading, setLoading] = useState(true)
+    const [isLoading, setLoading] = useState(false)
     const items: {id: number; name: string; desc: string; price: number}[] = []
 
     const loadingHandler = (loading: boolean): void => {
       setLoading(!loading)
     }
+    
+    const products = [
+      {
+        id: 1,
+        name: "DigiSoul",
+        desc: "Amet consectetur adipisicing elit. Et soluta atque voluptatum deleniti.",
+        price: 6600,
+      },
+      {
+        id: 2,
+        name: "Sit amet",
+        desc: "Et soluta atque voluptatum deleniti veritatis laborum natus odio, tempora suscipit ullam totam omnis",
+        price: 5200,
+      },
+      {
+        id: 3,
+        name: "Lorem",
+        desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Et soluta atque voluptatum deleniti veritatis laborum natus odio, tempora suscipit ullam totam omnis possimus eos iste?",
+        price: 1700,
+      },
+      {
+        id: 4,
+        name: "Muyendzi",
+        desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum cumque fugit modi. Vel, in cupiditate magni voluptatibus tempore sed provident odit, mollitia ratione fuga cum deleniti, ipsum voluptates pariatur similique?",
+        price: 2400,
+      },
+      {
+        id: 5,
+        name: "Nhonguista Organizado",
+        desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita possimus, veniam aspernatur quis soluta optio illum placeat.",
+        price: 3300,
+      },
+      {
+        id: 6,
+        name: "Bakito Inc",
+        desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, voluptatem?",
+        price: 10000,
+      },
+      {
+        id: 7,
+        name: "Rutty SMS",
+        desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor deleniti sequi, cupiditate est dolores minima quasi assumenda nulla rem vitae ad alias numquam sint et veniam optio quos perspiciatis sunt nisi delectus?",
+        price: 3400,
+      },
+      {
+        id: 8,
+        name: "wizzo",
+        desc: "Técnica de impressão versátil, ideal para materiais rígidos e flexíveis, oferecendo cores vibrantes e durabilidade.",
+        price: 2100,
+      },
+      {
+        id: 9,
+        name: "XIMUSSI",
+        desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem aliquid dicta ea voluptas voluptate iusto.",
+        price: 5900,
+      },
+    ];
 
     const getProjects = async (): Promise<void> => {
       try {
@@ -69,7 +126,59 @@ const Products = () => {
           <p className='mt-10 text-white text-center font-bold'>Loading...</p>
         ) 
         : (
-          <p className='mt-10 text-white text-center font-bold'>Data</p>
+          <div className="w-full pt-8 relative flex flex-col items-center">
+      {/* <h2 className="mb-16 text-4xl leading-snug font-bold text-zinc-300/85 text-center">
+        Explore <br />
+        our collections
+      </h2> */}
+
+      <ResponsiveMasonry
+        className="w-full z-20"
+        columnsCountBreakPoints={{ 500: 2, 768: 1, 900: 1, 1024: 2 }}
+      >
+        <Masonry gutter="10px">
+          {products.map((item, i) => (
+            <Measure key={i}>
+              {({ measureRef }) => (
+                <Link href="/showcase">
+                  <Card
+                    ref={measureRef}
+                    className="hover:cursor-pointer bg-[#232323] border-zinc-700/40 border-2 hover:border-green-700/40 overflow-hidden h-auto pb-0"
+                  >
+                    <CardHeader className='py-4 px-6'>
+                      <CardTitle className="text-zinc-400 text-[14px] flex items-center justify-between">
+                        {item.name}
+                        <span className="text-green-400 text-[13px]">
+                          $ {item.price}{" "}
+                        </span>
+                        {/* <i className="ri-arrow-right-s-line font-extralight text-[15px] text-green-600"></i> */}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className="line-clamp-5 text-[13px] font-medium text-zinc-500">
+                        {item.desc}
+                      </CardDescription>
+                    </CardContent>
+                    {/* <CardFooter className="bg-[#2E2E2E] py-2">
+                      <p className="text-[14px] font-medium text-zinc-400 text-nowrap overflow-hidden text-ellipsis">
+                      $ {item.price} 
+                      </p>
+                    </CardFooter> */}
+                  </Card>
+                </Link>
+              )}
+            </Measure>
+          ))}
+        </Masonry>
+      </ResponsiveMasonry>
+      {/* <div className="shadow-gradient w-full py-20 relative top-[-100px] z-10"></div> */}
+      <Button
+        variant="default"
+        className="flex items-center h-8 mt-16 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-1 rounded-[5px]"
+      >
+        See more
+      </Button>
+    </div>
         )
       ) 
     }

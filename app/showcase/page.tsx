@@ -17,17 +17,18 @@ const Showcase: React.FC = () => {
   };
 
   return (
-    <div className="container w-full min-h-screen flex bg-[#1C1C1C]">
+    <div className="container px-4 lg:px-8 w-full min-h-screen flex flex-col gap-10 md:gap-4 md:flex-row bg-[#1C1C1C]">
 
-      <div className="board pr-4 sticky top-0 left-0 pt-8 flex-1 max-w-[250px] h-screen">
+      <div className="content flex flex-col gap-8 xl:flex-row md:pr-4 md:border-r border-zinc-800">
+      <div className="board lg:pr-4 xl:sticky xl:top-0 xl:left-0 pt-8 xl:min-w-[250px] h-auto xl:h-screen">
         <div className="info flex flex-col items-center">
           <Avatar source={ProjectImage} size={150}/>
-          <CardTitle className="mt-4 text-zinc-300 font-medium">
+          <CardTitle className="mt-4 text-zinc-300 text-[15px] font-medium">
             @Sit_amet
           </CardTitle>
         </div>
-        <CardTitle className="mt-10 text-zinc-400 text-[15px]">
-          Tools used
+        <CardTitle className="mt-8 text-zinc-400 text-[12px] font-medium">
+          Built with:
         </CardTitle>
         <CardDescription className="text-[13px] mt-2 text-zinc-400 font-normal">
           #Nextjs #Tailwind #Prisma #Nodejs #supabase
@@ -35,8 +36,8 @@ const Showcase: React.FC = () => {
       </div>
 
 
-      <div className="flex-1 pt-8 border-r border-zinc-800 px-5">
-        <h3 className="text-[16px] text-zinc-300 font-medium">
+      <div className="w-full xl:pt-12 xl:px-4">
+        <h3 className="text-[14px] text-zinc-300 font-medium">
           @Sit_amet<sup className="text-[18px] ml-2 text-green-400">$ 5200</sup>
         </h3>
         <CardDescription className="text-[13px] mt-2 text-zinc-400 font-normal">
@@ -45,16 +46,16 @@ const Showcase: React.FC = () => {
         <div className="flex items-center gap-5 mt-4 border-0 border-zinc-800">
           <Button
             variant="default"
-            className="flex items-center h-8 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold gap-1 rounded-[5px]"
+            className="flex items-center gap-2 md:w-full lg:w-fit h-8 text-[12px] border-2 border-zinc-600/50 bg-zinc-400/10 hover:bg-zinc-900 font-semibold rounded-[5px]"
           >
-            <i className="ri-twitter-x-line text-[14px] font-thin"></i>
-            <i className="ri-email-circle-line font-extralight text-[15px] text-green-400"></i>
-            Send a Message
+            <i className="ri-twitter-line text-[13px] font-thin text-green-400"></i>
+            <span className="hidden sm:inline">Send a message</span>
           </Button>
           <Button
             variant="default"
-            className="h-8 text-[12px] border-2 border-green-500/30 bg-green-900 hover:bg-green-700/10 font-semibold gap-2 rounded-[5px]"
+            className="w-full lg:w-fit flex items-center h-8 text-[12px] border-2 border-green-500/30 bg-green-900 hover:bg-green-700/10 font-semibold gap-2 rounded-[5px]"
           >
+          {/* <i className="ri-shopping-cart-line font-thin text-[15px] text-green-400"></i> */}
             Buy
           </Button>
         </div>
@@ -84,10 +85,10 @@ const Showcase: React.FC = () => {
         <Button
           variant="default"
           onClick={() => descHandler(showdesc)}
-          className="bg-transparent text-[12px] p-0 text-blue-400 hover:bg-transparent"
+          className="bg-transparent text-[12px] p-0 text-blue-400 hover:bg-transparent shadow-none"
         >
           <span className="flex items-center gap-1">{`${showdesc === true ? 'Show less' : 'Show more'}`}
-            <i className={`ri-arrow-${showdesc === true ? 'up' : 'down'}-s-line text-[12px] font-thin mt-1`}></i>
+            <i className={`ri-arrow-${showdesc === true ? 'up' : 'down'}-s-line text-[12px] font-thin`}></i>
           </span>
         </Button>
         <CardTitle className="mt-6 text-zinc-400 text-[15px]">
@@ -95,11 +96,12 @@ const Showcase: React.FC = () => {
         </CardTitle>
         
       </div>
+      </div>
 
 
-      <div className="sidebar flex-1 max-w-[550px] pl-5 pb-20">
-        <CardTitle className="mt-8 text-[17px] text-zinc-300 font-medium">
-          Explore nossa colecção
+      <div className="sidebar md:min-w-[300px] lg:min-w-[450px] lg:pl-2 pb-20">
+        <CardTitle className="mt-8 text-[17px] text-zinc-300 font-bold">
+        Explore our collections
         </CardTitle>
         <Products />
       </div>
