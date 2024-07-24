@@ -11,8 +11,15 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+import {
+  Dialog,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+
 import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
+import Report from "@/components/report";
 
 
 const alunosa = [
@@ -68,27 +75,14 @@ export default async function Home() {
   const response = await supabase.from("alunos").select("*")
   const data = response.data;
 
-  console.log(data);
+  // console.log(data);
   // return <pre>{JSON.stringify(data, null, 2)}</pre>
 
-  return (
-    <div>
-      <h1>Data from Supabase</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
-  );
-  
   return (  
     <div className="container h-screen px-4 pt-10 pb-20 bg-white">
       <CardTitle className="text-2xl text-black">Bem-vindo(a)</CardTitle>
       <CardDescription className="text-sm text-muted-foreground">Preencha os campos abaixo para visualizar a turma ou aluno que deseja.</CardDescription>
       <Grade />
-
-      {/* <ul>
-      {datarows?.map((alunosinfo) => (
-        <li key={alunosinfo}>{alunosinfo.name}</li>
-      ))}
-    </ul> */}
 
       <Table className="mt-6 rounded-sm">
       {/* <TableCaption>A list of your recent alunos.</TableCaption> */}
@@ -98,19 +92,37 @@ export default async function Home() {
           <TableHead>Nome</TableHead>
           <TableHead>Ano</TableHead>
           <TableHead>Turma</TableHead>
+          <TableHead>Parente</TableHead>
           <TableHead>E-mail</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody className="border border-zinc-200">
-        {/* {alunos.map((invoice) => (
-          <TableRow key={invoice.id}>
-            <TableCell className="font-medium">{invoice.id}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell>{invoice.email}</TableCell>
-          </TableRow>
-        ))} */}
+      {
+          data?.map((aluno) => (
+            <TableRow key={aluno.id}>
+                  <TableCell className="max-w-[100px] font-medium text-nowrap overflow-hidden text-ellipsis">{aluno.id}</TableCell>
+                  <TableCell>
+                    <Dialog>
+              <DialogTrigger className="hover:cursor-pointer hover:text-blue-500 hover:underline">
+              {aluno.name}
+              </DialogTrigger>
+
+              <Report
+              id={aluno.id}
+              name={aluno.name}
+              year={aluno.year}
+              class={aluno.class}
+              email={aluno.email} />
+
+              </Dialog>
+                  </TableCell>
+                  <TableCell>{aluno.year}</TableCell>
+                  <TableCell>{aluno.class}</TableCell>
+                  <TableCell>{aluno.parent}</TableCell>
+                  <TableCell>{aluno.email}</TableCell>
+                </TableRow>
+          ))
+      }
       </TableBody>
       {/* <TableFooter>
         <TableRow>
