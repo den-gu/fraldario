@@ -88,7 +88,7 @@ export default async function Home() {
       {/* <TableCaption>A list of your recent alunos.</TableCaption> */}
       <TableHeader className="bg-zinc-200/50 border border-zinc-200">
         <TableRow>
-          <TableHead className="w-[100px]">Código</TableHead>
+          <TableHead className="w-[140px]">Código</TableHead>
           <TableHead>Nome</TableHead>
           <TableHead>Ano</TableHead>
           <TableHead>Turma</TableHead>
@@ -100,7 +100,7 @@ export default async function Home() {
       {
           data?.map((aluno) => (
             <TableRow key={aluno.id}>
-                  <TableCell className="max-w-[100px] font-medium text-nowrap overflow-hidden text-ellipsis">{aluno.id}</TableCell>
+                  <TableCell className="max-w-[140px] font-medium text-nowrap overflow-hidden text-ellipsis">{aluno.id}</TableCell>
                   <TableCell>
                     <Dialog>
               <DialogTrigger className="hover:cursor-pointer hover:text-blue-500 hover:underline">

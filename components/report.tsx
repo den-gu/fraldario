@@ -26,6 +26,7 @@ import {
 import React from 'react'
 import { Button } from "./ui/button"
 import { jsPDF } from "jspdf"
+import { sendReport } from "@/lib/api"
 
 interface IReport {
     id: string;
@@ -52,29 +53,52 @@ export default function Report(data: IReport) {
     defaultValues: {
       name: data.name,
       email: data.email,
+      pequenoAlmoco: "",
+      almoco: "",
+      sobremesa: "",
+      lanche: "",
     },
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+
+    try {
+      await sendReport(values);
+      // setTouched({});
+      // setState(initState);
+      // toast({
+      //   title: "Message sent.",
+      //   status: "success",
+      //   duration: 2000,
+      //   position: "top",
+      // });
+    } catch (error) {
+      // setState((prev) => ({
+      //   ...prev,
+      //   isLoading: false,
+      //   error: error.message,
+      // }));
+      console.log(error)
+    }
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    const createdAt = new Date().getDate();
-    const doc = new jsPDF();
+    // const createdAt = new Date().getDate();
+    // const doc = new jsPDF();
 
-    console.log(createdAt)
+    // console.log(createdAt)
 
-    doc.text(`Nome: ${values.name}`, 10, 10);
-    doc.text(`Email: ${values.email}`, 10, 20);
+    // doc.text(`Nome: ${values.name}`, 10, 10);
+    // doc.text(`Email: ${values.email}`, 10, 20);
     // doc.text(`Comportamento: ${values.email}`, 10, 20);
-    doc.text(`Pequeno-almoço: ${values.almoco}`, 10, 30);
-    doc.text(`Almoço: ${values.almoco}`, 10, 30);
-    doc.text(`Sobremesa: ${values.almoco}`, 10, 30);
-    doc.text(`Lanche: ${values.almoco}`, 10, 30);
+    // doc.text(`Pequeno-almoço: ${values.almoco}`, 10, 30);
+    // doc.text(`Almoço: ${values.almoco}`, 10, 30);
+    // doc.text(`Sobremesa: ${values.almoco}`, 10, 30);
+    // doc.text(`Lanche: ${values.almoco}`, 10, 30);
 
-    doc.save(`relatorio-${createdAt}.pdf`);
-    
-    console.log(values)
+    // doc.save(`relatorio-${createdAt}.pdf`);
+    // console.log(values)  
+        // const formData = new FormData(formSchema)
   }
 
   return (
