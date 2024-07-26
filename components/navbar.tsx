@@ -98,50 +98,6 @@ const NavBar: React.FC = () => {
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
-            {/* <NavigationMenuItem>
-              <NavigationMenuTrigger
-                style={{
-                  ["color" as any]: `${
-                    pathName === "/projects" ? "#4ADE80" : "#CBD5E1"
-                  }`,
-                  ["backgroundColor" as any]: `${
-                    pathName === "/projects" ? "#29292A" : "transparent"
-                  }`,
-                }}
-              >
-                Projects
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                  {links.map((link) => (
-                    <ListItem
-                      key={link.title}
-                      title={link.title}
-                      href={link.href}
-                    >
-                      {link.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem> */}
-            {/* <NavigationMenuItem>
-              <Link href="/portfolio" legacyBehavior passHref>
-                <NavigationMenuLink
-                  style={{
-                    ["color" as any]: `${
-                      pathName === "/portfolio" ? "#4ADE80" : "#CBD5E1"
-                    }`,
-                    ["backgroundColor" as any]: `${
-                      pathName === "/portfolio" ? "#29292A" : "transparent"
-                    }`,
-                  }}
-                  className={`${navigationMenuTriggerStyle()} h-8 py-1 bg-transparent hover:bg-transparent transition-colors text-slate-300 hover:text-green-400 focus:outline-none`}
-                >
-                  Portfolio
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem> */}
           </NavigationMenuList>
         </NavigationMenu>
         <div className="flex items-center gap-4">

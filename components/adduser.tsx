@@ -51,12 +51,12 @@ export function AddUser() {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
           <Button
-            variant="outline"
-            className="hidden sm:flex items-center h-10 gap-1"
+            variant="default"
+            className="hidden sm:flex items-center text-[13px]"
           >
-            <i className="ri-sticky-note-add-line"></i>
+            <i className="ri-sticky-note-add-line mr-2 text-[14px]"></i>
             {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
-            Adicionar
+            Novo
           </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
@@ -76,12 +76,12 @@ export function AddUser() {
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
         <Button
-            variant="outline"
-            className="items-center h-10 gap-1"
+            variant="secondary"
+            className="items-center h-10 gap-1 text-[13px]"
           >
-            <i className="ri-sticky-note-add-line"></i>
+            <i className="ri-sticky-note-add-line text-[14px]"></i>
             {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
-            Adicionar
+            Novo
           </Button>
         </DrawerTrigger>
         <DrawerContent>

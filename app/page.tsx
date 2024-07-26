@@ -18,82 +18,37 @@ import {
 
 
 import { createClient } from '@/utils/supabase/server'
-import { cookies } from 'next/headers'
+// import { cookies } from 'next/headers'
 import Report from "@/components/report";
+import { Button } from "@/components/ui/button";
+import DeleteAction from "@/components/delete-action";
 
-
-const alunosa = [
-  {
-    id: "001",
-    paymentStatus: "Paid",
-    email: "aluno1@gmail.com",
-    paymentMethod: "Credit Card",
-  },
-  {
-    id: "002",
-    paymentStatus: "Pending",
-    email: "aluno2@gmail.com",
-    paymentMethod: "PayPal",
-  },
-  {
-    id: "003",
-    paymentStatus: "Unpaid",
-    email: "aluno3@gmail.com",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    id: "004",
-    paymentStatus: "Paid",
-    email: "aluno4@gmail.com",
-    paymentMethod: "Credit Card",
-  },
-  {
-    id: "005",
-    paymentStatus: "Paid",
-    email: "aluno5@gmail.com",
-    paymentMethod: "PayPal",
-  },
-  {
-    id: "006",
-    paymentStatus: "Pending",
-    email: "aluno6@gmail.com",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    id: "007",
-    paymentStatus: "Unpaid",
-    email: "aluno7@gmail.com",
-    paymentMethod: "Credit Card",
-  },
-]
 
 export default async function Home() {
 
-  const cookieStore = cookies()
+  // const cookieStore = cookies()
   const supabase = createClient()
 
   const response = await supabase.from("alunos").select("*")
   const data = response.data;
 
-  // console.log(data);
-  // return <pre>{JSON.stringify(data, null, 2)}</pre>
-
   return (  
-    <div className="container h-screen px-4 pt-10 pb-20 bg-white">
+    <div className="container min-h-screen px-4 pt-10 pb-20 bg-white">
       <CardTitle className="text-2xl text-black">Bem-vindo(a)</CardTitle>
       <CardDescription className="text-sm text-muted-foreground">Preencha os campos abaixo para visualizar a turma ou aluno que deseja.</CardDescription>
       <Grade />
 
-      <Table className="mt-6 rounded-sm">
+      <Table className="mt-6 rounded-sm text-[13px]">
       {/* <TableCaption>A list of your recent alunos.</TableCaption> */}
       <TableHeader className="bg-zinc-200/50 border border-zinc-200">
         <TableRow>
-          <TableHead className="w-[140px]">Código</TableHead>
-          <TableHead>Nome</TableHead>
-          <TableHead>Ano</TableHead>
-          <TableHead>Turma</TableHead>
-          <TableHead>Parente</TableHead>
-          <TableHead>E-mail</TableHead>
+          <TableHead className="w-[140px] font-bold">Código</TableHead>
+          <TableHead className="font-bold">Nome</TableHead>
+          <TableHead className="font-bold">Ano</TableHead>
+          <TableHead className="font-bold">Turma</TableHead>
+          <TableHead className="font-bold">Parente</TableHead>
+          <TableHead className="font-bold">E-mail</TableHead>
+          <TableHead className="w-[60px] font-bold">Ação</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody className="border border-zinc-200">
@@ -120,6 +75,17 @@ export default async function Home() {
                   <TableCell>{aluno.class}</TableCell>
                   <TableCell>{aluno.parent}</TableCell>
                   <TableCell>{aluno.email}</TableCell>
+                  <TableCell className="flex items-center gap-6 pr-4">
+                    <Button type="button" className="text-[12px] p-0 h-auto border-0 shadow-none bg-transparent hover:bg-transparent hover:underline" variant="outline">
+                      {/* <i className="ri-pencil-line text-[18px]"></i> */}
+                      Editar
+                    </Button>
+                    {/* <Button type="button"
+                      onClick={(e) => deleteStudent(props.alunoID)}
+                    className="bg-red-600 hover:bg-red-500">Sim, desejo apagar
+                  </Button> */}
+                    <DeleteAction alunoID={aluno.id} />
+                  </TableCell>
                 </TableRow>
           ))
       }

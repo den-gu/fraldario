@@ -71,7 +71,7 @@ export default function Grade() {
         /> */}
 
         <div>
-        <CardTitle className="text-md text-black">Turma</CardTitle>
+        <CardTitle className="text-[13px] font-bold uppercase text-black">Turma</CardTitle>
         <Select>
       <SelectTrigger className="w-[180px] text-muted-foreground">
         <SelectValue placeholder="..." />
@@ -79,11 +79,11 @@ export default function Grade() {
       <SelectContent>
         <SelectGroup>
           {/* <SelectLabel>Ano</SelectLabel> */}
-          <SelectItem value="apple">T1</SelectItem>
-          <SelectItem value="banana">T2</SelectItem>
-          <SelectItem value="blueberry">T3</SelectItem>
-          <SelectItem value="grapes">T4</SelectItem>
-          <SelectItem value="pineapple">T5</SelectItem>
+          <SelectItem className="text-[13px]" value="apple">T1</SelectItem>
+          <SelectItem className="text-[13px]" value="banana">T2</SelectItem>
+          <SelectItem className="text-[13px]" value="blueberry">T3</SelectItem>
+          <SelectItem className="text-[13px]" value="grapes">T4</SelectItem>
+          <SelectItem className="text-[13px]" value="pineapple">T5</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
@@ -91,7 +91,7 @@ export default function Grade() {
 
 
    <div>
-   <CardTitle className="text-md text-black">Ano</CardTitle>
+   <CardTitle className="text-[13px] font-bold uppercase text-black">Ano</CardTitle>
     <Select>
       <SelectTrigger className="w-[180px] text-muted-foreground">
         <SelectValue placeholder="..." />
@@ -99,17 +99,17 @@ export default function Grade() {
       <SelectContent>
         <SelectGroup>
           {/* <SelectLabel>Ano</SelectLabel> */}
-          <SelectItem value="apple">1</SelectItem>
-          <SelectItem value="banana">2</SelectItem>
-          <SelectItem value="blueberry">3</SelectItem>
-          <SelectItem value="grapes">4</SelectItem>
-          <SelectItem value="pineapple">5</SelectItem>
+          <SelectItem className="text-[13px]" value="apple">1</SelectItem>
+          <SelectItem className="text-[13px]" value="banana">2</SelectItem>
+          <SelectItem className="text-[13px]" value="blueberry">3</SelectItem>
+          <SelectItem className="text-[13px]" value="grapes">4</SelectItem>
+          <SelectItem className="text-[13px]" value="pineapple">5</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
    </div>
 
-        <Button type="submit">
+        <Button type="submit" className="text-[12px]">
         <i className="ri-equalizer-2-line mr-2"></i>
             Filtrar
         </Button>

@@ -58,10 +58,19 @@ export default function Report(data: IReport) {
     lanche: "",
   })
 
-  const [isLoading, setloading] = useState(false)
+  const [isLoading, setLoading] = useState(false)
+  const [isSendingEmail, setSending] = useState(false)
+  
 
-  const loadHandler = (loading: boolean) => {
-    setloading(!loading)
+  const loadHandler = (state: boolean) => {
+    setLoading(!state)
+  }
+
+  const sendingHandler = (state: boolean) => {
+    setSending(!state)
+    setTimeout(() => {
+      setSending(state)
+    }, 2000);
   }
 
   // Modificando um dos estados
@@ -109,57 +118,22 @@ export default function Report(data: IReport) {
     doc.text(`Fezes: -    Vômitos: -    Febres: -    Comportamento: Bom`, 14, 55);
     doc.text(`Outras ocorrências: -`, 14, 60);
 
-    // setTimeout(() => {      
-    //   loadHandler(isLoading)
-    // }, 3000);
-
     setTimeout(() => {
       loadHandler(!isLoading);
       // Save the PDF
       doc.save(`Relatorio-${createdAt}-${state.name}.pdf`);
-    }, 3000);
-
-    // console.log(doc);
+    }, 2000);
   }
+
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
 
     try {
       await sendReport(values);
-      // setTouched({});
-      // setState(initState);
-      // toast({
-      //   title: "Message sent.",
-      //   status: "success",
-      //   duration: 2000,
-      //   position: "top",
-      // });
+      sendingHandler(isSendingEmail);
     } catch (error) {
-      // setState((prev) => ({
-      //   ...prev,
-      //   isLoading: false,
-      //   error: error.message,
-      // }));
       console.log(error)
     }
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    // const createdAt = new Date().getDate();
-    // const doc = new jsPDF();
-
-    // console.log(createdAt)
-
-    // doc.text(`Nome: ${values.name}`, 10, 10);
-    // doc.text(`Email: ${values.email}`, 10, 20);
-    // doc.text(`Comportamento: ${values.email}`, 10, 20);
-    // doc.text(`Pequeno-almoço: ${values.almoco}`, 10, 30);
-    // doc.text(`Almoço: ${values.almoco}`, 10, 30);
-    // doc.text(`Sobremesa: ${values.almoco}`, 10, 30);
-    // doc.text(`Lanche: ${values.almoco}`, 10, 30);
-
-    // doc.save(`relatorio-${createdAt}.pdf`);
-    // console.log(values)  
-    // const formData = new FormData(formSchema)
   }
 
   return (
@@ -205,7 +179,10 @@ export default function Report(data: IReport) {
                     <FormControl>
                       <Input placeholder="..." {...field}
                       value={state.pequenoAlmoco}
-                      onChange={(e) => updateField('pequenoAlmoco', e.target.value)} />
+                      onChange={(e) => {
+                        field.onChange(e);  // Chama o onChange original do field
+                        updateField('pequenoAlmoco', e.target.value);  // Chama a função que actualiza o estado
+                      }} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -219,7 +196,10 @@ export default function Report(data: IReport) {
                     <FormControl>
                       <Input placeholder="..." {...field}
                       value={state.almoco}
-                      onChange={(e) => updateField('almoco', e.target.value)} />
+                      onChange={(e) => {
+                        field.onChange(e);  // Chama o onChange original do field
+                        updateField('almoco', e.target.value);  // Chama a função que actualiza o estado
+                      }} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -236,7 +216,10 @@ export default function Report(data: IReport) {
                     <FormControl>
                       <Input placeholder="..." {...field}
                       value={state.sobremesa}
-                      onChange={(e) => updateField('sobremesa', e.target.value)} />
+                      onChange={(e) => {
+                        field.onChange(e);  // Chama o onChange original do field
+                        updateField('sobremesa', e.target.value);  // Chama a função que actualiza o estado
+                      }} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -250,7 +233,10 @@ export default function Report(data: IReport) {
                     <FormControl>
                       <Input placeholder="..." {...field}
                       value={state.lanche}
-                      onChange={(e) => updateField('lanche', e.target.value)} />
+                      onChange={(e) => {
+                        field.onChange(e);  // Chama o onChange original do field
+                        updateField('lanche', e.target.value);  // Chama a função que actualiza o estado
+                      }} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -269,18 +255,20 @@ export default function Report(data: IReport) {
                   </>
                 )}
               </Button>
-              <Button type="submit" className="flex items-center text-[12px]">
-                <i className="ri-mail-send-line mr-2 text-[14px]"></i>
-                Enviar
+              <Button type="submit" disabled={isSendingEmail} className="flex items-center text-[12px]">
+              {isSendingEmail ? (
+                  <i className="ri-loader-line animate-spin text-[14px]"></i>
+                )
+                : (
+                  <>
+                    <i className="ri-mail-send-line mr-2 text-[14px]"></i>
+                    Enviar
+                  </>
+                )}
               </Button>
             </div>
           </form>
         </Form>
-        {/* {data.id}
-            {data.name}
-            {data.year}
-            {data.class}
-            {data.email} */}
         {/* <DialogDescription>
             This action cannot be undone. This will permanently delete your account
             and remove your data from our servers.
