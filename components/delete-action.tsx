@@ -22,16 +22,16 @@ interface IDeleteAction {
 }
 
 export default function DeleteAction(props: IDeleteAction) {
-
+    
 // console.log(props.alunoID)
     // 2. Define a submit handler.
   async function deleteHandler(id: any) {
 
-    // try {
+    try {
       await deleteStudent(id)
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

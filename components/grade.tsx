@@ -52,7 +52,7 @@ export default function Grade() {
   return (
     <React.Fragment>
         <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-10 flex items-end gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-7 flex items-end gap-4">
         {/* <FormField
           control={form.control}
           name="username"

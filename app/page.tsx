@@ -1,102 +1,100 @@
-import Grade from "@/components/grade";
-import { CardDescription, CardTitle } from "@/components/ui/card";
+"use client"
+
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
+import { Button } from "@/components/ui/button"
 import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-
-import {
-  Dialog,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-
-
-import { createClient } from '@/utils/supabase/server'
-// import { cookies } from 'next/headers'
-import Report from "@/components/report";
-import { Button } from "@/components/ui/button";
-import DeleteAction from "@/components/delete-action";
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import React from "react"
+import { CardTitle } from "@/components/ui/card"
+import { signIn } from "@/lib/api"
+import { Toaster, toast } from 'sonner';
 
 
-export default async function Home() {
+const FormSchema = z.object({
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  password: z.string().min(2, {
+    message: "Password must be at least 2 characters.",
+  }),
+})
 
-  // const cookieStore = cookies()
-  const supabase = createClient()
+// const ShowToast = () => {
+// }
 
-  const response = await supabase.from("alunos").select("*")
-  const data = response.data;
+const SignIn: React.FC = () => {
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  })
 
-  return (  
-    <div className="container min-h-screen px-4 pt-10 pb-20 bg-white">
-      <CardTitle className="text-2xl text-black">Bem-vindo(a)</CardTitle>
-      <CardDescription className="text-sm text-muted-foreground">Preencha os campos abaixo para visualizar a turma ou aluno que deseja.</CardDescription>
-      <Grade />
+  const OnSubmit = (data: z.infer<typeof FormSchema>) => {
 
-      <Table className="mt-6 rounded-sm text-[13px]">
-      {/* <TableCaption>A list of your recent alunos.</TableCaption> */}
-      <TableHeader className="bg-zinc-200/50 border border-zinc-200">
-        <TableRow>
-          <TableHead className="w-[140px] font-bold">Código</TableHead>
-          <TableHead className="font-bold">Nome</TableHead>
-          <TableHead className="font-bold">Ano</TableHead>
-          <TableHead className="font-bold">Turma</TableHead>
-          <TableHead className="font-bold">Parente</TableHead>
-          <TableHead className="font-bold">E-mail</TableHead>
-          <TableHead className="w-[60px] font-bold">Ação</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody className="border border-zinc-200">
-      {
-          data?.map((aluno) => (
-            <TableRow key={aluno.id}>
-                  <TableCell className="max-w-[140px] font-medium text-nowrap overflow-hidden text-ellipsis">{aluno.id}</TableCell>
-                  <TableCell>
-                    <Dialog>
-              <DialogTrigger className="hover:cursor-pointer hover:text-blue-500 hover:underline">
-              {aluno.name}
-              </DialogTrigger>
+    // console.log(data)
 
-              <Report
-              id={aluno.id}
-              name={aluno.name}
-              year={aluno.year}
-              class={aluno.class}
-              email={aluno.email} />
+    toast('My first toast')
 
-              </Dialog>
-                  </TableCell>
-                  <TableCell>{aluno.year}</TableCell>
-                  <TableCell>{aluno.class}</TableCell>
-                  <TableCell>{aluno.parent}</TableCell>
-                  <TableCell>{aluno.email}</TableCell>
-                  <TableCell className="flex items-center gap-6 pr-4">
-                    <Button type="button" className="text-[12px] p-0 h-auto border-0 shadow-none bg-transparent hover:bg-transparent hover:underline" variant="outline">
-                      {/* <i className="ri-pencil-line text-[18px]"></i> */}
-                      Editar
-                    </Button>
-                    {/* <Button type="button"
-                      onClick={(e) => deleteStudent(props.alunoID)}
-                    className="bg-red-600 hover:bg-red-500">Sim, desejo apagar
-                  </Button> */}
-                    <DeleteAction alunoID={aluno.id} />
-                  </TableCell>
-                </TableRow>
-          ))
-      }
-      </TableBody>
-      {/* <TableFooter>
-        <TableRow>
-          <TableCell colSpan={4}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter> */}
-    </Table>
-    </div>
-  );
+    signIn(data)
+  
 }
+
+  return (
+    <div className="h-full min-h-screen flex justify-center items-center">
+      <Toaster />
+      <Form {...form}>
+      <form onSubmit={form.handleSubmit(OnSubmit)} className="flex flex-col gap-4 w-full max-w-[350px] shadow-md py-6 px-5 self-center border border-slate-200 rounded-lg">
+        <CardTitle className="text-center text-[18px]">O Fraldario</CardTitle>
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-[13px]">Usuário</FormLabel>
+              <FormControl>
+                <Input placeholder="" {...field} />
+              </FormControl>
+              <FormDescription>
+                Digite o nome de usuário associado a sua conta.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-[13px]">Senha</FormLabel>
+              <FormControl>
+                <Input placeholder="" {...field} />
+              </FormControl>
+              {/* <FormDescription>
+                This is your public display name.
+              </FormDescription> */}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full mt-4 text-[13px]">Submeter</Button>
+      </form>
+    </Form>
+    </div>
+  )
+}
+
+export default SignIn

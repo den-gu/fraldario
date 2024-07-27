@@ -1,3 +1,46 @@
+import { useToast } from "@/components/ui/use-toast"
+
+export const ShowToast = async () => {
+  const { toast } = useToast();
+            toast({
+              title: "You submitted the following values:",
+              description: "You submitted the following values",
+  })
+}
+
+export const signIn = async (data: any) => {
+    fetch("api/user/", {
+        method: "GET",
+        // body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    }).then(async (res) => {
+        if (!res.ok) {
+            throw new Error("Can't find this account.");
+        } 
+        // else {
+            // await ShowToast()
+            return res.json();
+        // }
+      });
+}
+
+export const getStudents = async () => {
+    fetch("api/student/", {
+        method: "GET",
+        // body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    }).then((res) => {
+        if (!res.ok) throw new Error("Failed to add student");
+        return res.json();
+      });
+}
+
 export const addStudent = async (data: any) => {
     fetch("api/student/", {
         method: "POST",

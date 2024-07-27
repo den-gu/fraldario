@@ -13,8 +13,14 @@ import { useToast } from '@/components/ui/use-toast'
 import { Toaster } from '@/components/ui/toaster'
 
 export async function GET(){
+    const cookieStore = cookies()
+    const supabase = createClient()
+ 
+    const response = await supabase.from("alunos").select("*")
+    const data = response.data;
+    
     return NextResponse.json({
-        hello: "hello from students"
+        data
     })
 }
 

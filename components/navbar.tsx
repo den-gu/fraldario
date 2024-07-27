@@ -22,7 +22,7 @@ import { usePathname } from "next/navigation";
 import { AddUser } from "./adduser";
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-[13px] uppercase font-semibold transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
 );
 
 const NavBar: React.FC = () => {
@@ -31,7 +31,7 @@ const NavBar: React.FC = () => {
   return (
     <nav
       id="navbar"
-      className="flex items-center sticky top-0 bg-white z-50 py-2 border-b border-zinc-200"
+      className="flex items-center sticky top-0 bg-white z-50 py-3 border-b border-zinc-200"
     >
       <div className="drawer flex items-center justify-between px-4 lg:px-20">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -69,13 +69,13 @@ const NavBar: React.FC = () => {
                 <NavigationMenuLink
                   style={{
                     ["color" as any]: `${
-                      pathName === "/" ? "#018bff" : "#CBD5E1"
+                      pathName === "/home" ? "#000" : "#CBD5E1"
                     }`,
                     ["backgroundColor" as any]: `${
-                      pathName === "/" ? "" : "transparent"
+                      pathName === "/home" ? "" : "transparent"
                     }`,
                   }}
-                  className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none focus:text-slate-300 focus:bg-zinc-800`}
+                  className={`${navigationMenuTriggerStyle()} ${pathName === "/home" ? "underline" : ""} bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none focus:text-slate-300 focus:bg-zinc-800`}
                 >
                   Início
                 </NavigationMenuLink>
