@@ -132,7 +132,7 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
         <Tabs defaultValue="student" className="overflow-visible">
           <TabsList className="flex justify-center mt-2 mb-4">
             <TabsTrigger value="student" className="text-[13px]">Aluno</TabsTrigger>
-            <TabsTrigger value="class" className="text-[13px]">Turma</TabsTrigger>
+            {/* <TabsTrigger value="class" className="text-[13px]">Turma</TabsTrigger> */}
           </TabsList>
             <TabsContent value="student">
             {/* <CardTitle className="text-[15px] text-black mb-4">Novo aluno</CardTitle> */}

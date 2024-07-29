@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import React from "react"
 import { CardTitle } from "@/components/ui/card"
-import { signIn } from "@/lib/api"
+import { initiateSession } from "@/lib/api"
 import { Toaster, toast } from 'sonner';
 
 
@@ -43,13 +43,8 @@ const SignIn: React.FC = () => {
   })
 
   const OnSubmit = (data: z.infer<typeof FormSchema>) => {
-
-    // console.log(data)
-
-    toast('My first toast')
-
-    signIn(data)
-  
+    // toast('My first toast')
+    initiateSession(data);
 }
 
   return (

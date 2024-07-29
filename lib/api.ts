@@ -1,5 +1,10 @@
 import { useToast } from "@/components/ui/use-toast"
 
+interface ILoginData {
+    username: string,
+    password: string
+}
+
 export const ShowToast = async () => {
   const { toast } = useToast();
             toast({
@@ -8,24 +13,32 @@ export const ShowToast = async () => {
   })
 }
 
-export const signIn = async (data: any) => {
-    fetch("api/user/", {
-        method: "GET",
-        // body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        }
-    }).then(async (res) => {
-        if (!res.ok) {
-            throw new Error("Can't find this account.");
-        } 
-        // else {
-            // await ShowToast()
-            return res.json();
+export const initiateSession = async (data: ILoginData) => {
+    try {
+        const response = await fetch('api/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(data) // Passando os dados no corpo da solicitação
+        });
+
+        // if (!response.ok) {
+        //     console.log(await response.json())
+        //     throw new Error("Can't find this account.");
         // }
-      });
-}
+
+        // Se a resposta for bem-sucedida
+        // const result = await response.json();
+        // console.log(result); // Exibe a resposta no console
+        // return result;
+
+    } catch (error: any) {
+        console.error(error.message); // Exibe o erro no console
+    }
+};
+
 
 export const getStudents = async () => {
     fetch("api/student/", {
