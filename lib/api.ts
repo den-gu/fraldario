@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server'
 import { useToast } from "@/components/ui/use-toast"
 
 interface ILoginData {
@@ -28,6 +29,12 @@ export const initiateSession = async (data: ILoginData) => {
         //     console.log(await response.json())
         //     throw new Error("Can't find this account.");
         // }
+        const result = await response.json();
+        console.log(result); // Exibe a resposta no console
+
+        return NextResponse.json({
+            result
+        })
 
         // Se a resposta for bem-sucedida
         // const result = await response.json();

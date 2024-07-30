@@ -19,6 +19,7 @@ import React from "react"
 import { CardTitle } from "@/components/ui/card"
 import { initiateSession } from "@/lib/api"
 import { Toaster, toast } from 'sonner';
+import { useRouter } from "next/navigation"
 
 
 const FormSchema = z.object({
@@ -34,6 +35,8 @@ const FormSchema = z.object({
 // }
 
 const SignIn: React.FC = () => {
+  
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -42,9 +45,13 @@ const SignIn: React.FC = () => {
     },
   })
 
-  const OnSubmit = (data: z.infer<typeof FormSchema>) => {
+  const OnSubmit = async (data: z.infer<typeof FormSchema>) => {
     // toast('My first toast')
-    initiateSession(data);
+    const response = await initiateSession(data);
+
+    if(response) {
+      router.push('/home')
+    }
 }
 
   return (

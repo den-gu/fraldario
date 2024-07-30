@@ -24,9 +24,10 @@ import { Button } from "@/components/ui/button";
 import DeleteAction from "@/components/delete-action";
 import NavBar from "@/components/navbar";
 import React from "react";
+import { parseCookies } from 'nookies';
+import { redirect } from 'next/navigation'
 
-
-export default async function Home() {
+const Home: React.FC = async () => {
 
   const cookieStore = cookies()
   const supabase = createClient()
@@ -34,9 +35,18 @@ export default async function Home() {
   const response = await supabase.from("alunos").select("*")
   const data = response.data;
 
+  const sessionValue = cookieStore.get('session')?.value;
+  const isLoggedIn = sessionValue !== undefined ? true : false
+  const permissionLevel = sessionValue === 'token-fraldario-admin' ? 'admin' : 'user'
+
+  console.log(sessionValue)
+  console.log(isLoggedIn)
+  console.log(permissionLevel)
+
   return (
-    <React.Fragment>
-        <NavBar />
+    (isLoggedIn ? 
+        <React.Fragment>
+        <NavBar permLevel = {permissionLevel} />
     <div className="container min-h-screen px-4 pt-8 pb-20 bg-white">
       <CardTitle className="text-[22px] text-black">Bem-vindo(a)</CardTitle>
       <CardDescription className="text-[13px] text-muted-foreground">Preencha os campos abaixo para visualizar a turma ou aluno que deseja.</CardDescription>
@@ -52,7 +62,7 @@ export default async function Home() {
           <TableHead className="font-bold">Turma</TableHead>
           <TableHead className="font-bold">Parente</TableHead>
           <TableHead className="font-bold">E-mail</TableHead>
-          <TableHead className="w-[60px] font-bold">Ação</TableHead>
+          {permissionLevel === 'admin' ? <TableHead className="w-[60px] font-bold">Ação</TableHead> : ''}
         </TableRow>
       </TableHeader>
       <TableBody className="border border-zinc-200">
@@ -79,17 +89,19 @@ export default async function Home() {
                   <TableCell>{aluno.class}</TableCell>
                   <TableCell>{aluno.parent}</TableCell>
                   <TableCell>{aluno.email}</TableCell>
-                  <TableCell className="flex items-center gap-6 pr-4">
-                    <Button type="button" className="text-[12px] p-0 h-auto border-0 shadow-none bg-transparent hover:bg-transparent hover:underline" variant="outline">
-                      {/* <i className="ri-pencil-line text-[18px]"></i> */}
-                      Editar
-                    </Button>
-                    {/* <Button type="button"
-                      onClick={(e) => deleteStudent(props.alunoID)}
-                    className="bg-red-600 hover:bg-red-500">Sim, desejo apagar
-                  </Button> */}
-                    <DeleteAction alunoID={aluno.id} />
-                  </TableCell>
+                  {permissionLevel === 'admin' ?
+                   <TableCell className="flex items-center gap-6 pr-4">
+                   <Button type="button" className="text-[12px] p-0 h-auto border-0 shadow-none bg-transparent hover:bg-transparent hover:underline" variant="outline">
+                     {/* <i className="ri-pencil-line text-[18px]"></i> */}
+                     Editar
+                   </Button>
+                   {/* <Button type="button"
+                     onClick={(e) => deleteStudent(props.alunoID)}
+                   className="bg-red-600 hover:bg-red-500">Sim, desejo apagar
+                 </Button> */}
+                   <DeleteAction alunoID={aluno.id} />
+                 </TableCell> 
+                   : ''}
                 </TableRow>
           ))
       }
@@ -102,6 +114,11 @@ export default async function Home() {
       </TableFooter> */}
     </Table>
     </div>
-    </React.Fragment> 
+    </React.Fragment>
+    : 
+      redirect('/')
+    ) 
   )
 }
+
+export default Home

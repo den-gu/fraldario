@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import bcrypt from 'bcrypt';
-import { permanentRedirect } from 'next/navigation'
 
 export async function POST(req: Request) {
 
@@ -13,7 +12,7 @@ export async function POST(req: Request) {
     const supabase = createClient();
     const { username, password } = await req.json();
 
-    console.log("Received data:", { username, password });
+    // console.log("Received data:", { username, password });
 
     // Verifica se o usuário existe no banco de dados
     const { data, error } = await supabase
@@ -27,9 +26,7 @@ export async function POST(req: Request) {
             error: "User not found or incorrect password",
         }, { status: 404 });
     } else {
-        console.log("The username exists")
-
-        // Aqui você deve verificar a senha, supondo que ela esteja armazenada em um formato seguro (como hash)
+    // Verifica a senha, armazenada em um formato seguro (como hash)
     // Verifica a senha fornecida com a senha armazenada (hashed)
     const isPasswordValid = await checkPassword(password, data.password);
 
@@ -39,19 +36,28 @@ export async function POST(req: Request) {
         }, { status: 401 });
     } else {
 
+
+        const token = data.username === 'admin' ? 'token-fraldario-admin' : 'token-fraldario-user'
+        // const permissionLevel = data.username === 'admin' ? 'admin' : 'user'
+
         // Se você usar cookies ou tokens para sessão, pode configurá-los aqui
         const cookieStore = cookies();
-        cookieStore.set("session", "token");
+        cookieStore.set('session', token, {
+        httpOnly: true, // O cookie não pode ser acessado via JavaScript no cliente
+        secure: process.env.NODE_ENV === 'production', // Apenas cookies HTTPS em produção
+        maxAge: 60 * 60 * 24, // 1 dia
+        path: '/', // O cookie está disponível em toda a aplicação
+      });
 
-        // return NextResponse.json({
-        //     message: "Login successful",
-        //     user: data,
-        // });
+// if (response.ok) {
+        // Login bem-sucedido, redirecionar para a página inicial
+    //   }'
+        return NextResponse.json({
+            message: "Login successful",
+            user: data,
+        });
+        
 
-        // Autenticação bem-sucedida
-        // Redireciona para a página inicial
-        return permanentRedirect("/home") // Navigate to the new user profile
-        // return NextResponse.redirect(new URL('/home/', req.url));
         
     }
     }

@@ -21,11 +21,15 @@ import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
 import { AddUser } from "./adduser";
 
+interface INavBar {
+  permLevel: string
+}
+
 const navigationMenuTriggerStyle = cva(
   "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-[13px] uppercase font-semibold transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
 );
 
-const NavBar: React.FC = () => {
+const NavBar: React.FC<INavBar> = (props: INavBar) => {
   const pathName = usePathname();
 
   return (
@@ -100,9 +104,14 @@ const NavBar: React.FC = () => {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex items-center gap-4">
-          <AddUser />
-        </div>
+
+        {props.permLevel === "admin"
+        ? <div className="flex items-center gap-4">
+            <AddUser />
+          </div>
+        : <div></div>
+      }
+
       </div>
     </nav>
   );
