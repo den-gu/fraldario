@@ -24,7 +24,6 @@ import { Button } from "@/components/ui/button";
 import DeleteAction from "@/components/delete-action";
 import NavBar from "@/components/navbar";
 import React from "react";
-import { parseCookies } from 'nookies';
 import { redirect } from 'next/navigation'
 
 const Home: React.FC = async () => {
@@ -39,16 +38,12 @@ const Home: React.FC = async () => {
   const isLoggedIn = sessionValue !== undefined ? true : false
   const permissionLevel = sessionValue === 'token-fraldario-admin' ? 'admin' : 'user'
 
-  console.log(sessionValue)
-  console.log(isLoggedIn)
-  console.log(permissionLevel)
-
   return (
     (isLoggedIn ? 
         <React.Fragment>
         <NavBar permLevel = {permissionLevel} />
     <div className="container min-h-screen px-4 pt-8 pb-20 bg-white">
-      <CardTitle className="text-[22px] text-black">Bem-vindo(a)</CardTitle>
+      <CardTitle className="text-[22px] text-black">Olá, {permissionLevel}</CardTitle>
       <CardDescription className="text-[13px] text-muted-foreground">Preencha os campos abaixo para visualizar a turma ou aluno que deseja.</CardDescription>
       <Grade />
 

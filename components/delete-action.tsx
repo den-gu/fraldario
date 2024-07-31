@@ -13,7 +13,6 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { createClient } from '@/utils/supabase/server'
 import { deleteStudent } from '@/lib/api'
 
 

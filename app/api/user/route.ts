@@ -2,6 +2,22 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import bcrypt from 'bcrypt';
+import { redirect } from 'next/navigation'
+
+
+export function GET() {
+
+    const cookieStore = cookies();
+
+    console.log('Apagando...')
+    // Remove o cookie "session"
+    cookieStore.delete('session');
+
+    return NextResponse.json({
+        message: "Logout successful",
+        // user: data,
+    });
+}
 
 export async function POST(req: Request) {
 
@@ -55,10 +71,6 @@ export async function POST(req: Request) {
         return NextResponse.json({
             message: "Login successful",
             user: data,
-        });
-        
+        });        
+}}}
 
-        
-    }
-    }
-}

@@ -30,8 +30,9 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage, Form } from "
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { addStudent } from "@/lib/api"
-
+import { addStudent, getStudents } from "@/lib/api"
+import { Toaster, toast } from 'sonner';
+import { revalidatePath } from 'next/cache'
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
@@ -54,7 +55,7 @@ export function AddUser() {
             variant="default"
             className="hidden sm:flex items-center text-[13px]"
           >
-            <i className="ri-sticky-note-add-line mr-2 text-[14px]"></i>
+            <i className="ri-file-add-line mr-2 text-[14px]"></i>
             {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
             Novo
           </Button>
@@ -79,7 +80,7 @@ export function AddUser() {
             variant="secondary"
             className="items-center h-10 gap-1 text-[13px]"
           >
-            <i className="ri-sticky-note-add-line text-[14px]"></i>
+            <i className="ri-file-add-line text-[14px]"></i>
             {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
             Novo
           </Button>
@@ -104,6 +105,8 @@ export function AddUser() {
 
 function CreateUserForm({ className }: React.ComponentProps<"form">) {
 
+  const [isSubmitting, setSubmitting] = React.useState(false)
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -122,6 +125,15 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
 
       try {
         await addStudent(values)
+        toast('Sucesso', {
+          description: 'Aluno cadastrado.',
+          duration: 5000,
+          cancel: {
+            label: 'Fechar',
+            onClick: () => console.log('Cancel!'),
+          },
+        })
+        getStudents()
       } catch (error) {
         console.log(error)
       }
@@ -207,7 +219,17 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
                 )} />
               </div>
 
-            <Button type="submit" className="w-fit self-end text-[12px] mt-2">Adicionar</Button>
+              <Button type="submit" disabled={isSubmitting} className="w-fit self-end text-[12px] mt-2">
+              {isSubmitting ? (
+                  <i className="ri-loader-line animate-spin text-[14px]"></i>
+                )
+                : (
+                  <>
+                    <i className="ri-file-add-line mr-2 text-[14px]"></i>
+                    Adicionar
+                  </>
+                )}
+              </Button>
             </form>
         </Form>
           </TabsContent>

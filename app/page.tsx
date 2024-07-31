@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import React from "react"
+import React, { useState } from "react"
 import { CardTitle } from "@/components/ui/card"
 import { initiateSession } from "@/lib/api"
 import { Toaster, toast } from 'sonner';
@@ -36,6 +36,12 @@ const FormSchema = z.object({
 
 const SignIn: React.FC = () => {
   
+  const [isSubmitting, setSubmitting] = useState(false)
+  
+  const loadHandler = (state: boolean) => {
+    setSubmitting(!state)
+  }
+
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -47,6 +53,7 @@ const SignIn: React.FC = () => {
 
   const OnSubmit = async (data: z.infer<typeof FormSchema>) => {
     // toast('My first toast')
+    loadHandler(isSubmitting);
     const response = await initiateSession(data);
 
     if(response) {
@@ -92,7 +99,17 @@ const SignIn: React.FC = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full mt-4 text-[13px]">Submeter</Button>
+        <Button type="submit" disabled={isSubmitting} className="w-full mt-4 text-[13px]">
+                {isSubmitting ? (
+                  <i className="ri-loader-line animate-spin text-[14px]"></i>
+                )
+                : (
+                  <>
+                    {/* <i className="ri-download-line mr-2 text-[14px]"></i> */}
+                    Submeter
+                  </>
+                )}
+              </Button>
       </form>
     </Form>
     </div>

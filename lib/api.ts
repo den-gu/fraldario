@@ -6,14 +6,6 @@ interface ILoginData {
     password: string
 }
 
-export const ShowToast = async () => {
-  const { toast } = useToast();
-            toast({
-              title: "You submitted the following values:",
-              description: "You submitted the following values",
-  })
-}
-
 export const initiateSession = async (data: ILoginData) => {
     try {
         const response = await fetch('api/user', {
@@ -47,18 +39,36 @@ export const initiateSession = async (data: ILoginData) => {
 };
 
 
-export const getStudents = async () => {
-    fetch("api/student/", {
+export const endSession = async () => {
+    fetch("api/user", {
         method: "GET",
-        // body: JSON.stringify(data),
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
         }
     }).then((res) => {
-        if (!res.ok) throw new Error("Failed to add student");
+        if (!res.ok) throw new Error("Failed to send message");
         return res.json();
       });
+}
+
+
+export const getStudents = async () => {
+    const response = await fetch("api/student/", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    })
+    // .then(async (res) => {
+        // if (!res.ok) throw new Error("Failed to add student");
+        const data = await response.json();
+        return {
+            props: { data },
+            revalidate: 10, // Revalida a cada 10 segundos
+        }
+    //   });
 }
 
 export const addStudent = async (data: any) => {

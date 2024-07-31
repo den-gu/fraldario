@@ -31,6 +31,7 @@ import autoTable from 'jspdf-autotable'
 import { sendReport } from "@/lib/api"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { CardTitle } from "./ui/card"
+import { Toaster, toast } from 'sonner';
 
 interface IReport {
   id: string;
@@ -165,6 +166,14 @@ export default function Report(data: IReport) {
       loadHandler(!isLoading);
       // Save the PDF
       doc.save(`Relatorio-${createdAt}-${state.name}.pdf`);
+      toast('Sucesso', {
+        description: 'O ficheiro foi descarregado.',
+        duration: 5000,
+        cancel: {
+          label: 'Fechar',
+          onClick: () => console.log('Closed!'),
+        },
+      })
     }, 2000);
   }
 
@@ -174,12 +183,35 @@ export default function Report(data: IReport) {
     try {
       await sendReport(values);
       sendingHandler(isSendingEmail);
+      toast('Sucesso', {
+        description: 'O e-mail foi enviado.',
+        duration: 5000,
+        cancel: {
+          label: 'Fechar',
+          onClick: () => console.log('Cancel!'),
+        },
+      })
     } catch (error) {
       console.log(error)
     }
   }
 
   return (
+    <React.Fragment>
+      <Toaster 
+      toastOptions={{
+        classNames: {
+          toast: 'bg-white',
+          title: 'text-black',
+          description: 'text-muted-foreground',
+          cancelButton: 'bg-white',
+          closeButton: 'bg-white',
+        },
+        style: {
+          border: 'text-zinc-200'
+        }
+      }}
+    />
     <DialogContent className="w-full min-w-[650px] px-0 pt-4">
       <DialogHeader>
         <DialogTitle className="border-b border-zinc-200 px-6 pb-3">O Fraldario</DialogTitle>
@@ -605,5 +637,6 @@ export default function Report(data: IReport) {
             </DialogDescription> */}
       </DialogHeader>
     </DialogContent>
+    </React.Fragment>
   )
 }
