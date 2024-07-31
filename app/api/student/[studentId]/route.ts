@@ -10,7 +10,7 @@ export async function DELETE(req: Request): Promise<NextResponse> {
         try {
             const { error } = await supabase.from("alunos").delete().eq("id", data);
             if(!error) {
-             console.log("Aluno detetado")
+             console.log("Aluno deletado")
             }
          } catch (error) {
              console.log(error)        

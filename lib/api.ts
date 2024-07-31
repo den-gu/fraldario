@@ -53,22 +53,25 @@ export const endSession = async () => {
 }
 
 
-export const getStudents = async () => {
-    const response = await fetch("api/student/", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        }
+export const getStudents = async (values: any) => {
+    try{
+        const response = await fetch("api/student/all", {
+            method: "POST",
+            body: JSON.stringify(values),
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
     })
-    // .then(async (res) => {
-        // if (!res.ok) throw new Error("Failed to add student");
-        const data = await response.json();
-        return {
-            props: { data },
-            revalidate: 10, // Revalida a cada 10 segundos
-        }
-    //   });
+        const { data } = await response.json();
+        // console.log(data); // Exibe a resposta no console
+
+        return NextResponse.json({
+            data
+        })
+    } catch(error: any) {
+        console.log(error)
+    }
 }
 
 export const addStudent = async (data: any) => {
