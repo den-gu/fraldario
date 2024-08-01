@@ -1,48 +1,37 @@
-import * as React from "react"
+import React, {useState} from "react"
  
-import { cn } from "@/lib/utils"
 import { useMediaQuery } from "@react-hook/media-query"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CardTitle } from "./ui/card"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@radix-ui/react-select"
-import { FormField, FormItem, FormLabel, FormControl, FormMessage, Form } from "./ui/form"
+import { FormField, FormItem, FormControl, FormMessage, Form } from "./ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { addStudent, getStudents } from "@/lib/api"
+import { addStudent } from "@/lib/api"
 import { Toaster, toast } from 'sonner';
-import { revalidatePath } from 'next/cache'
+
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
   email: z.string().min(2).max(50),
   parent: z.string().min(2).max(50),
   class: z.string().min(1).max(10),
-  year: z.string().min(1).max(5),
 })
 
-export function AddUser() {
+export function AddStudent() {
 
     const [open, setOpen] = React.useState(false)
     const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -86,12 +75,6 @@ export function AddUser() {
           </Button>
         </DrawerTrigger>
         <DrawerContent>
-          {/* <DrawerHeader className="text-left">
-            <DrawerTitle>Edit profile</DrawerTitle> */}
-            {/* <DrawerDescription>
-              Make changes to your profile here. Click save when you are done.
-            </DrawerDescription> */}
-          {/* </DrawerHeader> */}
           <CreateUserForm className="px-4" />
           <DrawerFooter className="pt-2">
             <DrawerClose asChild>
@@ -105,8 +88,23 @@ export function AddUser() {
 
 function CreateUserForm({ className }: React.ComponentProps<"form">) {
 
-  const [isSubmitting, setSubmitting] = React.useState(false)
+  const [isSubmitting, setSubmitting] = useState(false)
 
+  const submitHandler = (state: boolean) => {
+    setSubmitting(!state)
+    setTimeout(() => {
+      setSubmitting(state)
+      toast('Sucesso', {
+        description: 'Aluno cadastrado.',
+        duration: 5000,
+        cancel: {
+          label: 'Fechar',
+          onClick: () => console.log('Cancel!'),
+        },
+      })
+    }, 2000);
+  }
+  
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -115,48 +113,33 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
       email: "",
       parent: "",
       class: "",
-      year: "",
     },
   })
 
-
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
+      
+      submitHandler(isSubmitting)
 
       try {
         await addStudent(values)
-        toast('Sucesso', {
-          description: 'Aluno cadastrado.',
-          duration: 5000,
-          cancel: {
-            label: 'Fechar',
-            onClick: () => console.log('Cancel!'),
-          },
-        })
-        getStudents()
       } catch (error) {
         console.log(error)
-      }
     }
+  }
   
     return (
-      // <form className={cn("grid items-start gap-4", className)}>
-        <Tabs defaultValue="student" className="overflow-visible">
-          <TabsList className="flex justify-center mt-2 mb-4">
-            <TabsTrigger value="student" className="text-[13px]">Aluno</TabsTrigger>
-            {/* <TabsTrigger value="class" className="text-[13px]">Turma</TabsTrigger> */}
-          </TabsList>
-            <TabsContent value="student">
-            {/* <CardTitle className="text-[15px] text-black mb-4">Novo aluno</CardTitle> */}
+      <React.Fragment>
             <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+            <CardTitle className="text-[15px] text-black mb-4">Novo aluno</CardTitle>
               <div className="flex gap-4">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-muted-foreground text-[13px]">Nome</FormLabel>
+                  <CardTitle className="text-[13px] mt-3">Nome da criança</CardTitle>
                     <FormControl>
                       <Input placeholder="..." {...field} />
                     </FormControl>
@@ -168,22 +151,7 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
                 name="parent"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-muted-foreground text-[13px]">Parente</FormLabel>
-                    <FormControl>
-                      <Input placeholder="..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-              </div>
-
-              <div className="flex w-full">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel className="text-muted-foreground text-[13px]">E-mail</FormLabel>
+                  <CardTitle className="text-[13px] mt-3">Nome do parente</CardTitle>
                     <FormControl>
                       <Input placeholder="..." {...field} />
                     </FormControl>
@@ -195,22 +163,23 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
               <div className="flex gap-4">
               <FormField
                 control={form.control}
-                name="class"
+                name="email"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-muted-foreground text-[13px]">Turma</FormLabel>
+                  <FormItem className="w-full">
+                  <CardTitle className="text-[13px] mt-3">E-mail</CardTitle>
                     <FormControl>
                       <Input placeholder="..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )} />
-              <FormField
+
+                <FormField
                 control={form.control}
-                name="year"
+                name="class"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-muted-foreground text-[13px]">Ano</FormLabel>
+                  <CardTitle className="text-[13px] mt-3">Turma</CardTitle>
                     <FormControl>
                       <Input placeholder="..." {...field} />
                     </FormControl>
@@ -232,8 +201,6 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
               </Button>
             </form>
         </Form>
-          </TabsContent>
-          <TabsContent value="class">Change your class here.</TabsContent>
-        </Tabs>
+      </React.Fragment>
     )
   }

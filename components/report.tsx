@@ -6,22 +6,17 @@ import { z } from "zod"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 
 import {
-  Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 
 import React, { useState } from 'react'
@@ -31,7 +26,7 @@ import autoTable from 'jspdf-autotable'
 import { sendReport } from "@/lib/api"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { CardTitle } from "./ui/card"
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 
 interface IReport {
   id: string;
@@ -198,20 +193,6 @@ export default function Report(data: IReport) {
 
   return (
     <React.Fragment>
-      <Toaster 
-      toastOptions={{
-        classNames: {
-          toast: 'bg-white',
-          title: 'text-black',
-          description: 'text-muted-foreground',
-          cancelButton: 'bg-white',
-          closeButton: 'bg-white',
-        },
-        style: {
-          border: 'text-zinc-200'
-        }
-      }}
-    />
     <DialogContent className="w-full min-w-[650px] px-0 pt-4">
       <DialogHeader>
         <DialogTitle className="border-b border-zinc-200 px-6 pb-3">O Fraldario</DialogTitle>

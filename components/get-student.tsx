@@ -1,13 +1,12 @@
 "use client"
 
 import { getStudents } from '@/lib/api';
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
     Table,
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
@@ -28,27 +27,22 @@ import { z } from "zod"
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
-    FormLabel,
     FormMessage,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
 
 import {
     Select,
     SelectContent,
-    SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
 import { CardTitle } from "./ui/card"
 
 const formSchema = z.object({
-    turma: z.string().min(2).max(50),
+    turma: z.string().min(2).max(2),
 })
 
 // Definindo uma interface para o tipo dos dados
@@ -71,10 +65,22 @@ const GetStudents = (props: IGetStudents) => {
     // const [dados, setData] = useState([]);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const [students, setStudents] = useState([])
+    const [students, setStudents] = useState<IDataItem[]>([])
     const [state, setState] = useState({
         turma: ""
     })
+
+    // Função para adicionar um novo aluno
+    const newStudent = async (newStudentData: any) => {
+        try {
+            setLoading(true);
+            setStudents((prevStudents) => [...prevStudents, newStudentData]);
+        } catch (error) {
+            console.error('Error adding student:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     // const dataHandler = async (values: []) => {}
 
@@ -106,7 +112,7 @@ const GetStudents = (props: IGetStudents) => {
     };
 
 
-    // 1. Define your form.
+    // 1. Define form.
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -115,8 +121,8 @@ const GetStudents = (props: IGetStudents) => {
     })
 
     async function dataHandler(values: any) {
-         // Recebe diretamente os dados dos alunos
-        // setData(values); // Armazena os dados em um estado para renderizar
+
+        // Armazena os dados em um estado para renderizar
         setStudents(values)
         JSON.stringify(students, null, 2);
     }
@@ -126,11 +132,8 @@ const GetStudents = (props: IGetStudents) => {
             setLoading(true);
             const response = await getStudents(values);
             const { data } = await response?.json();
-
-            // const query = JSON.stringify(response, null, 2);
             await dataHandler(data)
 
-            // console.log("Students:", students);
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
@@ -185,68 +188,64 @@ const GetStudents = (props: IGetStudents) => {
 
             {loading ?
                 <div className='w-full h-full flex justify-center items-center pt-10 mt-10'><i className="ri-loader-line animate-spin text-[16px]"></i></div>
-                : 
-                students.length > 0 
-                        ? (
-                            <Table className="mt-5 rounded-sm text-[13px]">
-                                {/* <TableCaption>A list of your recent alunos.</TableCaption> */}
-                                <TableHeader className="bg-zinc-200/50 border border-zinc-200">
-                                    <TableRow>
-                                        <TableHead className="w-[140px] font-bold">Código</TableHead>
-                                        <TableHead className="font-bold">Nome</TableHead>
-                                        <TableHead className="font-bold">Ano</TableHead>
-                                        <TableHead className="font-bold">Turma</TableHead>
-                                        <TableHead className="font-bold">Parente</TableHead>
-                                        <TableHead className="font-bold">E-mail</TableHead>
-                                        {props.permLevel === 'admin' ? <TableHead className="w-[60px] font-bold">Ação</TableHead> : ''}
-                                    </TableRow>
-                                </TableHeader>
-                             
-                            <TableBody className="border border-zinc-200">
-                            {students.map((aluno: any , index: any) => (
-                                <TableRow key={index}>
-                                <TableCell className="max-w-[140px] font-medium text-nowrap overflow-hidden text-ellipsis">{aluno.id}</TableCell>
-                                <TableCell>
-                                    <Dialog>
-                                        <DialogTrigger className="hover:cursor-pointer hover:text-blue-500 hover:underline">
-                                            {aluno.name}
-                                        </DialogTrigger>
-    
-                                        <Report
-                                            id={aluno.id}
-                                            name={aluno.name}
-                                            year={aluno.year}
-                                            class={aluno.class}
-                                            email={aluno.email} />
-    
-                                    </Dialog>
-                                </TableCell>
-                                <TableCell>{aluno.year}</TableCell>
-                                <TableCell>{aluno.class}</TableCell>
-                                <TableCell>{aluno.parent}</TableCell>
-                                <TableCell>{aluno.email}</TableCell>
-                                {props.permLevel === 'admin' ?
-                                    <TableCell className="flex items-center gap-6 pr-4">
-                                        {/* <Button type="button" className="text-[12px] p-0 h-auto border-0 shadow-none bg-transparent hover:bg-transparent hover:underline" variant="outline">
-                       Editar
-                     </Button> */}
-                                        <DeleteAction alunoID={aluno.id} />
-                                    </TableCell>
-                                    : ""
-                                }
-                            </TableRow>
-                            ))}
-                        </TableBody>
-                        </Table>
-                        )
-                        : 
-                        (
+                :
+                students.length > 0
+                    ? (
+                        <Table className="mt-5 rounded-sm text-[13px]">
+                            {/* <TableCaption>Lista dos alunos da turma {state.turma}.</TableCaption> */}
+                            <TableHeader className="bg-zinc-200/50 border border-zinc-200">
+                                <TableRow>
+                                    <TableHead className="w-[140px] font-bold">Código</TableHead>
+                                    <TableHead className="font-bold">Nome</TableHead>
+                                    {/* <TableHead className="font-bold">Ano</TableHead> */}
+                                    <TableHead className="font-bold">Turma</TableHead>
+                                    <TableHead className="font-bold">Parente</TableHead>
+                                    <TableHead className="font-bold">E-mail</TableHead>
+                                    {props.permLevel === 'admin' ? <TableHead className="w-[60px] font-bold">Ação</TableHead> : ''}
+                                </TableRow>
+                            </TableHeader>
 
-                            <div className='w-full h-full flex flex-col justify-center items-center pt-10 mt-10'>
-                                <i className="ri-inbox-2-line text-[40px] text-muted-foreground"></i>
-                                <span className='text-[14px] text-muted-foreground'>Não existem alunos nesta turma.</span>
-                            </div>
-                        )}
+                            <TableBody className="border border-zinc-200">
+                                {students.map((aluno: any, index: any) => (
+                                    <TableRow key={index}>
+                                        <TableCell className="max-w-[140px] font-medium text-nowrap overflow-hidden text-ellipsis">{aluno.id}</TableCell>
+                                        <TableCell>
+                                            <Dialog>
+                                                <DialogTrigger className="hover:cursor-pointer hover:text-blue-500 hover:underline">
+                                                    {aluno.name}
+                                                </DialogTrigger>
+
+                                                <Report
+                                                    id={aluno.id}
+                                                    name={aluno.name}
+                                                    year={aluno.year}
+                                                    class={aluno.class}
+                                                    email={aluno.email} />
+
+                                            </Dialog>
+                                        </TableCell>
+                                        {/* <TableCell>{aluno.year}</TableCell> */}
+                                        <TableCell>{aluno.class}</TableCell>
+                                        <TableCell>{aluno.parent}</TableCell>
+                                        <TableCell>{aluno.email}</TableCell>
+                                        {props.permLevel === 'admin' ?
+                                            <TableCell className="flex items-center gap-6 pr-4">
+                                                <DeleteAction id={aluno.id} name={aluno.name} class={aluno.class} />
+                                            </TableCell>
+                                            : ""
+                                        }
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    )
+                    :
+                    (
+                        <div className='w-full h-full flex flex-col justify-center items-center pt-10 mt-10'>
+                            <i className="ri-inbox-2-line text-[40px] text-muted-foreground"></i>
+                            <span className='text-[14px] text-muted-foreground'>Não existem alunos nesta turma.</span>
+                        </div>
+                    )}
         </React.Fragment>
     )
 }

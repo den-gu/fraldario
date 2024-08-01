@@ -2,7 +2,7 @@
 
 import { cva } from "class-variance-authority";
 import { useRouter, usePathname } from "next/navigation";
-import { AddUser } from "./adduser";
+import { AddStudent } from "./add-student";
 import { CardTitle } from "./ui/card";
 import {
   AlertDialog,
@@ -136,7 +136,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
 
         {props.permLevel === "admin"
         ? <div className="flex items-center gap-4">
-            <AddUser />
+            <AddStudent />
           </div>
         : <div></div>
       }
