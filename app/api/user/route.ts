@@ -4,14 +4,16 @@ import { cookies } from 'next/headers';
 import bcrypt from 'bcrypt';
 
 
-export function GET() {
+export async function GET() {
 
-    const cookieStore = cookies();
-
-    console.log('Apagando...')
+    async function deleteCookie() {
+        const cookieStore = cookies();
+        return cookieStore.delete('session');
+    }
     // Remove o cookie "session"
-    cookieStore.delete('session');
-
+    console.log('Burning cookies...')
+    await deleteCookie();
+    
     return NextResponse.json({
         message: "Logout successful",
         // user: data,

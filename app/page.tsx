@@ -31,8 +31,6 @@ const FormSchema = z.object({
   }),
 })
 
-// const ShowToast = () => {
-// }
 
 const SignIn: React.FC = () => {
   
@@ -52,12 +50,26 @@ const SignIn: React.FC = () => {
   })
 
   const OnSubmit = async (data: z.infer<typeof FormSchema>) => {
-    // toast('My first toast')
-    loadHandler(isSubmitting);
-    const response = await initiateSession(data);
+    try {
+      loadHandler(isSubmitting);
+      const response = await initiateSession(data);
 
-    if(response) {
-      router.push('/home')
+      if(response?.ok) {
+        router.push('/home')
+      } else {
+        toast('Ops... Algo deu errado', {
+          description: 'Verifique os dados e tente novamente.',
+          duration: 5000,
+          cancel: {
+            label: 'Fechar',
+            onClick: () => console.log('Cancel!'),
+          },
+        })
+      }
+    } catch(error) {
+      console.log(error)
+    } finally {
+      loadHandler(!isSubmitting);
     }
 }
 
@@ -65,7 +77,7 @@ const SignIn: React.FC = () => {
     <div className="h-full min-h-screen flex justify-center items-center">
       <Toaster />
       <Form {...form}>
-      <form onSubmit={form.handleSubmit(OnSubmit)} className="flex flex-col gap-4 w-full max-w-[350px] shadow-md py-6 px-5 self-center border border-slate-200 rounded-lg">
+      <form onSubmit={form.handleSubmit(OnSubmit)} className="flex flex-col gap-4 w-full max-w-[320px] shadow-md py-6 px-5 self-center border border-slate-200 rounded-lg">
         <CardTitle className="text-center text-[18px]">O Fraldario</CardTitle>
         <FormField
           control={form.control}
@@ -90,7 +102,7 @@ const SignIn: React.FC = () => {
             <FormItem>
               <FormLabel className="text-[13px]">Senha</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input type="password" placeholder="" {...field} />
               </FormControl>
               {/* <FormDescription>
                 This is your public display name.

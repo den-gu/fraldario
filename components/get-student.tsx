@@ -40,6 +40,10 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { CardTitle } from "./ui/card"
+import { useMediaQuery } from "@react-hook/media-query"
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerTrigger } from './ui/drawer';
+
+
 
 const formSchema = z.object({
     turma: z.string().min(2).max(2),
@@ -64,6 +68,7 @@ const GetStudents = (props: IGetStudents) => {
 
     // const [dados, setData] = useState([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const isDesktop = useMediaQuery("(min-width: 768px)")
 
     const [students, setStudents] = useState<IDataItem[]>([])
     const [state, setState] = useState({
@@ -146,12 +151,12 @@ const GetStudents = (props: IGetStudents) => {
         <React.Fragment>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="mt-7 flex items-end gap-4">
-                    <div>
+                    <div className='w-full md:w-auto'>
                         <FormField
                             control={form.control}
                             name="turma"
                             render={({ field }) => (
-                                <FormItem className="min-w-[140px]">
+                                <FormItem className="md:min-w-[140px]">
                                     <CardTitle className="text-[13px] mt-3">Turma</CardTitle>
                                     <Select
                                         //  defaultValue={field.value}
@@ -210,19 +215,44 @@ const GetStudents = (props: IGetStudents) => {
                                     <TableRow key={index}>
                                         <TableCell className="max-w-[140px] font-medium text-nowrap overflow-hidden text-ellipsis">{aluno.id}</TableCell>
                                         <TableCell>
-                                            <Dialog>
-                                                <DialogTrigger className="hover:cursor-pointer hover:text-blue-500 hover:underline">
-                                                    {aluno.name}
-                                                </DialogTrigger>
 
-                                                <Report
-                                                    id={aluno.id}
-                                                    name={aluno.name}
-                                                    year={aluno.year}
-                                                    class={aluno.class}
-                                                    email={aluno.email} />
+                                            {isDesktop
+                                                ?
+                                                (
+                                                    <Dialog>
+                                                    <DialogTrigger className="hover:cursor-pointer hover:text-blue-500 hover:underline">
+                                                        {aluno.name}
+                                                    </DialogTrigger>
 
-                                            </Dialog>
+                                                    <Report
+                                                        id={aluno.id}
+                                                        name={aluno.name}
+                                                        year={aluno.year}
+                                                        class={aluno.class}
+                                                        email={aluno.email} />
+                                                </Dialog>
+                                                )
+                                                :
+                                                (
+                                                    <Drawer>
+                                                    <DrawerTrigger asChild className="hover:cursor-pointer hover:text-blue-500 hover:underline">
+                                                        <Button
+                                                            variant="link"
+                                                            className="text-[13px]"
+                                                        >
+                                                            {aluno.name}
+                                                        </Button>
+                                                    </DrawerTrigger>
+                                                    <Report
+                                                        id={aluno.id}
+                                                        name={aluno.name}
+                                                        year={aluno.year}
+                                                        class={aluno.class}
+                                                        email={aluno.email} />
+                                                </Drawer>
+                                                )
+                                            }
+
                                         </TableCell>
                                         {/* <TableCell>{aluno.year}</TableCell> */}
                                         <TableCell>{aluno.class}</TableCell>

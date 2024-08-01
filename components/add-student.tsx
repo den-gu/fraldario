@@ -41,8 +41,7 @@ export function AddStudent() {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
           <Button
-            variant="default"
-            className="hidden sm:flex items-center text-[13px]"
+            className="hidden sm:flex items-center text-[12px]"
           >
             <i className="ri-file-add-line mr-2 text-[14px]"></i>
             {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
@@ -66,17 +65,17 @@ export function AddStudent() {
       <Drawer open={open} onOpenChange={setOpen}>
         <DrawerTrigger asChild>
         <Button
-            variant="secondary"
-            className="items-center h-10 gap-1 text-[13px]"
+          variant="outline"
+            className="items-center h-10 gap-1 text-[12px]"
           >
             <i className="ri-file-add-line text-[14px]"></i>
             {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
             Novo
           </Button>
         </DrawerTrigger>
-        <DrawerContent>
-          <CreateUserForm className="px-4" />
-          <DrawerFooter className="pt-2">
+        <DrawerContent className="px-5">
+          <CreateUserForm />
+          <DrawerFooter className="px-0">
             <DrawerClose asChild>
               <Button variant="outline">Cancelar</Button>
             </DrawerClose>
@@ -138,7 +137,7 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                   <CardTitle className="text-[13px] mt-3">Nome da criança</CardTitle>
                     <FormControl>
                       <Input placeholder="..." {...field} />
@@ -150,7 +149,7 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
                 control={form.control}
                 name="parent"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                   <CardTitle className="text-[13px] mt-3">Nome do parente</CardTitle>
                     <FormControl>
                       <Input placeholder="..." {...field} />
@@ -188,7 +187,7 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
                 )} />
               </div>
 
-              <Button type="submit" disabled={isSubmitting} className="w-fit self-end text-[12px] mt-2">
+              <Button type="submit" disabled={isSubmitting} className="md:w-fit md:self-end md:text-[12px] mt-4">
               {isSubmitting ? (
                   <i className="ri-loader-line animate-spin text-[14px]"></i>
                 )

@@ -31,7 +31,7 @@ const Home: React.FC = async () => {
         }}
       />
         <NavBar permLevel = {permissionLevel} />
-    <div className="container min-h-screen px-4 pt-8 pb-4 bg-white">
+    <div className="min-h-screen px-4 lg:px-20 pt-8 pb-4 bg-white">
       <CardTitle className="text-[22px] text-black">Olá, {permissionLevel}</CardTitle>
       <CardDescription className="text-[13px] text-muted-foreground">Preencha os campos abaixo para visualizar a turma ou aluno que deseja.</CardDescription>
 

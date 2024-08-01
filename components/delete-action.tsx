@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { deleteStudent } from '@/lib/api'
 import { useRouter } from 'next/navigation'
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 
 
 interface IDeleteAction {
@@ -41,13 +41,13 @@ const DeleteAction = (props: IDeleteAction) => {
           onClick: () => console.log('Cancel!'),
         },
       })
-      setTimeout(() => {
-        // Recarregar a página inteira
-        window.location.reload();
-      }, 2000);
-
     } catch (error) {
       console.log(error)
+    } finally {
+      setTimeout(() => {
+        // Recarregar a página inteira
+        window.location.reload()
+      }, 2000);
     }
   }
 

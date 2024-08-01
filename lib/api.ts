@@ -17,21 +17,20 @@ export const initiateSession = async (data: ILoginData) => {
             body: JSON.stringify(data) // Passando os dados no corpo da solicitação
         });
 
-        // if (!response.ok) {
-        //     console.log(await response.json())
-        //     throw new Error("Can't find this account.");
-        // }
-        const result = await response.json();
-        console.log(result); // Exibe a resposta no console
+        if (!response.ok) {
+            console.log(await response.json())
+            // throw new Error("Can't find this account.");
+            return NextResponse.json({
+                error: "Erro: Verifique os dados e tente novamente.",
+            }, { status: 401 });
+        }
 
-        return NextResponse.json({
-            result
-        })
+            const result = await response.json();
+            console.log(result); // Exibe a resposta no console
 
-        // Se a resposta for bem-sucedida
-        // const result = await response.json();
-        // console.log(result); // Exibe a resposta no console
-        // return result;
+            return NextResponse.json({
+                result
+            })
 
     } catch (error: any) {
         console.error(error.message); // Exibe o erro no console
@@ -47,7 +46,7 @@ export const endSession = async () => {
             "Accept": "application/json"
         }
     }).then((res) => {
-        if (!res.ok) throw new Error("Failed to send message");
+        if (!res.ok) throw new Error("Failed to logout");
         return res.json();
       });
 }
@@ -64,7 +63,6 @@ export const getStudents = async (values: any) => {
             }
     })
         const { data } = await response.json();
-        // console.log(data); // Exibe a resposta no console
 
         return NextResponse.json({
             data
