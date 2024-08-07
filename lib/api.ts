@@ -8,7 +8,7 @@ interface ILoginData {
 
 export const initiateSession = async (data: ILoginData) => {
     try {
-        const response = await fetch('api/user', {
+        const response = await fetch('https://fraldario.netlify.app/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export const initiateSession = async (data: ILoginData) => {
 
 
 export const endSession = async () => {
-    fetch("api/user", {
+    fetch("https://fraldario.netlify.app/user", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export const endSession = async () => {
 
 export const getStudents = async (values: any) => {
     try{
-        const response = await fetch("api/student/all", {
+        const response = await fetch("https://fraldario.netlify.app/student/all", {
             method: "POST",
             body: JSON.stringify(values),
             headers: {
@@ -73,7 +73,7 @@ export const getStudents = async (values: any) => {
 }
 
 export const addStudent = async (data: any) => {
-    fetch("api/student/", {
+    fetch("https://fraldario.netlify.app/student/", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -90,7 +90,7 @@ export const addStudent = async (data: any) => {
 // Função para deletar um estudante
 export const deleteStudent = async (studentId: any) => {
     console.log(studentId)
-    fetch(`api/student/${studentId}`, {
+    fetch(`https://fraldario.netlify.app/student/${studentId}`, {
         method: "DELETE",
         body: JSON.stringify(studentId),
         headers: {
@@ -105,7 +105,7 @@ export const deleteStudent = async (studentId: any) => {
 
   
 export const sendReport = async (data: any) => {
-    fetch("api/", {
+    fetch("https://fraldario.netlify.app/", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
