@@ -54,7 +54,7 @@ export const endSession = async () => {
 
 export const getStudents = async (values: any) => {
     try{
-        const response = await fetch("https://fraldario.netlify.app/student/all", {
+        const response = await fetch("https://fraldario.netlify.app/student/all/", {
             method: "POST",
             body: JSON.stringify(values),
             headers: {
