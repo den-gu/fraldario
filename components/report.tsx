@@ -314,6 +314,7 @@ function StudentData(data: IReport, { className }: React.ComponentProps<"form">)
                         <SelectItem className="text-[13px]" value="Inteira">Inteira</SelectItem>
                         <SelectItem className="text-[13px]" value="Meia">Meia</SelectItem>
                         <SelectItem className="text-[13px]" value="Menos">Menos</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
                       </SelectContent>
                     </Select>
                       <FormMessage />
@@ -361,6 +362,7 @@ function StudentData(data: IReport, { className }: React.ComponentProps<"form">)
                         <SelectItem className="text-[13px]" value="Inteira">Inteira</SelectItem>
                         <SelectItem className="text-[13px]" value="Meia">Meia</SelectItem>
                         <SelectItem className="text-[13px]" value="Menos">Menos</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
                       </SelectContent>
                     </Select>
                       <FormMessage />
@@ -409,6 +411,7 @@ function StudentData(data: IReport, { className }: React.ComponentProps<"form">)
                         <SelectItem className="text-[13px]" value="Inteira">Inteira</SelectItem>
                         <SelectItem className="text-[13px]" value="Meia">Meia</SelectItem>
                         <SelectItem className="text-[13px]" value="Menos">Menos</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
                       </SelectContent>
                     </Select>
                       <FormMessage />
@@ -457,6 +460,7 @@ function StudentData(data: IReport, { className }: React.ComponentProps<"form">)
                         <SelectItem className="text-[13px]" value="Inteira">Inteira</SelectItem>
                         <SelectItem className="text-[13px]" value="Meia">Meia</SelectItem>
                         <SelectItem className="text-[13px]" value="Menos">Menos</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
                       </SelectContent>
                     </Select>
                       <FormMessage />
@@ -504,6 +508,7 @@ function StudentData(data: IReport, { className }: React.ComponentProps<"form">)
                         <SelectItem className="text-[13px]" value="Inteira">Inteira</SelectItem>
                         <SelectItem className="text-[13px]" value="Meia">Meia</SelectItem>
                         <SelectItem className="text-[13px]" value="Menos">Menos</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
                       </SelectContent>
                     </Select>
                       <FormMessage />
