@@ -54,7 +54,7 @@ export const endSession = async () => {
 
 export const getStudents = async (values: any) => {
     try{
-        const response = await fetch("https://fraldario.netlify.app/api/student/all/", {
+        const response = await fetch("https://fraldario.netlify.app/student/all", {
             method: "POST",
             body: JSON.stringify(values),
             headers: {
@@ -73,7 +73,7 @@ export const getStudents = async (values: any) => {
 }
 
 export const addStudent = async (data: any) => {
-    fetch("https://fraldario.netlify.app/student/", {
+    fetch("https://fraldario.netlify.app/student", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -105,7 +105,7 @@ export const deleteStudent = async (studentId: any) => {
 
   
 export const sendReport = async (data: any) => {
-    fetch("https://fraldario.netlify.app/", {
+    fetch("https://fraldario.netlify.app", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
