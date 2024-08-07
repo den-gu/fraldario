@@ -3,7 +3,7 @@
   publish = ".next"
 
 [[redirects]]
-  from = "/api/*"
+  from = "/app/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
   force = true
