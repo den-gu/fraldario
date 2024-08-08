@@ -43,16 +43,16 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
   return (
     <nav
       id="navbar"
-      className="flex items-center sticky top-0 bg-white z-50 py-3 border-b border-zinc-200"
+      className="flex items-center justify-center sticky top-0 bg-white z-50 py-2 border-b border-zinc-200"
     >
-      <div className="drawer flex items-center justify-between px-4 lg:px-20">
+      <div className="drawer w-full max-w-[1200px] px-4 flex items-center justify-between">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex items-center gap-4">
           <label
             htmlFor="my-drawer"
             className="py-1 px-3 bg-white text-black hover:bg-gray-100 hover:cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-zinc-200"
           >
-            <i className="ri-menu-line text-[18px] font-normal"></i>
+            <i className="ri-menu-line text-[20px] font-normal"></i>
           </label>
 
           <a className="text-white font-bold text-[16px] flex items-center gap-2">
@@ -137,7 +137,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
 
         {props.permLevel === "admin"
         ? <div className="flex items-center gap-4">
-            <AddMeal />
+            {/* <AddMeal /> */}
             <AddStudent />
           </div>
         : <div></div>

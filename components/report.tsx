@@ -660,3 +660,108 @@ function StudentData(data: IReport, { className }: React.ComponentProps<"form">)
           </Form>
     )
 }
+
+
+
+
+
+
+// export default function GetStudent(props: IGetStudents) {
+//   const [open, setOpen] = useState(false)
+//   const [loading, setLoading] = useState(false)
+//   const [data, setData] = useState<Student[]>([])
+//   const isDesktop = useMediaQuery("(min-width: 768px)")
+//   const [selectedStudent, setSelectedStudent] = React.useState<Student | null>(
+//       null
+//   )
+
+//   useEffect(() => {
+//       const getData = async () => {
+//           setLoading(true);
+//           try {
+//               const response = await getStudents();
+//               const { data } = await response?.json();
+//               setData(data);
+
+//               console.log(data)
+//           } catch (error) {
+//               console.error('Error fetching data:', error);
+//           } finally {
+//               setLoading(false);
+//           }
+//       };
+
+//       getData();
+//   }, []);
+
+
+//   if (isDesktop) {
+//       return (
+//           <React.Fragment>
+//               <Popover open={open} onOpenChange={setOpen}>
+//               <PopoverTrigger asChild>
+//                   <Button variant="outline" className="w-[200px] justify-start">
+//                       {selectedStudent ? <>{selectedStudent.name}</>
+//                           : <div className="flex items-center gap-2"><i className="ri-search-line"></i>Pesquisar</div>}
+//                   </Button>
+//               </PopoverTrigger>
+//               <PopoverContent className="w-[200px] p-0" align="start">
+//                   <StudentsList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
+//               </PopoverContent>
+//           </Popover>
+//           {printUserInfo()}
+//           </React.Fragment>
+//       )
+//   }
+
+//   return (
+//       <Drawer open={open} onOpenChange={setOpen}>
+//           <DrawerTrigger asChild>
+//               <Button variant="outline" className="w-full justify-start">
+//                   {selectedStudent ? <>{selectedStudent.name}</> : <>+ Set status</>}
+//               </Button>
+//           </DrawerTrigger>
+//           <DrawerContent>
+//               <div className="mt-4 border-t">
+//                   <StudentsList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
+//               </div>
+//           </DrawerContent>
+//       </Drawer>
+//   )
+
+
+
+//   function StudentsList({
+//       setOpen,
+//       setSelectedStudent,
+//   }: {
+//       setOpen: (open: boolean) => void
+//       setSelectedStudent: (student: Student | null) => void
+//   }) {
+//       return (
+//           <Command>
+//               <CommandInput
+//                placeholder="Digite o nome" />
+//               <CommandList>
+//                   <CommandEmpty>No results found.</CommandEmpty>
+//                   <CommandGroup>
+//                       {data.map((student) => (
+//                           <CommandItem
+//                               key={student.id}
+//                               value={student.name}
+//                               onSelect={(value) => {
+//                                   setSelectedStudent(
+//                                       data.find((priority) => priority.id === student.id) || null
+//                                   )
+//                                   setOpen(false)
+//                               }}
+//                           >
+//                               {student.name}
+//                           </CommandItem>
+//                       ))}
+//                   </CommandGroup>
+//               </CommandList>
+//           </Command>
+//       )
+//   }
+// }
