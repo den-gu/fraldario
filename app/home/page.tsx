@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import NavBar from "@/components/navbar";
 import React from "react";
 import { redirect } from 'next/navigation'
-import GetStudents from "@/components/get-student";
+import GetStudent from "@/components/get-student";
 import { Toaster } from "sonner";
 
 const Home: React.FC = async () => {
@@ -32,10 +32,10 @@ const Home: React.FC = async () => {
       />
         <NavBar permLevel = {permissionLevel} />
     <div className="min-h-screen px-4 lg:px-20 pt-8 pb-4 bg-white">
-      <CardTitle className="text-[22px] text-black">Olá, {permissionLevel}</CardTitle>
-      <CardDescription className="text-[13px] text-muted-foreground">Preencha os campos abaixo para visualizar a turma ou aluno que deseja.</CardDescription>
+      <CardTitle className="text-[25px] text-black">Olá, {permissionLevel}</CardTitle>
+      <CardDescription className="text-muted-foreground mt-2">No campo abaixo, digite o nome do aluno que pretende para visualizar.</CardDescription>
 
-      <GetStudents permLevel={permissionLevel}/>
+      <GetStudent permLevel={permissionLevel}/>
     </div>
     </React.Fragment>
     : 

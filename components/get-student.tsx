@@ -64,7 +64,7 @@ interface IGetStudents {
     permLevel: string
 }
 
-const GetStudents = (props: IGetStudents) => {
+const GetStudent = (props: IGetStudents) => {
 
     // const [dados, setData] = useState([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -157,7 +157,7 @@ const GetStudents = (props: IGetStudents) => {
                             name="turma"
                             render={({ field }) => (
                                 <FormItem className="md:min-w-[140px]">
-                                    <CardTitle className="text-[13px] mt-3">Turma</CardTitle>
+                                    <CardTitle className="text-[16px] mt-3">Filtro</CardTitle>
                                     <Select
                                         //  defaultValue={field.value}
                                         onValueChange={(e) => {
@@ -203,7 +203,7 @@ const GetStudents = (props: IGetStudents) => {
                                     <TableHead className="w-[140px] font-bold">Código</TableHead>
                                     <TableHead className="font-bold">Nome</TableHead>
                                     {/* <TableHead className="font-bold">Ano</TableHead> */}
-                                    <TableHead className="font-bold">Turma</TableHead>
+                                    {/* <TableHead className="font-bold">Turma</TableHead> */}
                                     <TableHead className="font-bold">Parente</TableHead>
                                     <TableHead className="font-bold">E-mail</TableHead>
                                     {props.permLevel === 'admin' ? <TableHead className="w-[60px] font-bold">Ação</TableHead> : ''}
@@ -255,7 +255,7 @@ const GetStudents = (props: IGetStudents) => {
 
                                         </TableCell>
                                         {/* <TableCell>{aluno.year}</TableCell> */}
-                                        <TableCell>{aluno.class}</TableCell>
+                                        {/* <TableCell>{aluno.class}</TableCell> */}
                                         <TableCell>{aluno.parent}</TableCell>
                                         <TableCell>{aluno.email}</TableCell>
                                         {props.permLevel === 'admin' ?
@@ -280,4 +280,4 @@ const GetStudents = (props: IGetStudents) => {
     )
 }
 
-export default GetStudents
+export default GetStudent
