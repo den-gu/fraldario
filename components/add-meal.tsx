@@ -31,7 +31,7 @@ const formSchema = z.object({
   class: z.string().min(1).max(10),
 })
 
-export function AddStudent() {
+export function AddMeal() {
 
     const [open, setOpen] = React.useState(false)
     const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -41,21 +41,22 @@ export function AddStudent() {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
           <Button
+            variant="outline"
             className="hidden sm:flex items-center text-[12px]"
           >
             <i className="ri-file-add-line mr-2 text-[14px]"></i>
             {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
-            Aluno
+            Prato
           </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             {/* <DialogHeader>
-              <DialogTitle>Aluno aluno</DialogTitle> */}
+              <DialogTitle>Novo aluno</DialogTitle> */}
               {/* <DialogDescription>
                 Make changes to your profile here. Click save when you are done.
               </DialogDescription> */}
             {/* </DialogHeader> */}
-            <CreateUserForm />
+            <AddMealForm />
           </DialogContent>
         </Dialog>
       )
@@ -70,11 +71,11 @@ export function AddStudent() {
           >
             <i className="ri-file-add-line text-[14px]"></i>
             {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
-            Aluno
+            Novo
           </Button>
         </DrawerTrigger>
         <DrawerContent className="px-5">
-          <CreateUserForm />
+          <AddMealForm />
           <DrawerFooter className="px-0">
             <DrawerClose asChild>
               <Button variant="outline">Cancelar</Button>
@@ -85,7 +86,7 @@ export function AddStudent() {
     )
   }
 
-function CreateUserForm({ className }: React.ComponentProps<"form">) {
+function AddMealForm({ className }: React.ComponentProps<"form">) {
 
   const [isSubmitting, setSubmitting] = useState(false)
 

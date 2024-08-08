@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "./ui/button";
 import { endSession } from "@/lib/api";
+import { AddMeal } from "./add-meal";
 
 interface INavBar {
   permLevel: string
@@ -136,6 +137,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
 
         {props.permLevel === "admin"
         ? <div className="flex items-center gap-4">
+            <AddMeal />
             <AddStudent />
           </div>
         : <div></div>
