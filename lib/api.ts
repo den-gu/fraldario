@@ -52,11 +52,10 @@ export const endSession = async () => {
 }
 
 
-export const getStudents = async (values: any) => {
+export const getStudents = async () => {
     try{
-        const response = await fetch("api/student/all", {
-            method: "POST",
-            body: JSON.stringify(values),
+        const response = await fetch("api/student", {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
@@ -71,6 +70,27 @@ export const getStudents = async (values: any) => {
         console.log(error)
     }
 }
+
+
+// export const allStudents = async (values?: any) => {
+//     try{
+//         const response = await fetch("api/student/all", {
+//             method: "POST",
+//             body: JSON.stringify(values),
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 "Accept": "application/json"
+//             }
+//     })
+//         const { data } = await response.json();
+
+//         return NextResponse.json({
+//             data
+//         })
+//     } catch(error: any) {
+//         console.log(error)
+//     }
+// }
 
 export const addStudent = async (data: any) => {
     fetch("api/student/", {

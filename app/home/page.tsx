@@ -31,11 +31,13 @@ const Home: React.FC = async () => {
         }}
       />
         <NavBar permLevel = {permissionLevel} />
-    <div className="min-h-screen px-4 lg:px-20 pt-8 pb-4 bg-white">
+    <div className="min-h-screen px-4 lg:container lg:px-24 pt-10 pb-4 bg-white">
       <CardTitle className="text-[25px] text-black">Olá, {permissionLevel}</CardTitle>
-      <CardDescription className="text-muted-foreground mt-2">No campo abaixo, digite o nome do aluno que pretende para visualizar.</CardDescription>
+      <CardDescription className="text-muted-foreground mt-2">No campo abaixo, digite o nome do aluno que pretende visualizar.</CardDescription>
 
-      <GetStudent permLevel={permissionLevel}/>
+      <div className="mt-4">
+        <GetStudent permLevel={permissionLevel}/>
+      </div>
     </div>
     </React.Fragment>
     : 

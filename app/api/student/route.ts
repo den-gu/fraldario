@@ -2,15 +2,23 @@ import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 
-export async function GET(){
-    const supabase = createClient()
- 
-    const response = await supabase.from("alunos").select("*")
-    const data = response.data;
-    
+export async function GET() {
+
+    const supabase = createClient();
+
+    const { data, error } = await supabase
+        .from("alunos")
+        .select('*')
+        .order("name", { ascending: true })
+
+    if (error || !data) {
+        return NextResponse.json({
+            message: "Não existem alunos na base de dados.",
+    })}
+
     return NextResponse.json({
-        data
-    })
+        data: data
+    });        
 }
 
 export async function POST(req: Request): Promise<NextResponse>{
