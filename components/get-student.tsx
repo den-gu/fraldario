@@ -324,7 +324,7 @@ export default function GetStudent(props: IGetStudents) {
                     <FormItem className="min-w-[140px]">
                       <CardTitle className="text-left text-[13px]">Comportamento</CardTitle>
                       <Select
-                      //  defaultValue={field.value}
+                       defaultValue={field.value}
                        onValueChange={(e) => {
                         field.onChange(e);  // Chama o onChange original do field
                         updateField('behavior', e);  // Chama a função que actualiza o estado
@@ -353,13 +353,15 @@ export default function GetStudent(props: IGetStudents) {
                     <FormItem className="w-full">
                       {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                       <FormControl>
-                        <Input placeholder="Pequeno-almoço" className="text-[13px]" {...field}
+                      <Input defaultValue={data?.name} placeholder={data?.name} disabled {...field}
+                        className="disabled:placeholder:text-[#000000] text-[13px]" />
+                        {/* <Input placeholder="Pequeno-almoço" className="text-[13px]" {...field}
                         defaultValue={state.pequenoAlmoco}
-                        // value={state.pequenoAlmoco}
+                        value={state.pequenoAlmoco}
                         onChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('pequenoAlmoco', e.target.value);  // Chama a função que actualiza o estado
-                        }} />
+                        }} /> */}
                       </FormControl>
                       <FormMessage />
                     </FormItem>

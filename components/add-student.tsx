@@ -41,12 +41,12 @@ export function AddStudent() {
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
           <Button
-          variant="secondary"
+          variant="outline"
             className="hidden sm:flex items-center text-[14px]"
           >
             {/* <i className="ri-file-add-line mr-2 text-[14px]"></i> */}
-            <i className="ri-add-line text-[14px] font-thin mr-2"></i>
-            Adicionar
+            <i className="ri-user-3-line text-[15px] font-thin mr-2"></i>
+            Aluno
           </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">

@@ -1,206 +1,215 @@
-import React, {useState} from "react"
- 
-import { useMediaQuery } from "@react-hook/media-query"
+"use client"
+
+import React, { useState } from "react"
+
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
 import { Input } from "@/components/ui/input"
-import { CardTitle } from "./ui/card"
-import { FormField, FormItem, FormControl, FormMessage, Form } from "./ui/form"
+import {
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet"
+import { Form, FormField, FormItem, FormControl, FormMessage } from "./ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { addStudent } from "@/lib/api"
-import { Toaster, toast } from 'sonner';
+import { toast } from "sonner"
+import { CardTitle } from "./ui/card"
 
 
 const formSchema = z.object({
-  name: z.string().min(2).max(50),
-  email: z.string().min(2).max(50),
-  parent: z.string().min(2).max(50),
-  class: z.string().min(1).max(10),
+    pequenoAlmoco: z.string().optional(),
+    extrasPequenoAlmoco: z.string().optional(),
+    almoco1: z.string().optional(),
+    almoco2: z.string().optional(),
+    extrasAlmoco: z.string().optional(),
+    sobremesa: z.string().optional(),
+    lanche: z.string().optional(),
 })
 
 export function AddMeal() {
 
-    const [open, setOpen] = React.useState(false)
-    const isDesktop = useMediaQuery("(min-width: 768px)")
-   
-    if (isDesktop) {
-      return (
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-          <Button
-            variant="outline"
-            className="hidden sm:flex items-center text-[12px]"
-          >
-            <i className="ri-file-add-line mr-2 text-[14px]"></i>
-            {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
-            Prato
-          </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            {/* <DialogHeader>
-              <DialogTitle>Novo aluno</DialogTitle> */}
-              {/* <DialogDescription>
-                Make changes to your profile here. Click save when you are done.
-              </DialogDescription> */}
-            {/* </DialogHeader> */}
-            <AddMealForm />
-          </DialogContent>
-        </Dialog>
-      )
+    const [isSubmitting, setSubmitting] = useState(false)
+    const [loading, setLoading] = useState(false)
+
+    const loadHandler = (state: boolean) => {
+        setLoading(!state)
     }
-   
-    return (
-      <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerTrigger asChild>
-        <Button
-          variant="outline"
-            className="items-center h-10 gap-1 text-[12px]"
-          >
-            <i className="ri-file-add-line text-[14px]"></i>
-            {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
-            Novo
-          </Button>
-        </DrawerTrigger>
-        <DrawerContent className="px-5">
-          <AddMealForm />
-          <DrawerFooter className="px-0">
-            <DrawerClose asChild>
-              <Button variant="outline">Cancelar</Button>
-            </DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    )
-  }
 
-function AddMealForm({ className }: React.ComponentProps<"form">) {
+    const sendingHandler = (state: boolean) => {
+        setSubmitting(!state)
+        setTimeout(() => {
+            toast('Sucesso', {
+                description: 'O e-mail foi enviado.',
+                duration: 5000,
+                cancel: {
+                    label: 'Fechar',
+                    onClick: () => console.log('Cancel!'),
+                },
+            })
+            setSubmitting(state)
+        }, 2000);
+    }
 
-  const [isSubmitting, setSubmitting] = useState(false)
-
-  const submitHandler = (state: boolean) => {
-    setSubmitting(!state)
-    setTimeout(() => {
-      setSubmitting(state)
-      toast('Sucesso', {
-        description: 'Aluno cadastrado.',
-        duration: 5000,
-        cancel: {
-          label: 'Fechar',
-          onClick: () => console.log('Cancel!'),
+    // 1. Define your form.
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            pequenoAlmoco: "",
+            extrasPequenoAlmoco: "",
+            almoco1: "",
+            almoco2: "",
+            extrasAlmoco: "",
+            sobremesa: "",
+            lanche: ""
         },
-      })
-    }, 2000);
-  }
-  
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      parent: "",
-      class: "",
-    },
-  })
+    })
+
 
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
-      
-      submitHandler(isSubmitting)
 
-      try {
-        await addStudent(values)
-      } catch (error) {
-        console.log(error)
+        console.log(values)
+        
+        try {
+            //   sendingHandler(isSendingEmail);
+            //   await sendReport(values);
+        } catch (error) {
+            console.log(error)
+        }
     }
-  }
-  
+
+
     return (
-      <React.Fragment>
-            <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
-            <CardTitle className="text-[15px] text-black mb-4">Novo aluno</CardTitle>
-              <div className="flex gap-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                  <CardTitle className="text-[13px] mt-3">Nome da criança</CardTitle>
-                    <FormControl>
-                      <Input placeholder="..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-              <FormField
-                control={form.control}
-                name="parent"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                  <CardTitle className="text-[13px] mt-3">Nome do parente</CardTitle>
-                    <FormControl>
-                      <Input placeholder="..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-              </div>
+        <Sheet>
+            <SheetTrigger asChild>
+                <Button
+                    className="hidden sm:flex items-center text-[14px]"
+                >
+                    <i className="ri-restaurant-line mr-2 text-[15px]"></i>
+                    {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
+                    Refeição
+                </Button>
+            </SheetTrigger>
+            <SheetContent className="min-w-full md:min-w-[600px]">
+                <SheetHeader>
+                    <SheetTitle>Refeição do dia</SheetTitle>
+                    <SheetDescription>
+                        Adicione a refeição do dia aqui. Clique em &#34;Guardar&#34; assim que terminar.
+                    </SheetDescription>
+                </SheetHeader>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto">
+                        <div className="grid gap-7 grid-cols-4 mt-5">
+                            <div className="col-span-4 gap-4">
+                                <div className="flex flex-col gap-3">
+                                    <CardTitle className="text-left text-[13px]">Pequeno-almoço</CardTitle>
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="pequenoAlmoco"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
+                                                    <FormControl>
+                                                        <Input placeholder="Pequeno-almoço" {...field} className="text-[13px]" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                        <FormField
+                                            control={form.control}
+                                            name="extrasPequenoAlmoco"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Extras" {...field} className="text-[13px]" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
 
-              <div className="flex gap-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                  <CardTitle className="text-[13px] mt-3">E-mail</CardTitle>
-                    <FormControl>
-                      <Input placeholder="..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
+                                    <CardTitle className="text-left text-[13px]">Almoço</CardTitle>
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="almoco1"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Almoço: 1º" className="text-[13px]" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                        <FormField
+                                            control={form.control}
+                                            name="almoco2"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Almoço: 2º" className="text-[13px]" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
 
-                <FormField
-                control={form.control}
-                name="class"
-                render={({ field }) => (
-                  <FormItem>
-                  <CardTitle className="text-[13px] mt-3">Turma</CardTitle>
-                    <FormControl>
-                      <Input placeholder="..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-              </div>
-
-              <Button type="submit" disabled={isSubmitting} className="md:w-fit md:self-end md:text-[12px] mt-4">
-              {isSubmitting ? (
-                  <i className="ri-loader-line animate-spin text-[14px]"></i>
-                )
-                : (
-                  <>
-                    <i className="ri-file-add-line mr-2 text-[14px]"></i>
-                    Adicionar
-                  </>
-                )}
-              </Button>
-            </form>
-        </Form>
-      </React.Fragment>
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="extrasAlmoco"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Extras" {...field} className="text-[13px]" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
+                                    <CardTitle className="text-left text-[13px]">Sobremesa & Lanche</CardTitle>
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="sobremesa"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Sobremesa" className="text-[13px]" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                        <FormField
+                                            control={form.control}
+                                            name="lanche"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Lanche" className="text-[13px]" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                <SheetFooter className="mt-4">
+                    <SheetClose asChild>
+                        <Button type="submit">Guardar</Button>
+                    </SheetClose>
+                </SheetFooter>
+                </form>
+                </Form>
+            </SheetContent>
+        </Sheet>
     )
-  }
+}
