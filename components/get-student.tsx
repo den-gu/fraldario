@@ -22,7 +22,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { getStudents } from "@/lib/api"
+import { getMeals, getStudents } from "@/lib/api"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select"
 import { Input } from "./ui/input"
 import { CardTitle } from "./ui/card"
@@ -31,28 +31,26 @@ import { Textarea } from "./ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { sendReport } from "@/lib/api"
 import { toast } from 'sonner';
-import { Label } from "./ui/label"
+import { supabase } from "@/lib/supabaseClient"
 
 
 type Student = {
     id: string | undefined;
     name: string | undefined;
-    parent: string | undefined;
-    email: string | undefined;
-    created_at?: string;
+}
+
+type Meal = {
+    pequeno_almoco: string | undefined;
+    extrasPequenoAlmoco: string | undefined;
+    almoco1: string | undefined;
+    almoco2: string | undefined;
+    extrasAlmoco: string | undefined;
+    sobremesa: string | undefined; 
+    lanche: string | undefined;
 }
 
 interface IGetStudents {
@@ -82,32 +80,34 @@ const formSchema = z.object({
   fezes: z.string().min(2),
   vomitos: z.string().min(2),
   febres: z.string().min(2),
-  description: z.string().max(300).optional(),
+  description: z.string().optional(),
 })
 
 export default function GetStudent(props: IGetStudents) {
-
+    
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [isSendingEmail, setSending] = useState(false)
     const [students, setStudents] = useState<Student[]>([])
+    // const [meals, setMeals] = useState<Meal[]>([])
     const isDesktop = useMediaQuery("(min-width: 768px)")
     const [selectedStudent, setSelectedStudent] = React.useState<Student | null>(
         null
     )
+    const [lastMeal, setLastMeal] = useState<Meal | null>(null);
 
     const [isSubmitting, setSubmitting] = useState(false)
 
   // Declarando múltiplos estados como propriedades de um objeto
   const [state, setState] = useState({
-    name: "",
+    name: selectedStudent?.name,
     email: "",
     behavior: "",
-    pequenoAlmoco: "",
-    almoco1: "",
-    almoco2: "",
-    sobremesa: "",
-    lanche: "",
+    pequenoAlmoco: lastMeal?.pequeno_almoco,
+    almoco1: lastMeal?.almoco1,
+    almoco2: lastMeal?.almoco2,
+    sobremesa: lastMeal?.sobremesa,
+    lanche: lastMeal?.lanche,
     porcaoPequenoAlmoco: "",
     porcaoAlmoco1: "",
     porcaoAlmoco2: "",
@@ -151,14 +151,14 @@ export default function GetStudent(props: IGetStudents) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      name: selectedStudent?.name,
       email: "",
       behavior: "",
-      pequenoAlmoco: "",
-      almoco1: "",
-      almoco2: "",
-      sobremesa: "",
-      lanche: "",
+      pequenoAlmoco: lastMeal?.pequeno_almoco,
+      almoco1: lastMeal?.almoco1,
+      almoco2: lastMeal?.almoco2,
+      sobremesa: lastMeal?.sobremesa,
+      lanche: lastMeal?.lanche,
       porcaoPequenoAlmoco: "",
       porcaoAlmoco1: "",
       porcaoAlmoco2: "",
@@ -230,7 +230,6 @@ export default function GetStudent(props: IGetStudents) {
     }
   }
 
-
     useEffect(() => {
         const getData = async () => {
             setLoading(true);
@@ -238,8 +237,6 @@ export default function GetStudent(props: IGetStudents) {
                 const response = await getStudents();
                 const { data } = await response?.json();
                 setStudents(data);
-
-                console.log(data)
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -247,6 +244,22 @@ export default function GetStudent(props: IGetStudents) {
             }
         };
 
+        const fetchLastMeal = async () => {
+            const { data, error } = await supabase
+              .from('meals')
+              .select('*')
+              .order('created_at', { ascending: false })
+              .limit(1)
+              .single();
+      
+            if (error) {
+              console.error('Erro ao buscar última refeição:', error);
+            } else {
+              setLastMeal(data);
+            }
+          };
+      
+          fetchLastMeal();
         getData();
     }, []);
 
@@ -266,8 +279,9 @@ export default function GetStudent(props: IGetStudents) {
                         </PopoverContent>
                     </Popover>
                     {selectedStudent ? 
-                    <StudentData id={selectedStudent?.id} name={selectedStudent?.name} parent={selectedStudent?.parent} email={selectedStudent?.email} />
-                    : ''}
+                        <StudentData></StudentData>
+                    :   ''
+                    }
                     </React.Fragment>
                 )
             }
@@ -289,15 +303,49 @@ export default function GetStudent(props: IGetStudents) {
                     </DrawerContent>
                 </Drawer>
                 {selectedStudent ? 
-                    <StudentData id={selectedStudent?.id} name={selectedStudent?.name} parent={selectedStudent?.parent} email={selectedStudent?.email} />
+                    ''
+                    // <StudentData id={selectedStudent?.id} name={selectedStudent?.name} parent={selectedStudent?.parent} email={selectedStudent?.email} />
                     : ''}
                 </React.Fragment>
             )
 
-            function StudentData(data: Student, { className }: React.ComponentProps<"form">) {
+            function StudentsList({
+                setOpen,
+                setSelectedStudent,
+            }: {
+                setOpen: (open: boolean) => void
+                setSelectedStudent: (student: Student | null) => void
+            }) {
                 return (
-                    selectedStudent ? 
-                    (
+                    <Command className="w-full">
+                        <CommandInput
+                        className="w-full"
+                         placeholder="Digite o nome" />
+                        <CommandList>
+                            <CommandEmpty>No results found.</CommandEmpty>
+                            <CommandGroup>
+                                {students.map((student) => (
+                                    <CommandItem
+                                        key={student.id}
+                                        value={student.name}
+                                        onSelect={(value) => {
+                                            setSelectedStudent(
+                                                students.find((priority) => priority.id === student.id) || null
+                                            )
+                                            setOpen(false)
+                                        }}
+                                    >
+                                        {student.name}
+                                    </CommandItem>
+                                ))}
+                            </CommandGroup>
+                        </CommandList>
+                    </Command>
+                )
+    }
+
+            function StudentData({ className }: React.ComponentProps<"form">) {
+                return (
                         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto">
             <div className="grid gap-7 grid-cols-4 mt-5">
@@ -311,7 +359,7 @@ export default function GetStudent(props: IGetStudents) {
                     <FormItem className="w-full">
                     <CardTitle className="text-left text-[13px]">Nome da criança</CardTitle>
                       <FormControl>
-                        <Input defaultValue={data?.name} placeholder={data?.name} disabled {...field}
+                        <Input placeholder={selectedStudent?.name} disabled {...field}
                         className="disabled:placeholder:text-[#000000] text-[13px]" />
                       </FormControl>
                       <FormMessage />
@@ -351,17 +399,11 @@ export default function GetStudent(props: IGetStudents) {
                   name="pequenoAlmoco"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                       <FormControl>
-                      <Input defaultValue={data?.name} placeholder={data?.name} disabled {...field}
+                      <Input
+                      placeholder={lastMeal?.pequeno_almoco || ''}
+                      disabled {...field}
                         className="disabled:placeholder:text-[#000000] text-[13px]" />
-                        {/* <Input placeholder="Pequeno-almoço" className="text-[13px]" {...field}
-                        defaultValue={state.pequenoAlmoco}
-                        value={state.pequenoAlmoco}
-                        onChange={(e) => {
-                          field.onChange(e);  // Chama o onChange original do field
-                          updateField('pequenoAlmoco', e.target.value);  // Chama a função que actualiza o estado
-                        }} /> */}
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -403,13 +445,8 @@ export default function GetStudent(props: IGetStudents) {
                     <FormItem className="w-full">
                       {/* <FormLabel className="text-muted-foreground text-[13px]">Almoço: 1º</FormLabel> */}
                       <FormControl>
-                        <Input placeholder="Almoço: 1º" className="text-[13px]" {...field}
-                        defaultValue={state.almoco1}
-                        // value={state.almoco1}
-                        onChange={(e) => {
-                          field.onChange(e);  // Chama o onChange original do field
-                          updateField('almoco1', e.target.value);  // Chama a função que actualiza o estado
-                        }} />
+                        <Input placeholder={lastMeal?.almoco1 || ''} 
+                        className="disabled:placeholder:text-[#000000] text-[13px]" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -452,13 +489,8 @@ export default function GetStudent(props: IGetStudents) {
                     <FormItem className="w-full">
                       {/* <FormLabel className="text-muted-foreground text-[13px]">Almoço: 2º</FormLabel> */}
                       <FormControl>
-                        <Input placeholder="Almoço: 2º" className="text-[13px]" {...field}
-                        defaultValue={state.almoco2}
-                        // value={state.almoco2}
-                        onChange={(e) => {
-                          field.onChange(e);  // Chama o onChange original do field
-                          updateField('almoco2', e.target.value);  // Chama a função que actualiza o estado
-                        }} />
+                        <Input placeholder={lastMeal?.almoco2 || ''} 
+                        className="disabled:placeholder:text-[#000000] text-[13px]" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -501,13 +533,8 @@ export default function GetStudent(props: IGetStudents) {
                     <FormItem className="w-full">
                       {/* <FormLabel className="text-muted-foreground text-[13px]">Sobremesa</FormLabel> */}
                       <FormControl>
-                        <Input placeholder="Sobremesa" className="text-[13px]" {...field}
-                        defaultValue={state.sobremesa}
-                        // value={state.sobremesa}
-                        onChange={(e) => {
-                          field.onChange(e);  // Chama o onChange original do field
-                          updateField('sobremesa', e.target.value);  // Chama a função que actualiza o estado
-                        }} />
+                        <Input placeholder={lastMeal?.sobremesa || ''}
+                        className="disabled:placeholder:text-[#000000] text-[13px]" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -549,13 +576,8 @@ export default function GetStudent(props: IGetStudents) {
                     <FormItem className="w-full">
                       {/* <FormLabel className="text-muted-foreground text-[13px]">Lanche</FormLabel> */}
                       <FormControl>
-                        <Input placeholder="Lanche" className="text-[13px]" {...field}
-                        defaultValue={state.lanche}
-                        // value={state.lanche}
-                        onChange={(e) => {
-                          field.onChange(e);  // Chama o onChange original do field
-                          updateField('lanche', e.target.value);  // Chama a função que actualiza o estado
-                        }} />
+                        <Input placeholder={lastMeal?.lanche || ''} 
+                        className="disabled:placeholder:text-[#000000] text-[13px]" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -591,31 +613,26 @@ export default function GetStudent(props: IGetStudents) {
   
               <CardTitle className="text-left text-[13px]">Outras ocorrências</CardTitle>
               <div className="flex justify-between gap-4">
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      {/* <FormLabel className="text-muted-foreground text-[13px]">Porção</FormLabel> */}
-                      <FormControl>
-                  <Textarea
-                    placeholder="Deixe a sua mensagem"
-                    className="resize-none text-[13px]"
-                    {...field}
-                    defaultValue={state.description}
-                    // value={state.description}
-                        onChange={(e) => {
-                          field.onChange(e);  // Chama o onChange original do field
-                          updateField('description', e.target.value);  // Chama a função que actualiza o estado
-                        }}
-                  />
-                </FormControl>
-                {/* <FormDescription>
-                  You can <span>@mention</span> other users and organizations.
-                </FormDescription> */}
-                      <FormMessage />
-                    </FormItem>
-                  )} />
+              <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              {/* <FormLabel>Bio</FormLabel> */}
+              <FormControl>
+                <Textarea
+                  placeholder="Deixe a sua mensagem"
+                  className="resize-none text-[13px]"
+                  {...field}
+                />
+              </FormControl>
+              {/* <FormDescription>
+                You can <span>@mention</span> other users and organizations.
+              </FormDescription> */}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
               </div>
               </div>
                 </div>
@@ -735,45 +752,8 @@ export default function GetStudent(props: IGetStudents) {
               </div>
             </form>
           </Form> 
-                    )
-                    : <p>Nothing to show</p>
-                )
-            }
-
-            function StudentsList({
-                        setOpen,
-                        setSelectedStudent,
-                    }: {
-                        setOpen: (open: boolean) => void
-                        setSelectedStudent: (student: Student | null) => void
-                    }) {
-                        return (
-                            <Command className="w-full">
-                                <CommandInput
-                                className="w-full"
-                                 placeholder="Digite o nome" />
-                                <CommandList>
-                                    <CommandEmpty>No results found.</CommandEmpty>
-                                    <CommandGroup>
-                                        {students.map((student) => (
-                                            <CommandItem
-                                                key={student.id}
-                                                value={student.name}
-                                                onSelect={(value) => {
-                                                    setSelectedStudent(
-                                                        students.find((priority) => priority.id === student.id) || null
-                                                    )
-                                                    setOpen(false)
-                                                }}
-                                            >
-                                                {student.name}
-                                            </CommandItem>
-                                        ))}
-                                    </CommandGroup>
-                                </CommandList>
-                            </Command>
-                        )
-            }
+        )
+    }
 }
 
 // function StudentData(data: IReport, { className }: React.ComponentProps<"form">) {
