@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { toast } from "sonner"
 import { CardTitle } from "./ui/card"
+import { addMeal } from "@/lib/api"
 
 
 const formSchema = z.object({
@@ -45,7 +46,7 @@ export function AddMeal() {
         setSubmitting(!state)
         setTimeout(() => {
             toast('Sucesso', {
-                description: 'O e-mail foi enviado.',
+                description: 'A refeição do dia foi adicionada.',
                 duration: 5000,
                 cancel: {
                     label: 'Fechar',
@@ -77,8 +78,8 @@ export function AddMeal() {
         console.log(values)
         
         try {
-            //   sendingHandler(isSendingEmail);
-            //   await sendReport(values);
+              sendingHandler(loading);
+              await addMeal(values);
         } catch (error) {
             console.log(error)
         }

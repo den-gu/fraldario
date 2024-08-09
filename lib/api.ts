@@ -137,3 +137,40 @@ export const sendReport = async (data: any) => {
         return res.json();
       });
 }
+
+
+
+// Meals
+
+export const getMeals = async () => {
+    try{
+        const response = await fetch("api/meal", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+    })
+        const { data } = await response.json();
+
+        return NextResponse.json({
+            data
+        })
+    } catch(error: any) {
+        console.log(error)
+    }
+}
+
+export const addMeal = async (data: any) => {
+    fetch("api/meal/", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    }).then((res) => {
+        if (!res.ok) throw new Error("Failed to add meal");
+        return res.json();
+      });
+}
