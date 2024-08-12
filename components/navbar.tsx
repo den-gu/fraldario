@@ -5,6 +5,17 @@ import { useRouter, usePathname } from "next/navigation";
 import { AddStudent } from "./add-student";
 import { CardTitle } from "./ui/card";
 import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu"
+
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -18,13 +29,14 @@ import {
 import { Button } from "./ui/button";
 import { endSession } from "@/lib/api";
 import { AddMeal } from "./add-meal";
+import Link from "next/link";
 
 interface INavBar {
   permLevel: string
 }
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-[13px] uppercase font-semibold transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 font-bold transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
 );
 
 const NavBar: React.FC<INavBar> = (props: INavBar) => {
@@ -96,44 +108,48 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
           </div>
           </div>
         </div>
-        {/* <NavigationMenu className="hidden md:inline">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink
-                  style={{
-                    ["color" as any]: `${
-                      pathName === "/home" ? "#000" : "#CBD5E1"
-                    }`,
-                    ["backgroundColor" as any]: `${
-                      pathName === "/home" ? "" : "transparent"
-                    }`,
-                  }}
-                  className={`${navigationMenuTriggerStyle()} ${pathName === "/home" ? "underline" : ""} bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none focus:text-slate-300 focus:bg-zinc-800`}
-                >
-                  Início
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/portfolio" legacyBehavior passHref>
-                <NavigationMenuLink
-                  style={{
-                    ["color" as any]: `${
-                      pathName === "/portfolio" ? "#018bff" : "#CBD5E1"
-                    }`,
-                    ["backgroundColor" as any]: `${
-                      pathName === "/portfolio" ? "#29292A" : "transparent"
-                    }`,
-                  }}
-                  className={`${navigationMenuTriggerStyle()} h-8 py-1 bg-transparent hover:bg-transparent transition-colors text-slate-300 hover:text-green-400 focus:outline-none`}
-                >
-                  Turmas
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu> */}
+
+        {props.permLevel === "admin"
+        ? <NavigationMenu className="hidden md:inline">
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <Link href="/home" legacyBehavior passHref>
+              <NavigationMenuLink
+                style={{
+                  ["color" as any]: `${
+                    pathName === "/home" ? "#000" : "#CBD5E1"
+                  }`,
+                  ["backgroundColor" as any]: `${
+                    pathName === "/home" ? "" : "transparent"
+                  }`,
+                }}
+                className={`${navigationMenuTriggerStyle()} ${pathName === "/home" ? "" : ""} bg-transparent hover:bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none`}
+              >
+                Início
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href="/report" legacyBehavior passHref>
+              <NavigationMenuLink
+                style={{
+                  ["color" as any]: `${
+                    pathName === "/report" ? "#000" : "#CBD5E1"
+                  }`,
+                  ["backgroundColor" as any]: `${
+                    pathName === "/report" ? "#29292A" : "transparent"
+                  }`,
+                }}
+                className={`${navigationMenuTriggerStyle()} h-8 py-1 bg-transparent hover:bg-transparent transition-colors text-slate-300 hover:text-green-400 focus:outline-none`}
+              >
+                Relatório
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu> 
+      : ''
+      }
 
         {props.permLevel === "admin"
         ? <div className="flex items-center gap-4">
@@ -149,3 +165,27 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
 };
 
 export default NavBar;
+
+
+
+
+
+// defaultValues: {
+//   name: selectedStudent?.name,
+//   email: "",
+//   behavior: "",
+//   pequenoAlmoco: lastMeal?.pequeno_almoco,
+//   almoco1: lastMeal?.almoco1,
+//   almoco2: lastMeal?.almoco2,
+//   sobremesa: lastMeal?.sobremesa,
+//   lanche: lastMeal?.lanche,
+//   porcaoPequenoAlmoco: "",
+//   porcaoAlmoco1: "",
+//   porcaoAlmoco2: "",
+//   porcaoSobremesa: "",
+//   porcaoLanche: "",
+//   fezes: "",
+//   vomitos: "",
+//   febres: "",
+//   description: ""
+// },
