@@ -137,10 +137,10 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
                     pathName === "/report" ? "#000" : "#CBD5E1"
                   }`,
                   ["backgroundColor" as any]: `${
-                    pathName === "/report" ? "#29292A" : "transparent"
+                    pathName === "/report" ? "" : "transparent"
                   }`,
                 }}
-                className={`${navigationMenuTriggerStyle()} h-8 py-1 bg-transparent hover:bg-transparent transition-colors text-slate-300 hover:text-green-400 focus:outline-none`}
+                className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none`}
               >
                 Relatório
               </NavigationMenuLink>

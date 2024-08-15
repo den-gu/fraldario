@@ -7,7 +7,7 @@ export async function GET() {
 
     const { data, error } = await supabase
         .from("meals")
-        .select('pequeno_almoco, extras_pequeno_almoco, almoco1, almoco2, extras_almoco, sobremesa, lanche')
+        .select('pequeno_almoco, almoco1, almoco2, sobremesa, lanche, extras1, extras2,')
         .order("created_at", { ascending: false })
         .limit(1)
 
@@ -27,9 +27,9 @@ export async function POST(req: Request): Promise<NextResponse>{
   
     try {
        const { error } = await supabase.from('meals').insert({ 
-        pequeno_almoco: data.pequenoAlmoco, extras_pequeno_almoco: data.extrasPequenoAlmoco, 
-        almoco1: data.almoco1, almoco2: data.almoco2, extras_almoco: data.extrasAlmoco,
-        sobremesa: data.sobremesa, lanche: data.lanche
+        pequeno_almoco: data.pequenoAlmoco, almoco1: data.almoco1, almoco2: data.almoco2,
+        sobremesa: data.sobremesa, lanche: data.lanche,
+        extras1: data.extras1, extras2: data.extras2
      })
 
         if(!error) {

@@ -25,12 +25,12 @@ import { addMeal } from "@/lib/api"
 
 const formSchema = z.object({
     pequenoAlmoco: z.string().optional(),
-    extrasPequenoAlmoco: z.string().optional(),
     almoco1: z.string().optional(),
     almoco2: z.string().optional(),
-    extrasAlmoco: z.string().optional(),
     sobremesa: z.string().optional(),
     lanche: z.string().optional(),
+    extras1: z.string().optional(),
+    extras2: z.string().optional(),
 })
 
 export function AddMeal() {
@@ -62,12 +62,12 @@ export function AddMeal() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             pequenoAlmoco: "",
-            extrasPequenoAlmoco: "",
             almoco1: "",
             almoco2: "",
-            extrasAlmoco: "",
             sobremesa: "",
-            lanche: ""
+            lanche: "",
+            extras1: "",
+            extras2: "",
         },
     })
 
@@ -123,17 +123,6 @@ export function AddMeal() {
                                                     <FormMessage />
                                                 </FormItem>
                                             )} />
-                                        <FormField
-                                            control={form.control}
-                                            name="extrasPequenoAlmoco"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="Extras" {...field} className="text-[13px]" />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
                                     </div>
 
                                     <CardTitle className="text-left text-[13px]">Almoço</CardTitle>
@@ -162,19 +151,6 @@ export function AddMeal() {
                                             )} />
                                     </div>
 
-                                    <div className="flex justify-between gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="extrasAlmoco"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="Extras" {...field} className="text-[13px]" />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                    </div>
                                     <CardTitle className="text-left text-[13px]">Sobremesa & Lanche</CardTitle>
                                     <div className="flex justify-between gap-4">
                                         <FormField
@@ -195,6 +171,31 @@ export function AddMeal() {
                                                 <FormItem className="w-full">
                                                     <FormControl>
                                                         <Input placeholder="Lanche" className="text-[13px]" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
+                                    <CardTitle className="text-left text-[13px]">Extras</CardTitle>
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="extras1"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Extras: 1º" {...field} className="text-[13px]" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                            <FormField
+                                            control={form.control}
+                                            name="extras2"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Extras: 2º" {...field} className="text-[13px]" />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
