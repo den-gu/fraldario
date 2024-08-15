@@ -33,7 +33,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { deleteStudent, getMeals, getStudents } from "@/lib/api"
+import { deleteStudent, getMeals, getStudents, saveReport, sendReport } from "@/lib/api"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select"
 import { Input } from "./ui/input"
 import { CardTitle } from "./ui/card"
@@ -44,7 +44,6 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
-import { sendReport } from "@/lib/api"
 import { toast } from 'sonner';
 import { supabase } from "@/lib/supabaseClient"
 import { DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
@@ -76,6 +75,7 @@ interface IReport {
 }
 
 const formSchema = z.object({
+  id: z.string().optional(),
   name: z.string().min(2).max(50),
   email: z.string().email(),
   behavior: z.string().min(3),
@@ -174,8 +174,9 @@ export default function GetStudent(props: any) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="w-[150px] justify-start">
-          {selectedStudent ? <>{selectedStudent.name}</> : <>+ Set status</>}
+        <Button variant="outline" className="w-full justify-start text-[13px]">
+          {selectedStudent ? <>{selectedStudent.name}</> 
+          : <div className="flex items-center gap-2"><i className="ri-search-line"></i>Pesquisar</div>}
         </Button>
       </DrawerTrigger>
       <DrawerContent>
@@ -285,9 +286,10 @@ export default function GetStudent(props: any) {
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        name: selectedStudent?.name,
-        email: selectedStudent?.email,
-        behavior: "",
+        id: selectedStudent?.id || "",
+        name: selectedStudent?.name || "",
+        email: selectedStudent?.email || "",
+        behavior: state.behavior,
         pequenoAlmoco: lastMeal?.pequeno_almoco || "",
         almoco1: lastMeal?.almoco1 || "",
         almoco2: lastMeal?.almoco2 || "",
@@ -342,7 +344,7 @@ export default function GetStudent(props: any) {
       doc.text(`Fezes: ${state.fezes}             Vômitos: ${state.vomitos}             Febres: ${state.febres}`, 14, 75);
       doc.text(`Outras ocorrências: ${state.description}`, 14, 85);
   
-      setTimeout(() => {
+      setTimeout(async () => {
         loadHandler(!isLoading);
         // Save the PDF
         doc.save(`Relatorio-${createdAt}-${state.name}.pdf`);
@@ -363,6 +365,7 @@ export default function GetStudent(props: any) {
       try {
         sendingHandler(isSendingEmail);
         await sendReport(values);
+        await saveReport(values);
       } catch (error) {
         console.log(error)
       }
@@ -413,15 +416,14 @@ export default function GetStudent(props: any) {
                       <FormMessage />
                     </FormItem>
                   )} />
-                <FormField
+                {/* <FormField
                   control={form.control}
                   name="behavior"
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
-                      {/* <CardTitle className="text-left text-[13px]">Comportamento</CardTitle> */}
                       <FormLabel className="text-[12px]">Comportamento</FormLabel>
                       <Select
-                        //  defaultValue={field.value}
+                         defaultValue={field.value}
                         onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('behavior', e);  // Chama a função que actualiza o estado
@@ -438,7 +440,33 @@ export default function GetStudent(props: any) {
                       </Select>
                       <FormMessage />
                     </FormItem>
-                  )} />
+                  )} /> */}
+                  <FormField
+                  control={form.control}
+                  name="behavior"
+                  render={({ field }) => (
+                    <FormItem className="min-w-[140px]">
+                      <FormLabel className="text-[12px]">Comportamento</FormLabel>
+                      <Select
+                        value={field.value}  // Use value instead of defaultValue
+                        onValueChange={(e) => {
+                          field.onChange(e);
+                          updateField('behavior', e);
+                        }} required>
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder="" className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem className="text-[13px]" value="Bom">Bom</SelectItem>
+                          <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
   
               {/* <CardTitle className="text-left text-[13px]">Refeições</CardTitle> */}
@@ -764,7 +792,7 @@ export default function GetStudent(props: any) {
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
                       <Select
-                        defaultValue={state.porcaoExtras2}
+                        // defaultValue={state.porcaoExtras2}
                         onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcaoExtras2', e);  // Chama a função que actualiza o estado
@@ -914,7 +942,7 @@ export default function GetStudent(props: any) {
   
           <div className="flex justify-between mt-5">
             <div className="flex items-center gap-4">
-            <Button type="button" onClick={() => downloadPDF()} disabled={isLoading} variant="secondary" className="w-full md:w-fit flex items-center text-[13px]">
+            <Button type="button" onClick={downloadPDF} disabled={isLoading} variant="secondary" className="w-full md:w-fit flex items-center text-[13px]">
               {isLoading ? (
                 <i className="ri-loader-line animate-spin text-[14px]"></i>
               )

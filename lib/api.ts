@@ -121,9 +121,10 @@ export const deleteStudent = async (studentId: any) => {
         if (!res.ok) throw new Error("Failed to delete student");
         return res.json();
       });
-  }
+}
 
   
+// Reports
 export const sendReport = async (data: any) => {
     fetch("api/", {
         method: "POST",
@@ -134,6 +135,39 @@ export const sendReport = async (data: any) => {
         }
     }).then((res) => {
         if (!res.ok) throw new Error("Failed to send message");
+        return res.json();
+      });
+}
+
+export const getReports = async () => {
+    try{
+        const response = await fetch("api/report", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+    })
+        const { data } = await response.json();
+
+        return NextResponse.json({
+            data
+        })
+    } catch(error: any) {
+        console.log(error)
+    }
+}
+
+export const saveReport = async (data: any) => {
+    fetch("api/report", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    }).then((res) => {
+        if (!res.ok) throw new Error("Failed to save message");
         return res.json();
       });
 }

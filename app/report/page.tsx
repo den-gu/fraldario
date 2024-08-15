@@ -3,7 +3,7 @@ import NavBar from "@/components/navbar";
 import React from "react";
 import { redirect } from 'next/navigation'
 import { Toaster } from "sonner";
-import GetReport from '@/components/report';
+import GetReport from '@/components/get-report';
 
 const Report: React.FC = async () => {
 
@@ -33,7 +33,7 @@ const Report: React.FC = async () => {
     <div className="flex flex-col items-center min-h-screen px-4 pt-4 pb-4 bg-white">
       <div className="w-full max-w-[700px]">
         <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-4xl">
-          Olá, {permissionLevel}
+          Relatório
         </h1>
         <p className="leading-4 text-[14px] [&:not(:first-child)]:mt-6">
           No campo abaixo, seleccione a data para visualizar o relatório

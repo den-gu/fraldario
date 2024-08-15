@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
 // import { CalendarIcon } from "lucide-react"
@@ -25,6 +25,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { toast } from "sonner"
+import { getReports } from "@/lib/api";
 
 
 
@@ -35,6 +36,25 @@ const FormSchema = z.object({
 })
 
 const GetReport: React.FC = () => {
+
+  const [loading, setLoading] = useState(false)
+  const [students, setData] = useState([])
+
+  useEffect(() => {
+    const getData = async () => {
+        setLoading(true);
+        try {
+            const response = await getReports();
+            const { data } = await response?.json();
+            setData(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    getData();
+}, []);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -57,7 +77,7 @@ const GetReport: React.FC = () => {
 
   return (
         <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex items-center gap-4 mt-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex items-center gap-4 mt-2">
         <FormField
           control={form.control}
           name="reportDate"
@@ -100,6 +120,7 @@ const GetReport: React.FC = () => {
         />
         <Button type="submit">Pesquisar</Button>
       </form>
+      {JSON.stringify(students, null)}
     </Form>
   )
 }
