@@ -165,27 +165,3 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
 };
 
 export default NavBar;
-
-
-
-
-
-// defaultValues: {
-//   name: selectedStudent?.name,
-//   email: "",
-//   behavior: "",
-//   pequenoAlmoco: lastMeal?.pequeno_almoco,
-//   almoco1: lastMeal?.almoco1,
-//   almoco2: lastMeal?.almoco2,
-//   sobremesa: lastMeal?.sobremesa,
-//   lanche: lastMeal?.lanche,
-//   porcaoPequenoAlmoco: "",
-//   porcaoAlmoco1: "",
-//   porcaoAlmoco2: "",
-//   porcaoSobremesa: "",
-//   porcaoLanche: "",
-//   fezes: "",
-//   vomitos: "",
-//   febres: "",
-//   description: ""
-// },

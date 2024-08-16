@@ -142,7 +142,7 @@ export const sendReport = async (data: any) => {
 export const getReports = async () => {
     try{
         const response = await fetch("api/report", {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"

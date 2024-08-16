@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import "remixicon/fonts/remixicon.css";
-import NavBar from "@/components/navbar";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +19,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-white`}>
+      <Toaster 
+        toastOptions={{
+          classNames: {
+            toast: 'bg-white',
+            title: 'text-black',
+            description: 'text-muted-foreground',
+            cancelButton: 'bg-white',
+            closeButton: 'bg-white',
+          },
+          style: {
+            border: 'text-zinc-200'
+          }
+        }}
+      />
         {children}
       </body>
     </html>

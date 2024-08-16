@@ -24,6 +24,9 @@ export async function POST(req: Request): Promise<NextResponse>{
     const supabase = createClient()
     const data = await req.json()
 
+    const date = new Date();
+    const createdAt = new Intl.DateTimeFormat('pt-BR').format(date);
+
     try {
         const { error } = await supabase.from('reports').insert({
             student_name: data.name,
@@ -36,6 +39,7 @@ export async function POST(req: Request): Promise<NextResponse>{
             porcao_extras1: data.porcaoExtras1, extras2: data.extras2,
             porcao_extras2: data.porcaoExtras2, fezes: data.fezes, vomitos: data.vomitos,
             febres: data.febres, message: data.description, student_id: data.id,
+            createdAtIntDTF: createdAt
         })
 
         if(!error) {
