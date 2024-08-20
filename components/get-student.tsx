@@ -263,7 +263,7 @@ export default function GetStudent(props: any) {
       setSending(!state)
       setTimeout(() => {
         toast('Sucesso', {
-          description: 'O e-mail foi enviado.',
+          description: 'A informação foi guardada.',
           duration: 5000,
           cancel: {
             label: 'Fechar',
@@ -970,7 +970,7 @@ export default function GetStudent(props: any) {
               <AlertDialogTrigger>
                 <Button type="button" disabled={deleting} variant="link" className="flex items-center gap-1 text-[12px] p-0 h-auto border-0 shadow-none bg-transparent hover:bg-transparent text-red-500 hover:no-underline">
                   <i className="ri-delete-bin-line  text-[18px] text-red-500"></i>
-                  Remover
+                  Remover aluno
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
