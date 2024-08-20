@@ -364,7 +364,7 @@ export default function GetStudent(props: any) {
   
       try {
         sendingHandler(isSendingEmail);
-        await sendReport(values);
+        // await sendReport(values);
         await saveReport(values);
       } catch (error) {
         console.log(error)
@@ -942,7 +942,7 @@ export default function GetStudent(props: any) {
   
           <div className="flex justify-between mt-5">
             <div className="flex items-center gap-4">
-            <Button type="button" onClick={downloadPDF} disabled={isLoading} variant="secondary" className="w-full md:w-fit flex items-center text-[13px]">
+            {/* <Button type="button" onClick={downloadPDF} disabled={isLoading} variant="secondary" className="w-full md:w-fit flex items-center text-[13px]">
               {isLoading ? (
                 <i className="ri-loader-line animate-spin text-[14px]"></i>
               )
@@ -952,15 +952,15 @@ export default function GetStudent(props: any) {
                     Baixar
                   </>
                 )}
-            </Button>
+            </Button> */}
             <Button type="submit" disabled={isSendingEmail} className="w-full md:w-fit flex items-center text-[13px]">
               {isSendingEmail ? (
                 <i className="ri-loader-line animate-spin text-[14px]"></i>
               )
                 : (
                   <>
-                    <i className="ri-mail-send-line mr-2 text-[14px]"></i>
-                    Enviar
+                    {/* <i className="ri-mail-send-line mr-2 text-[14px]"></i> */}
+                    Guardar
                   </>
                 )}
             </Button>

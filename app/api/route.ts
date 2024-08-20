@@ -6,25 +6,31 @@ type ContactMessageFields = {
   };
 
 const CONTACT_MESSAGE_FIELDS: ContactMessageFields = {
-    name: "Nome",
+    created_at: "Criado em",
+    student_name: "Nome",
     email: "E-mail",
     behavior: "Comportamento",
-    pequenoAlmoco: "Pequeno-almoço",
+    pequeno_almoco: "Pequeno-almoço",
       almoco1: "Almoço 1º",
       almoco2: "Almoço 2º",
       sobremesa: "Sobremesa",
       lanche: "Lanche",
-      porcaoPequenoAlmoco: "Porção/Pequeno-almoço",
-      porcaoAlmoco1: "Porção/Almoço1",
-      porcaoAlmoco2: "Porção/Almoço2",
-      porcaoSobremesa: "Porção/Sobremesa",
-      porcaoLanche: "Porção/Lanche",
+      extras1: "Extras 1º",
+      extras2: "Extras 2º",
+      porcao_pequeno_almoco: "Porção - Pequeno-almoço",
+      porcao_almoco1: "Porção - Almoço1",
+      porcao_almoco2: "Porção - Almoço2",
+      porcao_sobremesa: "Porção - Sobremesa",
+      porcao_lanche: "Porção - Lanche",
+      porcao_extras1: "Porção - Extras1",
+      porcao_extras2: "Porção - Extras2",
       fezes: "Fezes",
       vomitos: "Vômitos",
       febres: "Febres",
-      description: "Outras ocorrências",
-    // subject: "Subject",
-    // message: "Message",
+      message: "Outras ocorrências",
+      student_id: "ID do aluno:",
+      id: "ID do relatório:",
+      createdAtIntDTF: "Data:",
   };
 
 const generateEmailContent = (data: any) => {
@@ -34,7 +40,7 @@ const generateEmailContent = (data: any) => {
         ""
       );
       const htmlData = Object.entries(data).reduce((str, [key, val]) => {
-        return (str += `<h3 class="form-heading" align="left">${CONTACT_MESSAGE_FIELDS[key]}</h3><p class="form-answer" align="left">${val}</p>`);
+        return (str += `<p class="form-heading" align="left">${CONTACT_MESSAGE_FIELDS[key]}<span class="form-answer" align="left">${val}</span></p>`);
       }, "");
     
       return {

@@ -68,7 +68,6 @@ import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 
 
-
 type Report = {
   student_name: string,
   behavior: string,
@@ -100,12 +99,30 @@ const FormSchema = z.object({
   }),
 })
 
+
 const GetReport: React.FC = () => {
 
   let i = 0;
   const [loading, setLoading] = useState(false)
   const [downloading, setDownloading] = useState(false)
+  const [isSendingEmail, setSending] = useState(false)
   const [reports, setReports] = useState<any[]>([])
+
+
+  const sendingHandler = (state: boolean) => {
+    setSending(!state)
+    setTimeout(() => {
+      toast('Sucesso', {
+        description: 'O e-mail foi enviado.',
+        duration: 5000,
+        cancel: {
+          label: 'Fechar',
+          onClick: () => console.log('Cancel!'),
+        },
+      })
+      setSending(state)
+    }, 2000);
+  }
 
   //   useEffect(() => {
   //     const getData = async () => {
@@ -267,9 +284,16 @@ const GetReport: React.FC = () => {
                           </>
                         )}
                     </Button>
-                    <Button variant="link" className="flex items-center text-blue-400 text-[13px] px-2">
-                      <i className="ri-mail-send-line mr-1 text-[13px]"></i>
-                      Enviar
+                    <Button variant="link" onClick={() => sendEmail(data)} disabled={isSendingEmail} className="flex items-center text-blue-400 text-[13px] px-2">
+                      {isSendingEmail ? (
+                        <i className="ri-loader-line animate-spin text-[14px]"></i>
+                      )
+                        : (
+                          <>
+                            <i className="ri-mail-send-line mr-1 text-[13px]"></i>
+                            Enviar
+                          </>
+                        )}
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -290,19 +314,28 @@ const GetReport: React.FC = () => {
 
 
 
+  async function sendEmail(data: any) {
+    // 2. Define a submit handler.
+    try {
+      sendingHandler(isSendingEmail);
+      await sendReport(data);
+      // await saveReport(values);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   function downloadReport(data?: any) {
 
-    // const loadHandler = (state: boolean) => {
-      setDownloading(true)
-    // }
+    setDownloading(true)
 
     const doc = new jsPDF('l');
-    const date = new Date();
-    const createdAt = new Intl.DateTimeFormat('pt-BR').format(date);
+    // const date = new Date();
+    // const createdAt = new Intl.DateTimeFormat('pt-BR').format(date);
 
     doc.setFontSize(10);
     doc.text('O Fraldario', 14, 25);
-    doc.text(`Data: ${createdAt}`, 190, 25, { align: 'right' });
+    doc.text(`Data: ${data?.createdAtIntDTF}`, 190, 25, { align: 'right' });
     doc.text(`Nome da criança: ${data?.student_name}`, 14, 30);
     doc.text(`Comportamento: ${data?.behavior}`, 190, 30, { align: 'right' });
 
@@ -328,7 +361,7 @@ const GetReport: React.FC = () => {
     setTimeout(async () => {
       setDownloading(false);
       // Save the PDF
-      doc.save(`Relatorio-${createdAt}-${data?.student_name}.pdf`);
+      doc.save(`Relatorio-${data?.createdAtIntDTF}-${data?.student_name}.pdf`);
       toast('Sucesso', {
         description: 'O ficheiro foi descarregado.',
         duration: 5000,
@@ -339,6 +372,7 @@ const GetReport: React.FC = () => {
       })
     }, 2000);
 
+    return data;
   }
 }
 
@@ -372,16 +406,6 @@ function StudentData(data?: Report) {
 
   return (
     <div className="flex flex-col">
-      {/* <div className="grid gap-7 grid-cols-4 mt-5">
-        <div className="col-span-3">
-          <div className="flex flex-col w-full gap-3">
-            {data?.student_name}
-          </div>
-        </div>
-        <div>
-          <span>{data?.behavior}</span>
-        </div>
-      </div> */}
       <div className="grid gap-7 grid-cols-4 mt-5">
         <div className="col-span-3">
           <div className="flex flex-col w-full gap-3">
@@ -389,8 +413,7 @@ function StudentData(data?: Report) {
               <span>{data?.student_name}</span>
               <span>{data?.behavior}</span>
             </div>
-
-            {/* <CardTitle className="text-left text-[13px]">Refeições</CardTitle> */}
+            <CardTitle className="text-left text-[13px]">Refeições</CardTitle>
             {/* <CardTitle className="text-left text-[13px]">Refeição/Porção</CardTitle> */}
             <div className="flex justify-between gap-4">
               <span>{data?.pequenoAlmoco}</span>
@@ -402,12 +425,10 @@ function StudentData(data?: Report) {
               <span>{data?.porcaoAlmoco1}</span>
             </div>
 
-
             <div className="flex justify-between gap-4">
               <span>{data?.almoco2}</span>
               <span>{data?.porcaoAlmoco2}</span>
             </div>
-
 
             <div className="flex justify-between gap-4">
               <span>{data?.sobremesa}</span>
@@ -431,7 +452,6 @@ function StudentData(data?: Report) {
           </div>
         </div>
 
-
         <div className="flex flex-col gap-4">
           <div className="w-full border-zinc-200">
             <span>{data?.fezes}</span>
@@ -447,7 +467,6 @@ function StudentData(data?: Report) {
 
       <div className="grid grid-cols-4 mt-3">
         <div className="col-span-3">
-          {/* <CardTitle className="text-left text-[13px] mt-3 md:mt-1">Outras ocorrências</CardTitle> */}
           <div className="flex justify-between gap-4 mt-2">
             <span>{data?.message}</span>
           </div>
