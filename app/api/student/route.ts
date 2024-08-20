@@ -26,7 +26,7 @@ export async function POST(req: Request): Promise<NextResponse>{
     const data = await req.json()
   
     try {
-       const { error } = await supabase.from('alunos').insert({ name: data.name, email: data.email, parent: data.parent, class: `T${data.class}`, year: data.year })
+       const { error } = await supabase.from('alunos').insert({ name: data.name, email: data.email, parent: data.parent })
        if(!error) {
         console.log("Aluno adicionado")
        }

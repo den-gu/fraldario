@@ -25,10 +25,9 @@ import { Toaster, toast } from 'sonner';
 
 
 const formSchema = z.object({
-  name: z.string().min(2).max(50),
-  email: z.string().min(2).max(50),
-  parent: z.string().min(2).max(50),
-  class: z.string().min(1).max(10),
+  name: z.string().min(2),
+  email: z.string().min(2),
+  parent: z.string().min(2),
 })
 
 export function AddStudent() {
@@ -112,16 +111,14 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
       name: "",
       email: "",
       parent: "",
-      class: "",
     },
   })
 
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
-      
-      submitHandler(isSubmitting)
 
       try {
+        submitHandler(isSubmitting)
         await addStudent(values)
       } catch (error) {
         console.log(error)
@@ -167,19 +164,6 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
                 render={({ field }) => (
                   <FormItem className="w-full">
                   <CardTitle className="text-[13px] mt-3">E-mail</CardTitle>
-                    <FormControl>
-                      <Input placeholder="..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-
-                <FormField
-                control={form.control}
-                name="class"
-                render={({ field }) => (
-                  <FormItem>
-                  <CardTitle className="text-[13px] mt-3">Turma</CardTitle>
                     <FormControl>
                       <Input placeholder="..." {...field} />
                     </FormControl>

@@ -52,6 +52,7 @@ export const endSession = async () => {
 }
 
 
+// Students
 export const getStudents = async () => {
     try{
         const response = await fetch("api/student", {
