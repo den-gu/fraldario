@@ -16,12 +16,7 @@
         }
 
         body table td {
-            padding: 0px 20px 0px 20px !important;
-        }
-
-        body table {
-            padding-top: 50px !important;
-            border-collapse: collapse !important;
+            padding: 0px 60px 0px 60px !important;
         }
 
         body {
@@ -39,38 +34,142 @@
             <td bgcolor="#ffffff" align="center" style="padding: 20px 15px 30px 15px !important;"
                 class="section-padding">
                 <table border="0" cellpadding="40" cellspacing="0" width="100%"
-                    style="max-width: 800px;border: 1px solid #cccccc;" class="responsive-table">
+                    style="max-width: 700px;border: 1px solid #cccccc;border-radius: 5px !important;"
+                    class="responsive-table">
                     <tr>
-                        <td>
-                            <!-- <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tr>
-                                                <td style="
-                              /* padding: 0 0 0 0; */
-                              font-size: 16px;
-                              /* line-height: 25px; */
-                              color: #232323;" class="padding message-content"> -->
-                            <img src="../assets/dna_logo.png" width="40px" height="40px" alt="Fraldario Logo" />
-                            <!-- </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table> -->
-                        </td>
-                        <td>Data:</td>
+                        <td><br /></td>
                     </tr>
-                    <tr>
-                        <td>Nome da
-                            criança:</td>
+                    <tr style="margin-top: 5px !important;">
+                        <td>
+                            <img src="https://i.ibb.co/H4Wvchg/ofraldario.webp" width="170px" height="50px"
+                                alt="Fraldario Logo" alt="ofraldario" border="0">
+                        </td>
+                        <td>
+                            <p
+                                style="margin: 0;text-align: right !important;font-size: 13px;font-weight: 500;color: #888;">
+                                {data?.created_at}</p>
+                            <p
+                                style="float: right;margin: 0;text-align: right !important;font-size: 13px;font-weight: 500;color: #888;">
+                                ${data?.id.slice(0, 12)}</p>
+                        </td>
                     </tr>
                     <tr>
                         <td>
-                            <h3>New Contact Message</h3>
-                            <div class="form-container">${htmlData}</div>
+                            <h3 style="margin: 5px 0 0 0;font-size: 18px;font-weight: 900 !important;">
+                                {data?.student_name}
+                            </h3>
+                            <span style="font-size: 14px;">{data?.email}</span>
                         </td>
+                        <td>
+                            <p style="margin: 0;text-align: right !important;font-size: 13px;font-weight: 700;">
+                                Comportamento: {data?.behavior}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h1
+                                style="font-size: 16px;margin-top: 20px !important;padding-bottom: 4px; border-bottom: 1px solid #ddd;">
+                                Refeições</h1>
+                        </td>
+                        <td>
+                            <h1
+                                style="font-size: 16px;margin-top: 20px !important;margin-left: auto !important;padding-bottom: 4px; border-bottom: 1px solid #ddd;">
+                                Porção</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;"><b>Pequeno-almoço:</b> {data?.pequeno_almoco}</p>
+                        </td>
+                        <td>
+                            <p style="margin: 0;">{data?.porcao_pequeno_almoco}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;"><b>Almoço: 1º</b> {data?.almoco1}</p>
+                        </td>
+                        <td>
+                            <p style="margin: 0;">{data?.porcao_almoco1}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;"><b>Almoço: 2º</b> {data?.almoco2}</p>
+                        </td>
+                        <td>
+                            <p style="margin: 0;">{data?.porcao_almoco2}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;"><b>Sobremesa:</b> {data?.sobremesa}</p>
+                        </td>
+                        <td>
+                            <p style="margin: 0;">{data?.porcao_sobremesa}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;"><b>Lanche:</b> {data?.lanche}</p>
+                        </td>
+                        <td>
+                            <p style="margin: 0;">{data?.porcao_lanche}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;"><b>Extras: 1º</b> {data?.extras1}</p>
+                        </td>
+                        <td>
+                            <p style="margin: 0;">{data?.porcao_extras1}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;"><b>Extras: 2º</b> {data?.extras2}</p>
+                        </td>
+                        <td>
+                            <p style="margin: 0;">{data?.porcao_extras2}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0px 15px 0px 15px !important;"><br /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;">Fezes:</p>
+                        </td>
+                        <td>
+                            <p style="margin: 0;">{data?.fezes}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;">Vômitos:</p>
+                        </td>
+                        <td>
+                            <p style="margin: 0;">{data?.vomitos}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;">Febres:</p>
+                        </td>
+                        <td>
+                            <p style="margin: 0;">{data?.febres}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0px 15px 0px 15px !important;"><br /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p style="margin: 0;"><b>Outras ocorrências:</b> {data?.message}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><br /></td>
                     </tr>
                 </table>
             </td>

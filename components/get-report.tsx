@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 // import { CalendarIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -12,10 +12,8 @@ import { Calendar } from "@/components/ui/calendar"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import {
@@ -24,10 +22,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { toast } from "sonner"
-import { getReports } from "@/lib/api";
 import { supabase } from "@/lib/supabaseClient";
 import { format } from 'date-fns';
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "./ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
 import {
   Dialog,
   DialogContent,
@@ -35,37 +32,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-import {
-  Drawer,
-  DrawerContent,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import { deleteStudent, getMeals, getStudents, saveReport, sendReport } from "@/lib/api"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select"
-import { Input } from "./ui/input"
+import { sendReport } from "@/lib/api"
 import { CardTitle } from "./ui/card"
-import { Textarea } from "./ui/textarea"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
+import Image from "next/image";
+import Link from "next/link";
 
 
 type Report = {
@@ -255,12 +227,13 @@ const GetReport: React.FC = () => {
                         <i className="ri-eye-line mr-1 text-[13px]"></i>
                         Ver
                       </DialogTrigger>
-                      <DialogContent className="w-full lg:min-w-[650px] px-0 pt-3">
-                        <DialogHeader>
+                      <DialogContent className="w-full lg:min-w-[650px] px-0 pt-8">
+                        {/* <DialogHeader>
                           <DialogTitle className="border-b border-zinc-200 px-6 pb-3">O Fraldario</DialogTitle>
-                        </DialogHeader>
+                        </DialogHeader> */}
                         <StudentData
                           student_name={data.student_name} behavior={data.behavior}
+                          email={data.email}
                           pequenoAlmoco={data.pequeno_almoco} porcaoPequenoAlmoco={data.porcao_pequeno_almoco}
                           almoco1={data.almoco1} porcaoAlmoco1={data.porcao_almoco1} almoco2={data.porcao_almoco2}
                           porcaoAlmoco2={data.porcao_almoco2} sobremesa={data.sobremesa} porcaoSobremesa={data.porcao_sobremesa}
@@ -405,71 +378,32 @@ function StudentData(data?: Report) {
 
 
   return (
-    <div className="flex flex-col">
-      <div className="grid gap-7 grid-cols-4 mt-5">
-        <div className="col-span-3">
-          <div className="flex flex-col w-full gap-3">
-            <div className="flex gap-4">
-              <span>{data?.student_name}</span>
-              <span>{data?.behavior}</span>
-            </div>
-            <CardTitle className="text-left text-[13px]">Refeições</CardTitle>
-            {/* <CardTitle className="text-left text-[13px]">Refeição/Porção</CardTitle> */}
-            <div className="flex justify-between gap-4">
-              <span>{data?.pequenoAlmoco}</span>
-              <span>{data?.porcaoPequenoAlmoco}</span>
-            </div>
-
-            <div className="flex justify-between gap-4">
-              <span>{data?.almoco1}</span>
-              <span>{data?.porcaoAlmoco1}</span>
-            </div>
-
-            <div className="flex justify-between gap-4">
-              <span>{data?.almoco2}</span>
-              <span>{data?.porcaoAlmoco2}</span>
-            </div>
-
-            <div className="flex justify-between gap-4">
-              <span>{data?.sobremesa}</span>
-              <span>{data?.porcaoSobremesa}</span>
-            </div>
-
-            <div className="flex justify-between gap-4">
-              <span>{data?.lanche}</span>
-              <span>{data?.porcaoLanche}</span>
-            </div>
-
-            <div className="flex justify-between gap-4">
-              <span>{data?.extras1}</span>
-              <span>{data?.porcaoExtras1}</span>
-            </div>
-            <div className="flex justify-between gap-4">
-              <span>{data?.extras2}</span>
-              <span>{data?.porcaoExtras2}</span>
-            </div>
-
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <div className="w-full border-zinc-200">
-            <span>{data?.fezes}</span>
-          </div>
-          <div className="w-full border-zinc-200">
-            <span>{data?.vomitos}</span>
-          </div>
-          <div className="w-full border-zinc-200">
-            <span>{data?.febres}</span>
-          </div>
-        </div>
+    <div className="flex flex-col px-8">
+      <div className="row flex items-center justify-between">
+      <Image src="https://i.ibb.co/H4Wvchg/ofraldario.webp" width={150} height={30}
+                                alt="Fraldario Logo" />
+      <div className="text-right">
+        <p className="m-0 text-xs font-medium text-gray-500">
+          {/* {data?.createdAt} */}
+          20/08/2024
+        </p>
+        <p className="m-0 text-xs font-medium text-gray-500">
+          761b98f0-229
+          {/* {data?.id.slice(0, 12)} */}
+        </p>
       </div>
-
-      <div className="grid grid-cols-4 mt-3">
+      </div>
+      <div className="row mt-4 flex items-center justify-between">
+        <div>
+          <h1 className="font-extrabold text-lg">{data?.student_name}</h1>
+          <Link href={`mailto:${data?.email}`} target="blank">{data?.email}</Link>
+        </div>
+        <p>Comportamento: {data?.behavior}</p>
+      </div>
+      <div className="grid grid-cols-4 mt-4">
         <div className="col-span-3">
-          <div className="flex justify-between gap-4 mt-2">
-            <span>{data?.message}</span>
-          </div>
+          <h3 className="pb-2 font-bold">Refeições</h3>
+          <p>Pequeno-almoço: {data?.pequenoAlmoco}</p>
         </div>
       </div>
     </div>

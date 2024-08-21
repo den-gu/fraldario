@@ -1,0 +1,68 @@
+    <div className="flex flex-col">
+      <div className="grid gap-7 grid-cols-4 mt-5">
+        <div className="col-span-3">
+          <div className="flex flex-col w-full gap-3">
+            <div className="flex gap-4">
+              <span>{data?.student_name}</span>
+              <span>{data?.behavior}</span>
+            </div>
+            <CardTitle className="text-left text-[13px]">Refeições</CardTitle>
+            {/* <CardTitle className="text-left text-[13px]">Refeição/Porção</CardTitle> */}
+            <div className="flex justify-between gap-4">
+              <span>{data?.pequenoAlmoco}</span>
+              <span>{data?.porcaoPequenoAlmoco}</span>
+            </div>
+
+            <div className="flex justify-between gap-4">
+              <span>{data?.almoco1}</span>
+              <span>{data?.porcaoAlmoco1}</span>
+            </div>
+
+            <div className="flex justify-between gap-4">
+              <span>{data?.almoco2}</span>
+              <span>{data?.porcaoAlmoco2}</span>
+            </div>
+
+            <div className="flex justify-between gap-4">
+              <span>{data?.sobremesa}</span>
+              <span>{data?.porcaoSobremesa}</span>
+            </div>
+
+            <div className="flex justify-between gap-4">
+              <span>{data?.lanche}</span>
+              <span>{data?.porcaoLanche}</span>
+            </div>
+
+            <div className="flex justify-between gap-4">
+              <span>{data?.extras1}</span>
+              <span>{data?.porcaoExtras1}</span>
+            </div>
+            <div className="flex justify-between gap-4">
+              <span>{data?.extras2}</span>
+              <span>{data?.porcaoExtras2}</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <div className="w-full border-zinc-200">
+            <span>{data?.fezes}</span>
+          </div>
+          <div className="w-full border-zinc-200">
+            <span>{data?.vomitos}</span>
+          </div>
+          <div className="w-full border-zinc-200">
+            <span>{data?.febres}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-4 mt-3">
+        <div className="col-span-3">
+          <div className="flex justify-between gap-4 mt-2">
+            <span>{data?.message}</span>
+          </div>
+        </div>
+      </div>
+    </div>
