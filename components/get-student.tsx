@@ -76,9 +76,9 @@ interface IReport {
 
 const formSchema = z.object({
   id: z.string().optional(),
-  name: z.string().min(2).max(50),
-  email: z.string().email(),
-  behavior: z.string().min(3),
+  name: z.string().optional(),
+  email: z.string().email().optional(),
+  behavior: z.string().min(3, { message: "* Obrigatório" }),
   pequenoAlmoco: z.string().optional(),
   almoco1: z.string().optional(),
   almoco2: z.string().optional(),
@@ -86,16 +86,18 @@ const formSchema = z.object({
   lanche: z.string().optional(),
   extras1: z.string().optional(),
   extras2: z.string().optional(),
-  porcaoPequenoAlmoco: z.string().optional(),
-  porcaoAlmoco1: z.string().optional(),
-  porcaoAlmoco2: z.string().optional(),
-  porcaoSobremesa: z.string().optional(),
-  porcaoLanche: z.string().optional(),
+  porcaoPequenoAlmoco: z.string().min(1, { message: "* Obrigatório" }),
+  porcaoAlmoco1: z.string().min(1, { message: "* Obrigatório" }),
+  porcaoAlmoco2: z.string().min(1, { message: "* Obrigatório" }),
+  porcaoSobremesa: z.string().min(1, { message: "* Obrigatório" }),
+  porcaoLanche: z.string().min(1, { message: "* Obrigatório" }),
   porcaoExtras1: z.string().optional(),
   porcaoExtras2: z.string().optional(),
-  fezes: z.string().min(2),
-  vomitos: z.string().min(2),
-  febres: z.string().min(2),
+  fezes: z.string().min(1, { message: "* Obrigatório" }),
+  fezesNr: z.string().optional(),
+  vomitos: z.string().min(1, { message: "* Obrigatório" }),
+  vomitosNr: z.string().optional(),
+  febres: z.string().min(1, { message: "* Obrigatório" }),
   description: z.string().max(300).optional(),
 })
 
@@ -106,7 +108,7 @@ export default function GetStudent(props: any) {
     const [loading, setLoading] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [deleting, setDeleting] = useState(false)
-    const [isSendingEmail, setSending] = useState(false)
+    const [saving, setSaving] = useState(false)
     const [students, setStudents] = useState<Student[]>([])
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(
@@ -230,7 +232,7 @@ export default function GetStudent(props: any) {
 
     // const [isSubmitting, setSubmitting] = useState(false)
   
-    // Declarando múltiplos estados como propriedades de um objeto
+    // Declarando múltiplos estados como propriedades de um objecto
     const [state, setState] = useState({
       name: selectedStudent?.name || "",
       email: selectedStudent?.email || "",
@@ -250,7 +252,9 @@ export default function GetStudent(props: any) {
       porcaoExtras1: "",
       porcaoExtras2: "",
       fezes: "",
+      fezesNr: "",
       vomitos: "",
+      vomitosNr: "",
       febres: "",
       description: ""
     })
@@ -260,17 +264,17 @@ export default function GetStudent(props: any) {
     }
   
     const sendingHandler = (state: boolean) => {
-      setSending(!state)
+      setSaving(!state)
       setTimeout(() => {
         toast('Sucesso', {
           description: 'A informação foi guardada.',
-          duration: 5000,
+          duration: 15000,
           cancel: {
             label: 'Fechar',
             onClick: () => console.log('Cancel!'),
           },
         })
-        setSending(state)
+        setSaving(state)
       }, 2000);
     }
   
@@ -363,7 +367,7 @@ export default function GetStudent(props: any) {
     async function onSubmit(values: z.infer<typeof formSchema>) {
   
       try {
-        sendingHandler(isSendingEmail);
+        sendingHandler(saving);
         // await sendReport(values);
         await saveReport(values);
       } catch (error) {
@@ -399,7 +403,7 @@ export default function GetStudent(props: any) {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto pb-4">
           <div className="grid gap-7 grid-cols-4 mt-5">
-            <div className="col-span-3">
+            <div className="col-span-4">
             <div className="flex flex-col w-full gap-3">
               <div className="flex gap-4">
                 <FormField
@@ -519,6 +523,55 @@ export default function GetStudent(props: any) {
                     </FormItem>
                   )} />
               </div>
+
+              <div className="flex justify-between gap-4">
+                <FormField
+                  control={form.control}
+                  name="extras1"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel className="text-[12px]">Extra da Manhã</FormLabel>
+                      <FormControl>
+                        <Input placeholder={state.extras1} className="text-[13px]" disabled {...field}
+                          defaultValue={state.extras1}
+                          // value={state.lanche}
+                          onChange={(e) => {
+                            field.onChange(e);  // Chama o onChange original do field
+                            updateField('extras1', e.target.value);  // Chama a função que actualiza o estado
+                          }} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                  <FormField
+                  control={form.control}
+                  name="porcaoExtras1"
+                  render={({ field }) => (
+                    <FormItem className="min-w-[140px]">
+                      <FormLabel className="text-[12px]">Porção</FormLabel>
+                      <Select
+                        defaultValue={state.porcaoExtras1}
+                        onValueChange={(e) => {
+                          field.onChange(e);  // Chama o onChange original do field
+                          updateField('porcaoExtras1', e);  // Chama a função que actualiza o estado
+                        }} >
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                        <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+              </div>
   
               <div className="flex justify-between gap-4">
                 <FormField
@@ -526,7 +579,7 @@ export default function GetStudent(props: any) {
                   name="almoco1"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Almoço: 1º</FormLabel>
+                      <FormLabel className="text-[12px]">1º Almoço</FormLabel>
                       <FormControl>
                         <Input placeholder="Almoço: 1º" className="text-[13px]" disabled {...field}
                           defaultValue={state.almoco1}
@@ -576,7 +629,7 @@ export default function GetStudent(props: any) {
                   name="almoco2"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Almoço: 2º</FormLabel>
+                      <FormLabel className="text-[12px]">2º Almoço</FormLabel>
                       <FormControl>
                         <Input placeholder="Almoço: 2º" className="text-[13px]" disabled {...field}
                           defaultValue={state.almoco2}
@@ -600,6 +653,55 @@ export default function GetStudent(props: any) {
                         onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcaoAlmoco2', e);  // Chama a função que actualiza o estado
+                        }} >
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                        <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+              </div>
+
+              <div className="flex justify-between gap-4">
+                <FormField
+                  control={form.control}
+                  name="extras2"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel className="text-[12px]">Extra da Tarde</FormLabel>
+                      <FormControl>
+                        <Input placeholder={state.extras2} className="text-[13px]" disabled {...field}
+                          defaultValue={state.extras2}
+                          // value={state.lanche}
+                          onChange={(e) => {
+                            field.onChange(e);  // Chama o onChange original do field
+                            updateField('extras2', e.target.value);  // Chama a função que actualiza o estado
+                          }} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                  <FormField
+                  control={form.control}
+                  name="porcaoExtras2"
+                  render={({ field }) => (
+                    <FormItem className="min-w-[140px]">
+                      <FormLabel className="text-[12px]">Porção</FormLabel>
+                      <Select
+                        // defaultValue={state.porcaoExtras2}
+                        onValueChange={(e) => {
+                          field.onChange(e);  // Chama o onChange original do field
+                          updateField('porcaoExtras2', e);  // Chama a função que actualiza o estado
                         }} >
                         <FormControl>
                           <SelectTrigger className="w-full text-[13px]">
@@ -717,109 +819,12 @@ export default function GetStudent(props: any) {
                     </FormItem>
                   )} />
               </div>
-
-              <div className="flex justify-between gap-4">
-                <FormField
-                  control={form.control}
-                  name="extras1"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Extras: 1º</FormLabel>
-                      <FormControl>
-                        <Input placeholder={state.extras1} className="text-[13px]" disabled {...field}
-                          defaultValue={state.extras1}
-                          // value={state.lanche}
-                          onChange={(e) => {
-                            field.onChange(e);  // Chama o onChange original do field
-                            updateField('extras1', e.target.value);  // Chama a função que actualiza o estado
-                          }} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <FormField
-                  control={form.control}
-                  name="porcaoExtras1"
-                  render={({ field }) => (
-                    <FormItem className="min-w-[140px]">
-                      <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select
-                        defaultValue={state.porcaoExtras1}
-                        onValueChange={(e) => {
-                          field.onChange(e);  // Chama o onChange original do field
-                          updateField('porcaoExtras1', e);  // Chama a função que actualiza o estado
-                        }} >
-                        <FormControl>
-                          <SelectTrigger className="w-full text-[13px]">
-                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                        <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
-                        <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-              </div>
-              <div className="flex justify-between gap-4">
-                <FormField
-                  control={form.control}
-                  name="extras2"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Extras: 2º</FormLabel>
-                      <FormControl>
-                        <Input placeholder={state.extras2} className="text-[13px]" disabled {...field}
-                          defaultValue={state.extras2}
-                          // value={state.lanche}
-                          onChange={(e) => {
-                            field.onChange(e);  // Chama o onChange original do field
-                            updateField('extras2', e.target.value);  // Chama a função que actualiza o estado
-                          }} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <FormField
-                  control={form.control}
-                  name="porcaoExtras2"
-                  render={({ field }) => (
-                    <FormItem className="min-w-[140px]">
-                      <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select
-                        // defaultValue={state.porcaoExtras2}
-                        onValueChange={(e) => {
-                          field.onChange(e);  // Chama o onChange original do field
-                          updateField('porcaoExtras2', e);  // Chama a função que actualiza o estado
-                        }} >
-                        <FormControl>
-                          <SelectTrigger className="w-full text-[13px]">
-                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                        <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
-                        <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-              </div>
   
             </div>
             </div>
+          </div>
 
-  
-            <div className="flex flex-col gap-4">
+          <div className="flex gap-4 mt-5">
               <div className="w-full border-zinc-200">
                 <FormField
                   control={form.control}
@@ -849,6 +854,7 @@ export default function GetStudent(props: any) {
                     </FormItem>
                   )} />
               </div>
+              
               <div className="w-full border-zinc-200">
                 <FormField
                   control={form.control}
@@ -904,11 +910,59 @@ export default function GetStudent(props: any) {
                     </FormItem>
                   )} />
               </div>
-            </div>
           </div>
 
+          {state.fezes === "Diarreia" || state.vomitos === "Sim" ?
+            <div className="flex gap-4 mt-3">
+              <div className="w-full border-zinc-200">
+              {state.fezes === "Diarreia" ?
+              <FormField
+                  control={form.control}
+                  name="fezesNr"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel className="text-[12px]">Quantas vezes?</FormLabel>
+                      <FormControl>
+                        <Input placeholder="..." type="number" className="text-[13px]" {...field}
+                          defaultValue={state.fezesNr}
+                          // value={state.sobremesa}
+                          onChange={(e) => {
+                            field.onChange(e);  // Chama o onChange original do field
+                            updateField('fezesNr', e.target.value);  // Chama a função que actualiza o estado
+                          }} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                  : ''}
+              </div>
+              <div className="w-full border-zinc-200">
+              {state.vomitos === "Sim" ?
+              <FormField
+                  control={form.control}
+                  name="vomitosNr"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel className="text-[12px]">Quantas vezes?</FormLabel>
+                      <FormControl>
+                        <Input placeholder="..." type="number" className="text-[13px]" {...field}
+                          defaultValue={state.vomitosNr}
+                          onChange={(e) => {
+                            field.onChange(e);  // Chama o onChange original do field
+                            updateField('vomitosNr', e.target.value);  // Chama a função que actualiza o estado
+                          }} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                  : ''}
+              </div>
+              <div className="w-full border-zinc-200"></div>
+            </div> : ''
+          }
+
           <div className="grid grid-cols-4 mt-3">
-            <div className="col-span-3">
+            <div className="col-span-4">
             {/* <CardTitle className="text-left text-[13px] mt-3 md:mt-1">Outras ocorrências</CardTitle> */}
               <div className="flex justify-between gap-4 mt-2">
                 <FormField
@@ -953,8 +1007,8 @@ export default function GetStudent(props: any) {
                   </>
                 )}
             </Button> */}
-            <Button type="submit" disabled={isSendingEmail} className="w-full md:w-fit flex items-center text-[13px]">
-              {isSendingEmail ? (
+            <Button type="submit" disabled={saving} className="w-full md:w-fit flex items-center text-[13px]">
+              {saving ? (
                 <i className="ri-loader-line animate-spin text-[14px]"></i>
               )
                 : (

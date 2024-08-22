@@ -47,7 +47,7 @@ export function AddMeal() {
         setTimeout(() => {
             toast('Sucesso', {
                 description: 'A refeição do dia foi adicionada.',
-                duration: 5000,
+                duration: 12000,
                 cancel: {
                     label: 'Fechar',
                     onClick: () => console.log('Cancel!'),
@@ -125,6 +125,21 @@ export function AddMeal() {
                                             )} />
                                     </div>
 
+                                    <CardTitle className="text-left text-[13px]">Extra da manhã</CardTitle>
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="extras1"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Extra da manhã" {...field} className="text-[13px]" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
+
                                     <CardTitle className="text-left text-[13px]">Almoço</CardTitle>
                                     <div className="flex justify-between gap-4">
                                         <FormField
@@ -133,7 +148,7 @@ export function AddMeal() {
                                             render={({ field }) => (
                                                 <FormItem className="w-full">
                                                     <FormControl>
-                                                        <Input placeholder="Almoço: 1º" className="text-[13px]" {...field} />
+                                                        <Input placeholder="1º Almoço" className="text-[13px]" {...field} />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
@@ -144,7 +159,22 @@ export function AddMeal() {
                                             render={({ field }) => (
                                                 <FormItem className="w-full">
                                                     <FormControl>
-                                                        <Input placeholder="Almoço: 2º" className="text-[13px]" {...field} />
+                                                        <Input placeholder="2º Almoço" className="text-[13px]" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
+
+                                    <CardTitle className="text-left text-[13px]">Extra da tarde</CardTitle>
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="extras2"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Extra da tarde" {...field} className="text-[13px]" />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
@@ -171,31 +201,6 @@ export function AddMeal() {
                                                 <FormItem className="w-full">
                                                     <FormControl>
                                                         <Input placeholder="Lanche" className="text-[13px]" {...field} />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                    </div>
-                                    <CardTitle className="text-left text-[13px]">Extras</CardTitle>
-                                    <div className="flex justify-between gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="extras1"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="Extras: 1º" {...field} className="text-[13px]" />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                            <FormField
-                                            control={form.control}
-                                            name="extras2"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="Extras: 2º" {...field} className="text-[13px]" />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>

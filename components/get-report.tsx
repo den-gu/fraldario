@@ -58,7 +58,9 @@ type Report = {
   porcaoExtras1: string,
   porcaoExtras2: string,
   fezes: string,
+  fezesNr: string,
   vomitos: string,
+  vomitosNr: string,
   febres: string,
   message: string,
   email?: string,
@@ -86,7 +88,7 @@ const GetReport: React.FC = () => {
     setTimeout(() => {
       toast('Sucesso', {
         description: 'O e-mail foi enviado.',
-        duration: 5000,
+        duration: 12000,
         cancel: {
           label: 'Fechar',
           onClick: () => console.log('Cancel!'),
@@ -132,7 +134,7 @@ const GetReport: React.FC = () => {
       if (error) {
         toast('Ops... Algo deu errado', {
           description: 'Não foi possível efectuar a operação.',
-          duration: 5000,
+          duration: 12000,
           cancel: {
             label: 'Fechar',
             onClick: () => console.log('Cancel!'),
@@ -239,7 +241,7 @@ const GetReport: React.FC = () => {
                           porcaoAlmoco2={data.porcao_almoco2} sobremesa={data.sobremesa} porcaoSobremesa={data.porcao_sobremesa}
                           lanche={data.lanche} porcaoLanche={data.porcao_lanche} extras1={data.extras1} porcaoExtras1={data.porcao_extras1}
                           extras2={data.extras2} porcaoExtras2={data.porcao_extras2} fezes={data.fezes}
-                          vomitos={data.vomitos} febres={data.febres} message={data.message} />
+                          vomitos={data.vomitos} febres={data.febres} message={data.message} fezesNr={data.fezesNr} vomitosNr={data.vomitosNr} />
                       </DialogContent>
                     </Dialog>
                     {/* <Button variant="link" className="flex items-center text-blue-400 text-[13px] px-2">
