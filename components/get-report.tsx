@@ -41,6 +41,8 @@ import Link from "next/link";
 
 
 type Report = {
+  id: string;
+  created_at: string;
   student_name: string,
   behavior: string,
   pequenoAlmoco: string,
@@ -79,15 +81,16 @@ const GetReport: React.FC = () => {
   let i = 0;
   const [loading, setLoading] = useState(false)
   const [downloading, setDownloading] = useState(false)
+  const [downloadAll, setDownloadAll] = useState(false)
   const [isSendingEmail, setSending] = useState(false)
   const [reports, setReports] = useState<any[]>([])
 
 
-  const sendingHandler = (state: boolean) => {
+  const sendingHandler = (state: boolean, email: string) => {
     setSending(!state)
     setTimeout(() => {
       toast('Sucesso', {
-        description: 'O e-mail foi enviado.',
+        description: `E-mail enviado para ${email}.`,
         duration: 12000,
         cancel: {
           label: 'Fechar',
@@ -200,7 +203,24 @@ const GetReport: React.FC = () => {
           <i className="ri-loader-line animate-spin text-[14px]"></i>
         </div>
         : reports.length !== 0
-          ? <Table className="mt-6 rounded-sm">
+          ? <div>
+          <div className="flex items-center gap-5 mt-4">
+            <b className="text-muted-foreground">Total: {reports.length}</b>
+            <Button variant="link" onClick={() => downloadAllReports()} disabled={downloadAll} className="text-blue-400 text-[13px] h-0 py-0 px-2">
+            {downloadAll ? (
+              <i className="ri-loader-line animate-spin text-[14px]"></i>
+            )
+              : (
+                <>
+                  <i className="ri-download-line mr-1 text-[13px]"></i> Baixar
+                </>
+              )}
+          </Button>
+          </div>
+            <Table className="rounded-sm mt-3">
+            {
+
+            }
             {/* JSON.stringify(reports, null) */}
             {/* <TableCaption>A list of your recent alunos.</TableCaption> */}
             <TableHeader className="bg-zinc-200/50 border border-zinc-200 text-[13px]">
@@ -209,19 +229,25 @@ const GetReport: React.FC = () => {
                 <TableHead className="max-w-14"># ID</TableHead>
                 <TableHead>Nome</TableHead>
                 {/* <TableHead>E-mail</TableHead> */}
-                {/* <TableHead>Comportamento</TableHead> */}
+                <TableHead>Hora</TableHead>
                 <TableHead>Data do relatório</TableHead>
                 <TableHead>Ação</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody className="border border-zinc-200 text-[13px]">
               {reports.map((data: any) => (
-                <TableRow key={data.id}>
-                  <TableCell className="font-medium max-w-14 overflow-hidden text-nowrap text-ellipsis">{data.id}</TableCell>
+                <TableRow key={data.id.slice(0, 5)}>
+                  <TableCell className="font-medium max-w-14 overflow-hidden text-nowrap text-ellipsis">
+                    {data.id.slice(0, 5)}
+                  </TableCell>
                   {/* <TableCell>{data.id}</TableCell> */}
                   <TableCell>{data.student_name}</TableCell>
                   {/* <TableCell>{data.email}</TableCell> */}
-                  {/* <TableCell>{data.behavior}</TableCell> */}
+                  <TableCell>
+                  {
+                    extractTime(data.created_at)
+                  }
+                  </TableCell>
                   <TableCell>{data.createdAtIntDTF}</TableCell>
                   <TableCell className="text-left p-0 flex items-center gap-1">
                     <Dialog>
@@ -235,13 +261,13 @@ const GetReport: React.FC = () => {
                         </DialogHeader> */}
                         <StudentData
                           student_name={data.student_name} behavior={data.behavior}
-                          email={data.email}
+                          email={data.email} id={data.id} created_at={data.created_at}
                           pequenoAlmoco={data.pequeno_almoco} porcaoPequenoAlmoco={data.porcao_pequeno_almoco}
                           almoco1={data.almoco1} porcaoAlmoco1={data.porcao_almoco1} almoco2={data.porcao_almoco2}
                           porcaoAlmoco2={data.porcao_almoco2} sobremesa={data.sobremesa} porcaoSobremesa={data.porcao_sobremesa}
                           lanche={data.lanche} porcaoLanche={data.porcao_lanche} extras1={data.extras1} porcaoExtras1={data.porcao_extras1}
                           extras2={data.extras2} porcaoExtras2={data.porcao_extras2} fezes={data.fezes}
-                          vomitos={data.vomitos} febres={data.febres} message={data.message} fezesNr={data.fezesNr} vomitosNr={data.vomitosNr} />
+                          vomitos={data.vomitos} febres={data.febres} message={data.message} fezesNr={data.nr_fezes} vomitosNr={data.nr_vomitos} />
                       </DialogContent>
                     </Dialog>
                     {/* <Button variant="link" className="flex items-center text-blue-400 text-[13px] px-2">
@@ -281,6 +307,7 @@ const GetReport: React.FC = () => {
             </TableRow>
           </TableFooter> */}
           </Table>
+          </div>
           : <div className="flex justify-center items-center mt-20">
             <p className="text-muted-foreground">Dados não encontrados. Tente seleccionar uma data diferente.</p>
           </div>}
@@ -292,13 +319,72 @@ const GetReport: React.FC = () => {
   async function sendEmail(data: any) {
     // 2. Define a submit handler.
     try {
-      sendingHandler(isSendingEmail);
+      sendingHandler(isSendingEmail, data.email);
       await sendReport(data);
       // await saveReport(values);
     } catch (error) {
       console.log(error)
     }
   }
+
+  
+  function downloadAllReports(
+    values?: any
+  ) {
+
+    setDownloadAll(true)
+
+    const doc = new jsPDF('l');
+    let date: string;
+    // const createdAt = new Intl.DateTimeFormat('pt-BR').format(date);
+
+    // doc.setFontSize(8);
+    // doc.text('O Fraldario', 14, 25);
+    // doc.text(`Data: ${data?.createdAtIntDTF}`, 190, 25, { align: 'right' });
+    // doc.text(`Nome da criança: ${data?.student_name}`, 14, 30);
+    // doc.text(`Comportamento: ${data?.behavior}`, 190, 30, { align: 'right' });
+
+    // doc.text(`Refeição/Porção`, 14, 40);
+
+    for(const data of reports) {
+
+      date = data?.createdAtIntDTF;
+
+      // Generate the table
+      autoTable(doc, {
+        head: [["Nome", "Comp.", "Peq.almoço", "Extras/m", "1º Almoço", "2º Almoço", "Extras/t", "Sobremesa", "Lanche", "Fezes", "Vômitos", "Febres"]],
+        theme: 'striped',
+        styles: {
+          fontSize: 9
+        },
+        margin: { top: 5 },
+        body: [
+          [`${data?.student_name}`, `${data?.behavior}`, `${data?.pequeno_almoco}`, `${data?.extras1}`, `${data?.almoco1}`, `${data?.almoco2}`, `${data?.extras2}`, `${data?.sobremesa}`, `${data?.lanche}`, `${data?.fezes}`, `${data?.vomitos}`, `${data?.febres}`],
+          [``, ``, `${data?.porcao_pequeno_almoco}`, `${data?.porcao_extras1}`, `${data?.porcao_almoco1}`, `${data?.porcao_almoco2}`, `${data?.porcao_extras2}`, `${data?.porcao_sobremesa}`, `${data?.porcao_lanche}`, `${data?.nr_fezes > 0 ? data?.nr_fezes + 'x' : ''}`, `${data?.nr_vomitos > 0 ? data?.nr_vomitos + 'x' : ''}`, ``],
+        ],
+      })
+    }
+
+    // doc.text(`Fezes: ${data?.fezes}             Vômitos: ${data?.vomitos}             Febres: ${data?.febres}`, 14, 75); + 10
+    // doc.text(`Outras ocorrências: ${data?.message}`, 14, 75);
+
+    setTimeout(async () => {
+      setDownloadAll(false);
+      // Save the PDF
+      doc.save(`Report-${date}.pdf`);
+      toast('Sucesso', {
+        description: 'O relatório foi descarregado.',
+        duration: 12000,
+        cancel: {
+          label: 'Fechar',
+          onClick: () => console.log('Closed!'),
+        },
+      })
+    }, 2000);
+
+    return values;
+  }
+
 
   function downloadReport(data?: any) {
 
@@ -351,6 +437,21 @@ const GetReport: React.FC = () => {
   }
 }
 
+function extractTime(timestamp: any) {
+  // if (!timestamp) {
+  //   return { hour: null, minute: null, second: null };
+  // }
+
+  const date = new Date(timestamp);
+  const hr = date.getHours();
+  const min = date.getMinutes();
+  const sec = date.getSeconds();
+
+  return (
+    <span>{hr}:{min}:{sec}</span>
+  )
+}
+
 
 function StudentData(data?: Report) {
 
@@ -386,28 +487,107 @@ function StudentData(data?: Report) {
                                 alt="Fraldario Logo" />
       <div className="text-right">
         <p className="m-0 text-xs font-medium text-gray-500">
-          {/* {data?.createdAt} */}
-          20/08/2024
+          Hora: {extractTime(data?.created_at)}
         </p>
         <p className="m-0 text-xs font-medium text-gray-500">
-          761b98f0-229
-          {/* {data?.id.slice(0, 12)} */}
+          ID: {data?.id.slice(0, 12)}
         </p>
       </div>
       </div>
       <div className="row mt-4 flex items-center justify-between">
         <div>
-          <h1 className="font-extrabold text-lg">{data?.student_name}</h1>
-          <Link href={`mailto:${data?.email}`} target="blank">{data?.email}</Link>
+          <h3 className="font-extrabold text-[15px]">{data?.student_name}</h3>
+          <Link href={`mailto:${data?.email}`} className="text-muted-foreground text-sm" target="_blank">{data?.email}</Link>
         </div>
-        <p>Comportamento: {data?.behavior}</p>
+        <p className="text-[13px]">Comportamento: <b>{data?.behavior}</b></p>
       </div>
       <div className="grid grid-cols-4 mt-4">
         <div className="col-span-3">
-          <h3 className="pb-2 font-bold">Refeições</h3>
-          <p>Pequeno-almoço: {data?.pequenoAlmoco}</p>
+          <h3 className="pb-2 font-bold text-[13px]">Refeições</h3>
+          <p className="text-[14px]"><b>Pequeno-almoço:</b> {data?.pequenoAlmoco}</p>
+        </div>
+        <div className="col-span-1">
+          <h3 className="pb-2 font-bold text-[13px]">Porção</h3>
+          <p className="text-[14px]">{data?.porcaoPequenoAlmoco}</p>
         </div>
       </div>
+      {data?.porcaoExtras1 !== "" ? 
+      <div className="grid grid-cols-4 mt-2">
+      <div className="col-span-3">
+        <p className="text-[14px]"><b>Extra da manhã:</b> {data?.extras1}</p>
+      </div>
+      <div className="col-span-1">
+        <p className="text-[14px]">{data?.porcaoExtras1}</p>
+      </div>
+    </div>
+    : ''}
+      <div className="grid grid-cols-4 mt-2">
+        <div className="col-span-3">
+          <p className="text-[14px]"><b>1 Almoço:</b> {data?.almoco1}</p>
+        </div>
+        <div className="col-span-1">
+          <p className="text-[14px]">{data?.porcaoAlmoco1}</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-4 mt-2">
+        <div className="col-span-3">
+          <p className="text-[14px]"><b>2 Almoço:</b> {data?.almoco2}</p>
+        </div>
+        <div className="col-span-1">
+          <p className="text-[14px]">{data?.porcaoAlmoco2}</p>
+        </div>
+      </div>
+      {data?.porcaoExtras2 !== "" ? 
+      <div className="grid grid-cols-4 mt-2">
+      <div className="col-span-3">
+        <p className="text-[14px]"><b>Extra da tarde:</b> {data?.extras2}</p>
+      </div>
+      <div className="col-span-1">
+        <p className="text-[14px]">{data?.porcaoExtras2}</p>
+      </div>
+    </div>
+    : ''}
+      <div className="grid grid-cols-4 mt-2">
+        <div className="col-span-3">
+          <p className="text-[14px]"><b>Sobremesa:</b> {data?.sobremesa}</p>
+        </div>
+        <div className="col-span-1">
+          <p className="text-[14px]">{data?.porcaoSobremesa}</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-4 mt-2">
+        <div className="col-span-3">
+          <p className="text-[14px]"><b>Lanche:</b> {data?.lanche}</p>
+        </div>
+        <div className="col-span-1">
+          <p className="text-[14px]">{data?.porcaoLanche}</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-4 mt-6">
+        <div className="col-span-3">
+          <p className="text-[14px]"><b>Fezes:</b></p>
+        </div>
+        <div className="col-span-1">
+          <p className="text-[14px]">{data?.fezes} {Number(data?.fezesNr) > 0 ? `: ${data?.fezesNr}x` : ``}</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-4 mt-2">
+        <div className="col-span-3">
+          <p className="text-[14px]"><b>Vômitos:</b></p>
+        </div>
+        <div className="col-span-1">
+          <p className="text-[14px]">{data?.vomitos} {Number(data?.vomitosNr) > 0 ? `: ${data?.vomitosNr}x` : ``}</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-4 mt-2">
+        <div className="col-span-3">
+          <p className="text-[14px]"><b>Febres:</b></p>
+        </div>
+        <div className="col-span-1">
+          <p className="text-[14px]">{data?.febres}</p>
+        </div>
+      </div>
+      <p className="text-[14px] mt-5"><b>Outras ocorrências:</b> {data?.message}</p>
     </div>
   )
 }
