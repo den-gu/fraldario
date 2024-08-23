@@ -17,11 +17,6 @@
   -moz-user-select: none;
 }
 
-.project_image {
-  width: 130px;
-  height: 130px;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
