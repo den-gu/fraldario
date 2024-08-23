@@ -36,9 +36,7 @@ import { sendReport } from "@/lib/api"
 import { CardTitle } from "./ui/card"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
-import Image from "next/image";
-import Link from "next/link";
-
+import { Report } from "./report";
 
 type Report = {
   id: string;
@@ -336,15 +334,29 @@ const GetReport: React.FC = () => {
 
     const doc = new jsPDF('l');
     let date: string;
-    // const createdAt = new Intl.DateTimeFormat('pt-BR').format(date);
+    let image = new Image();
 
-    // doc.setFontSize(8);
-    // doc.text('O Fraldario', 14, 25);
-    // doc.text(`Data: ${data?.createdAtIntDTF}`, 190, 25, { align: 'right' });
-    // doc.text(`Nome da criança: ${data?.student_name}`, 14, 30);
-    // doc.text(`Comportamento: ${data?.behavior}`, 190, 30, { align: 'right' });
+    image.src = 'https://i.ibb.co/H4Wvchg/ofraldario.webp';
 
+    doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
+    
+    doc.setFontSize(15);
+    doc.text('Relatório de Refeições', 75, 18);
+    doc.setFontSize(10);
+    doc.setTextColor("#666666");
+    doc.text(`Data: `, 75, 22);
+    
     // doc.text(`Refeição/Porção`, 14, 40);
+
+    autoTable(doc, {
+      head: [["Nome", "Comp.", "Peq.almoço", "Extras/m", "1º Almoço", "2º Almoço", "Extras/t", "Sobremesa", "Lanche", "Fezes", "Vômitos", "Febres"]],
+        theme: 'grid',
+        headStyles: {fillColor : [18, 105, 24]},
+        styles: {
+          fontSize: 8
+        },
+        margin: { top: 28, bottom: 0 },
+    })
 
     for(const data of reports) {
 
@@ -352,12 +364,10 @@ const GetReport: React.FC = () => {
 
       // Generate the table
       autoTable(doc, {
-        head: [["Nome", "Comp.", "Peq.almoço", "Extras/m", "1º Almoço", "2º Almoço", "Extras/t", "Sobremesa", "Lanche", "Fezes", "Vômitos", "Febres"]],
-        theme: 'striped',
         styles: {
-          fontSize: 9
+          fontSize: 8
         },
-        margin: { top: 5 },
+        margin: { top: 0, bottom: 0 },
         body: [
           [`${data?.student_name}`, `${data?.behavior}`, `${data?.pequeno_almoco}`, `${data?.extras1}`, `${data?.almoco1}`, `${data?.almoco2}`, `${data?.extras2}`, `${data?.sobremesa}`, `${data?.lanche}`, `${data?.fezes}`, `${data?.vomitos}`, `${data?.febres}`],
           [``, ``, `${data?.porcao_pequeno_almoco}`, `${data?.porcao_extras1}`, `${data?.porcao_almoco1}`, `${data?.porcao_almoco2}`, `${data?.porcao_extras2}`, `${data?.porcao_sobremesa}`, `${data?.porcao_lanche}`, `${data?.nr_fezes > 0 ? data?.nr_fezes + 'x' : ''}`, `${data?.nr_vomitos > 0 ? data?.nr_vomitos + 'x' : ''}`, ``],
@@ -391,33 +401,41 @@ const GetReport: React.FC = () => {
     setDownloading(true)
 
     const doc = new jsPDF('l');
-    // const date = new Date();
-    // const createdAt = new Intl.DateTimeFormat('pt-BR').format(date);
+    let image = new Image();
 
+    image.src = 'https://i.ibb.co/H4Wvchg/ofraldario.webp';
+
+    doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
+
+    doc.setFontSize(15);
+    doc.text('Relatório de Refeições', 75, 18);
     doc.setFontSize(10);
-    doc.text('O Fraldario', 14, 25);
-    doc.text(`Data: ${data?.createdAtIntDTF}`, 190, 25, { align: 'right' });
-    doc.text(`Nome da criança: ${data?.student_name}`, 14, 30);
-    doc.text(`Comportamento: ${data?.behavior}`, 190, 30, { align: 'right' });
+    doc.setTextColor("#666666");
+    doc.text(`Data: ${data?.createdAtIntDTF}`, 75, 22);
+    // doc.text(`Data: ${data?.createdAtIntDTF}`, 190, 25, { align: 'right' });
+    // doc.text(`Nome da criança: ${data?.student_name}`, 14, 30);
+    // doc.text(`Comportamento: ${data?.behavior}`, 190, 30, { align: 'right' });
 
-    doc.text(`Refeição/Porção`, 14, 40);
+    // doc.text(`Refeição/Porção`, 14, 40);
 
     // Generate the table
     autoTable(doc, {
       head: [["Pequeno-almoço", "Almoço: 1º", "Almoço: 2º", "Sobremesa", "Lanche", "Extras: 1º", "Extras: 2º"]],
       theme: 'striped',
+      headStyles: {fillColor : [18, 105, 24]},
       styles: {
-        fontSize: 10
+        fontSize: 8
       },
-      margin: { top: 43 },
+      margin: { top: 28 },
       body: [
         [`${data?.pequeno_almoco}`, `${data?.almoco1}`, `${data?.almoco2}`, `${data?.sobremesa}`, `${data?.lanche}`, `${data?.extras1}`, `${data?.extras2}`],
         [`${data?.porcao_pequeno_almoco}`, `${data?.porcao_almoco1}`, `${data?.porcao_almoco2}`, `${data?.porcao_sobremesa}`, `${data?.porcao_lanche}`, `${data?.porcao_extras1}`, `${data?.porcao_extras2}`],
       ],
     })
 
-    doc.text(`Fezes: ${data?.fezes}             Vômitos: ${data?.vomitos}             Febres: ${data?.febres}`, 14, 75);
-    doc.text(`Outras ocorrências: ${data?.message}`, 14, 85);
+    doc.setTextColor("#222222");
+    doc.text(`Fezes: ${data?.fezes}             Vômitos: ${data?.vomitos}             Febres: ${data?.febres}`, 14, 55);
+    doc.text(`Outras ocorrências: ${data?.message}`, 14, 65);
 
     setTimeout(async () => {
       setDownloading(false);
@@ -448,7 +466,7 @@ function extractTime(timestamp: any) {
   const sec = date.getSeconds();
 
   return (
-    <span>{hr}:{min}:{sec}</span>
+    <span>{hr < 10 ? `0${hr}` : hr}:{min < 10 ? `0${min}` : min}</span>
   )
 }
 
@@ -481,114 +499,7 @@ function StudentData(data?: Report) {
 
 
   return (
-    <div className="flex flex-col px-8">
-      <div className="row flex items-center justify-between">
-      <Image src="https://i.ibb.co/H4Wvchg/ofraldario.webp" width={150} height={30}
-                                alt="Fraldario Logo" />
-      <div className="text-right">
-        <p className="m-0 text-xs font-medium text-gray-500">
-          Hora: {extractTime(data?.created_at)}
-        </p>
-        <p className="m-0 text-xs font-medium text-gray-500">
-          ID: {data?.id.slice(0, 12)}
-        </p>
-      </div>
-      </div>
-      <div className="row mt-4 flex items-center justify-between">
-        <div>
-          <h3 className="font-extrabold text-[15px]">{data?.student_name}</h3>
-          <Link href={`mailto:${data?.email}`} className="text-muted-foreground text-sm" target="_blank">{data?.email}</Link>
-        </div>
-        <p className="text-[13px]">Comportamento: <b>{data?.behavior}</b></p>
-      </div>
-      <div className="grid grid-cols-4 mt-4">
-        <div className="col-span-3">
-          <h3 className="pb-2 font-bold text-[13px]">Refeições</h3>
-          <p className="text-[14px]"><b>Pequeno-almoço:</b> {data?.pequenoAlmoco}</p>
-        </div>
-        <div className="col-span-1">
-          <h3 className="pb-2 font-bold text-[13px]">Porção</h3>
-          <p className="text-[14px]">{data?.porcaoPequenoAlmoco}</p>
-        </div>
-      </div>
-      {data?.porcaoExtras1 !== "" ? 
-      <div className="grid grid-cols-4 mt-2">
-      <div className="col-span-3">
-        <p className="text-[14px]"><b>Extra da manhã:</b> {data?.extras1}</p>
-      </div>
-      <div className="col-span-1">
-        <p className="text-[14px]">{data?.porcaoExtras1}</p>
-      </div>
-    </div>
-    : ''}
-      <div className="grid grid-cols-4 mt-2">
-        <div className="col-span-3">
-          <p className="text-[14px]"><b>1 Almoço:</b> {data?.almoco1}</p>
-        </div>
-        <div className="col-span-1">
-          <p className="text-[14px]">{data?.porcaoAlmoco1}</p>
-        </div>
-      </div>
-      <div className="grid grid-cols-4 mt-2">
-        <div className="col-span-3">
-          <p className="text-[14px]"><b>2 Almoço:</b> {data?.almoco2}</p>
-        </div>
-        <div className="col-span-1">
-          <p className="text-[14px]">{data?.porcaoAlmoco2}</p>
-        </div>
-      </div>
-      {data?.porcaoExtras2 !== "" ? 
-      <div className="grid grid-cols-4 mt-2">
-      <div className="col-span-3">
-        <p className="text-[14px]"><b>Extra da tarde:</b> {data?.extras2}</p>
-      </div>
-      <div className="col-span-1">
-        <p className="text-[14px]">{data?.porcaoExtras2}</p>
-      </div>
-    </div>
-    : ''}
-      <div className="grid grid-cols-4 mt-2">
-        <div className="col-span-3">
-          <p className="text-[14px]"><b>Sobremesa:</b> {data?.sobremesa}</p>
-        </div>
-        <div className="col-span-1">
-          <p className="text-[14px]">{data?.porcaoSobremesa}</p>
-        </div>
-      </div>
-      <div className="grid grid-cols-4 mt-2">
-        <div className="col-span-3">
-          <p className="text-[14px]"><b>Lanche:</b> {data?.lanche}</p>
-        </div>
-        <div className="col-span-1">
-          <p className="text-[14px]">{data?.porcaoLanche}</p>
-        </div>
-      </div>
-      <div className="grid grid-cols-4 mt-6">
-        <div className="col-span-3">
-          <p className="text-[14px]"><b>Fezes:</b></p>
-        </div>
-        <div className="col-span-1">
-          <p className="text-[14px]">{data?.fezes} {Number(data?.fezesNr) > 0 ? `: ${data?.fezesNr}x` : ``}</p>
-        </div>
-      </div>
-      <div className="grid grid-cols-4 mt-2">
-        <div className="col-span-3">
-          <p className="text-[14px]"><b>Vômitos:</b></p>
-        </div>
-        <div className="col-span-1">
-          <p className="text-[14px]">{data?.vomitos} {Number(data?.vomitosNr) > 0 ? `: ${data?.vomitosNr}x` : ``}</p>
-        </div>
-      </div>
-      <div className="grid grid-cols-4 mt-2">
-        <div className="col-span-3">
-          <p className="text-[14px]"><b>Febres:</b></p>
-        </div>
-        <div className="col-span-1">
-          <p className="text-[14px]">{data?.febres}</p>
-        </div>
-      </div>
-      <p className="text-[14px] mt-5"><b>Outras ocorrências:</b> {data?.message}</p>
-    </div>
+    <Report data={data} extractTime={extractTime}></Report>
   )
 }
 

@@ -530,7 +530,7 @@ export default function GetStudent(props: any) {
                   name="extras1"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Extra da Manhã</FormLabel>
+                      <FormLabel className="text-[12px]">Refeição extra da manhã</FormLabel>
                       <FormControl>
                         <Input placeholder={state.extras1} className="text-[13px]" disabled {...field}
                           defaultValue={state.extras1}
@@ -566,6 +566,7 @@ export default function GetStudent(props: any) {
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -678,7 +679,7 @@ export default function GetStudent(props: any) {
                   name="extras2"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Extra da Tarde</FormLabel>
+                      <FormLabel className="text-[12px]">Refeição extra da tarde</FormLabel>
                       <FormControl>
                         <Input placeholder={state.extras2} className="text-[13px]" disabled {...field}
                           defaultValue={state.extras2}
@@ -714,6 +715,7 @@ export default function GetStudent(props: any) {
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -845,16 +847,15 @@ export default function GetStudent(props: any) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
+                          <SelectItem className="text-[13px]" value="Não evacuou">Não evacuou</SelectItem>
                           <SelectItem className="text-[13px]" value="Normal">Normal</SelectItem>
                           <SelectItem className="text-[13px]" value="Diarreia">Diarreia</SelectItem>
-                          <SelectItem className="text-[13px]" value="Não evacuou">Não evacuou</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
                     </FormItem>
                   )} />
-              </div>
-              
+              </div>    
               <div className="w-full border-zinc-200">
                 <FormField
                   control={form.control}
@@ -875,8 +876,8 @@ export default function GetStudent(props: any) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem className="text-[13px]" value="Sim">Sim</SelectItem>
                           <SelectItem className="text-[13px]" value="Não">Não</SelectItem>
+                          <SelectItem className="text-[13px]" value="Sim">Sim</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -902,8 +903,8 @@ export default function GetStudent(props: any) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem className="text-[13px]" value="Sim">Sim</SelectItem>
                           <SelectItem className="text-[13px]" value="Não">Não</SelectItem>
+                          <SelectItem className="text-[13px]" value="Sim">Sim</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />

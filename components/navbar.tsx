@@ -30,6 +30,7 @@ import { Button } from "./ui/button";
 import { endSession } from "@/lib/api";
 import { AddMeal } from "./add-meal";
 import Link from "next/link";
+import Image from "next/image";
 
 interface INavBar {
   permLevel: string
@@ -55,7 +56,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
   return (
     <nav
       id="navbar"
-      className="flex items-center justify-center sticky top-0 bg-white z-50 py-2 border-b border-zinc-200"
+      className="flex items-center justify-center sticky top-0 bg-white z-50 py-3 border-b border-zinc-200"
     >
       <div className="drawer w-full max-w-[1200px] px-4 flex items-center justify-between">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -67,9 +68,9 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
             <i className="ri-menu-line text-[17px] font-normal"></i>
           </label>
 
-          <a className="text-white font-bold text-[16px] flex items-center gap-2">
-            Fraldario
-          </a>
+          <Link href="/">
+            <Image src="https://i.ibb.co/H4Wvchg/ofraldario.webp" width={140} height={25} alt="Fraldario Logo" />
+          </Link>
         </div>
         <div className="drawer-side z-20">
           <label

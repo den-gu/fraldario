@@ -31,7 +31,7 @@ const Report: React.FC = async () => {
       />
         <NavBar permLevel = {permissionLevel} />
     <div className="flex flex-col items-center min-h-screen px-4 pt-4 pb-4 bg-white">
-      <div className="w-full max-w-[700px]">
+      <div className="w-full max-w-[700px] pt-6">
         <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-4xl">
           Relatório
         </h1>
