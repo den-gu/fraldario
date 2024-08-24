@@ -110,8 +110,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
           </div>
         </div>
 
-        {props.permLevel === "admin"
-        ? <NavigationMenu className="hidden md:inline">
+        <NavigationMenu className="hidden md:inline">
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link href="/home" legacyBehavior passHref>
@@ -147,10 +146,24 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
+          {props.permLevel === "admin"
+        ? <NavigationMenuItem>
+        <Link href="/students" legacyBehavior passHref>
+          <NavigationMenuLink
+            style={{
+              ["color" as any]: `${pathName === "/students" ? "#000" : "#CBD5E1"
+                }`,
+              ["backgroundColor" as any]: `${pathName === "/students" ? "" : "transparent"
+                }`,
+            }}
+            className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none`}
+          >
+            Alunos
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem> : ''}
         </NavigationMenuList>
       </NavigationMenu> 
-      : ''
-      }
 
         {props.permLevel === "admin"
         ? <div className="flex items-center gap-4">
