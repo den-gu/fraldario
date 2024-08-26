@@ -117,7 +117,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
               <NavigationMenuLink
                 style={{
                   ["color" as any]: `${
-                    pathName === "/home" ? "#000" : "#CBD5E1"
+                    pathName === "/home" ? "#000" : "#cccccc"
                   }`,
                   ["backgroundColor" as any]: `${
                     pathName === "/home" ? "" : "transparent"
@@ -134,7 +134,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
               <NavigationMenuLink
                 style={{
                   ["color" as any]: `${
-                    pathName === "/report" ? "#000" : "#CBD5E1"
+                    pathName === "/report" ? "#000" : "#cccccc"
                   }`,
                   ["backgroundColor" as any]: `${
                     pathName === "/report" ? "" : "transparent"
@@ -151,7 +151,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
         <Link href="/students" legacyBehavior passHref>
           <NavigationMenuLink
             style={{
-              ["color" as any]: `${pathName === "/students" ? "#000" : "#CBD5E1"
+              ["color" as any]: `${pathName === "/students" ? "#000" : "#cccccc"
                 }`,
               ["backgroundColor" as any]: `${pathName === "/students" ? "" : "transparent"
                 }`,

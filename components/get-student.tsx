@@ -68,14 +68,13 @@ type Meal = {
 
 interface IReport {
   id: string;
-  name: string;
+  name: string | undefined;
   year: number;
   class: string;
   email: string;
 }
 
 const formSchema = z.object({
-  id: z.string().optional(),
   name: z.string().optional(),
   email: z.string().email().optional(),
   behavior: z.string().min(3, { message: "* Obrigatório" }),
@@ -290,7 +289,6 @@ export default function GetStudent(props: any) {
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        id: selectedStudent?.id || "",
         name: selectedStudent?.name || "",
         email: selectedStudent?.email || "",
         behavior: state.behavior,
@@ -376,10 +374,10 @@ export default function GetStudent(props: any) {
     }
 
 
-    const deleteHandler = async (id: string | undefined, name: string | undefined) => {
+    const deleteHandler = async (id: string | undefined, name: string) => {
       // const response = await deleteStudent(id);
       try {
-        await deleteStudent(id)
+        await deleteStudent(id, name)
         toast('Sucesso', {
           description: `${name} foi removido(a).`,
           duration: 5000,
@@ -925,8 +923,7 @@ export default function GetStudent(props: any) {
                       <FormLabel className="text-[12px]">Quantas vezes?</FormLabel>
                       <FormControl>
                         <Input placeholder="..." type="number" className="text-[13px]" {...field}
-                          defaultValue={state.fezesNr}
-                          // value={state.sobremesa}
+                          defaultValue={state.fezesNr} min={1}
                           onChange={(e) => {
                             field.onChange(e);  // Chama o onChange original do field
                             updateField('fezesNr', e.target.value);  // Chama a função que actualiza o estado
@@ -947,7 +944,7 @@ export default function GetStudent(props: any) {
                       <FormLabel className="text-[12px]">Quantas vezes?</FormLabel>
                       <FormControl>
                         <Input placeholder="..." type="number" className="text-[13px]" {...field}
-                          defaultValue={state.vomitosNr}
+                          defaultValue={state.vomitosNr} min={1}
                           onChange={(e) => {
                             field.onChange(e);  // Chama o onChange original do field
                             updateField('vomitosNr', e.target.value);  // Chama a função que actualiza o estado
@@ -995,8 +992,8 @@ export default function GetStudent(props: any) {
             </div>
           </div>
   
-          <div className="flex justify-between mt-5">
-            <div className="flex items-center gap-4">
+          {/* <div className="flex justify-between mt-5">
+            <div className="flex items-center gap-4"> */}
             {/* <Button type="button" onClick={downloadPDF} disabled={isLoading} variant="secondary" className="w-full md:w-fit flex items-center text-[13px]">
               {isLoading ? (
                 <i className="ri-loader-line animate-spin text-[14px]"></i>
@@ -1008,7 +1005,7 @@ export default function GetStudent(props: any) {
                   </>
                 )}
             </Button> */}
-            <Button type="submit" disabled={saving} className="w-full md:w-fit flex items-center text-[13px]">
+            <Button type="submit" disabled={saving} className="w-full md:w-fit flex items-center text-[13px] mt-5">
               {saving ? (
                 <i className="ri-loader-line animate-spin text-[14px]"></i>
               )
@@ -1019,32 +1016,8 @@ export default function GetStudent(props: any) {
                   </>
                 )}
             </Button>
-            </div>
-            {props.permLevel === "admin" ? (
-              <AlertDialog>
-              <AlertDialogTrigger>
-                <Button type="button" disabled={deleting} variant="link" className="flex items-center gap-1 text-[12px] p-0 h-auto border-0 shadow-none bg-transparent hover:bg-transparent text-red-500 hover:no-underline">
-                  <i className="ri-delete-bin-line  text-[18px] text-red-500"></i>
-                  Remover aluno
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle className="text-[16px]">Tem certeza desta ação?</AlertDialogTitle>
-                  <AlertDialogDescription className="text-[13px]">
-                    Esta ação é irreversível. Os dados do aluno serão apagados permanentemente.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter className="mt-4">
-                  <AlertDialogCancel className="text-[13px]">Cancelar</AlertDialogCancel>
-                  <AlertDialogAction onClick={() => deleteHandler(selectedStudent?.id, selectedStudent?.name)} disabled={deleting} className="text-[13px] bg-red-600 hover:bg-red-500">Sim, desejo apagar</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-            ) 
-          : <div></div>
-          }
-          </div>
+            {/* </div>
+          </div> */}
         </form>
       </Form>
     )

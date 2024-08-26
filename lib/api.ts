@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { useToast } from "@/components/ui/use-toast"
+import { toast } from 'sonner';
 
 interface ILoginData {
     username: string,
@@ -109,7 +109,7 @@ export const addStudent = async (data: any) => {
 
 
 // Função para deletar um estudante
-export const deleteStudent = async (studentId: any) => {
+export const deleteStudent = async (studentId: any, name: string | undefined) => {
     console.log(studentId)
     fetch(`api/student/${studentId}`, {
         method: "DELETE",
@@ -120,9 +120,42 @@ export const deleteStudent = async (studentId: any) => {
         }
       }).then((res) => {
         if (!res.ok) throw new Error("Failed to delete student");
+        toast('Sucesso', {
+            description: `${name} foi removido(a).`,
+            duration: 12000,
+            cancel: {
+              label: 'Fechar',
+              onClick: () => console.log('Cancel!'),
+            },
+          })
         return res.json();
       });
 }
+
+// Função para deletar um estudante
+export const editStudent = async (studentId: any) => {
+    console.log(studentId)
+    fetch(`api/student/${studentId}`, {
+        method: "PUT",
+        body: JSON.stringify(studentId),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        }
+      }).then((res) => {
+        if (!res.ok) throw new Error("Failed to update info");
+        toast('Sucesso', {
+            description: `A informação foi actualizada.`,
+            duration: 12000,
+            cancel: {
+              label: 'Fechar',
+              onClick: () => console.log('Cancel!'),
+            },
+          })
+        return res.json();
+      });
+}
+
 
   
 // Reports
