@@ -22,7 +22,7 @@ const Home: React.FC = async () => {
           Olá, {permissionLevel}
         </h1>
         <p className="leading-4 text-[14px] [&:not(:first-child)]:mt-6">
-          No campo abaixo, digite o nome do aluno que pretende visualizar
+          Adicione informações sobre os alunos
         </p>
         <div className="mt-3">
           <GetStudent permLevel={permissionLevel} />

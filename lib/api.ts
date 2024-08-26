@@ -173,6 +173,20 @@ export const sendReport = async (data: any) => {
       });
 }
 
+export const sendReports = async (data: any) => {
+    fetch("api/mail", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    }).then((res) => {
+        if (!res.ok) throw new Error("Failed to send messages");
+        return res.json();
+      });
+}
+
 export const getReports = async () => {
     try{
         const response = await fetch("api/report", {

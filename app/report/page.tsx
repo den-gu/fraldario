@@ -15,20 +15,6 @@ const Report: React.FC = async () => {
   return (
     (isLoggedIn ? 
         <React.Fragment>
-        <Toaster 
-        toastOptions={{
-          classNames: {
-            toast: 'bg-white',
-            title: 'text-black',
-            description: 'text-muted-foreground',
-            cancelButton: 'bg-white',
-            closeButton: 'bg-white',
-          },
-          style: {
-            border: 'text-zinc-200'
-          }
-        }}
-      />
         <NavBar permLevel = {permissionLevel} />
     <div className="flex flex-col items-center min-h-screen px-4 pt-4 pb-4 bg-white">
       <div className="w-full max-w-[700px] pt-6">
@@ -36,7 +22,7 @@ const Report: React.FC = async () => {
           Relatório
         </h1>
         <p className="leading-4 text-[14px] [&:not(:first-child)]:mt-6">
-          No campo abaixo, seleccione a data para visualizar o relatório
+          Encontre, baixe ou envie os relatórios do dia-a-dia
         </p>
         <div className="mt-3">
             <GetReport />

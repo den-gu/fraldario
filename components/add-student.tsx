@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
+  DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import {
@@ -49,6 +51,9 @@ export function AddStudent() {
           </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+              <DialogTitle>Adicionar aluno</DialogTitle>
+            </DialogHeader>
             {/* <DialogHeader>
               <DialogTitle>Aluno aluno</DialogTitle> */}
               {/* <DialogDescription>
@@ -128,63 +133,69 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
     return (
       <React.Fragment>
             <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
-            <CardTitle className="text-[15px] text-black mb-4">Novo aluno</CardTitle>
-              <div className="flex gap-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                  <CardTitle className="text-[13px] mt-3">Nome da criança</CardTitle>
-                    <FormControl>
-                      <Input placeholder="..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-              <FormField
-                control={form.control}
-                name="parent"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                  <CardTitle className="text-[13px] mt-3">Nome do parente</CardTitle>
-                    <FormControl>
-                      <Input placeholder="..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-              </div>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto">
+                        <div className="grid gap-7 grid-cols-4 mt-5">
+                            <div className="col-span-4 gap-4">
+                                <div className="flex flex-col gap-3">
+                                    <CardTitle className="text-left text-[13px]">Nome da criança</CardTitle>
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="name"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
+                                                    <FormControl>
+                                                        <Input placeholder="" type="text" {...field} className="text-[13px]" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
 
-              <div className="flex gap-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                  <CardTitle className="text-[13px] mt-3">E-mail</CardTitle>
-                    <FormControl>
-                      <Input placeholder="..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-              </div>
+                                    <CardTitle className="text-left text-[13px]">E-mail</CardTitle>
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="email"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="" type="email" {...field} className="text-[13px]" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
 
-              <Button type="submit" disabled={isSubmitting} className="md:w-fit md:self-end md:text-[12px] mt-4">
-              {isSubmitting ? (
-                  <i className="ri-loader-line animate-spin text-[14px]"></i>
-                )
-                : (
-                  <>
-                    <i className="ri-file-add-line mr-2 text-[14px]"></i>
-                    Adicionar
-                  </>
-                )}
-              </Button>
-            </form>
-        </Form>
+                                    <CardTitle className="text-left text-[13px]">Nome do parente</CardTitle>
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="parent"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="" type="text" {...field} className="text-[13px]" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                {/* <SheetFooter className="mt-4">
+                    <SheetClose asChild> */}
+                        {/* <Button type="submit" className='mt-5'>Guardar</Button> */}
+
+                        <Button type="submit" disabled={isSubmitting} className="w-full md:w-fit flex items-center text-[13px] mt-5">
+                            {isSubmitting ? <i className="ri-loader-line animate-spin text-[14px]"></i> : `Adicionar` }
+                        </Button>
+                    {/* </SheetClose>
+                </SheetFooter> */}
+                </form>
+                </Form>
       </React.Fragment>
     )
   }

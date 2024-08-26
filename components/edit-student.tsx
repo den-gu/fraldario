@@ -40,19 +40,29 @@ export function EditStudent(props: IEditUser) {
         },
     })
 
+    const editHandler = (state: boolean) => {
+        setEditing(!state)
+    }  
+
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
 
         console.log(values)
+ 
+        editHandler(!editing);
         
         try {
-              setEditing(editing);
               await editStudent(values);
         } catch (error) {
             console.log(error)
-        } finally {
-            setEditing(!editing)
-        }
+        } 
+        finally {
+            editHandler(editing)
+            setTimeout(() => {
+              // Recarregar a página inteira
+              window.location.reload()
+            }, 4000);
+          }
     }
 
   return (
@@ -62,7 +72,7 @@ export function EditStudent(props: IEditUser) {
                         <div className="grid gap-7 grid-cols-4 mt-5">
                             <div className="col-span-4 gap-4">
                                 <div className="flex flex-col gap-3">
-                                    <CardTitle className="text-left text-[13px]">Nome</CardTitle>
+                                    <CardTitle className="text-left text-[13px]">Nome da criança</CardTitle>
                                     <div className="flex justify-between gap-4">
                                         <FormField
                                             control={form.control}
@@ -93,7 +103,7 @@ export function EditStudent(props: IEditUser) {
                                             )} />
                                     </div>
 
-                                    <CardTitle className="text-left text-[13px]">Parente</CardTitle>
+                                    <CardTitle className="text-left text-[13px]">Nome do parente</CardTitle>
                                     <div className="flex justify-between gap-4">
                                         <FormField
                                             control={form.control}
@@ -112,7 +122,11 @@ export function EditStudent(props: IEditUser) {
                         </div>
                 {/* <SheetFooter className="mt-4">
                     <SheetClose asChild> */}
-                        <Button type="submit">Guardar</Button>
+                        {/* <Button type="submit" className='mt-5'>Guardar</Button> */}
+
+                        <Button type="submit" disabled={editing} className="w-full md:w-fit flex items-center text-[13px] mt-5">
+                            {editing ? <i className="ri-loader-line animate-spin text-[14px]"></i> : `Guardar` }
+                        </Button>
                     {/* </SheetClose>
                 </SheetFooter> */}
                 </form>

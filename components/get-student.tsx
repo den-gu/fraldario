@@ -153,39 +153,55 @@ export default function GetStudent(props: any) {
     return (
       <div>
         <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button variant="secondary" className="w-full justify-start text-[13px]">
+        <div className="flex items-center relative">
+          <PopoverTrigger asChild className="flex-1 cursor-text">
+            <Button variant="secondary" className="w-full justify-start">
+              <div className="flex items-center gap-2 text-[13px]">
+                <i className="ri-search-line text-[16px]"></i>
+                {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+              </div>
+            </Button>
+          </PopoverTrigger>
           {selectedStudent ? 
-          <div className="flex items-center gap-2"><i className="ri-search-line"></i>{selectedStudent.name}</div>
-          : <div className="flex items-center gap-2"><i className="ri-search-line"></i>Pesquisar</div>}
-          </Button>
-        </PopoverTrigger>
+          <Button variant="secondary" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none">
+          <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
+        </Button> : ''}
+        </div>
         <PopoverContent className="w-[200px] p-0" align="start">
           <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
         </PopoverContent>
       </Popover>
-      {selectedStudent ? 
-        <StudentData></StudentData>
-    :   ''
-    }
+      <StudentData></StudentData>
       </div>
     )
   }
  
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>
-        <Button variant="outline" className="w-full justify-start text-[13px]">
-          {selectedStudent ? <>{selectedStudent.name}</> 
-          : <div className="flex items-center gap-2"><i className="ri-search-line"></i>Pesquisar</div>}
+    <div>
+      <Drawer open={open} onOpenChange={setOpen}>
+      <div className="flex items-center relative">
+      <DrawerTrigger asChild className="cursor-text">
+        <Button variant="outline" className="w-full justify-start">
+        <div className="flex items-center gap-2 text-[13px]">
+                <i className="ri-search-line text-[16px]"></i>
+                {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+              </div>
         </Button>
       </DrawerTrigger>
+      {selectedStudent ? 
+          <Button variant="outline" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none border-l-0 rounded-tl-none rounded-bl-none">
+          <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
+        </Button> : ''}
+        </div>
       <DrawerContent>
         <div className="mt-4 border-t">
           <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
         </div>
       </DrawerContent>
     </Drawer>
+
+    <StudentData></StudentData>
+    </div>
   )
 
 
@@ -398,7 +414,8 @@ export default function GetStudent(props: any) {
   
   
     return (
-      <Form {...form}>
+      selectedStudent ? (
+        <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto pb-4">
           <div className="grid gap-7 grid-cols-4 mt-5">
             <div className="col-span-4">
@@ -1020,6 +1037,7 @@ export default function GetStudent(props: any) {
           </div> */}
         </form>
       </Form>
+      ) : <></>
     )
   }
 }

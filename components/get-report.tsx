@@ -32,7 +32,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { sendReport } from "@/lib/api"
+import { sendReport, sendReports } from "@/lib/api"
 import { CardTitle } from "./ui/card"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
@@ -80,6 +80,7 @@ const GetReport: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [downloading, setDownloading] = useState(false)
   const [downloadAll, setDownloadAll] = useState(false)
+  const [sendAll, setSendAll] = useState(false)
   const [isSendingEmail, setSending] = useState(false)
   const [reports, setReports] = useState<any[]>([])
 
@@ -202,15 +203,25 @@ const GetReport: React.FC = () => {
         </div>
         : reports.length !== 0
           ? <div>
-          <div className="flex items-center gap-5 mt-4">
-            <b className="text-muted-foreground">Total: {reports.length}</b>
+          <div className="flex items-center gap-1 mt-4">
+            <b className="text-muted-foreground mr-3">Total: {reports.length}</b>
             <Button variant="link" onClick={() => downloadAllReports()} disabled={downloadAll} className="text-blue-400 text-[13px] h-0 py-0 px-2">
             {downloadAll ? (
               <i className="ri-loader-line animate-spin text-[14px]"></i>
             )
               : (
                 <>
-                  <i className="ri-download-line mr-1 text-[13px]"></i> Baixar
+                  <i className="ri-download-line mr-1 text-[13px]"></i> Baixar relatório
+                </>
+              )}
+          </Button>
+          <Button variant="link" onClick={() => sendAllReports(reports)} disabled={sendAll} className="text-blue-400 text-[13px] h-0 py-0 px-2">
+            {sendAll ? (
+              <i className="ri-loader-line animate-spin text-[14px]"></i>
+            )
+              : (
+                <>
+                  <i className="ri-mail-send-line mr-1 text-[13px]"></i> Enviar todos
                 </>
               )}
           </Button>
@@ -319,6 +330,26 @@ const GetReport: React.FC = () => {
     try {
       sendingHandler(isSendingEmail, data.email);
       await sendReport(data);
+      // await saveReport(values);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function sendAllReports(data: any) {
+    // 2. Define a submit handler.
+    try {
+      // sendingHandler(isSendingEmail, data.email);
+      toast('Processando...', {
+        description: `A enviar ${data.length} emails.`,
+        duration: 12000,
+        cancel: {
+          label: 'Fechar',
+          onClick: () => console.log('Cancel!'),
+        },
+      })
+
+      await sendReports(data);
       // await saveReport(values);
     } catch (error) {
       console.log(error)

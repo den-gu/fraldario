@@ -48,9 +48,10 @@ import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { toast } from 'sonner';
 import { supabase } from "@/lib/supabaseClient"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
 import { EditStudent } from "./edit-student"
+import Actions from "./actions"
 
 
 
@@ -125,12 +126,20 @@ if (isDesktop) {
   return (
     <div>
       <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>
+      <div className="flex items-center relative">
+      <DrawerTrigger asChild className="cursor-text">
         <Button variant="outline" className="w-full justify-start text-[13px]">
-          {selectedStudent ? <>{selectedStudent.name}</> 
-          : <div className="flex items-center gap-2"><i className="ri-search-line"></i>Pesquisar</div>}
+        <div className="flex items-center gap-2 text-[13px]">
+                <i className="ri-search-line text-[16px]"></i>
+                {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+              </div>
         </Button>
       </DrawerTrigger>
+      {selectedStudent ? 
+          <Button variant="outline" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none border-l-0 rounded-tl-none rounded-bl-none">
+          <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
+        </Button> : ''}
+        </div>
       <DrawerContent>
         <div className="mt-4 border-t">
           <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
@@ -259,57 +268,7 @@ if (isDesktop) {
                   <TableCell>{selectedStudent?.email}</TableCell>
                   <TableCell>{selectedStudent?.parent}</TableCell>
                   <TableCell className="text-left p-0 flex items-center gap-1">
-                  <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-          <DialogTrigger asChild>
-          <Button
-          variant="link" disabled={downloading} className="flex items-center text-blue-400 text-[13px] px-2"
-          >
-            <i className="ri-edit-line mr-1 text-[13px]"></i>
-            Editar
-          </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            {/* <p>Dados do aluno</p> */}
-            <EditStudent id={selectedStudent.id} name={selectedStudent.name} email={selectedStudent.email} parent={selectedStudent.parent} />
-            {/* <DialogHeader>
-              <DialogTitle>Aluno aluno</DialogTitle> */}
-              {/* <DialogDescription>
-                Make changes to your profile here. Click save when you are done.
-              </DialogDescription> */}
-            {/* </DialogHeader> */}
-            {/* <CreateUserForm /> */}
-          </DialogContent>
-        </Dialog>                    {/* <Button variant="link" disabled={downloading} className="flex items-center text-blue-400 text-[13px] px-2">
-                      {downloading ? (
-                        <i className="ri-loader-line animate-spin text-[14px]"></i>
-                      )
-                        : (
-                          <>
-                            <i className="ri-edit-line mr-1 text-[13px]"></i>
-                            Editar
-                          </>
-                        )}
-                    </Button> */}
-                    <AlertDialog>
-                    <AlertDialogTrigger>
-                <Button type="button" disabled={deleting} variant="link" className="flex items-center text-red-400 text-[13px] px-2">
-                  <i className="ri-delete-bin-7-line mr-1 text-[13px]"></i>
-                  Remover
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle className="text-[16px]">Tem certeza desta ação?</AlertDialogTitle>
-                  <AlertDialogDescription className="text-[13px]">
-                    Esta ação é irreversível. Os dados do aluno serão apagados permanentemente.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter className="mt-4">
-                  <AlertDialogCancel className="text-[13px]">Cancelar</AlertDialogCancel>
-                  <AlertDialogAction onClick={() => deleteHandler(selectedStudent.id, selectedStudent.name)} disabled={deleting} className="text-[13px] bg-red-600 hover:bg-red-500">Sim, desejo apagar</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+                    <Actions id={selectedStudent.id} name={selectedStudent.name} email={selectedStudent.email} parent={selectedStudent.parent} />
                   </TableCell>
                 </TableRow>
               ) : (
@@ -322,49 +281,8 @@ if (isDesktop) {
                     <TableCell>{data.email}</TableCell>
                     <TableCell>{data.parent}</TableCell>
                     <TableCell className="text-left p-0 flex items-center gap-1">
-                    <Button variant="link" disabled={downloading} className="flex items-center text-blue-400 text-[13px] px-2">
-                      {downloading ? (
-                        <i className="ri-loader-line animate-spin text-[14px]"></i>
-                      )
-                        : (
-                          <>
-                            <i className="ri-edit-line mr-1 text-[13px]"></i>
-                            Editar
-                          </>
-                        )}
-                    </Button>
-                    {/* <Button variant="link" onClick={() => deleteHandler(data.id, data.name)} disabled={isSendingEmail} className="flex items-center text-red-400 text-[13px] px-2">
-                      {isSendingEmail ? (
-                        <i className="ri-loader-line animate-spin text-[14px]"></i>
-                      )
-                        : (
-                          <>
-                            <i className="ri-delete-bin-7-line mr-1 text-[13px]"></i>
-                            Remover
-                          </>
-                        )}
-                    </Button> */}
-                    <AlertDialog>
-              <AlertDialogTrigger>
-                <Button type="button" disabled={deleting} variant="link" className="flex items-center text-red-400 text-[13px] px-2">
-                  <i className="ri-delete-bin-7-line mr-1 text-[13px]"></i>
-                  Remover
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle className="text-[16px]">Tem certeza desta ação?</AlertDialogTitle>
-                  <AlertDialogDescription className="text-[13px]">
-                    Esta ação é irreversível. Os dados do aluno serão apagados permanentemente.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter className="mt-4">
-                  <AlertDialogCancel className="text-[13px]">Cancelar</AlertDialogCancel>
-                  <AlertDialogAction onClick={() => deleteHandler(data?.id, data?.name)} disabled={deleting} className="text-[13px] bg-red-600 hover:bg-red-500">Sim, desejo apagar</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-                  </TableCell>
+                      <Actions id={data.id} name={data.name} email={data.email} parent={data.parent} />
+                    </TableCell>
                   </TableRow>
                 ))
               )}
