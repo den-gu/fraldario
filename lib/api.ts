@@ -220,6 +220,20 @@ export const saveReport = async (data: any) => {
       });
 }
 
+export const updateReport = async (data: any) => {
+    fetch("api/report", {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    }).then((res) => {
+        if (!res.ok) throw new Error("Failed to update report");
+        return res.json();
+      });
+}
+
 
 
 // Meals

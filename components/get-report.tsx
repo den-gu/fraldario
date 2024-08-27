@@ -37,6 +37,7 @@ import { CardTitle } from "./ui/card"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { Report } from "./report";
+import { EditReport } from "./edit-report";
 
 type Report = {
   id: string;
@@ -260,15 +261,12 @@ const GetReport: React.FC = () => {
                   </TableCell>
                   <TableCell>{data.createdAtIntDTF}</TableCell>
                   <TableCell className="text-left p-0 flex items-center gap-1">
-                    <Dialog>
+                    {/* <Dialog>
                       <DialogTrigger className="flex items-center text-blue-400 text-[13px] px-2 hover:underline">
                         <i className="ri-eye-line mr-1 text-[13px]"></i>
                         Ver
                       </DialogTrigger>
                       <DialogContent className="w-full lg:min-w-[650px] px-0 pt-8">
-                        {/* <DialogHeader>
-                          <DialogTitle className="border-b border-zinc-200 px-6 pb-3">O Fraldario</DialogTitle>
-                        </DialogHeader> */}
                         <StudentData
                           student_name={data.student_name} behavior={data.behavior}
                           email={data.email} id={data.id} created_at={data.created_at}
@@ -279,7 +277,16 @@ const GetReport: React.FC = () => {
                           extras2={data.extras2} porcaoExtras2={data.porcao_extras2} fezes={data.fezes} vomitos={data.vomitos} 
                           febres={data.febres} message={data.message} fezesNr={data.nr_fezes} vomitosNr={data.nr_vomitos} febresNr={data.nr_febres} />
                       </DialogContent>
-                    </Dialog>
+                    </Dialog> */}
+                    <EditReport student_name={data.student_name} behavior={data.behavior}
+                          email={data.email} id={data.id} created_at={data.created_at}
+                          pequeno_almoco={data.pequeno_almoco} porcao_pequeno_almoco={data.porcao_pequeno_almoco}
+                          almoco1={data.almoco1} porcao_almoco1={data.porcao_almoco1} almoco2={data.almoco2}
+                          porcao_almoco2={data.porcao_almoco2} sobremesa={data.sobremesa} porcao_sobremesa={data.porcao_sobremesa}
+                          lanche={data.lanche} porcao_lanche={data.porcao_lanche} extras1={data.extras1} porcao_extras1={data.porcao_extras1}
+                          extras2={data.extras2} porcao_extras2={data.porcao_extras2} fezes={data.fezes} vomitos={data.vomitos} 
+                          febres={data.febres} message={data.message} nr_fezes={data.nr_fezes} nr_vomitos={data.nr_vomitos} nr_febres={data.nr_febres}
+                      />
                     {/* <Button variant="link" className="flex items-center text-blue-400 text-[13px] px-2">
                       <i className="ri-eye-line mr-1 text-[13px]"></i>
                       Ver
