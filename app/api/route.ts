@@ -28,25 +28,23 @@ const CONTACT_MESSAGE_FIELDS: ContactMessageFields = {
       vomitos: "Vômitos",
       febres: "Febres",
       message: "Outras ocorrências",
-      student_id: "ID do aluno:",
       id: "ID do relatório:",
       createdAtIntDTF: "Data:",
   };
 
 const generateEmailContent = (data: any) => {
+
+    const date = new Date();
+    const createdAt = new Intl.DateTimeFormat('pt-BR').format(date);
+
     const stringData = Object.entries(data).reduce(
         (str, [key, val]) =>
           (str += `${CONTACT_MESSAGE_FIELDS[key]}: \n${val} \n \n`),
         ""
       );
-      // const htmlData = Object.entries(data).reduce((str, [key, val]) => {
-      //   return (str += `<p class="form-heading" align="left">${CONTACT_MESSAGE_FIELDS[key]}<span class="form-answer" align="left">${val}</span></p>`);
-      // }, "");
-
-      // console.log(data?.student_name);
     
       return {
-        text: stringData,
+        // text: stringData,
         html: `<!DOCTYPE html>
 <html>
 
@@ -104,10 +102,10 @@ const generateEmailContent = (data: any) => {
                         <td style="padding: 0px 15px 0px 15px !important;">
                             <p
                                 style="margin: 0;text-align: right !important;font-size: 13px;font-weight: 500;color: #888;">
-                                ${data?.createdAtIntDTF}</p>
+                                ${createdAt}</p>
                             <p
                                 style="float: right;margin: 0;text-align: right !important;font-size: 13px;font-weight: 500;color: #888;">
-                                ${data?.id.slice(0, 12)}</p>
+                                ${data?.id ? data.id.slice(0, 12) : ''}</p>
                         </td>
                     </tr>
                     <tr>
@@ -168,17 +166,6 @@ const generateEmailContent = (data: any) => {
                             <p style="margin: 0;">${data?.porcao_almoco2}</p>
                         </td>
                     </tr>
-                    ${data?.porcao_extras2 !== ""
-                        ? `<tr>
-                                <td style='padding: 0px 15px 0px 15px !important;'>
-                                    <p style='margin: 0;'><b>Extra da tarde:</b> ${data?.extras2}</p>
-                                </td>
-                                <td style='padding: 0px 15px 0px 15px !important;'>
-                                    <p style='margin: 0;'>${data?.porcao_extras2}</p>
-                                </td>
-                            </tr>`
-                        : ``
-                    }
                     <tr>
                         <td style="padding: 0px 15px 0px 15px !important;">
                             <p style="margin: 0;"><b>Sobremesa:</b> ${data?.sobremesa}</p>
@@ -195,6 +182,17 @@ const generateEmailContent = (data: any) => {
                             <p style="margin: 0;">${data?.porcao_lanche}</p>
                         </td>
                     </tr>
+                    ${data?.porcao_extras2 !== ""
+                        ? `<tr>
+                                <td style='padding: 0px 15px 0px 15px !important;'>
+                                    <p style='margin: 0;'><b>Extra da tarde:</b> ${data?.extras2}</p>
+                                </td>
+                                <td style='padding: 0px 15px 0px 15px !important;'>
+                                    <p style='margin: 0;'>${data?.porcao_extras2}</p>
+                                </td>
+                            </tr>`
+                        : ``
+                    }
                     <tr>
                         <td style="padding: 0px 15px 0px 15px !important;"><br /></td>
                     </tr>
@@ -203,7 +201,7 @@ const generateEmailContent = (data: any) => {
                             <p style="margin: 0;">Fezes:</p>
                         </td>
                         <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.fezes} ${data?.nr_fezes > 0 ? `: ${data?.nr_fezes}x` : ``}</p>
+                            <p style="margin: 0;">${data?.fezes}${data?.nr_fezes > 0 ? `: ${data?.nr_fezes}x` : ``}</p>
                         </td>
                     </tr>
                     <tr>
@@ -211,7 +209,7 @@ const generateEmailContent = (data: any) => {
                             <p style="margin: 0;">Vômitos:</p>
                         </td>
                         <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.vomitos} ${data?.nr_vomitos > 0 ? `: ${data?.nr_vomitos}x` : ``}</p>
+                            <p style="margin: 0;">${data?.vomitos}${data?.nr_vomitos > 0 ? `: ${data?.nr_vomitos}x` : ``}</p>
                         </td>
                     </tr>
                     <tr>
@@ -219,13 +217,13 @@ const generateEmailContent = (data: any) => {
                             <p style="margin: 0;">Febres:</p>
                         </td>
                         <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.febres}</p>
+                            <p style="margin: 0;">${data?.febres}${data?.nr_febres > 0 ? `: ${data?.nr_febres}° C` : ``}</p>
                         </td>
                     </tr>
                     <tr>
                         <td style="padding: 0px 15px 0px 15px !important;"><br /></td>
                     </tr>
-                    ${data?.message !== ""
+                    ${data?.message !== "" || data?.message !== null
                         ? `<tr>
                                 <td style="padding: 0px 15px 0px 15px !important;">
                                     <p style="margin: 0;"><b>Outras ocorrências:</b> ${data?.message}</p>
@@ -264,11 +262,13 @@ export async function POST(req: Request): Promise<NextResponse>{
       };
 
       await transporter.sendMail(updatedMailOptions);
+
+      console.log('Email sent.')
   } catch (error) {
       console.log(error);
   }
 
-    console.log(data)
+    // console.log(data)
     return NextResponse.json({
         data
     })

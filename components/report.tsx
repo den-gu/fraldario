@@ -65,16 +65,6 @@ export const Report = ({data, extractTime}: IReport) => {
           <p className="text-[14px]">{data?.porcaoAlmoco2}</p>
         </div>
       </div>
-      {data?.porcaoExtras2 !== "" ? 
-      <div className="grid grid-cols-4 mt-2">
-      <div className="col-span-3">
-        <p className="text-[14px]"><b>Extra da tarde:</b> {data?.extras2}</p>
-      </div>
-      <div className="col-span-1">
-        <p className="text-[14px]">{data?.porcaoExtras2}</p>
-      </div>
-    </div>
-    : ''}
       <div className="grid grid-cols-4 mt-2">
         <div className="col-span-3">
           <p className="text-[14px]"><b>Sobremesa:</b> {data?.sobremesa}</p>
@@ -91,12 +81,22 @@ export const Report = ({data, extractTime}: IReport) => {
           <p className="text-[14px]">{data?.porcaoLanche}</p>
         </div>
       </div>
+      {data?.porcaoExtras2 !== "" ? 
+      <div className="grid grid-cols-4 mt-2">
+      <div className="col-span-3">
+        <p className="text-[14px]"><b>Extra da tarde:</b> {data?.extras2}</p>
+      </div>
+      <div className="col-span-1">
+        <p className="text-[14px]">{data?.porcaoExtras2}</p>
+      </div>
+    </div>
+    : ''}
       <div className="grid grid-cols-4 mt-6">
         <div className="col-span-3">
           <p className="text-[14px]"><b>Fezes:</b></p>
         </div>
         <div className="col-span-1">
-          <p className="text-[14px]">{data?.fezes} {Number(data?.fezesNr) > 0 ? `: ${data?.fezesNr}x` : ``}</p>
+          <p className="text-[14px]">{data?.fezes}{Number(data?.fezesNr) > 0 ? `: ${data?.fezesNr}x` : ``}</p>
         </div>
       </div>
       <div className="grid grid-cols-4 mt-2">
@@ -104,7 +104,7 @@ export const Report = ({data, extractTime}: IReport) => {
           <p className="text-[14px]"><b>Vômitos:</b></p>
         </div>
         <div className="col-span-1">
-          <p className="text-[14px]">{data?.vomitos} {Number(data?.vomitosNr) > 0 ? `: ${data?.vomitosNr}x` : ``}</p>
+          <p className="text-[14px]">{data?.vomitos}{Number(data?.vomitosNr) > 0 ? `: ${data?.vomitosNr}x` : ``}</p>
         </div>
       </div>
       <div className="grid grid-cols-4 mt-2">
@@ -112,7 +112,7 @@ export const Report = ({data, extractTime}: IReport) => {
           <p className="text-[14px]"><b>Febres:</b></p>
         </div>
         <div className="col-span-1">
-          <p className="text-[14px]">{data?.febres}</p>
+          <p className="text-[14px]">{data?.febres}{Number(data?.febresNr) > 0 ? `: ${data?.febresNr}° C` : ``}</p>
         </div>
       </div>
       <p className="text-[14px] mt-5"><b>Outras ocorrências:</b> {data?.message}</p>

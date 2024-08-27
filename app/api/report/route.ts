@@ -1,4 +1,3 @@
-import { mailOptions, transporter } from '@/config/nodemailer'
 import { createClient } from '@/utils/supabase/server'
 import { NextResponse } from 'next/server'
 
@@ -29,17 +28,17 @@ export async function POST(req: Request): Promise<NextResponse>{
 
     try {
         const { error } = await supabase.from('reports').insert({
-            student_name: data.name,
-            email: data.email, behavior: data.behavior, pequeno_almoco: data.pequenoAlmoco,
-            porcao_pequeno_almoco: data.porcaoPequenoAlmoco,
-            almoco1: data.almoco1, porcao_almoco1: data.porcaoAlmoco1,
-            almoco2: data.almoco2, porcao_almoco2: data.porcaoAlmoco2,
-            sobremesa: data.sobremesa, porcao_sobremesa: data.porcaoSobremesa,
-            lanche: data.lanche, porcao_lanche: data.porcaoLanche, extras1: data.extras1,
-            porcao_extras1: data.porcaoExtras1, extras2: data.extras2,
-            porcao_extras2: data.porcaoExtras2, fezes: data.fezes, vomitos: data.vomitos,
-            febres: data.febres, message: data.description,
-            createdAtIntDTF: createdAt, nr_fezes: data.fezesNr, nr_vomitos: data.vomitosNr
+            student_name: data.student_name,
+            email: data.email, behavior: data.behavior, pequeno_almoco: data.pequeno_almoco,
+            porcao_pequeno_almoco: data.porcao_pequeno_almoco,
+            almoco1: data.almoco1, porcao_almoco1: data.porcao_almoco1,
+            almoco2: data.almoco2, porcao_almoco2: data.porcao_almoco2,
+            sobremesa: data.sobremesa, porcao_sobremesa: data.porcao_sobremesa,
+            lanche: data.lanche, porcao_lanche: data.porcao_lanche, extras1: data.extras1,
+            porcao_extras1: data.porcao_extras1, extras2: data.extras2,
+            porcao_extras2: data.porcao_extras2, fezes: data.fezes, vomitos: data.vomitos,
+            febres: data.febres, message: data.message,
+            createdAtIntDTF: createdAt, nr_fezes: data.nr_fezes, nr_vomitos: data.nr_vomitos, nr_febres: data.nr_febres
         })
 
         if(!error) {

@@ -125,7 +125,7 @@ export function AddMeal() {
                                             )} />
                                     </div>
 
-                                    <CardTitle className="text-left text-[13px]">Extra da manhã</CardTitle>
+                                    <CardTitle className="text-left text-[13px]">Refeição extra da manhã</CardTitle>
                                     <div className="flex justify-between gap-4">
                                         <FormField
                                             control={form.control}
@@ -133,7 +133,7 @@ export function AddMeal() {
                                             render={({ field }) => (
                                                 <FormItem className="w-full">
                                                     <FormControl>
-                                                        <Input placeholder="Extra da manhã" {...field} className="text-[13px]" />
+                                                        <Input placeholder="Refeição extra da manhã" {...field} className="text-[13px]" />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
@@ -166,21 +166,6 @@ export function AddMeal() {
                                             )} />
                                     </div>
 
-                                    <CardTitle className="text-left text-[13px]">Extra da tarde</CardTitle>
-                                    <div className="flex justify-between gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="extras2"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="Extra da tarde" {...field} className="text-[13px]" />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                    </div>
-
                                     <CardTitle className="text-left text-[13px]">Sobremesa & Lanche</CardTitle>
                                     <div className="flex justify-between gap-4">
                                         <FormField
@@ -201,6 +186,21 @@ export function AddMeal() {
                                                 <FormItem className="w-full">
                                                     <FormControl>
                                                         <Input placeholder="Lanche" className="text-[13px]" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
+
+                                    <CardTitle className="text-left text-[13px]">Refeição extra da tarde</CardTitle>
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="extras2"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Refeição extra da tarde" {...field} className="text-[13px]" />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>

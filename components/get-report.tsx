@@ -62,6 +62,7 @@ type Report = {
   vomitos: string,
   vomitosNr: string,
   febres: string,
+  febresNr: string,
   message: string,
   email?: string,
 }
@@ -272,11 +273,11 @@ const GetReport: React.FC = () => {
                           student_name={data.student_name} behavior={data.behavior}
                           email={data.email} id={data.id} created_at={data.created_at}
                           pequenoAlmoco={data.pequeno_almoco} porcaoPequenoAlmoco={data.porcao_pequeno_almoco}
-                          almoco1={data.almoco1} porcaoAlmoco1={data.porcao_almoco1} almoco2={data.porcao_almoco2}
+                          almoco1={data.almoco1} porcaoAlmoco1={data.porcao_almoco1} almoco2={data.almoco2}
                           porcaoAlmoco2={data.porcao_almoco2} sobremesa={data.sobremesa} porcaoSobremesa={data.porcao_sobremesa}
                           lanche={data.lanche} porcaoLanche={data.porcao_lanche} extras1={data.extras1} porcaoExtras1={data.porcao_extras1}
-                          extras2={data.extras2} porcaoExtras2={data.porcao_extras2} fezes={data.fezes}
-                          vomitos={data.vomitos} febres={data.febres} message={data.message} fezesNr={data.nr_fezes} vomitosNr={data.nr_vomitos} />
+                          extras2={data.extras2} porcaoExtras2={data.porcao_extras2} fezes={data.fezes} vomitos={data.vomitos} 
+                          febres={data.febres} message={data.message} fezesNr={data.nr_fezes} vomitosNr={data.nr_vomitos} febresNr={data.nr_febres} />
                       </DialogContent>
                     </Dialog>
                     {/* <Button variant="link" className="flex items-center text-blue-400 text-[13px] px-2">
@@ -439,7 +440,7 @@ const GetReport: React.FC = () => {
     doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
 
     doc.setFontSize(15);
-    doc.text('Relatório de Refeições', 75, 18);
+    doc.text('Relatório diário', 75, 18);
     doc.setFontSize(10);
     doc.setTextColor("#666666");
     doc.text(`Data: ${data?.createdAtIntDTF}`, 75, 22);
@@ -451,21 +452,21 @@ const GetReport: React.FC = () => {
 
     // Generate the table
     autoTable(doc, {
-      head: [["Pequeno-almoço", "Almoço: 1º", "Almoço: 2º", "Sobremesa", "Lanche", "Extras: 1º", "Extras: 2º"]],
+      head: [["Pequeno-almoço", "Extra/Manhã", "1º Almoço", "2º Almoço", "Sobremesa", "Lanche", "Extra/Tarde"]],
       theme: 'striped',
       headStyles: {fillColor : [18, 105, 24]},
       styles: {
-        fontSize: 8
+        fontSize: 9
       },
       margin: { top: 28 },
       body: [
-        [`${data?.pequeno_almoco}`, `${data?.almoco1}`, `${data?.almoco2}`, `${data?.sobremesa}`, `${data?.lanche}`, `${data?.extras1}`, `${data?.extras2}`],
-        [`${data?.porcao_pequeno_almoco}`, `${data?.porcao_almoco1}`, `${data?.porcao_almoco2}`, `${data?.porcao_sobremesa}`, `${data?.porcao_lanche}`, `${data?.porcao_extras1}`, `${data?.porcao_extras2}`],
+        [`${data?.pequeno_almoco}`, `${data?.extras1}`, `${data?.almoco1}`, `${data?.almoco2}`, `${data?.sobremesa}`, `${data?.lanche}`, `${data?.extras2}`],
+        [`${data?.porcao_pequeno_almoco}`, `${data?.porcao_extras1}`, `${data?.porcao_almoco1}`, `${data?.porcao_almoco2}`, `${data?.porcao_sobremesa}`, `${data?.porcao_lanche}`, `${data?.porcao_extras2}`],
       ],
     })
 
     doc.setTextColor("#222222");
-    doc.text(`Fezes: ${data?.fezes}             Vômitos: ${data?.vomitos}             Febres: ${data?.febres}`, 14, 55);
+    doc.text(`Fezes: ${data?.fezes}${data?.nr_fezes > 0 ? (': '+ data?.nr_fezes + 'x') : ''}             Vômitos: ${data?.vomitos}${data?.nr_vomitos > 0 ? (': '+ data?.nr_vomitos + 'x') : ''}             Febres: ${data?.febres}${data?.nr_febres > 0 ? (': '+ data?.nr_febres + '° C') : ''}`, 14, 55);
     doc.text(`Outras ocorrências: ${data?.message}`, 14, 65);
 
     setTimeout(async () => {
