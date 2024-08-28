@@ -117,7 +117,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
               <NavigationMenuLink
                 style={{
                   ["color" as any]: `${
-                    pathName === "/home" ? "#000" : "#cccccc"
+                    pathName === "/home" ? "#126918" : "#cccccc"
                   }`,
                   ["backgroundColor" as any]: `${
                     pathName === "/home" ? "" : "transparent"
@@ -134,7 +134,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
               <NavigationMenuLink
                 style={{
                   ["color" as any]: `${
-                    pathName === "/report" ? "#000" : "#cccccc"
+                    pathName === "/report" ? "#126918" : "#cccccc"
                   }`,
                   ["backgroundColor" as any]: `${
                     pathName === "/report" ? "" : "transparent"
@@ -151,7 +151,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
         <Link href="/students" legacyBehavior passHref>
           <NavigationMenuLink
             style={{
-              ["color" as any]: `${pathName === "/students" ? "#000" : "#cccccc"
+              ["color" as any]: `${pathName === "/students" ? "#126918" : "#cccccc"
                 }`,
               ["backgroundColor" as any]: `${pathName === "/students" ? "" : "transparent"
                 }`,
@@ -166,9 +166,10 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
       </NavigationMenu> 
 
         {props.permLevel === "admin"
-        ? <div className="flex items-center gap-4">
+        ? <div className="flex items-center gap-2">
             <AddStudent />
             <AddMeal />
+            <Button variant="outline">BroadCast</Button>
           </div>
         : <div></div>
       }

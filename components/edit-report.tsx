@@ -107,6 +107,7 @@ export function EditReport(data: Report) {
     const [loading, setLoading] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [deleting, setDeleting] = useState(false)
+    const [disabled, setDisabled] = useState(true)
     const [saving, setSaving] = useState(false)
     const [students, setStudents] = useState<Student[]>([])
   const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -240,6 +241,10 @@ export function EditReport(data: Report) {
                     <SheetDescription>
                         Edite a informação do aluno e clique em &#34;Actualizar&#34; assim que terminar.
                     </SheetDescription>
+                    <Button variant="outline" onClick={() => setDisabled(false)} className="w-fit mt-2">
+                      <i className="ri-edit-line mr-1 text-[14px]"></i>
+                      Editar
+                    </Button>
                 </SheetHeader>
                 <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto pb-4">
@@ -255,7 +260,7 @@ export function EditReport(data: Report) {
                       {/* <CardTitle className="text-left text-[13px]">Nome da criança</CardTitle> */}
                       <FormLabel className="text-[12px]">Nome da criança</FormLabel>
                       <FormControl>
-                        <Input defaultValue={data.student_name} placeholder={data.student_name} disabled {...field}
+                        <Input defaultValue={data.student_name} placeholder={data.student_name} disabled={disabled} {...field}
                           className="disabled:placeholder:text-[#000000] text-[13px]" />
                       </FormControl>
                       <FormMessage />
@@ -268,6 +273,7 @@ export function EditReport(data: Report) {
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Comportamento</FormLabel>
                       <Select
+                        disabled={disabled}
                         value={data.behavior}  // Use value instead of defaultValue
                         onValueChange={(e) => {
                           field.onChange(e);
@@ -296,7 +302,7 @@ export function EditReport(data: Report) {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormControl>
-                        <Input defaultValue={data.id} placeholder={data.id} disabled {...field} hidden
+                        <Input defaultValue={data.id} placeholder={data.id} disabled={disabled} {...field} hidden
                           className="disabled:placeholder:text-[#000000] text-[13px] hidden" />
                       </FormControl>
                       <FormMessage />
@@ -313,7 +319,7 @@ export function EditReport(data: Report) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Pequeno-almoço</FormLabel>
                       <FormControl>
-                        <Input placeholder={data.pequeno_almoco} className="text-[13px]" disabled {...field}
+                        <Input placeholder={data.pequeno_almoco} className="text-[13px]" disabled={disabled} {...field}
                           defaultValue={data.pequeno_almoco}
                           />
                       </FormControl>
@@ -326,7 +332,7 @@ export function EditReport(data: Report) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select disabled={disabled} onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_pequeno_almoco', e);  // Chama a função que actualiza o estado
                         }}>
@@ -356,7 +362,7 @@ export function EditReport(data: Report) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Refeição extra da manhã</FormLabel>
                       <FormControl>
-                        <Input placeholder={data.extras1} className="text-[13px]" disabled {...field}
+                        <Input placeholder={data.extras1} className="text-[13px]" disabled={disabled} {...field}
                           defaultValue={data.extras1} />
                       </FormControl>
                       <FormMessage />
@@ -368,7 +374,7 @@ export function EditReport(data: Report) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select disabled={disabled} onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_extras1', e);  // Chama a função que actualiza o estado
                         }}>
@@ -399,7 +405,7 @@ export function EditReport(data: Report) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">1º Almoço</FormLabel>
                       <FormControl>
-                        <Input placeholder={data.almoco1} className="text-[13px]" disabled {...field}
+                        <Input placeholder={data.almoco1} className="text-[13px]" disabled={disabled} {...field}
                           defaultValue={data.almoco1} />
                       </FormControl>
                       <FormMessage />
@@ -411,7 +417,7 @@ export function EditReport(data: Report) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select disabled={disabled} onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_almoco1', e);  // Chama a função que actualiza o estado
                         }}>
@@ -442,7 +448,7 @@ export function EditReport(data: Report) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">2º Almoço</FormLabel>
                       <FormControl>
-                        <Input placeholder={data.almoco2} className="text-[13px]" disabled {...field}
+                        <Input placeholder={data.almoco2} className="text-[13px]" disabled={disabled} {...field}
                           defaultValue={data.almoco2} />
                       </FormControl>
                       <FormMessage />
@@ -454,7 +460,7 @@ export function EditReport(data: Report) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select disabled={disabled} onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_almoco2', e);  // Chama a função que actualiza o estado
                         }}>
@@ -484,7 +490,7 @@ export function EditReport(data: Report) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Sobremesa</FormLabel>
                       <FormControl>
-                        <Input placeholder={data.sobremesa} className="text-[13px]" disabled {...field}
+                        <Input placeholder={data.sobremesa} className="text-[13px]" disabled={disabled} {...field}
                           defaultValue={data.sobremesa} />
                       </FormControl>
                       <FormMessage />
@@ -496,7 +502,7 @@ export function EditReport(data: Report) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select disabled={disabled} onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_sobremesa', e);  // Chama a função que actualiza o estado
                         }}>
@@ -526,7 +532,7 @@ export function EditReport(data: Report) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Lanche</FormLabel>
                       <FormControl>
-                        <Input placeholder={data.lanche} className="text-[13px]" disabled {...field}
+                        <Input placeholder={data.lanche} className="text-[13px]" disabled={disabled} {...field}
                           defaultValue={data.lanche} />
                       </FormControl>
                       <FormMessage />
@@ -538,7 +544,7 @@ export function EditReport(data: Report) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select disabled={disabled} onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_lanche', e);  // Chama a função que actualiza o estado
                         }}>
@@ -568,7 +574,7 @@ export function EditReport(data: Report) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Refeição extra da tarde</FormLabel>
                       <FormControl>
-                        <Input placeholder={data.extras2} className="text-[13px]" disabled {...field}
+                        <Input placeholder={data.extras2} className="text-[13px]" disabled={disabled} {...field}
                           defaultValue={data.extras2} />
                       </FormControl>
                       <FormMessage />
@@ -580,7 +586,7 @@ export function EditReport(data: Report) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select disabled={disabled} onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_extras2', e);  // Chama a função que actualiza o estado
                         }}>
@@ -617,7 +623,7 @@ export function EditReport(data: Report) {
                       <FormLabel className="text-[12px]">Fezes</FormLabel>
                       <Select
                           value={state.fezes}
-                        onValueChange={(e) => {
+                        disabled={disabled} onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('fezes', e);  // Chama a função que actualiza o estado
                         }} required>
@@ -645,7 +651,7 @@ export function EditReport(data: Report) {
                       <FormLabel className="text-[12px]">Vômitos</FormLabel>
                       <Select
                       value={state.vomitos}
-                        onValueChange={(e) => {
+                        disabled={disabled} onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('vomitos', e);  // Chama a função que actualiza o estado
                         }} required>
@@ -672,7 +678,7 @@ export function EditReport(data: Report) {
                       <FormLabel className="text-[12px]">Febres</FormLabel>
                       <Select
                       value={state.febres}
-                        onValueChange={(e) => {
+                        disabled={disabled} onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('febres', e);  // Chama a função que actualiza o estado
                         }} required>
@@ -703,7 +709,7 @@ export function EditReport(data: Report) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Quantas vezes?</FormLabel>
                       <FormControl>
-                        <Input placeholder={data.nr_fezes} type="number" className="text-[13px]" {...field} min={1} />
+                        <Input placeholder={data.nr_fezes} defaultValue={data.nr_fezes} type="number" className="text-[13px]" disabled={disabled} {...field} min={1} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -719,7 +725,7 @@ export function EditReport(data: Report) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Quantas vezes?</FormLabel>
                       <FormControl>
-                        <Input placeholder={data.nr_vomitos} type="number" className="text-[13px]" {...field} min={1} />
+                        <Input placeholder={data.nr_vomitos} defaultValue={data.nr_vomitos} type="number" className="text-[13px]" disabled={disabled} {...field} min={1} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -735,7 +741,7 @@ export function EditReport(data: Report) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Temperatura</FormLabel>
                       <FormControl>
-                        <Input placeholder={`${data.nr_febres}° C`} type="number" className="text-[13px]" {...field} min={1} />
+                        <Input placeholder={`${data.nr_febres}° C`} defaultValue={data.nr_febres} type="number" className="text-[13px]" disabled={disabled} {...field} min={1} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -757,9 +763,10 @@ export function EditReport(data: Report) {
                       <FormLabel className="text-[12px]">Outras ocorrências</FormLabel>
                       <FormControl>
                         <Textarea
+                          defaultValue={data.message}
                           placeholder={data.message}
                           className="resize-none text-[13px]"
-                          {...field} />
+                          disabled={disabled} {...field} />
                       </FormControl>
                       {/* <FormDescription>
                     You can <span>@mention</span> other users and organizations.

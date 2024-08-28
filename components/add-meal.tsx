@@ -89,7 +89,7 @@ export function AddMeal() {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button
+                <Button variant="outline"
                     className="hidden sm:flex items-center text-[14px]"
                 >
                     <i className="ri-restaurant-line mr-2 text-[15px]"></i>

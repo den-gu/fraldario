@@ -45,8 +45,8 @@ export function AddStudent() {
           variant="outline"
             className="hidden sm:flex items-center text-[14px]"
           >
-            {/* <i className="ri-file-add-line mr-2 text-[14px]"></i> */}
-            <i className="ri-user-3-line text-[15px] font-thin mr-2"></i>
+            <i className="ri-file-add-line mr-2 text-[14px]"></i>
+            {/* <i className="ri-user-3-line text-[15px] font-thin mr-2"></i> */}
             Aluno
           </Button>
           </DialogTrigger>
