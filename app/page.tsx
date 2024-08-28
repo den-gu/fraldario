@@ -75,7 +75,6 @@ const SignIn: React.FC = () => {
 
   return (
     <div className="h-full min-h-screen flex justify-center items-center">
-      <Toaster />
       <Form {...form}>
       <form onSubmit={form.handleSubmit(OnSubmit)} className="flex flex-col gap-4 w-full max-w-[320px] shadow-md py-6 px-5 self-center border border-slate-200 rounded-lg">
         <CardTitle className="text-center text-[18px]">O Fraldario</CardTitle>

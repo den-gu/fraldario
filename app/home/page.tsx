@@ -4,6 +4,7 @@ import NavBar from "@/components/navbar";
 import React from "react";
 import { redirect } from 'next/navigation'
 import GetStudent from "@/components/get-student";
+import NavBarMobile from "@/components/navbar-mobile";
 
 const Home: React.FC = async () => {
 
@@ -15,7 +16,8 @@ const Home: React.FC = async () => {
   return (
     (isLoggedIn ? 
         <React.Fragment>
-        <NavBar permLevel = {permissionLevel} />
+        <NavBar permLevel={permissionLevel} />
+        {/* <NavBarMobile permLevel={permissionLevel} /> */}
     <div className="flex flex-col items-center min-h-screen px-4 pt-4 pb-4 bg-white">
       <div className="w-full max-w-[700px] pt-6">
         <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-4xl">
