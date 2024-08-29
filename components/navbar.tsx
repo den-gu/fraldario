@@ -187,10 +187,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
 
         {props.permLevel === "admin"
         ? <div className="flex items-center gap-2">
-            {/* <AddStudent />
-            <AddMeal /> */}
             <Create />
-            {/* <Button variant="outline">Criar</Button> */}
           </div>
         : <div></div>
       }

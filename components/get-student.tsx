@@ -5,17 +5,6 @@ import React, { useState, useEffect } from "react"
 import { useMediaQuery } from "@react-hook/media-query"
 import { Button } from "@/components/ui/button"
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import {
   Command,
   CommandEmpty,
   CommandGroup,
@@ -33,20 +22,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { deleteStudent, getMeals, getStudents, saveReport, sendReport } from "@/lib/api"
+import { getStudents, saveReport, sendReport } from "@/lib/api"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select"
 import { Input } from "./ui/input"
-import { CardTitle } from "./ui/card"
 import { Form, FormField, FormItem, FormControl, FormMessage, FormLabel } from "./ui/form"
 import { Textarea } from "./ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import jsPDF from 'jspdf'
-import autoTable from 'jspdf-autotable'
 import { toast } from 'sonner';
 import { supabase } from "@/lib/supabaseClient"
-import { DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"
 
 
 

@@ -96,7 +96,7 @@ type Student = {
     vomitos: z.string().min(1, { message: "* Obrigatório" }),
     nr_vomitos: z.string().optional(),
     febres: z.string().min(1, { message: "* Obrigatório" }),
-    nr_febres: z.string().optional(),
+    nr_febres: z.number().or(z.string()).pipe(z.coerce.number()).optional(),
     message: z.string().max(300).optional(),
   })
 
@@ -741,7 +741,7 @@ export function EditReport(data: Report) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Temperatura</FormLabel>
                       <FormControl>
-                        <Input placeholder={`${data.nr_febres}° C`} defaultValue={data.nr_febres} type="number" className="text-[13px]" disabled={disabled} {...field} min={1} />
+                        <Input placeholder={`${data.nr_febres}° C`} defaultValue={data.nr_febres} className="text-[13px]" disabled={disabled} {...field} min={1} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

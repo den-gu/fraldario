@@ -232,7 +232,7 @@ export const saveReport = async (data: any) => {
             "Accept": "application/json"
         }
     }).then((res) => {
-        if (!res.ok) throw new Error("Failed to save message");
+        if (!res.ok) throw new Error("Failed to save report");
         return res.json();
       });
 }

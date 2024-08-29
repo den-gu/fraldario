@@ -25,15 +25,7 @@ import { toast } from "sonner"
 import { supabase } from "@/lib/supabaseClient";
 import { format } from 'date-fns';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
 import { sendReport, sendReports } from "@/lib/api"
-import { CardTitle } from "./ui/card"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { Report } from "./report";
@@ -85,6 +77,7 @@ const GetReport: React.FC = () => {
   const [sendAll, setSendAll] = useState(false)
   const [isSendingEmail, setSending] = useState(false)
   const [reports, setReports] = useState<any[]>([])
+  const [selectedDate, setSelectedDate] = useState<any>()
 
 
   const sendingHandler = (state: boolean, email: string) => {
@@ -101,22 +94,6 @@ const GetReport: React.FC = () => {
       setSending(state)
     }, 2000);
   }
-
-  //   useEffect(() => {
-  //     const getData = async () => {
-  //         setLoading(true);
-  //         try {
-  //             const response = await getReports();
-  //             const { data } = await response?.json();
-  //             setData(data);
-  //         } catch (error) {
-  //             console.error('Error fetching data:', error);
-  //         } finally {
-  //             setLoading(false);
-  //         }
-  //     };
-  //     getData();
-  // }, []);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -185,7 +162,10 @@ const GetReport: React.FC = () => {
                   <Calendar
                     mode="single"
                     selected={field.value}
-                    onSelect={field.onChange}
+                    onSelect={(e) => {
+                      field.onChange(e);
+                      setSelectedDate(e)
+                    }}
                     disabled={(date) =>
                       date > new Date() || date < new Date("1900-01-01")
                     }
@@ -261,23 +241,6 @@ const GetReport: React.FC = () => {
                   </TableCell>
                   <TableCell>{data.createdAtIntDTF}</TableCell>
                   <TableCell className="text-left p-0 flex items-center gap-1">
-                    {/* <Dialog>
-                      <DialogTrigger className="flex items-center text-blue-400 text-[13px] px-2 hover:underline">
-                        <i className="ri-eye-line mr-1 text-[13px]"></i>
-                        Ver
-                      </DialogTrigger>
-                      <DialogContent className="w-full lg:min-w-[650px] px-0 pt-8">
-                        <StudentData
-                          student_name={data.student_name} behavior={data.behavior}
-                          email={data.email} id={data.id} created_at={data.created_at}
-                          pequenoAlmoco={data.pequeno_almoco} porcaoPequenoAlmoco={data.porcao_pequeno_almoco}
-                          almoco1={data.almoco1} porcaoAlmoco1={data.porcao_almoco1} almoco2={data.almoco2}
-                          porcaoAlmoco2={data.porcao_almoco2} sobremesa={data.sobremesa} porcaoSobremesa={data.porcao_sobremesa}
-                          lanche={data.lanche} porcaoLanche={data.porcao_lanche} extras1={data.extras1} porcaoExtras1={data.porcao_extras1}
-                          extras2={data.extras2} porcaoExtras2={data.porcao_extras2} fezes={data.fezes} vomitos={data.vomitos} 
-                          febres={data.febres} message={data.message} fezesNr={data.nr_fezes} vomitosNr={data.nr_vomitos} febresNr={data.nr_febres} />
-                      </DialogContent>
-                    </Dialog> */}
                     <EditReport student_name={data.student_name} behavior={data.behavior}
                           email={data.email} id={data.id} created_at={data.created_at}
                           pequeno_almoco={data.pequeno_almoco} porcao_pequeno_almoco={data.porcao_pequeno_almoco}
@@ -287,10 +250,6 @@ const GetReport: React.FC = () => {
                           extras2={data.extras2} porcao_extras2={data.porcao_extras2} fezes={data.fezes} vomitos={data.vomitos} 
                           febres={data.febres} message={data.message} nr_fezes={data.nr_fezes} nr_vomitos={data.nr_vomitos} nr_febres={data.nr_febres}
                       />
-                    {/* <Button variant="link" className="flex items-center text-blue-400 text-[13px] px-2">
-                      <i className="ri-eye-line mr-1 text-[13px]"></i>
-                      Ver
-                    </Button> */}
                     <Button variant="link" onClick={() => downloadReport(data)} disabled={downloading} className="flex items-center text-blue-400 text-[13px] px-2">
                       {downloading ? (
                         <i className="ri-loader-line animate-spin text-[14px]"></i>
@@ -317,16 +276,10 @@ const GetReport: React.FC = () => {
                 </TableRow>
               ))}
             </TableBody>
-            {/* <TableFooter>
-            <TableRow>
-              <TableCell colSpan={4}>Total</TableCell>
-              <TableCell className="text-right">$2,500.00</TableCell>
-            </TableRow>
-          </TableFooter> */}
           </Table>
           </div>
           : <div className="flex justify-center items-center mt-20">
-            <p className="text-muted-foreground">Dados não encontrados. Tente seleccionar uma data diferente.</p>
+            <p className="text-muted-foreground">Não há resultados.</p>
           </div>}
     </Form>
   )
@@ -372,55 +325,55 @@ const GetReport: React.FC = () => {
     setDownloadAll(true)
 
     const doc = new jsPDF('l');
-    let date: string;
+    const createdAt = new Intl.DateTimeFormat('pt-BR').format(selectedDate);
+    const tableData = [];
     let image = new Image();
+
+// Loop through the reports and add each row to the tableData array
+for (const data of reports) {
+
+  tableData.push([
+    `${data?.student_name}`,
+    `${data?.behavior}`,
+    `${data?.pequeno_almoco}: ${data?.porcao_pequeno_almoco}`,
+    `${data?.extras1}: ${data?.porcao_extras1}`,
+    `${data?.almoco1}: ${data?.porcao_almoco1}`,
+    `${data?.almoco2}: ${data?.porcao_almoco2}`,
+    `${data?.sobremesa}: ${data?.porcao_sobremesa}`,
+    `${data?.extras2}: ${data?.porcao_extras2}`,
+    `${data?.lanche}: ${data?.porcao_lanche}`,
+    `${data?.fezes}${data?.nr_fezes > 0 ? `: ${data?.nr_fezes}x` : ``}`,
+    `${data?.vomitos}${data?.nr_vomitos > 0 ? `: ${data?.nr_vomitos}x` : ``}`,
+    `${data?.febres}${data?.nr_febres > 0 ? `: ${data?.nr_febres}° C` : ``}`
+  ]);
+}
 
     image.src = 'https://i.ibb.co/H4Wvchg/ofraldario.webp';
 
     doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
     
-    doc.setFontSize(15);
-    doc.text('Relatório de Refeições', 75, 18);
-    doc.setFontSize(10);
+    doc.setFontSize(13);
+    doc.text('Relatório diário', 75, 18);
+    doc.setFontSize(8);
     doc.setTextColor("#666666");
-    doc.text(`Data: `, 75, 22);
-    
-    // doc.text(`Refeição/Porção`, 14, 40);
-
-    autoTable(doc, {
-      head: [["Nome", "Comp.", "Peq.almoço", "Extras/m", "1º Almoço", "2º Almoço", "Extras/t", "Sobremesa", "Lanche", "Fezes", "Vômitos", "Febres"]],
-        theme: 'grid',
-        headStyles: {fillColor : [18, 105, 24]},
-        styles: {
-          fontSize: 8
-        },
-        margin: { top: 28, bottom: 0 },
-    })
-
-    for(const data of reports) {
-
-      date = data?.createdAtIntDTF;
+    doc.text(`Data: ${createdAt}`, 75, 22);
 
       // Generate the table
       autoTable(doc, {
+        head: [["Nome", "Comp.", "Peq.almoço", "Extra/Manhã", "1º Almoço", "2º Almoço", "Sobremesa", "Extra/Tarde", "Lanche", "Fezes", "Vômitos", "Febres"]],
+        theme: 'grid',
+        headStyles: {fillColor : [18, 105, 24], fontStyle: 'bold'},
         styles: {
-          fontSize: 8
+            fontSize: 7
         },
-        margin: { top: 0, bottom: 0 },
-        body: [
-          [`${data?.student_name}`, `${data?.behavior}`, `${data?.pequeno_almoco}`, `${data?.extras1}`, `${data?.almoco1}`, `${data?.almoco2}`, `${data?.extras2}`, `${data?.sobremesa}`, `${data?.lanche}`, `${data?.fezes}`, `${data?.vomitos}`, `${data?.febres}`],
-          [``, ``, `${data?.porcao_pequeno_almoco}`, `${data?.porcao_extras1}`, `${data?.porcao_almoco1}`, `${data?.porcao_almoco2}`, `${data?.porcao_extras2}`, `${data?.porcao_sobremesa}`, `${data?.porcao_lanche}`, `${data?.nr_fezes > 0 ? data?.nr_fezes + 'x' : ''}`, `${data?.nr_vomitos > 0 ? data?.nr_vomitos + 'x' : ''}`, ``],
-        ],
+        margin: { top: 28, bottom: 0 },
+        body: tableData,
       })
-    }
-
-    // doc.text(`Fezes: ${data?.fezes}             Vômitos: ${data?.vomitos}             Febres: ${data?.febres}`, 14, 75); + 10
-    // doc.text(`Outras ocorrências: ${data?.message}`, 14, 75);
-
+ 
     setTimeout(async () => {
       setDownloadAll(false);
       // Save the PDF
-      doc.save(`Report-${date}.pdf`);
+      doc.save(`Report-${createdAt}.pdf`);
       toast('Sucesso', {
         description: 'O relatório foi descarregado.',
         duration: 12000,
@@ -459,7 +412,7 @@ const GetReport: React.FC = () => {
 
     // Generate the table
     autoTable(doc, {
-      head: [["Pequeno-almoço", "Extra/Manhã", "1º Almoço", "2º Almoço", "Sobremesa", "Lanche", "Extra/Tarde"]],
+      head: [["Pequeno-almoço", "Extra/Manhã", "1º Almoço", "2º Almoço", "Sobremesa", "Extra/Tarde", "Lanche"]],
       theme: 'striped',
       headStyles: {fillColor : [18, 105, 24]},
       styles: {
@@ -467,8 +420,8 @@ const GetReport: React.FC = () => {
       },
       margin: { top: 28 },
       body: [
-        [`${data?.pequeno_almoco}`, `${data?.extras1}`, `${data?.almoco1}`, `${data?.almoco2}`, `${data?.sobremesa}`, `${data?.lanche}`, `${data?.extras2}`],
-        [`${data?.porcao_pequeno_almoco}`, `${data?.porcao_extras1}`, `${data?.porcao_almoco1}`, `${data?.porcao_almoco2}`, `${data?.porcao_sobremesa}`, `${data?.porcao_lanche}`, `${data?.porcao_extras2}`],
+        [`${data?.pequeno_almoco}`, `${data?.extras1}`, `${data?.almoco1}`, `${data?.almoco2}`, `${data?.sobremesa}`, `${data?.extras2}`, `${data?.lanche}`],
+        [`${data?.porcao_pequeno_almoco}`, `${data?.porcao_extras1}`, `${data?.porcao_almoco1}`, `${data?.porcao_almoco2}`, `${data?.porcao_sobremesa}`, `${data?.porcao_extras2}`, `${data?.porcao_lanche}`],
       ],
     })
 

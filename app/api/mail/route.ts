@@ -168,6 +168,14 @@ const generateEmailContent = (data: any) => {
                             <p style="margin: 0;">${data?.porcao_almoco2}</p>
                         </td>
                     </tr>
+                    <tr>
+                        <td style="padding: 0px 15px 0px 15px !important;">
+                            <p style="margin: 0;"><b>Sobremesa:</b> ${data?.sobremesa}</p>
+                        </td>
+                        <td style="padding: 0px 15px 0px 15px !important;">
+                            <p style="margin: 0;">${data?.porcao_sobremesa}</p>
+                        </td>
+                    </tr>
                     ${data?.porcao_extras2 !== ""
                         ? `<tr>
                                 <td style='padding: 0px 15px 0px 15px !important;'>
@@ -179,14 +187,6 @@ const generateEmailContent = (data: any) => {
                             </tr>`
                         : ``
                     }
-                    <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;"><b>Sobremesa:</b> ${data?.sobremesa}</p>
-                        </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.porcao_sobremesa}</p>
-                        </td>
-                    </tr>
                     <tr>
                         <td style="padding: 0px 15px 0px 15px !important;">
                             <p style="margin: 0;"><b>Lanche:</b> ${data?.lanche}</p>
@@ -219,7 +219,7 @@ const generateEmailContent = (data: any) => {
                             <p style="margin: 0;">Febres:</p>
                         </td>
                         <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.febres}</p>
+                            <p style="margin: 0;">${data?.febres} ${data?.nr_febres > 0 ? `: ${data?.nr_febres}° C` : ``}</p>
                         </td>
                     </tr>
                     <tr>
