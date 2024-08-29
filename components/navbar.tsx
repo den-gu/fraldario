@@ -31,13 +31,14 @@ import { endSession } from "@/lib/api";
 import { AddMeal } from "./add-meal";
 import Link from "next/link";
 import Image from "next/image";
+import { Create } from "./create";
 
 interface INavBar {
   permLevel: string
 }
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 font-bold transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+  "text-[16px] font-medium inline-flex h-9 w-full items-center rounded-md px-4 py-2 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
 );
 
 const NavBar: React.FC<INavBar> = (props: INavBar) => {
@@ -81,14 +82,33 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
           <div className="flex-col menu w-80 min-h-full py-4 px-4 bg-white border-r border-zinc-200">
           <div className="row flex items-center gap-4 mt-4">
             {/* <i className="ri-user-line text-[26px]"></i> */}
-            <div className="info">
-              <CardTitle>Usuário logado: {props.permLevel === "admin" ? "admin" : "user"}</CardTitle>
+            <div className="info px-3">
+              <CardTitle className="text-[16px]">{props.permLevel === "admin" ? "admin" : "user"}</CardTitle>
             </div>
           </div>
-          <div className="mt-8">
+
+
+<div className="flex flex-col lg:hidden mt-8 gap-2">
+  <Link href="/home" className={`${pathName === '/home' ? 'bg-[#f9f9f9] text-[#126918] font-semibold' : ''} text-[14px] font-medium inline-flex h-9 w-full items-center rounded-md px-4 py-2 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50`}>
+  <i className="ri-home-2-line mr-2 text-[19px]"></i>
+                Início
+            </Link>
+
+            <Link href="/report" className={`${pathName === '/report' ? 'bg-[#f9f9f9] text-[#126918]' : ''} text-[14px] font-medium inline-flex h-9 w-full items-center rounded-md px-4 py-2 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50`}>
+            <i className="ri-article-line mr-2 text-[19px]"></i>
+                Relatório
+            </Link>
+
+            <Link href="/students" className={`${pathName === '/students' ? 'bg-[#f9f9f9] text-[#126918]' : ''} text-[14px] font-medium inline-flex h-9 w-full items-center rounded-md px-4 py-2 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50`}>
+            <i className="ri-group-line mr-2 text-[19px]"></i>
+            Alunos
+          </Link>
+</div>
+
+<div className="mt-8">
           <AlertDialog>
   <AlertDialogTrigger>
-  <Button type="button" className="text-[13px] p-0 h-auto border-0 shadow-none bg-transparent hover:bg-transparent text-red-500 hover:underline" variant="destructive">
+  <Button type="button" className="text-[13px] px-3 h-auto border-0 shadow-none bg-transparent hover:bg-transparent text-red-500 hover:underline" variant="destructive">
                       <i className="ri-logout-box-line mr-2 text-[18px] text-red-500"></i>
                       Terminar sessão
                     </Button>
@@ -123,7 +143,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
                     pathName === "/home" ? "" : "transparent"
                   }`,
                 }}
-                className={`${navigationMenuTriggerStyle()} ${pathName === "/home" ? "" : ""} bg-transparent hover:bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none`}
+                className={`${navigationMenuTriggerStyle()} ${pathName === "/home" ? "font-semibold" : ""} bg-transparent hover:bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none`}
               >
                 Início
               </NavigationMenuLink>
@@ -140,7 +160,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
                     pathName === "/report" ? "" : "transparent"
                   }`,
                 }}
-                className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none`}
+                className={`${navigationMenuTriggerStyle()} ${pathName === "/report" ? "font-semibold" : ""} bg-transparent hover:bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none`}
               >
                 Relatório
               </NavigationMenuLink>
@@ -156,7 +176,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
               ["backgroundColor" as any]: `${pathName === "/students" ? "" : "transparent"
                 }`,
             }}
-            className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none`}
+            className={`${navigationMenuTriggerStyle()} ${pathName === "/students" ? "font-semibold" : ""} bg-transparent hover:bg-transparent hover:bg-text-slate-300 transition-colors hover:text-green-400 focus:outline-none`}
           >
             Alunos
             </NavigationMenuLink>
@@ -167,8 +187,9 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
 
         {props.permLevel === "admin"
         ? <div className="flex items-center gap-2">
-            <AddStudent />
-            <AddMeal />
+            {/* <AddStudent />
+            <AddMeal /> */}
+            <Create />
             {/* <Button variant="outline">Criar</Button> */}
           </div>
         : <div></div>

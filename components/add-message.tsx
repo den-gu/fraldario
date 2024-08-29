@@ -22,26 +22,24 @@ import { FormField, FormItem, FormControl, FormMessage, Form, FormLabel } from "
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { addStudent } from "@/lib/api"
+import { addStudent, sendMessage } from "@/lib/api"
 import { Toaster, toast } from 'sonner';
+import { Textarea } from "./ui/textarea"
 
 
 const formSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().min(2),
-  parent: z.string().min(2),
+  subject: z.string().min(2),
+  message: z.string().min(2),
 })
 
-export function AddStudent() {
+export function AddMessage() {
 
     const [open, setOpen] = React.useState(false)
-    const isDesktop = useMediaQuery("(min-width: 768px)")
    
-    // if (isDesktop) {
       return (
             <CreateUserForm />
       )
-    }
+}
 
 function CreateUserForm({ className }: React.ComponentProps<"form">) {
 
@@ -52,7 +50,7 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
     setTimeout(() => {
       setSubmitting(state)
       toast('Sucesso', {
-        description: 'Aluno cadastrado.',
+        description: 'Mensagem enviada.',
         duration: 5000,
         cancel: {
           label: 'Fechar',
@@ -66,9 +64,8 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      parent: "",
+      subject: "",
+      message: ""
     },
   })
 
@@ -77,7 +74,7 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
 
       try {
         submitHandler(isSubmitting)
-        await addStudent(values)
+        await sendMessage(values)
       } catch (error) {
         console.log(error)
     }
@@ -90,66 +87,49 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
                         <div className="grid gap-7 grid-cols-4">
                             <div className="col-span-4 gap-4">
                                 <div className="flex flex-col gap-3">
-                                    
-                      <FormLabel className="text-[12px]">Nome da criança</FormLabel>
-                      <div className="flex justify-between gap-4">
+                                    <div className="flex justify-between gap-4">
                                         <FormField
                                             control={form.control}
-                                            name="name"
+                                            name="subject"
                                             render={({ field }) => (
                                                 <FormItem className="w-full">
+                                                    <FormLabel className="text-[12px]">Assunto</FormLabel>
                                                     {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                                                     <FormControl>
-                                                        <Input placeholder="Nome da criança" type="text" {...field} className="text-[13px]" />
+                                                        <Input placeholder="Assunto" type="text" {...field} className="text-[13px]" />
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
                                             )} />
                                     </div>
 
-                                    
-                      <FormLabel className="text-[12px]">E-mail</FormLabel>
-                      <div className="flex justify-between gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="email"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="E-mail" type="email" {...field} className="text-[13px]" />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                    </div>
-
-                                    
-                      <FormLabel className="text-[12px]">Nome do parente</FormLabel>
-                      <div className="flex justify-between gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="parent"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="Nome do parente" type="text" {...field} className="text-[13px]" />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
+                                    <div className="flex justify-between gap-4">
+                                    <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel className="text-[12px]">Texto</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Deixe a sua mensagem"
+                          className="resize-none text-[13px]"
+                          {...field} />
+                      </FormControl>
+                      {/* <FormDescription>
+                    You can <span>@mention</span> other users and organizations.
+                  </FormDescription> */}
+                      <FormMessage />
+                    </FormItem>
+                  )} />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                {/* <SheetFooter className="mt-4">
-                    <SheetClose asChild> */}
-                        {/* <Button type="submit" className='mt-5'>Guardar</Button> */}
 
                         <Button type="submit" disabled={isSubmitting} className="w-full md:w-fit flex items-center mt-4">
-                            {isSubmitting ? <i className="ri-loader-line animate-spin text-[14px]"></i> : `Guardar` }
+                            {isSubmitting ? <i className="ri-loader-line animate-spin text-[14px]"></i> : `Enviar` }
                         </Button>
-                    {/* </SheetClose>
-                </SheetFooter> */}
                 </form>
                 </Form>
       </React.Fragment>

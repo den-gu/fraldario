@@ -223,7 +223,7 @@ const generateEmailContent = (data: any) => {
                     <tr>
                         <td style="padding: 0px 15px 0px 15px !important;"><br /></td>
                     </tr>
-                    ${data?.message !== "" || data?.message !== null
+                    ${data?.message !== "" && data?.message !== null && data?.message !== undefined
                         ? `<tr>
                                 <td style="padding: 0px 15px 0px 15px !important;">
                                     <p style="margin: 0;"><b>Outras ocorrências:</b> ${data?.message}</p>

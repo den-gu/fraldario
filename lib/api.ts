@@ -52,6 +52,23 @@ export const endSession = async () => {
 }
 
 
+
+ 
+// Message
+export const sendMessage = async (data: any) => {
+    fetch("api/mail/all", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+    }).then((res) => {
+        if (!res.ok) throw new Error("Failed to send message");
+        return res.json();
+      });
+}
+
 // Students
 export const getStudents = async () => {
     try{

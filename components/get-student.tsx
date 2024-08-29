@@ -89,7 +89,7 @@ const formSchema = z.object({
   vomitos: z.string().min(1, { message: "* Obrigatório" }),
   nr_vomitos: z.string().optional(),
   febres: z.string().min(1, { message: "* Obrigatório" }),
-  nr_febres: z.string().optional(),
+  nr_febres: z.number().or(z.string()).pipe(z.coerce.number()).optional(),
   message: z.string().max(300).optional(),
 })
 
@@ -267,11 +267,11 @@ export default function GetStudent(props: any) {
       setIsLoading(!state)
     }
   
-    const sendingHandler = (state: boolean) => {
+    const sendingHandler = (state: boolean, email: string | undefined) => {
       setSaving(!state)
       setTimeout(() => {
         toast('Sucesso', {
-          description: 'A informação foi guardada.',
+          description: `Informação guardada e enviada para o email: ${email}`,
           duration: 15000,
           cancel: {
             label: 'Fechar',
@@ -318,7 +318,7 @@ export default function GetStudent(props: any) {
     async function onSubmit(values: z.infer<typeof formSchema>) {
   
       try {
-        sendingHandler(saving);
+        sendingHandler(saving, selectedStudent?.email);
         await sendReport(values);
         await saveReport(values);
       } catch (error) {
@@ -590,48 +590,6 @@ export default function GetStudent(props: any) {
                     </FormItem>
                   )} />
               </div>
-  
-              <div className="flex justify-between gap-4">
-                <FormField
-                  control={form.control}
-                  name="lanche"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Lanche</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Lanche" className="text-[13px]" disabled {...field}
-                          defaultValue={state.lanche} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                <FormField
-                  control={form.control}
-                  name="porcao_lanche"
-                  render={({ field }) => (
-                    <FormItem className="min-w-[140px]">
-                      <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
-                          field.onChange(e);  // Chama o onChange original do field
-                          updateField('porcao_lanche', e);  // Chama a função que actualiza o estado
-                        }}>
-                        <FormControl>
-                          <SelectTrigger className="w-full text-[13px]">
-                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                        <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
-                        <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-              </div>
 
               <div className="flex justify-between gap-4">
                 <FormField
@@ -669,6 +627,48 @@ export default function GetStudent(props: any) {
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
                         <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+              </div>
+  
+              <div className="flex justify-between gap-4">
+                <FormField
+                  control={form.control}
+                  name="lanche"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel className="text-[12px]">Lanche</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Lanche" className="text-[13px]" disabled {...field}
+                          defaultValue={state.lanche} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                <FormField
+                  control={form.control}
+                  name="porcao_lanche"
+                  render={({ field }) => (
+                    <FormItem className="min-w-[140px]">
+                      <FormLabel className="text-[12px]">Porção</FormLabel>
+                      <Select onValueChange={(e) => {
+                          field.onChange(e);  // Chama o onChange original do field
+                          updateField('porcao_lanche', e);  // Chama a função que actualiza o estado
+                        }}>
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                        <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -805,7 +805,7 @@ export default function GetStudent(props: any) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Temperatura</FormLabel>
                       <FormControl>
-                        <Input placeholder="..." type="number" className="text-[13px]" {...field} min={1} />
+                        <Input placeholder="..." className="text-[13px]" {...field} min={1} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

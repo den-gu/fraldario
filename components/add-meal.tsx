@@ -14,7 +14,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { Form, FormField, FormItem, FormControl, FormMessage } from "./ui/form"
+import { Form, FormField, FormItem, FormControl, FormMessage, FormLabel } from "./ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -87,30 +87,14 @@ export function AddMeal() {
 
 
     return (
-        <Sheet>
-            <SheetTrigger asChild>
-                <Button variant="outline"
-                    className="hidden sm:flex items-center text-[14px]"
-                >
-                    <i className="ri-restaurant-line mr-2 text-[15px]"></i>
-                    {/* <i className="ri-add-line text-[14px] font-thin"></i> */}
-                    Refeição
-                </Button>
-            </SheetTrigger>
-            <SheetContent className="min-w-full md:min-w-[600px]">
-                <SheetHeader>
-                    <SheetTitle>Refeição do dia</SheetTitle>
-                    <SheetDescription>
-                        Adicione a refeição do dia aqui. Clique em &#34;Guardar&#34; assim que terminar.
-                    </SheetDescription>
-                </SheetHeader>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto">
-                        <div className="grid gap-7 grid-cols-4 mt-5">
+                        <div className="grid gap-7 grid-cols-4">
                             <div className="col-span-4 gap-4">
                                 <div className="flex flex-col gap-3">
-                                    <CardTitle className="text-left text-[13px]">Pequeno-almoço</CardTitle>
-                                    <div className="flex justify-between gap-4">
+                                    
+                      <FormLabel className="text-[12px]">Pequeno-almoço</FormLabel>
+                      <div className="flex justify-between gap-4">
                                         <FormField
                                             control={form.control}
                                             name="pequenoAlmoco"
@@ -125,8 +109,9 @@ export function AddMeal() {
                                             )} />
                                     </div>
 
-                                    <CardTitle className="text-left text-[13px]">Refeição extra da manhã</CardTitle>
-                                    <div className="flex justify-between gap-4">
+                                    
+                      <FormLabel className="text-[12px]">Refeição extra da manhã</FormLabel>
+                      <div className="flex justify-between gap-4">
                                         <FormField
                                             control={form.control}
                                             name="extras1"
@@ -140,8 +125,9 @@ export function AddMeal() {
                                             )} />
                                     </div>
 
-                                    <CardTitle className="text-left text-[13px]">Almoço</CardTitle>
-                                    <div className="flex justify-between gap-4">
+                                    
+                      <FormLabel className="text-[12px]">Almoço</FormLabel>
+                      <div className="flex justify-between gap-4">
                                         <FormField
                                             control={form.control}
                                             name="almoco1"
@@ -166,8 +152,9 @@ export function AddMeal() {
                                             )} />
                                     </div>
 
-                                    <CardTitle className="text-left text-[13px]">Sobremesa & Lanche</CardTitle>
-                                    <div className="flex justify-between gap-4">
+                                    
+                      <FormLabel className="text-[12px]">Sobremesa</FormLabel>
+                      <div className="flex justify-between gap-4">
                                         <FormField
                                             control={form.control}
                                             name="sobremesa"
@@ -179,21 +166,11 @@ export function AddMeal() {
                                                     <FormMessage />
                                                 </FormItem>
                                             )} />
-                                        <FormField
-                                            control={form.control}
-                                            name="lanche"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="Lanche" className="text-[13px]" {...field} />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
                                     </div>
 
-                                    <CardTitle className="text-left text-[13px]">Refeição extra da tarde</CardTitle>
-                                    <div className="flex justify-between gap-4">
+                                    
+                      <FormLabel className="text-[12px]">Refeição extra da tarde</FormLabel>
+                      <div className="flex justify-between gap-4">
                                         <FormField
                                             control={form.control}
                                             name="extras2"
@@ -206,17 +183,28 @@ export function AddMeal() {
                                                 </FormItem>
                                             )} />
                                     </div>
+
+                                    
+                      <FormLabel className="text-[12px]">Lanche</FormLabel>
+                      <div className="flex justify-between gap-4">
+                                    <FormField
+                                            control={form.control}
+                                            name="lanche"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input placeholder="Lanche" className="text-[13px]" {...field} />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                <SheetFooter className="mt-4">
-                    <SheetClose asChild>
-                        <Button type="submit">Guardar</Button>
-                    </SheetClose>
-                </SheetFooter>
+                        <Button type="submit" className="mt-4">Guardar</Button>
                 </form>
                 </Form>
-            </SheetContent>
-        </Sheet>
     )
 }
