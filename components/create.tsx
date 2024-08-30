@@ -87,7 +87,7 @@ export function Create() {
         <Sheet>
             <SheetTrigger asChild>
                 <Button variant="outline"
-                    className="hidden sm:flex items-center text-[14px]"
+                    className="flex items-center text-[13px] lg:text-[14px]"
                 >
                     {/* <i className="ri-restaurant-line mr-2 text-[15px]"></i> */}
                     {/* <i className="ri-add-line text-[14px] font-thin"></i> */}

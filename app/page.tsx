@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input"
 import React, { useState } from "react"
 import { CardTitle } from "@/components/ui/card"
 import { initiateSession } from "@/lib/api"
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 import { useRouter } from "next/navigation"
 
 

@@ -139,22 +139,6 @@ export function EditReport(data: Report) {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-        //   student_name: data.student_name || "",
-        //   email: data.email || "",
-        //   pequeno_almoco: data.pequeno_almoco || "",
-        //   almoco1: lastMeal?.almoco1 || "",
-        //   almoco2: lastMeal?.almoco2 || "",
-        //   sobremesa: lastMeal?.sobremesa || "",
-        //   lanche: lastMeal?.lanche || "",
-        //   extras1: lastMeal?.extras1 || "",
-        //   extras2: lastMeal?.extras2 || "",
-        //   porcao_pequeno_almoco: "",
-        //   porcao_almoco1: "",
-        //   porcao_almoco2: "",
-        //   porcao_sobremesa: "",
-        //   porcao_lanche: "",
-        //   porcao_extras1: "",
-        //   porcao_extras2: "",
         id: data.id,
         student_name: data.student_name,
         email: data.email,
@@ -241,7 +225,7 @@ export function EditReport(data: Report) {
                     <SheetDescription>
                         Edite a informação do aluno e clique em &#34;Actualizar&#34; assim que terminar.
                     </SheetDescription>
-                    <Button variant="outline" onClick={() => setDisabled(false)} className="w-fit mt-2">
+                    <Button variant="outline" onClick={() => setDisabled(false)} className="md:w-fit mt-2">
                       <i className="ri-edit-line mr-1 text-[14px]"></i>
                       Editar
                     </Button>
@@ -748,7 +732,7 @@ export function EditReport(data: Report) {
                   )} />
                   : ''}
               </div>
-            </div> : ''
+            </div> : '' 
           }
 
           <div className="grid grid-cols-4 mt-3">

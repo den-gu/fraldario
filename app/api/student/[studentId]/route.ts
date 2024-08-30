@@ -15,7 +15,6 @@ export async function PUT(req: Request): Promise<NextResponse> {
             if(!error) {
              console.log("Informação actualizada.")
             }
-            console.log(error);
             
          } catch (error) {
              console.log(error)        

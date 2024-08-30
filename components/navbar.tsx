@@ -70,7 +70,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
           </label>
 
           <Link href="/">
-            <Image src="https://i.ibb.co/H4Wvchg/ofraldario.webp" width={140} height={25} alt="Fraldario Logo" />
+            <Image src="https://i.ibb.co/H4Wvchg/ofraldario.webp" width={130} height={20} alt="Fraldario Logo" />
           </Link>
         </div>
         <div className="drawer-side z-20">
@@ -99,10 +99,12 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
                 Relatório
             </Link>
 
-            <Link href="/students" className={`${pathName === '/students' ? 'bg-[#f9f9f9] text-[#126918]' : ''} text-[14px] font-medium inline-flex h-9 w-full items-center rounded-md px-4 py-2 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50`}>
-            <i className="ri-group-line mr-2 text-[19px]"></i>
-            Alunos
-          </Link>
+            {props.permLevel === "admin" ?
+              <Link href="/students" className={`${pathName === '/students' ? 'bg-[#f9f9f9] text-[#126918]' : ''} text-[14px] font-medium inline-flex h-9 w-full items-center rounded-md px-4 py-2 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50`}>
+              <i className="ri-group-line mr-2 text-[19px]"></i>
+              Alunos
+            </Link>
+            : ''}
 </div>
 
 <div className="mt-8">

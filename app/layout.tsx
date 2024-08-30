@@ -3,13 +3,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "remixicon/fonts/remixicon.css";
 import { Toaster } from "sonner";
-import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 import Providers from './providers';
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Fraldario / Home",
+  title: "Fraldario",
   description: "- A escola que é a escolha.",
 };
 
