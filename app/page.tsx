@@ -23,11 +23,11 @@ import { useRouter } from "next/navigation"
 
 
 const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  username: z.string().min(1, {
+    message: "Digite o nome do usuário.",
   }),
-  password: z.string().min(2, {
-    message: "Password must be at least 2 characters.",
+  password: z.string().min(1, {
+    message: "Digite a senha.",
   }),
 })
 

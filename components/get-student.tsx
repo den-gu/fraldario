@@ -32,6 +32,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { toast } from 'sonner';
 import { supabase } from "@/lib/supabaseClient"
+import { Card, CardHeader, CardTitle, CardContent } from "./ui/card"
 
 
 
@@ -45,7 +46,7 @@ type Meal = {
   pequeno_almoco: string | undefined;
   almoco1: string | undefined;
   almoco2: string | undefined;
-  sobremesa: string | undefined; 
+  sobremesa: string | undefined;
   lanche: string | undefined;
   extras1: string | undefined,
   extras2: string | undefined,
@@ -81,12 +82,12 @@ const formSchema = z.object({
 
 export default function GetStudent(props: any) {
 
-    const [open, setOpen] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
-    const [deleting, setDeleting] = useState(false)
-    const [saving, setSaving] = useState(false)
-    const [students, setStudents] = useState<Student[]>([])
+  const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [students, setStudents] = useState<Student[]>([])
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(
     null
@@ -96,16 +97,16 @@ export default function GetStudent(props: any) {
 
   useEffect(() => {
     const getData = async () => {
-        setLoading(true);
-        try {
-            const response = await getStudents();
-            const { data } = await response?.json();
-            setStudents(data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        } finally {
-            setLoading(false);
-        }
+      setLoading(true);
+      try {
+        const response = await getStudents();
+        const { data } = await response?.json();
+        setStudents(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     const fetchLastMeal = async () => {
@@ -125,60 +126,60 @@ export default function GetStudent(props: any) {
 
     fetchLastMeal();
     getData();
-}, []);
- 
+  }, []);
+
   if (isDesktop) {
     return (
       <div>
         <Popover open={open} onOpenChange={setOpen}>
+          <div className="flex items-center relative">
+            <PopoverTrigger asChild className="flex-1 cursor-text">
+              <Button variant="secondary" className="w-full justify-start">
+                <div className="flex items-center gap-2 text-[13px]">
+                  <i className="ri-search-line text-[16px]"></i>
+                  {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+                </div>
+              </Button>
+            </PopoverTrigger>
+            {selectedStudent ?
+              <Button variant="secondary" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none">
+                <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
+              </Button> : ''}
+          </div>
+          <PopoverContent className="w-[200px] p-0" align="start">
+            <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
+          </PopoverContent>
+        </Popover>
+        <StudentData></StudentData>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <Drawer open={open} onOpenChange={setOpen}>
         <div className="flex items-center relative">
-          <PopoverTrigger asChild className="flex-1 cursor-text">
-            <Button variant="secondary" className="w-full justify-start">
+          <DrawerTrigger asChild className="cursor-text">
+            <Button variant="outline" className="w-full justify-start">
               <div className="flex items-center gap-2 text-[13px]">
                 <i className="ri-search-line text-[16px]"></i>
                 {selectedStudent ? selectedStudent.name : 'Pesquisar'}
               </div>
             </Button>
-          </PopoverTrigger>
-          {selectedStudent ? 
-          <Button variant="secondary" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none">
-          <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
-        </Button> : ''}
+          </DrawerTrigger>
+          {selectedStudent ?
+            <Button variant="outline" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none border-l-0 rounded-tl-none rounded-bl-none">
+              <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
+            </Button> : ''}
         </div>
-        <PopoverContent className="w-[200px] p-0" align="start">
-          <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
-        </PopoverContent>
-      </Popover>
-      <StudentData></StudentData>
-      </div>
-    )
-  }
- 
-  return (
-    <div>
-      <Drawer open={open} onOpenChange={setOpen}>
-      <div className="flex items-center relative">
-      <DrawerTrigger asChild className="cursor-text">
-        <Button variant="outline" className="w-full justify-start">
-        <div className="flex items-center gap-2 text-[13px]">
-                <i className="ri-search-line text-[16px]"></i>
-                {selectedStudent ? selectedStudent.name : 'Pesquisar'}
-              </div>
-        </Button>
-      </DrawerTrigger>
-      {selectedStudent ? 
-          <Button variant="outline" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none border-l-0 rounded-tl-none rounded-bl-none">
-          <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
-        </Button> : ''}
-        </div>
-      <DrawerContent>
-        <div className="mt-4 border-t">
-          <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
-        </div>
-      </DrawerContent>
-    </Drawer>
+        <DrawerContent>
+          <div className="mt-4 border-t">
+            <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
+          </div>
+        </DrawerContent>
+      </Drawer>
 
-    <StudentData></StudentData>
+      <StudentData></StudentData>
     </div>
   )
 
@@ -200,21 +201,21 @@ export default function GetStudent(props: any) {
           </CommandEmpty>
           <CommandGroup>
             {students
-            ? students.map((student) => (
-              <CommandItem
-                key={student.id}
-                value={student.name}
-                onSelect={(value) => {
-                  setSelectedStudent(
-                    students.find((priority) => priority.id === student.id) || null
-                  )
-                  setOpen(false)
-                }}
-              >
-                {student.name}
-              </CommandItem>
-            ))
-            : <i className="ri-loader-line animate-spin text-[14px]"></i>}
+              ? students.map((student) => (
+                <CommandItem
+                  key={student.id}
+                  value={student.name}
+                  onSelect={(value) => {
+                    setSelectedStudent(
+                      students.find((priority) => priority.id === student.id) || null
+                    )
+                    setOpen(false)
+                  }}
+                >
+                  {student.name}
+                </CommandItem>
+              ))
+              : <i className="ri-loader-line animate-spin text-[14px]"></i>}
           </CommandGroup>
         </CommandList>
       </Command>
@@ -224,7 +225,7 @@ export default function GetStudent(props: any) {
   function StudentData({ className }: React.ComponentProps<"form">) {
 
     // const [isSubmitting, setSubmitting] = useState(false)
-  
+
     // Declarando múltiplos estados como propriedades de um objecto
     const [state, setState] = useState({
       student_name: selectedStudent?.name || "",
@@ -247,11 +248,11 @@ export default function GetStudent(props: any) {
       vomitos: "",
       febres: "",
     })
-  
+
     const loadHandler = (state: boolean) => {
       setIsLoading(!state)
     }
-  
+
     const sendingHandler = (state: boolean, email: string | undefined) => {
       setSaving(!state)
       setTimeout(() => {
@@ -266,7 +267,7 @@ export default function GetStudent(props: any) {
         setSaving(state)
       }, 2000);
     }
-  
+
     // Modificando um dos estados
     const updateField = (field: any, value: any) => {
       setState((prevState) => ({
@@ -274,7 +275,7 @@ export default function GetStudent(props: any) {
         [field]: value,
       }));
     };
-  
+
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
@@ -297,11 +298,11 @@ export default function GetStudent(props: any) {
         porcao_extras2: "",
       },
     })
-  
-  
+
+
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
-  
+
       try {
         sendingHandler(saving, selectedStudent?.email);
         await sendReport(values);
@@ -310,11 +311,13 @@ export default function GetStudent(props: any) {
         console.log(error)
       }
     }
-  
-  
+
+
     return (
       selectedStudent ? (
-        <Form {...form}>
+        <Card className="mt-5">
+          <CardContent className="space-y-2">
+          <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto pb-4">
           <div className="grid gap-7 grid-cols-4 mt-5">
             <div className="col-span-4">
@@ -854,6 +857,8 @@ export default function GetStudent(props: any) {
           </div> */}
         </form>
       </Form>
+          </CardContent>
+        </Card>
       ) : <></>
     )
   }

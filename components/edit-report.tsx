@@ -19,12 +19,13 @@ import { addMeal, updateReport } from "@/lib/api"
 import { useMediaQuery } from "@react-hook/media-query"
 import { deleteStudent, getMeals, getStudents, saveReport, sendReport } from "@/lib/api"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select"
-import { CardTitle } from "./ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Form, FormField, FormItem, FormControl, FormMessage, FormLabel } from "./ui/form"
 import { Textarea } from "./ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { AddStudent } from "./add-student"
 
 
 type Report = {
@@ -103,35 +104,27 @@ type Student = {
 export function EditReport(data: Report) {
 
     const [isSubmitting, setSubmitting] = useState(false)
-    const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
-    const [deleting, setDeleting] = useState(false)
+    const [updating, setUpdating] = useState(false)
     const [disabled, setDisabled] = useState(true)
     const [saving, setSaving] = useState(false)
-    const [students, setStudents] = useState<Student[]>([])
-  const isDesktop = useMediaQuery("(min-width: 768px)")
-  const [selectedStudent, setSelectedStudent] = useState<Student | null>(
-    null
-  )
-  const [lastMeal, setLastMeal] = useState<Meal | null>(null);
 
     const loadHandler = (state: boolean) => {
         setLoading(!state)
     }
 
-    const sendingHandler = (state: boolean) => {
-        setSubmitting(!state)
+    const updatingHandler = (state: boolean) => {
+        setUpdating(!state)
         setTimeout(() => {
             toast('Sucesso', {
-                description: 'A informação foi modificada.',
+                description: 'A informação foi actualizada.',
                 duration: 12000,
                 cancel: {
                     label: 'Fechar',
                     onClick: () => console.log('Cancel!'),
                 },
             })
-            setSubmitting(state)
+            setUpdating(state)
         }, 2000);
     }
 
@@ -203,7 +196,8 @@ export function EditReport(data: Report) {
         console.log(values)
         
         try {
-              sendingHandler(loading);
+          setDisabled(true)
+          updatingHandler(loading);
               await updateReport(values);
         } catch (error) {
             console.log(error)
@@ -230,7 +224,15 @@ export function EditReport(data: Report) {
                       Editar
                     </Button>
                 </SheetHeader>
-                <Form {...form}>
+                <Card className="mt-5">
+                            {/* <CardHeader>
+                                <CardTitle>Aluno</CardTitle> */}
+                                {/* <CardDescription>
+              Change your password here. After saving, you will be logged out.
+            </CardDescription> */}
+                            {/* </CardHeader> */}
+                            <CardContent className="">
+                            <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto pb-4">
           <div className="grid gap-7 grid-cols-4 mt-5">
             <div className="col-span-4">
@@ -762,13 +764,15 @@ export function EditReport(data: Report) {
             </div>
           </div>
   
-            <Button type="submit" disabled={saving} className="w-full md:w-fit flex items-center text-[13px] mt-5">
-              {saving ? <i className="ri-loader-line animate-spin text-[14px]"></i> : `Actualizar` }
+            <Button type="submit" disabled={disabled} className="w-full md:w-fit flex items-center text-[13px] mt-5">
+              {updating ? <i className="ri-loader-line animate-spin text-[14px]"></i> : `Actualizar` }
             </Button>
             {/* </div>
           </div> */}
         </form>
       </Form>
+                            </CardContent>
+                        </Card>
             </SheetContent>
         </Sheet>
     )

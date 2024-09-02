@@ -185,7 +185,7 @@ const GetReport: React.FC = () => {
         </div>
         : reports.length !== 0
           ? <div>
-          <div className="flex items-center gap-1 mt-4">
+          <div className="flex items-center gap-1 mt-5">
             <b className="text-muted-foreground mr-3">Total: {reports.length}</b>
             <Button variant="link" onClick={() => downloadAllReports()} disabled={downloadAll} className="text-blue-400 text-[13px] h-0 py-0 px-2">
             {downloadAll ? (
@@ -208,7 +208,7 @@ const GetReport: React.FC = () => {
               )}
           </Button>
           </div>
-            <Table className="rounded-sm mt-3">
+            <Table className="rounded-sm overflow-hidden mt-2">
             {
 
             }
@@ -217,7 +217,7 @@ const GetReport: React.FC = () => {
             <TableHeader className="bg-zinc-200/50 border border-zinc-200 text-[13px]">
               <TableRow>
                 {/* <TableHead className="w-[100px]">Código</TableHead> */}
-                <TableHead className="max-w-14"># ID</TableHead>
+                <TableHead className="max-w-14">#ID</TableHead>
                 <TableHead>Nome</TableHead>
                 {/* <TableHead>E-mail</TableHead> */}
                 <TableHead>Hora</TableHead>
@@ -404,11 +404,6 @@ for (const data of reports) {
     doc.setFontSize(10);
     doc.setTextColor("#666666");
     doc.text(`Data: ${data?.createdAtIntDTF}`, 75, 22);
-    // doc.text(`Data: ${data?.createdAtIntDTF}`, 190, 25, { align: 'right' });
-    // doc.text(`Nome da criança: ${data?.student_name}`, 14, 30);
-    // doc.text(`Comportamento: ${data?.behavior}`, 190, 30, { align: 'right' });
-
-    // doc.text(`Refeição/Porção`, 14, 40);
 
     // Generate the table
     autoTable(doc, {
@@ -455,7 +450,6 @@ function extractTime(timestamp: any) {
   const date = new Date(timestamp);
   const hr = date.getHours();
   const min = date.getMinutes();
-  const sec = date.getSeconds();
 
   return (
     <span>{hr < 10 ? `0${hr}` : hr}:{min < 10 ? `0${min}` : min}</span>

@@ -231,7 +231,7 @@ if (isDesktop) {
           <i className="ri-loader-line animate-spin text-[14px]"></i>
         </div>
         : <div>
-          <div className="flex items-center gap-5 mt-4">
+          <div className="flex items-center gap-5 mt-5">
             <b className="text-muted-foreground">Total: {students.length}</b>
             {/* <Button variant="link" disabled={downloadAll} className="text-blue-400 text-[13px] h-0 py-0 px-2">
             {downloadAll ? (
@@ -244,12 +244,12 @@ if (isDesktop) {
               )}
           </Button> */}
           </div>
-            <Table className="rounded-sm mt-3">
+            <Table className="rounded-sm overflow-hidden mt-2">
             {/* <TableCaption>A list of your recent alunos.</TableCaption> */}
             <TableHeader className="bg-zinc-200/50 border border-zinc-200 text-[13px]">
               <TableRow>
                 {/* <TableHead className="w-[100px]">Código</TableHead> */}
-                <TableHead className="max-w-14"># ID</TableHead>
+                <TableHead className="max-w-14">#ID</TableHead>
                 <TableHead>Nome</TableHead>
                 <TableHead>E-mail</TableHead>
                 <TableHead>Parente</TableHead>
