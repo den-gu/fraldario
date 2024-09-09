@@ -415,7 +415,7 @@ export default function GetStudent(props: any) {
                   name="extras1"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Refeição extra da manhã</FormLabel>
+                      <FormLabel className="text-[12px]">Refeição especial</FormLabel>
                       <FormControl>
                         <Input placeholder={state.extras1} className="text-[13px]" disabled {...field}
                           defaultValue={state.extras1} />
@@ -585,7 +585,7 @@ export default function GetStudent(props: any) {
                   name="extras2"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Refeição extra da tarde</FormLabel>
+                      <FormLabel className="text-[12px]">Refeição especial</FormLabel>
                       <FormControl>
                         <Input placeholder={state.extras2} className="text-[13px]" disabled {...field}
                           defaultValue={state.extras2} />

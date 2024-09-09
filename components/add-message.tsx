@@ -25,6 +25,7 @@ import { z } from "zod"
 import { addStudent, sendMessage } from "@/lib/api"
 import { Toaster, toast } from 'sonner';
 import { Textarea } from "./ui/textarea"
+import { Label } from "./ui/label"
 
 
 const formSchema = z.object({
@@ -83,7 +84,7 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
     return (
       <React.Fragment>
             <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto" encType="multipart/form-data">
                         <div className="grid gap-7 grid-cols-4">
                             <div className="col-span-4 gap-4">
                                 <div className="flex flex-col gap-3">
@@ -123,13 +124,21 @@ function CreateUserForm({ className }: React.ComponentProps<"form">) {
                     </FormItem>
                   )} />
                                     </div>
+
                                 </div>
                             </div>
                         </div>
 
-                        <Button type="submit" disabled={isSubmitting} className="w-full md:w-fit flex items-center mt-4">
+                        <div className="flex w-full max-w-sm items-center gap-1.5 mt-4">
+                        <Button type="submit" disabled={isSubmitting} className="w-full md:w-fit flex items-center">
                             {isSubmitting ? <i className="ri-loader-line animate-spin text-[14px]"></i> : `Enviar` }
                         </Button>
+      <Label htmlFor="attachment" className="p-2 hover:cursor-pointer hover:bg-slate-100/80 rounded-md">
+      <i className="ri-attachment-line text-[20px]"></i>
+      </Label>
+      {/* <FormLabel className="text-[12px]">Anexo</FormLabel> */}
+      <Input id="attachment" type="file" className="" />
+    </div>
                 </form>
                 </Form>
       </React.Fragment>

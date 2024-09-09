@@ -24,11 +24,21 @@ import { addMeal } from "@/lib/api"
 
 
 const formSchema = z.object({
-    pequenoAlmoco: z.string().optional(),
-    almoco1: z.string().optional(),
-    almoco2: z.string().optional(),
-    sobremesa: z.string().optional(),
-    lanche: z.string().optional(),
+    pequeno_almoco_A: z.string().optional(),
+    pequeno_almoco_B: z.string().optional(),
+    pequeno_almoco_C: z.string().optional(),
+    almoco1_A: z.string().optional(),
+    almoco1_B: z.string().optional(),
+    almoco1_C: z.string().optional(),
+    almoco2_A: z.string().optional(),
+    almoco2_B: z.string().optional(),
+    almoco2_C: z.string().optional(),
+    sobremesa_A: z.string().optional(),
+    sobremesa_B: z.string().optional(),
+    sobremesa_C: z.string().optional(),
+    lanche_A: z.string().optional(),
+    lanche_B: z.string().optional(),
+    lanche_C: z.string().optional(),
     extras1: z.string().optional(),
     extras2: z.string().optional(),
 })
@@ -37,6 +47,12 @@ export function AddMeal() {
 
     const [isSubmitting, setSubmitting] = useState(false)
     const [loading, setLoading] = useState(false)
+
+    let [pCounter, setPCounter] = useState(0)
+    let [am1Counter, setAm1Counter] = useState(0)
+    let [am2Counter, setAm2Counter] = useState(0)
+    let [sbCounter, setSbCounter] = useState(0)
+    let [lnCounter, setALnCounter] = useState(0)
 
     const loadHandler = (state: boolean) => {
         setLoading(!state)
@@ -61,11 +77,11 @@ export function AddMeal() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            pequenoAlmoco: "",
-            almoco1: "",
-            almoco2: "",
-            sobremesa: "",
-            lanche: "",
+            pequeno_almoco_A: "",
+            almoco1_A: "",
+            almoco2_A: "",
+            sobremesa_A: "",
+            lanche_A: "",
             extras1: "",
             extras2: "",
         },
@@ -76,10 +92,10 @@ export function AddMeal() {
     async function onSubmit(values: z.infer<typeof formSchema>) {
 
         console.log(values)
-        
+
         try {
-              sendingHandler(loading);
-              await addMeal(values);
+            sendingHandler(loading);
+            await addMeal(values);
         } catch (error) {
             console.log(error)
         }
@@ -87,124 +103,216 @@ export function AddMeal() {
 
 
     return (
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto">
-                        <div className="grid gap-7 grid-cols-4">
-                            <div className="col-span-4 gap-4">
-                                <div className="flex flex-col gap-3">
-                                    
-                      <FormLabel className="text-[12px]">Pequeno-almoço</FormLabel>
-                      <div className="flex justify-between gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="pequenoAlmoco"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
-                                                    <FormControl>
-                                                        <Input placeholder="Pequeno-almoço" {...field} className="text-[13px]" />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                    </div>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto">
+                <div className="grid gap-7 grid-cols-4">
+                    <div className="col-span-4 gap-4">
+                        <div className="flex flex-col gap-2">
 
-                                    
-                      <FormLabel className="text-[12px]">Refeição extra da manhã</FormLabel>
-                      <div className="flex justify-between gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="extras1"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="Refeição extra da manhã" {...field} className="text-[13px]" />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                    </div>
+                            <FormLabel className="text-[12px]">Pequeno-almoço</FormLabel>
+                            <div className="flex flex-col gap-2">
+                                <FormField
+                                    control={form.control}
+                                    name="pequeno_almoco_A"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
+                                            <FormControl>
+                                                <Input placeholder="Pequeno-almoço" {...field} className="text-[13px]" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
 
-                                    
-                      <FormLabel className="text-[12px]">Almoço</FormLabel>
-                      <div className="flex justify-between gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="almoco1"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="1º Almoço" className="text-[13px]" {...field} />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                        <FormField
-                                            control={form.control}
-                                            name="almoco2"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="2º Almoço" className="text-[13px]" {...field} />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                    </div>
-
-                                    
-                      <FormLabel className="text-[12px]">Sobremesa</FormLabel>
-                      <div className="flex justify-between gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="sobremesa"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="Sobremesa" className="text-[13px]" {...field} />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                    </div>
-
-                                    
-                      <FormLabel className="text-[12px]">Refeição extra da tarde</FormLabel>
-                      <div className="flex justify-between gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="extras2"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="Refeição extra da tarde" {...field} className="text-[13px]" />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                    </div>
-
-                                    
-                      <FormLabel className="text-[12px]">Lanche</FormLabel>
-                      <div className="flex justify-between gap-4">
+                                {pCounter >= 1 ?
                                     <FormField
-                                            control={form.control}
-                                            name="lanche"
-                                            render={({ field }) => (
-                                                <FormItem className="w-full">
-                                                    <FormControl>
-                                                        <Input placeholder="Lanche" className="text-[13px]" {...field} />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )} />
-                                    </div>
+                                        control={form.control}
+                                        name="pequeno_almoco_B"
+                                        render={({ field }) => (
+                                            <FormItem className="w-full">
+                                                {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
+                                                <FormControl>
+                                                    <Input placeholder="Pequeno-almoço" {...field} className="text-[13px]" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )} /> : ''}
 
-                                </div>
+                                {pCounter >= 2 ?
+                                    <FormField
+                                        control={form.control}
+                                        name="pequeno_almoco_C"
+                                        render={({ field }) => (
+                                            <FormItem className="w-full">
+                                                {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
+                                                <FormControl>
+                                                    <Input placeholder="Pequeno-almoço" {...field} className="text-[13px]" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )} /> : ''}
+
+                                <Button variant="link" type="button" onClick={() => setPCounter(++pCounter)} className="w-fit text-blue-400 hover:no-underline p-0 h-auto text-[11px] mt-0 mb-2">
+                                    <i className="ri-add-line"></i>
+                                    Adicionar um campo
+                                </Button>
                             </div>
+
+                            {/* <FormLabel className="text-[12px]">Pequeno-almoço</FormLabel>
+                            <div className="flex justify-between gap-4">
+                                <FormField
+                                    control={form.control}
+                                    name="pequeno_almoco_A"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="Pequeno-almoço" {...field} className="text-[13px]" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                            </div> */}
+
+
+                            <FormLabel className="text-[12px]">Refeição especial</FormLabel>
+                            <div className="flex flex-col mb-2">
+                                <FormField
+                                    control={form.control}
+                                    name="extras1"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="Refeição especial" {...field} className="text-[13px]" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                            </div>
+
+
+                            <FormLabel className="text-[12px]">1º Almoço</FormLabel>
+                            <div className="flex flex-col gap-2">
+                                <FormField
+                                    control={form.control}
+                                    name="almoco1_A"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="1º Almoço" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                                    {am1Counter >= 1 ?
+                                    <FormField
+                                    control={form.control}
+                                    name="almoco1_B"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="1º Almoço" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} /> : ''}
+                                    {am1Counter >= 2 ?
+                                    <FormField
+                                    control={form.control}
+                                    name="almoco1_C"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="1º Almoço" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} /> : ''}
+                                    <Button variant="link" type="button" onClick={() => setAm1Counter(++am1Counter)} className="w-fit text-blue-400 hover:no-underline p-0 h-auto text-[11px] mt-0 mb-1">
+                                    <i className="ri-add-line"></i>
+                                    Adicionar um campo
+                                </Button>
+
+                                
+                            <FormLabel className="text-[12px]">2º Almoço</FormLabel>
+                                <FormField
+                                    control={form.control}
+                                    name="almoco2_A"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="2º Almoço" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                                    <Button variant="link" type="button" onClick={() => setPCounter(++pCounter)} className="w-fit text-blue-400 hover:no-underline p-0 h-auto text-[11px] mt-0 mb-2">
+                                    <i className="ri-add-line"></i>
+                                    Adicionar um campo
+                                </Button>
+                            </div>
+
+
+                            <FormLabel className="text-[12px]">Sobremesa</FormLabel>
+                            <div className="flex flex-col gap-2">
+                                <FormField
+                                    control={form.control}
+                                    name="sobremesa_A"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="Sobremesa" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                                    <Button variant="link" type="button" onClick={() => setPCounter(++pCounter)} className="w-fit text-blue-400 hover:no-underline p-0 h-auto text-[11px] mt-0 mb-2">
+                                    <i className="ri-add-line"></i>
+                                    Adicionar um campo
+                                </Button>
+                            </div>
+
+
+                            <FormLabel className="text-[12px]">Refeição especial</FormLabel>
+                            <div className="flex justify-between gap-4 mb-2">
+                                <FormField
+                                    control={form.control}
+                                    name="extras2"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="Refeição especial" {...field} className="text-[13px]" />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                            </div>
+
+
+                            <FormLabel className="text-[12px]">Lanche</FormLabel>
+                            <div className="flex flex-col gap-2">
+                                <FormField
+                                    control={form.control}
+                                    name="lanche_A"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="Lanche" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} />
+                                    
+                                    <Button variant="link" type="button" onClick={() => setPCounter(++pCounter)} className="w-fit text-blue-400 hover:no-underline p-0 h-auto text-[11px] mt-0 mb-2">
+                                    <i className="ri-add-line"></i>
+                                    Adicionar um campo
+                                </Button>
+                            </div>
+
                         </div>
-                        <Button type="submit" className="mt-4">Guardar</Button>
-                </form>
-                </Form>
+                    </div>
+                </div>
+                <Button type="submit" className="mt-4">Guardar</Button>
+            </form>
+        </Form>
     )
 }

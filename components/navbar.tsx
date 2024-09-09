@@ -32,6 +32,7 @@ import { AddMeal } from "./add-meal";
 import Link from "next/link";
 import Image from "next/image";
 import { Create } from "./create";
+import React from "react";
 
 interface INavBar {
   permLevel: string
@@ -94,16 +95,17 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
                 Início
             </Link>
 
-            <Link href="/report" className={`${pathName === '/report' ? 'bg-[#f9f9f9] text-[#126918]' : ''} text-[14px] font-medium inline-flex h-9 w-full items-center rounded-md px-4 py-2 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50`}>
+            {props.permLevel === "admin" ?
+            <React.Fragment>
+              <Link href="/report" className={`${pathName === '/report' ? 'bg-[#f9f9f9] text-[#126918]' : ''} text-[14px] font-medium inline-flex h-9 w-full items-center rounded-md px-4 py-2 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50`}>
             <i className="ri-article-line mr-2 text-[19px]"></i>
                 Relatório
             </Link>
-
-            {props.permLevel === "admin" ?
               <Link href="/students" className={`${pathName === '/students' ? 'bg-[#f9f9f9] text-[#126918]' : ''} text-[14px] font-medium inline-flex h-9 w-full items-center rounded-md px-4 py-2 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50`}>
               <i className="ri-group-line mr-2 text-[19px]"></i>
               Alunos
             </Link>
+            </React.Fragment>
             : ''}
 </div>
 
@@ -131,8 +133,11 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
           </div>
           </div>
         </div>
-
-        <NavigationMenu className="hidden lg:inline">
+        
+        {props.permLevel === "admin"
+        ? 
+        <React.Fragment>
+          <NavigationMenu className="hidden lg:inline">
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link href="/home" legacyBehavior passHref>
@@ -168,8 +173,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
-          {props.permLevel === "admin"
-        ? <NavigationMenuItem>
+          <NavigationMenuItem>
         <Link href="/students" legacyBehavior passHref>
           <NavigationMenuLink
             style={{
@@ -183,16 +187,23 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
             Alunos
             </NavigationMenuLink>
           </Link>
-        </NavigationMenuItem> : ''}
+        </NavigationMenuItem>
         </NavigationMenuList>
-      </NavigationMenu> 
+      </NavigationMenu>
 
-        {props.permLevel === "admin"
-        ? <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2">
+      <Create />
+      </div>
+        </React.Fragment>
+      : ''}
+
+        {/* {props.permLevel === "admin"
+        ? 
+        <div className="flex items-center gap-2">
             <Create />
           </div>
         : <div></div>
-      }
+      } */}
 
       </div>
     </nav>

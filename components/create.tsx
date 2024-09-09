@@ -111,7 +111,7 @@ export function Create() {
                     <TabsContent value="report" className="mt-5">
                         <Card>
                             <CardHeader>
-                                <CardTitle>Refeição</CardTitle>
+                                <CardTitle className="m-0">Refeição</CardTitle>
                                 {/* <CardDescription>
               Make changes to your account here. Click save when you are done.
             </CardDescription> */}
