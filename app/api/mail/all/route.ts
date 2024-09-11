@@ -2,7 +2,7 @@ import { mailOptions, transporter } from '@/config/nodemailer'
 import { getStudents } from '@/lib/api';
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
-
+import fs from 'fs'
 
 const generateEmailContent = (data: any) => {    
       return {
@@ -85,7 +85,11 @@ const generateEmailContent = (data: any) => {
 export async function POST(req: Request): Promise<NextResponse>{
 
     const supabase = createClient();
-    const values = await req.json()
+
+    const {values, file} = await req.json()
+
+    console.log(file)
+
     const { data, error } = await supabase
         .from("alunos")
         .select('email')
@@ -101,9 +105,18 @@ export async function POST(req: Request): Promise<NextResponse>{
     for(const row of data) {
         const updatedMailOptions = {
             ...mailOptions,
-            to: row.email,
+            to: "denilsondavid.me@gmail.com",
             ...generateEmailContent(values),
             subject: values.subject,
+            attachments: [
+                {
+                  filename: file, // Name of the attachment
+                //   content: new Buffer(attachment.data), // Content of the attachment (Base64 or Buffer)
+                  // stream as an attachment
+                  content: fs.createReadStream(`./public/uploads/${file}`),
+                //   contentType: attachment.type, // MIME type of the attachment (e.g., 'application/pdf', 'image/jpeg')
+                },
+              ],
         };
 
         await transporter.sendMail(updatedMailOptions);

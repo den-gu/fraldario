@@ -44,10 +44,20 @@ type Student = {
 
 type Meal = {
   pequeno_almoco: string | undefined;
+  pequeno_almoco_extra1: string | undefined;
+  pequeno_almoco_extra2: string | undefined;
   almoco1: string | undefined;
+  almoco1_extra1: string | undefined;
+  almoco1_extra2: string | undefined;
   almoco2: string | undefined;
+  almoco2_extra1: string | undefined;
+  almoco2_extra2: string | undefined;
   sobremesa: string | undefined;
+  sobremesa_extra1: string | undefined;
+  sobremesa_extra2: string | undefined;
   lanche: string | undefined;
+  lanche_extra1: string | undefined;
+  lanche_extra2: string | undefined;
   extras1: string | undefined,
   extras2: string | undefined,
 }
@@ -230,11 +240,11 @@ export default function GetStudent(props: any) {
     const [state, setState] = useState({
       student_name: selectedStudent?.name || "",
       email: selectedStudent?.email || "",
-      pequeno_almoco: lastMeal?.pequeno_almoco || "",
-      almoco1: lastMeal?.almoco1 || "",
-      almoco2: lastMeal?.almoco2 || "",
-      sobremesa: lastMeal?.sobremesa || "",
-      lanche: lastMeal?.lanche || "",
+      pequeno_almoco: "",
+      almoco1: "",
+      almoco2: "",
+      sobremesa: "",
+      lanche: "",
       extras1: lastMeal?.extras1 || "",
       extras2: lastMeal?.extras2 || "",
       porcao_pequeno_almoco: "",
@@ -282,13 +292,13 @@ export default function GetStudent(props: any) {
       defaultValues: {
         student_name: selectedStudent?.name || "",
         email: selectedStudent?.email || "",
-        pequeno_almoco: lastMeal?.pequeno_almoco || "",
-        almoco1: lastMeal?.almoco1 || "",
-        almoco2: lastMeal?.almoco2 || "",
-        sobremesa: lastMeal?.sobremesa || "",
-        lanche: lastMeal?.lanche || "",
-        extras1: lastMeal?.extras1 || "",
-        extras2: lastMeal?.extras2 || "",
+        pequeno_almoco: "",
+        almoco1: "",
+        almoco2: "",
+        sobremesa: "",
+        lanche: "",
+        extras1: lastMeal?.extras1,
+        extras2: lastMeal?.extras2,
         porcao_pequeno_almoco: "",
         porcao_almoco1: "",
         porcao_almoco2: "",
@@ -373,11 +383,29 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Pequeno-almoço</FormLabel>
-                      <FormControl>
+                      <Select
+                        value={field.value}  // Use value instead of defaultValue
+                        onValueChange={(e) => {
+                          field.onChange(e);
+                          updateField('pequeno_almoco', e);
+                        }} required>
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.pequeno_almoco}`}>{lastMeal?.pequeno_almoco}</SelectItem>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.pequeno_almoco_extra1}`}>{lastMeal?.pequeno_almoco_extra1}</SelectItem>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.pequeno_almoco_extra2}`}>{lastMeal?.pequeno_almoco_extra2}</SelectItem>
+                          {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
+                        </SelectContent>
+                      </Select>
+                      {/* <FormControl>
                         <Input placeholder="Pequeno-almoço" className="text-[13px]" disabled {...field}
                           defaultValue={state.pequeno_almoco} 
                           />
-                      </FormControl>
+                      </FormControl> */}
                       <FormMessage />
                     </FormItem>
                   )} />
@@ -416,10 +444,26 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Refeição especial</FormLabel>
-                      <FormControl>
+                      <Select
+                        value={field.value}  // Use value instead of defaultValue
+                        onValueChange={(e) => {
+                          field.onChange(e);
+                          updateField('extras1', e);
+                        }} required>
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder={lastMeal?.extras1} className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.extras1}`}>{lastMeal?.extras1}</SelectItem>
+                          {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
+                        </SelectContent>
+                      </Select>
+                      {/* <FormControl>
                         <Input placeholder={state.extras1} className="text-[13px]" disabled {...field}
                           defaultValue={state.extras1} />
-                      </FormControl>
+                      </FormControl> */}
                       <FormMessage />
                     </FormItem>
                   )} />
@@ -459,10 +503,28 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">1º Almoço</FormLabel>
-                      <FormControl>
+                      <Select
+                        value={field.value}  // Use value instead of defaultValue
+                        onValueChange={(e) => {
+                          field.onChange(e);
+                          updateField('almoco1', e);
+                        }} required>
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.almoco1}`}>{lastMeal?.almoco1}</SelectItem>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.almoco1_extra1}`}>{lastMeal?.almoco1_extra1}</SelectItem>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.almoco1_extra2}`}>{lastMeal?.almoco1_extra2}</SelectItem>
+                          {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
+                        </SelectContent>
+                      </Select>
+                      {/* <FormControl>
                         <Input placeholder="1º Almoço" className="text-[13px]" disabled {...field}
                           defaultValue={state.almoco1} />
-                      </FormControl>
+                      </FormControl> */}
                       <FormMessage />
                     </FormItem>
                   )} />
@@ -502,10 +564,28 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">2º Almoço</FormLabel>
-                      <FormControl>
+                      <Select
+                        value={field.value}  // Use value instead of defaultValue
+                        onValueChange={(e) => {
+                          field.onChange(e);
+                          updateField('almoco2', e);
+                        }} required>
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.almoco2}`}>{lastMeal?.almoco2}</SelectItem>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.almoco2_extra1}`}>{lastMeal?.almoco2_extra1}</SelectItem>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.almoco2_extra2}`}>{lastMeal?.almoco2_extra2}</SelectItem>
+                          {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
+                        </SelectContent>
+                      </Select>
+                      {/* <FormControl>
                         <Input placeholder="Almoço: 2º" className="text-[13px]" disabled {...field}
                           defaultValue={state.almoco2} />
-                      </FormControl>
+                      </FormControl> */}
                       <FormMessage />
                     </FormItem>
                   )} />
@@ -544,10 +624,28 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Sobremesa</FormLabel>
-                      <FormControl>
+                      <Select
+                        value={field.value}  // Use value instead of defaultValue
+                        onValueChange={(e) => {
+                          field.onChange(e);
+                          updateField('sobremesa', e);
+                        }} required>
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.sobremesa}`}>{lastMeal?.sobremesa}</SelectItem>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.sobremesa_extra1}`}>{lastMeal?.sobremesa_extra1}</SelectItem>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.sobremesa_extra2}`}>{lastMeal?.sobremesa_extra2}</SelectItem>
+                          {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
+                        </SelectContent>
+                      </Select>
+                      {/* <FormControl>
                         <Input placeholder="Sobremesa" className="text-[13px]" disabled {...field}
                           defaultValue={state.sobremesa} />
-                      </FormControl>
+                      </FormControl> */}
                       <FormMessage />
                     </FormItem>
                   )} />
@@ -586,10 +684,26 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Refeição especial</FormLabel>
-                      <FormControl>
+                      <Select
+                        value={field.value}  // Use value instead of defaultValue
+                        onValueChange={(e) => {
+                          field.onChange(e);
+                          updateField('extras2', e);
+                        }} required>
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder={lastMeal?.extras2} className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.extras2}`}>{lastMeal?.extras2}</SelectItem>
+                          {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
+                        </SelectContent>
+                      </Select>
+                      {/* <FormControl>
                         <Input placeholder={state.extras2} className="text-[13px]" disabled {...field}
                           defaultValue={state.extras2} />
-                      </FormControl>
+                      </FormControl> */}
                       <FormMessage />
                     </FormItem>
                   )} />
@@ -629,10 +743,28 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Lanche</FormLabel>
-                      <FormControl>
+                      <Select
+                        value={field.value}  // Use value instead of defaultValue
+                        onValueChange={(e) => {
+                          field.onChange(e);
+                          updateField('lanche', e);
+                        }} required>
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.lanche}`}>{lastMeal?.lanche}</SelectItem>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.lanche_extra1}`}>{lastMeal?.lanche_extra1}</SelectItem>
+                          <SelectItem className="text-[13px]" value={`${lastMeal?.lanche_extra2}`}>{lastMeal?.lanche_extra2}</SelectItem>
+                          {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
+                        </SelectContent>
+                      </Select>
+                      {/* <FormControl>
                         <Input placeholder="Lanche" className="text-[13px]" disabled {...field}
                           defaultValue={state.lanche} />
-                      </FormControl>
+                      </FormControl> */}
                       <FormMessage />
                     </FormItem>
                   )} />

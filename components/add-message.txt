@@ -1,0 +1,232 @@
+import React, {useState} from "react"
+ 
+import { useMediaQuery } from "@react-hook/media-query"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import { Input } from "@/components/ui/input"
+import { CardTitle } from "./ui/card"
+import { FormField, FormItem, FormControl, FormMessage, Form, FormLabel } from "./ui/form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { addStudent, sendMessage } from "@/lib/api"
+import { Toaster, toast } from 'sonner';
+import { Textarea } from "./ui/textarea"
+import { Label } from "./ui/label"
+
+
+const formSchema = z.object({
+  subject: z.string().min(2),
+  message: z.string().min(2),
+  attachment: z.string().optional(),
+})
+
+export function AddMessage() {
+
+    const [open, setOpen] = React.useState(false)
+   
+      return (
+            <CreateUserForm />
+      )
+}
+
+function CreateUserForm({ className }: React.ComponentProps<"form">) {
+
+  const [isSubmitting, setSubmitting] = useState(false)
+  const [attachment, setAttachment] = useState(null);
+  const [btnText, setBtnText] = useState('Submit');
+
+  const submitHandler = (state: boolean) => {
+    setSubmitting(!state)
+    setTimeout(() => {
+      setSubmitting(state)
+      toast('Sucesso', {
+        description: 'Mensagem enviada.',
+        duration: 5000,
+        cancel: {
+          label: 'Fechar',
+          onClick: () => console.log('Cancel!'),
+        },
+      })
+    }, 2000);
+  }
+  
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      subject: "",
+      message: ""
+    },
+  })
+
+    // 2. Define a submit handler.
+  //   async function onSubmit(values: z.infer<typeof formSchema>) {
+
+  //     try {
+  //       submitHandler(isSubmitting)
+  //       await sendMessage(values)
+  //     } catch (error) {
+  //       console.log(error)
+  //   }
+  // }
+
+
+
+//   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+//     const formData = new FormData();
+
+//     formData.append("subject", data.subject);
+//     formData.append("message", data.message);
+    
+//     // Adiciona o arquivo, se existir
+//     if (data.attachment && data.attachment[0]) {
+//         formData.append("attachment", data.attachment[0]);
+//     }
+
+//     try {
+//         await sendMessage(formData);
+//         // Handle success
+//     } catch (error) {
+//         // Handle error
+//     }
+// };
+
+
+// const FileUploadForm = () => {
+
+  // Handle file selection
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        const fileData = event.target.result.split(',')[1];
+        setAttachment({
+          // @ts-ignore
+          name: file.name,
+          type: file.type,
+          data: fileData,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+    setBtnText('Submit');
+  };
+
+  // Handle form submission
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    setBtnText('Sending...');
+
+    if (!attachment) {
+      setBtnText('Attachment missing');
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/message/', {
+        method: 'POST',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+        body: JSON.stringify({ attachment }),
+      });
+
+      if (response.ok) {
+        setAttachment(null);
+        console.log('Email sent successfully');
+        setBtnText('Submitted');
+      } else {
+        console.error('Error sending email:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+// }
+
+  
+    return (
+      <React.Fragment>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <input type="text" name="subject" id="subject" placeholder="Assunto: " />
+          <input type="text" name="message" id="message" placeholder="Message: " />
+      <input type="file" onChange={handleFileChange} />
+      <button type="submit">{btnText}</button>
+    </form>
+        {/* <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto" encType="multipart/form-data">
+                        <div className="grid gap-7 grid-cols-4">
+                            <div className="col-span-4 gap-4">
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex justify-between gap-4">
+                                        <FormField
+                                            control={form.control}
+                                            name="subject"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormLabel className="text-[12px]">Assunto</FormLabel> */}
+                                                    {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel>
+                                                    <FormControl>
+                                                        <Input placeholder="Assunto" type="text" {...field} className="text-[13px]" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )} />
+                                    </div>
+
+                                    <div className="flex justify-between gap-4">
+                                    <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel className="text-[12px]">Texto</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Deixe a sua mensagem"
+                          className="resize-none text-[13px]"
+                          {...field} />
+                      </FormControl>
+                      {/* <FormDescription>
+                    You can <span>@mention</span> other users and organizations.
+                  </FormDescription> */}
+                      {/*<FormMessage />
+                    </FormItem>
+                  )} />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex w-full max-w-sm items-center gap-1.5 mt-4">
+                        <Button type="submit" disabled={isSubmitting} className="w-full md:w-fit flex items-center">
+                            {isSubmitting ? <i className="ri-loader-line animate-spin text-[14px]"></i> : `Enviar` }
+                        </Button>
+      <Label htmlFor="attachment" className="p-2 hover:cursor-pointer hover:bg-slate-100/80 rounded-md">
+      <i className="ri-attachment-line text-[20px]"></i>
+      </Label>
+      {/* <FormLabel className="text-[12px]">Anexo</FormLabel> *}
+      <Input id="attachment" type="file" className="" />
+    </div>
+                </form>
+                </Form> */}
+      </React.Fragment>
+    )
+  }

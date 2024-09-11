@@ -24,21 +24,21 @@ import { addMeal } from "@/lib/api"
 
 
 const formSchema = z.object({
-    pequeno_almoco_A: z.string().optional(),
-    pequeno_almoco_B: z.string().optional(),
-    pequeno_almoco_C: z.string().optional(),
-    almoco1_A: z.string().optional(),
-    almoco1_B: z.string().optional(),
-    almoco1_C: z.string().optional(),
-    almoco2_A: z.string().optional(),
-    almoco2_B: z.string().optional(),
-    almoco2_C: z.string().optional(),
-    sobremesa_A: z.string().optional(),
-    sobremesa_B: z.string().optional(),
-    sobremesa_C: z.string().optional(),
-    lanche_A: z.string().optional(),
-    lanche_B: z.string().optional(),
-    lanche_C: z.string().optional(),
+    pequeno_almoco: z.string().optional(),
+    pequeno_almoco_extra1: z.string().optional(),
+    pequeno_almoco_extra2: z.string().optional(),
+    almoco1: z.string().optional(),
+    almoco1_extra1: z.string().optional(),
+    almoco1_extra2: z.string().optional(),
+    almoco2: z.string().optional(),
+    almoco2_extra1: z.string().optional(),
+    almoco2_extra2: z.string().optional(),
+    sobremesa: z.string().optional(),
+    sobremesa_extra1: z.string().optional(),
+    sobremesa_extra2: z.string().optional(),
+    lanche: z.string().optional(),
+    lanche_extra1: z.string().optional(),
+    lanche_extra2: z.string().optional(),
     extras1: z.string().optional(),
     extras2: z.string().optional(),
 })
@@ -52,7 +52,7 @@ export function AddMeal() {
     let [am1Counter, setAm1Counter] = useState(0)
     let [am2Counter, setAm2Counter] = useState(0)
     let [sbCounter, setSbCounter] = useState(0)
-    let [lnCounter, setALnCounter] = useState(0)
+    let [lnCounter, setLnCounter] = useState(0)
 
     const loadHandler = (state: boolean) => {
         setLoading(!state)
@@ -77,11 +77,11 @@ export function AddMeal() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            pequeno_almoco_A: "",
-            almoco1_A: "",
-            almoco2_A: "",
-            sobremesa_A: "",
-            lanche_A: "",
+            pequeno_almoco: "",
+            almoco1: "",
+            almoco2: "",
+            sobremesa: "",
+            lanche: "",
             extras1: "",
             extras2: "",
         },
@@ -113,7 +113,7 @@ export function AddMeal() {
                             <div className="flex flex-col gap-2">
                                 <FormField
                                     control={form.control}
-                                    name="pequeno_almoco_A"
+                                    name="pequeno_almoco"
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
@@ -127,7 +127,7 @@ export function AddMeal() {
                                 {pCounter >= 1 ?
                                     <FormField
                                         control={form.control}
-                                        name="pequeno_almoco_B"
+                                        name="pequeno_almoco_extra1"
                                         render={({ field }) => (
                                             <FormItem className="w-full">
                                                 {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
@@ -141,7 +141,7 @@ export function AddMeal() {
                                 {pCounter >= 2 ?
                                     <FormField
                                         control={form.control}
-                                        name="pequeno_almoco_C"
+                                        name="pequeno_almoco_extra2"
                                         render={({ field }) => (
                                             <FormItem className="w-full">
                                                 {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
@@ -162,7 +162,7 @@ export function AddMeal() {
                             <div className="flex justify-between gap-4">
                                 <FormField
                                     control={form.control}
-                                    name="pequeno_almoco_A"
+                                    name="pequeno_almoco"
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
@@ -194,7 +194,7 @@ export function AddMeal() {
                             <div className="flex flex-col gap-2">
                                 <FormField
                                     control={form.control}
-                                    name="almoco1_A"
+                                    name="almoco1"
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
@@ -206,7 +206,7 @@ export function AddMeal() {
                                     {am1Counter >= 1 ?
                                     <FormField
                                     control={form.control}
-                                    name="almoco1_B"
+                                    name="almoco1_extra1"
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
@@ -218,7 +218,7 @@ export function AddMeal() {
                                     {am1Counter >= 2 ?
                                     <FormField
                                     control={form.control}
-                                    name="almoco1_C"
+                                    name="almoco1_extra2"
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
@@ -236,7 +236,7 @@ export function AddMeal() {
                             <FormLabel className="text-[12px]">2º Almoço</FormLabel>
                                 <FormField
                                     control={form.control}
-                                    name="almoco2_A"
+                                    name="almoco2"
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
@@ -245,7 +245,31 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                    <Button variant="link" type="button" onClick={() => setPCounter(++pCounter)} className="w-fit text-blue-400 hover:no-underline p-0 h-auto text-[11px] mt-0 mb-2">
+                                    {am2Counter >= 1 ?
+                                    <FormField
+                                    control={form.control}
+                                    name="almoco2_extra1"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="2º Almoço" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} /> : ''}
+                                    {am2Counter >= 2 ?
+                                    <FormField
+                                    control={form.control}
+                                    name="almoco2_extra2"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="2º Almoço" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} /> : ''}
+                                    <Button variant="link" type="button" onClick={() => setAm2Counter(++am2Counter)} className="w-fit text-blue-400 hover:no-underline p-0 h-auto text-[11px] mt-0 mb-2">
                                     <i className="ri-add-line"></i>
                                     Adicionar um campo
                                 </Button>
@@ -256,7 +280,7 @@ export function AddMeal() {
                             <div className="flex flex-col gap-2">
                                 <FormField
                                     control={form.control}
-                                    name="sobremesa_A"
+                                    name="sobremesa"
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
@@ -265,7 +289,31 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                    <Button variant="link" type="button" onClick={() => setPCounter(++pCounter)} className="w-fit text-blue-400 hover:no-underline p-0 h-auto text-[11px] mt-0 mb-2">
+                                    {sbCounter >= 1 ?
+                                    <FormField
+                                    control={form.control}
+                                    name="sobremesa_extra1"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="Sobremesa" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} /> : ''}
+                                    {sbCounter >= 2 ?
+                                    <FormField
+                                    control={form.control}
+                                    name="sobremesa_extra2"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="Sobremesa" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} /> : ''}
+                                    <Button variant="link" type="button" onClick={() => setSbCounter(++sbCounter)} className="w-fit text-blue-400 hover:no-underline p-0 h-auto text-[11px] mt-0 mb-2">
                                     <i className="ri-add-line"></i>
                                     Adicionar um campo
                                 </Button>
@@ -292,7 +340,7 @@ export function AddMeal() {
                             <div className="flex flex-col gap-2">
                                 <FormField
                                     control={form.control}
-                                    name="lanche_A"
+                                    name="lanche"
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
@@ -301,8 +349,32 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
+                                    {lnCounter >= 1 ?
+                                    <FormField
+                                    control={form.control}
+                                    name="lanche_extra1"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="Lanche" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} /> : ''}
+                                    {lnCounter >= 2 ?
+                                    <FormField
+                                    control={form.control}
+                                    name="lanche_extra2"
+                                    render={({ field }) => (
+                                        <FormItem className="w-full">
+                                            <FormControl>
+                                                <Input placeholder="Lanche" className="text-[13px]" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )} /> : ''}
                                     
-                                    <Button variant="link" type="button" onClick={() => setPCounter(++pCounter)} className="w-fit text-blue-400 hover:no-underline p-0 h-auto text-[11px] mt-0 mb-2">
+                                    <Button variant="link" type="button" onClick={() => setLnCounter(++lnCounter)} className="w-fit text-blue-400 hover:no-underline p-0 h-auto text-[11px] mt-0 mb-2">
                                     <i className="ri-add-line"></i>
                                     Adicionar um campo
                                 </Button>

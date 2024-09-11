@@ -29,7 +29,7 @@ import { toast } from "sonner"
 import { addMeal } from "@/lib/api"
 import { AddMeal } from "./add-meal"
 import { AddStudent } from "./add-student"
-import { AddMessage } from "./add-message"
+import AddMessage from "./add-message"
 
 
 const formSchema = z.object({
@@ -124,7 +124,7 @@ export function Create() {
                     <TabsContent value="student" className="mt-5">
                         <Card>
                             <CardHeader>
-                                <CardTitle>Aluno</CardTitle>
+                                <CardTitle className="m-0">Aluno</CardTitle>
                                 {/* <CardDescription>
               Change your password here. After saving, you will be logged out.
             </CardDescription> */}
@@ -137,7 +137,7 @@ export function Create() {
                     <TabsContent value="message" className="mt-5">
                         <Card>
                             <CardHeader>
-                                <CardTitle>Mensagem</CardTitle>
+                                <CardTitle className="m-0">Mensagem</CardTitle>
                                 {/* <CardDescription>
               Change your password here. After saving, you will be logged out.
             </CardDescription> */}
