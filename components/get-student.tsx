@@ -396,8 +396,8 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                           <SelectItem className="text-[13px]" value={`${lastMeal?.pequeno_almoco}`}>{lastMeal?.pequeno_almoco}</SelectItem>
-                          <SelectItem className="text-[13px]" value={`${lastMeal?.pequeno_almoco_extra1}`}>{lastMeal?.pequeno_almoco_extra1}</SelectItem>
-                          <SelectItem className="text-[13px]" value={`${lastMeal?.pequeno_almoco_extra2}`}>{lastMeal?.pequeno_almoco_extra2}</SelectItem>
+                          {lastMeal?.pequeno_almoco_extra1 !== null && lastMeal?.pequeno_almoco_extra1 !== "" ? <SelectItem className="text-[13px]" value={`${lastMeal?.pequeno_almoco_extra1}`}>{lastMeal?.pequeno_almoco_extra1}</SelectItem> : ''}
+                          {lastMeal?.pequeno_almoco_extra2 !== null && lastMeal?.pequeno_almoco_extra2 !== "" ? <SelectItem className="text-[13px]" value={`${lastMeal?.pequeno_almoco_extra2}`}>{lastMeal?.pequeno_almoco_extra2}</SelectItem> : ''}
                           {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
                         </SelectContent>
                       </Select>
@@ -456,7 +456,7 @@ export default function GetStudent(props: any) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem className="text-[13px]" value={`${lastMeal?.extras1}`}>{lastMeal?.extras1}</SelectItem>
+                          {lastMeal?.extras1 !== null && lastMeal?.extras1 !== "" ? <SelectItem className="text-[13px]" value={`${lastMeal?.extras1}`}>{lastMeal?.extras1}</SelectItem> : ''}
                           {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
                         </SelectContent>
                       </Select>
@@ -516,8 +516,8 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                           <SelectItem className="text-[13px]" value={`${lastMeal?.almoco1}`}>{lastMeal?.almoco1}</SelectItem>
-                          <SelectItem className="text-[13px]" value={`${lastMeal?.almoco1_extra1}`}>{lastMeal?.almoco1_extra1}</SelectItem>
-                          <SelectItem className="text-[13px]" value={`${lastMeal?.almoco1_extra2}`}>{lastMeal?.almoco1_extra2}</SelectItem>
+                          {lastMeal?.almoco1_extra1 !== null && lastMeal?.almoco1_extra1 !== "" ? <SelectItem className="text-[13px]" value={`${lastMeal?.almoco1_extra1}`}>{lastMeal?.almoco1_extra1}</SelectItem> : ''}
+                          {lastMeal?.almoco1_extra2 !== null && lastMeal?.almoco1_extra2 !== "" ? <SelectItem className="text-[13px]" value={`${lastMeal?.almoco1_extra2}`}>{lastMeal?.almoco1_extra2}</SelectItem> : ''}
                           {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
                         </SelectContent>
                       </Select>
@@ -577,9 +577,8 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                           <SelectItem className="text-[13px]" value={`${lastMeal?.almoco2}`}>{lastMeal?.almoco2}</SelectItem>
-                          <SelectItem className="text-[13px]" value={`${lastMeal?.almoco2_extra1}`}>{lastMeal?.almoco2_extra1}</SelectItem>
-                          <SelectItem className="text-[13px]" value={`${lastMeal?.almoco2_extra2}`}>{lastMeal?.almoco2_extra2}</SelectItem>
-                          {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
+                          {lastMeal?.almoco2_extra1 !== null && lastMeal?.almoco2_extra1 !== "" ? <SelectItem className="text-[13px]" value={`${lastMeal?.almoco2_extra1}`}>{lastMeal?.almoco2_extra1}</SelectItem> : ''}
+                          {lastMeal?.almoco2_extra2 !== null && lastMeal?.almoco2_extra2 !== "" ? <SelectItem className="text-[13px]" value={`${lastMeal?.almoco2_extra2}`}>{lastMeal?.almoco2_extra2}</SelectItem> : ''}
                         </SelectContent>
                       </Select>
                       {/* <FormControl>
@@ -637,8 +636,9 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                           <SelectItem className="text-[13px]" value={`${lastMeal?.sobremesa}`}>{lastMeal?.sobremesa}</SelectItem>
-                          <SelectItem className="text-[13px]" value={`${lastMeal?.sobremesa_extra1}`}>{lastMeal?.sobremesa_extra1}</SelectItem>
-                          <SelectItem className="text-[13px]" value={`${lastMeal?.sobremesa_extra2}`}>{lastMeal?.sobremesa_extra2}</SelectItem>
+                          
+                          {lastMeal?.sobremesa_extra1 !== null && lastMeal?.sobremesa_extra1 !== "" ? <SelectItem className="text-[13px]" value={`${lastMeal?.sobremesa_extra1}`}>{lastMeal?.sobremesa_extra1}</SelectItem> : ''}
+                          {lastMeal?.sobremesa_extra2 !== null && lastMeal?.sobremesa_extra2 !== "" ? <SelectItem className="text-[13px]" value={`${lastMeal?.sobremesa_extra2}`}>{lastMeal?.sobremesa_extra2}</SelectItem> : ''}
                           {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
                         </SelectContent>
                       </Select>
@@ -756,9 +756,8 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                           <SelectItem className="text-[13px]" value={`${lastMeal?.lanche}`}>{lastMeal?.lanche}</SelectItem>
-                          <SelectItem className="text-[13px]" value={`${lastMeal?.lanche_extra1}`}>{lastMeal?.lanche_extra1}</SelectItem>
-                          <SelectItem className="text-[13px]" value={`${lastMeal?.lanche_extra2}`}>{lastMeal?.lanche_extra2}</SelectItem>
-                          {/* <SelectItem className="text-[13px]" value="Mau">Mau</SelectItem> */}
+                          {lastMeal?.lanche_extra1 !== null && lastMeal?.lanche_extra1 !== "" ? <SelectItem className="text-[13px]" value={`${lastMeal?.lanche_extra1}`}>{lastMeal?.lanche_extra1}</SelectItem> : ''}
+                          {lastMeal?.lanche_extra2 !== null && lastMeal?.lanche_extra2 !== "" ? <SelectItem className="text-[13px]" value={`${lastMeal?.lanche_extra2}`}>{lastMeal?.lanche_extra2}</SelectItem> : ''}
                         </SelectContent>
                       </Select>
                       {/* <FormControl>

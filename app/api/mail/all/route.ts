@@ -85,41 +85,71 @@ const generateEmailContent = (data: any) => {
 export async function POST(req: Request): Promise<NextResponse>{
 
     const supabase = createClient();
+    const {values, fileName, fileUrl} = await req.json()
+    // Define the bucket and file path
+    // const bucket = 'fraldario';
+    // const filePath = `${fileName}`;
 
-    const {values, file} = await req.json()
+    // Upload the file
+    // const { data, error } = await supabase
+    // .storage
+    // .from(bucket)
+    // .upload(filePath, file);
 
-    console.log(file)
+    // console.log(fileName)
 
-    const { data, error } = await supabase
-        .from("alunos")
-        .select('email')
+    // if (error) {
+    //     console.error('Error uploading file:', error);
+    // }
 
-    if (error || !data) {
-        return NextResponse.json({
-            message: "Não existem alunos na base de dados.",
-    })}
+    // Generate the public URL
+    // const { data: {publicUrl} } = supabase
+    // .storage
+    // .from(bucket)
+    // .getPublicUrl(filePath);
 
-    console.log(values)
-    console.log(data)
+    // console.log('File URL:', publicUrl);
 
-    for(const row of data) {
-        const updatedMailOptions = {
-            ...mailOptions,
-            to: "denilsondavid.me@gmail.com",
-            ...generateEmailContent(values),
-            subject: values.subject,
-            attachments: [
-                {
-                  filename: file, // Name of the attachment
-                //   content: new Buffer(attachment.data), // Content of the attachment (Base64 or Buffer)
-                  // stream as an attachment
-                  content: fs.createReadStream(`./public/uploads/${file}`),
-                //   contentType: attachment.type, // MIME type of the attachment (e.g., 'application/pdf', 'image/jpeg')
-                },
-              ],
-        };
+    // const { data, error } = await supabase
+    //     .from("alunos")
+    //     .select('email')
 
-        await transporter.sendMail(updatedMailOptions);
+    // if (error || !data) {
+    //     return NextResponse.json({
+    //         message: "Não existem alunos na base de dados.",
+    // })}
+
+    // console.log(values)
+    // console.log(data)
+
+    if (fileName && fileUrl) {
+        // for(const row of data) {
+            const updatedMailOptions = {
+                ...mailOptions,
+                to: "denilsondavid.me@gmail.com",
+                ...generateEmailContent(values),
+                subject: values.subject,
+                attachments: [
+                    {
+                      filename: fileName,
+                      path: `${fileUrl}`,
+                    },
+                  ],
+            };
+    
+            await transporter.sendMail(updatedMailOptions);
+        // }
+    } else {
+        // for(const row of data) {
+            const updatedMailOptions = {
+                ...mailOptions,
+                to: "denilsondavid.me@gmail.com",
+                ...generateEmailContent(values),
+                subject: values.subject,
+            };
+    
+            await transporter.sendMail(updatedMailOptions);
+        // }
     }
     
     return NextResponse.json({
