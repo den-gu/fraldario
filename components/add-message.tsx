@@ -50,7 +50,7 @@ import { Checkbox } from './ui/checkbox';
 type Student = {
   id: string | undefined;
   name: string | undefined;
-  email: string | undefined;
+  email: string;
 }
 
 const formSchema = z.object({
@@ -73,6 +73,19 @@ export default function AddMessage() {
 
   const fileInput = useRef<HTMLInputElement>(null);
   const [uploadedFile, setUploadedFile] = useState<string | null>(null);
+
+
+  const sendTo: string[] = []
+
+  const addStudent = (row: string) => {
+    if(sendTo.includes(row)) {
+      console.log("Already added.");
+    } else {
+      sendTo.push(row);
+    }
+
+    console.log(sendTo);
+  }
 
   const submitHandler = (state: boolean) => {
     setSubmitting(!state)
@@ -185,7 +198,7 @@ export default function AddMessage() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto" encType="multipart/form-data">
       <div className="flex flex-col mb-4 gap-2">
         <span className='text-sm'>Enviar para: Todos</span>
-        <div className='hidden'>
+        <div className=''>
           {/* <SendTo/> */}
       {isDesktop ? (
         <div>
@@ -386,26 +399,12 @@ function StudentList({
     <Command className="w-full">
       <CommandInput className="w-full" placeholder="Digite o nome..." />
       <CommandList>
-        <CommandEmpty>
-          <i className="ri-loader-line animate-spin text-[14px]"></i>
-          {/* <span>No results found.</span> */}
-        </CommandEmpty>
         <CommandGroup>
           {students
             ? students.map((student) => (
-              <CommandItem
-                key={student.id}
-                value={student.name}
-                onSelect={(value) => {
-                  setSelectedStudent(
-                    students.find((priority) => priority.id === student.id) || null
-                  )
-                  // setOpen(false)
-                }}
-              >
-                {/* {student.name} */}
                 <FormField
                   control={form.control}
+                  key={student.id}
                   name="subject"
                   render={({ field }) => (
                     <FormItem className="w-full">
@@ -415,6 +414,7 @@ function StudentList({
                           value={student.name}
                             // checked={field.value?.includes(student?.id)}
                             onCheckedChange={(checked) => {
+                              addStudent(student.email)
                               // return checked
                               //   ? field.onChange([...field.value, item.id])
                               //   : field.onChange(
@@ -431,7 +431,6 @@ function StudentList({
                       <FormMessage />
                     </FormItem>
                   )} />
-              </CommandItem>
             ))
             : <i className="ri-loader-line animate-spin text-[14px]"></i>}
         </CommandGroup>
