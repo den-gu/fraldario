@@ -110,23 +110,23 @@ export async function POST(req: Request): Promise<NextResponse>{
 
     // console.log('File URL:', publicUrl);
 
-    // const { data, error } = await supabase
-    //     .from("alunos")
-    //     .select('email')
+    const { data, error } = await supabase
+        .from("alunos")
+        .select('email')
 
-    // if (error || !data) {
-    //     return NextResponse.json({
-    //         message: "Não existem alunos na base de dados.",
-    // })}
+    if (error || !data) {
+        return NextResponse.json({
+            message: "Não existem alunos na base de dados.",
+    })}
 
     // console.log(values)
     // console.log(data)
 
     if (fileName && fileUrl) {
-        // for(const row of data) {
+        for(const row of data) {
             const updatedMailOptions = {
                 ...mailOptions,
-                to: "denilsondavid.me@gmail.com",
+                to: row.email,
                 ...generateEmailContent(values),
                 subject: values.subject,
                 attachments: [
@@ -138,18 +138,18 @@ export async function POST(req: Request): Promise<NextResponse>{
             };
     
             await transporter.sendMail(updatedMailOptions);
-        // }
+        }
     } else {
-        // for(const row of data) {
+        for(const row of data) {
             const updatedMailOptions = {
                 ...mailOptions,
-                to: "denilsondavid.me@gmail.com",
+                to: row.email,
                 ...generateEmailContent(values),
                 subject: values.subject,
             };
     
             await transporter.sendMail(updatedMailOptions);
-        // }
+        }
     }
     
     return NextResponse.json({
