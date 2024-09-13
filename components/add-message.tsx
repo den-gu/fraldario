@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useMediaQuery } from "@react-hook/media-query"
 import { Button } from "@/components/ui/button"
@@ -22,7 +22,7 @@ import { FormField, FormItem, FormControl, FormMessage, Form, FormLabel } from "
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { addStudent, sendMessage } from "@/lib/api"
+import { addStudent, getStudents, sendMessage } from "@/lib/api"
 import { Toaster, toast } from 'sonner';
 import { Textarea } from "./ui/textarea"
 import { Label } from "./ui/label"
@@ -30,6 +30,28 @@ import { Label } from "./ui/label"
 // import { getStudents } from '@/lib/api';
 // import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/client'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { supabase } from '@/lib/supabaseClient';
+import { Checkbox } from './ui/checkbox';
+
+
+type Student = {
+  id: string | undefined;
+  name: string | undefined;
+  email: string | undefined;
+}
 
 const formSchema = z.object({
   subject: z.string().min(2),
@@ -40,6 +62,13 @@ export default function AddMessage() {
   const [isSubmitting, setSubmitting] = useState(false)
   const [attachment, setAttachment] = useState(null);
   const [btnText, setBtnText] = useState('Submit');
+  const [loading, setLoading] = useState(false)
+  const [open, setOpen] = useState(false)
+  const isDesktop = useMediaQuery("(min-width: 768px)")
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(
+    null
+  )
+  const [students, setStudents] = useState<Student[]>([])
   // const [uploadedFile, setUploadedFile] = useState('');
 
   const fileInput = useRef<HTMLInputElement>(null);
@@ -68,6 +97,23 @@ export default function AddMessage() {
       message: "",
     },
   })
+
+
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      try {
+        const response = await getStudents();
+        const { data } = await response?.json();
+        setStudents(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+  }, []);
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -137,6 +183,62 @@ export default function AddMessage() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto" encType="multipart/form-data">
+      <div className="flex flex-col mb-4 gap-2">
+        <span className='text-sm'>Enviar para: Todos</span>
+        <div className='hidden'>
+          {/* <SendTo/> */}
+      {isDesktop ? (
+        <div>
+        <Popover open={open} onOpenChange={setOpen}>
+          <div className="flex items-center relative">
+            <PopoverTrigger asChild className="cursor-text">
+              <Button variant="secondary" className="w-full justify-start">
+                <div className="flex items-center gap-2 text-[13px]">
+                  <i className="ri-search-line text-[16px]"></i>
+                  {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+                </div>
+              </Button>
+            </PopoverTrigger>
+            {selectedStudent ?
+              <Button variant="secondary" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none">
+                <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
+              </Button> : ''}
+          </div>
+          <PopoverContent className="w-[200px] p-0" align="start">
+            <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
+          </PopoverContent>
+        </Popover>
+        {/* <StudentData></StudentData> */}
+      </div>
+    ) : (
+    <div>
+      <Drawer open={open} onOpenChange={setOpen}>
+        <div className="flex items-center relative">
+          <DrawerTrigger asChild className="cursor-text">
+            <Button variant="outline" className="w-full justify-start">
+              <div className="flex items-center gap-2 text-[13px]">
+                <i className="ri-search-line text-[16px]"></i>
+                {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+              </div>
+            </Button>
+          </DrawerTrigger>
+          {selectedStudent ?
+            <Button variant="outline" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none border-l-0 rounded-tl-none rounded-bl-none">
+              <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
+            </Button> : ''}
+        </div>
+        <DrawerContent>
+          <div className="mt-4 border-t">
+            <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
+          </div>
+        </DrawerContent>
+      </Drawer>
+
+      {/* <StudentData></StudentData> */}
+    </div>
+  )}
+        </div>
+      </div>
         <div className="grid gap-7 grid-cols-4">
           <div className="col-span-4 gap-4">
             <div className="flex flex-col gap-3">
@@ -201,4 +303,140 @@ export default function AddMessage() {
       </form>
     </Form>
   )
+
+function SendTo({ className }: React.ComponentProps<"form">) {
+
+  // const [open, setOpen] = useState(false)
+  // const [loading, setLoading] = useState(false)
+  // const [isLoading, setIsLoading] = useState(false)
+  // const [deleting, setDeleting] = useState(false)
+  // const [saving, setSaving] = useState(false)
+  // const [students, setStudents] = useState<Student[]>([])
+  const isDesktop = useMediaQuery("(min-width: 768px)")
+  // const [selectedStudent, setSelectedStudent] = useState<Student | null>(
+  //   null
+  // )
+  // const [lastMeal, setLastMeal] = useState<Meal | null>(null);
+
+  if (isDesktop) {
+    return (
+      <div>
+        <Popover open={open} onOpenChange={setOpen}>
+          <div className="flex items-center relative">
+            <PopoverTrigger asChild className="flex-1 cursor-text">
+              <Button variant="secondary" className="w-full justify-start">
+                <div className="flex items-center gap-2 text-[13px]">
+                  <i className="ri-search-line text-[16px]"></i>
+                  {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+                </div>
+              </Button>
+            </PopoverTrigger>
+            {selectedStudent ?
+              <Button variant="secondary" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none">
+                <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
+              </Button> : ''}
+          </div>
+          <PopoverContent className="w-[200px] p-0" align="start">
+            <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
+          </PopoverContent>
+        </Popover>
+        {/* <StudentData></StudentData> */}
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <Drawer open={open} onOpenChange={setOpen}>
+        <div className="flex items-center relative">
+          <DrawerTrigger asChild className="cursor-text">
+            <Button variant="outline" className="w-full justify-start">
+              <div className="flex items-center gap-2 text-[13px]">
+                <i className="ri-search-line text-[16px]"></i>
+                {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+              </div>
+            </Button>
+          </DrawerTrigger>
+          {selectedStudent ?
+            <Button variant="outline" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none border-l-0 rounded-tl-none rounded-bl-none">
+              <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
+            </Button> : ''}
+        </div>
+        <DrawerContent>
+          <div className="mt-4 border-t">
+            <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
+          </div>
+        </DrawerContent>
+      </Drawer>
+
+      {/* <StudentData></StudentData> */}
+    </div>
+  )
+}
+
+
+function StudentList({
+  setOpen,
+  setSelectedStudent,
+}: {
+  setOpen: (open: boolean) => void
+  setSelectedStudent: (student: Student | null) => void
+}) {
+  return (
+    <Command className="w-full">
+      <CommandInput className="w-full" placeholder="Digite o nome..." />
+      <CommandList>
+        <CommandEmpty>
+          <i className="ri-loader-line animate-spin text-[14px]"></i>
+          {/* <span>No results found.</span> */}
+        </CommandEmpty>
+        <CommandGroup>
+          {students
+            ? students.map((student) => (
+              <CommandItem
+                key={student.id}
+                value={student.name}
+                onSelect={(value) => {
+                  setSelectedStudent(
+                    students.find((priority) => priority.id === student.id) || null
+                  )
+                  // setOpen(false)
+                }}
+              >
+                {/* {student.name} */}
+                <FormField
+                  control={form.control}
+                  name="subject"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      {/* <FormLabel className="text-[12px]">Assunto</FormLabel> */}
+                      <FormControl>
+                      <Checkbox
+                          value={student.name}
+                            // checked={field.value?.includes(student?.id)}
+                            onCheckedChange={(checked) => {
+                              // return checked
+                              //   ? field.onChange([...field.value, item.id])
+                              //   : field.onChange(
+                              //       field.value?.filter(
+                              //         (value) => value !== item.id
+                              //       )
+                              //     )
+                            }}
+                          />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                          {student.name}
+                        </FormLabel>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+              </CommandItem>
+            ))
+            : <i className="ri-loader-line animate-spin text-[14px]"></i>}
+        </CommandGroup>
+      </CommandList>
+    </Command>
+  )
+}
 }
