@@ -57,19 +57,28 @@ const generateEmailContent = (data: any) => {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
     <style type="text/css">
         body,
         table,
         td,
-        a, p, span, b, h3, h1, * {
+        a,
+        p,
+        span,
+        b,
+        h3,
+        h1,
+        * {
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
             font-family: "Inter", sans-serif;
+            box-sizing: border-box;
         }
 
         p {
-          font-weight: 500 !important;
+            font-weight: 400 !important;
         }
 
         body table td {
@@ -85,162 +94,260 @@ const generateEmailContent = (data: any) => {
     </style>
 </head>
 
-<body style="background: #fff">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-        <tr>
-            <td bgcolor="#ffffff" align="center" style="padding: 0px 20px 0px 20px !important;"
-                class="section-padding">
-                <table border="0" cellpadding="40" cellspacing="0" width="100%"
-                    style="max-width: 700px;border: 1px solid #cccccc;border-radius: 5px !important;"
+<body style="background: #ffffff;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding-bottom: 50px;padding-top: 30px;">
+        <tr style="padding-bottom: 50px;">
+            <td bgcolor="#ffffff" align="center" class="section-padding">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 650px;"
                     class="responsive-table">
-                    <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;"><br /></td>
-                    </tr>
+
                     <tr style="margin-top: 5px !important;">
-                        <td style="padding: 0px 15px 0px 15px !important;">
+                        <td style="padding: 0px 0px 0px 0px !important;">
                             <img src="https://i.ibb.co/H4Wvchg/ofraldario.webp" width="170px" height="50px"
                                 alt="Fraldario Logo" alt="ofraldario" border="0">
                         </td>
                         <td style="padding: 0px 15px 0px 15px !important;">
                             <p
-                                style="margin: 0;text-align: right !important;font-size: 13px;font-weight: 500;color: #888;">
-                                ${data?.createdAtIntDTF}</p>
+                                style="margin: 0;text-align: right !important;font-size: 13px;color: #888;">
+                                ${data.createdAtIntDTF}</p>
                             <p
-                                style="float: right;margin: 0;text-align: right !important;font-size: 13px;font-weight: 500;color: #888;">
-                                ${data?.id.slice(0, 12)}</p>
+                                style="float: right;margin: 0;text-align: right !important;font-size: 13px;color: #888;">
+                                Ref#: ${data?.id ? data.id.slice(0, 5) : ''}</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#ffffff" align="center" style="padding: 0px 20px 0px 20px !important;" class="section-padding">
+                <!-- </td> -->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                    style="max-width: 650px;padding: 10px 5px 20px 5px;" class="responsive-table">
+                    <tr>
+                        <td style='padding: 15px 0px 0px 0px !important;'>
+                            <p style='margin: 0;font-size: 15px;'><b>Nome da criança:</b></p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.student_name}</p>
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <h3 style="margin: 5px 0 0 0;font-size: 18px;font-weight: 900 !important;">${data?.student_name}
-                            </h3>
-                            <a href="mailto:${data?.email}" style="font-size: 13px;text-decoration: none;cursor: pointer;color: #000 !important;">${data?.email}</a>
-                        </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;text-align: right !important;font-size: 13px;">
-                                Comportamento: <b>${data?.behavior}</b></p>
+                        <td style="padding: 8px 0px 0px 0px !important;">
+                            <p style="margin: 0;font-size: 13px;">Comportamento:
+                            </p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.behavior}</p>
                         </td>
                     </tr>
+                </table>
+            </td>
+        </tr>
+        <td bgcolor="#ffffff" align="center" style="padding: 0px 20px 0px 20px !important;" class="section-padding">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                style="max-width: 650px;border: 1px solid #dddddd;border-radius: 10px !important;padding: 10px 5px 20px 5px;"
+                class="responsive-table">
+                <!-- <tr> -->
+                <!-- <td> -->
+                <tr>
+                    <td style="padding: 0px 0px 0px 15px !important;">
+                        <h1 style="font-size: 15px;margin: 5px 0 10px 0px !important;padding: 0px 0px 4px 0px;">
+                            Refeições</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0px 15px 0px 15px !important;">
+                        <p style="margin: 0;font-size: 13px;">Pequeno-almoço:
+                        </p>
+                        <p
+                            style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                            ${data?.pequeno_almoco}</p>
+                    </td>
+                </tr>
+                ${data?.porcao_extras1 !== "" && data?.porcao_extras1 !== null && data?.porcao_extras1 !== undefined
+                ? `<tr>
+                    <td style='padding: 10px 15px 0px 15px !important;'>
+                        <p style='margin: 0;font-size: 13px;'>Refeição especial:</p>
+                        <p
+                            style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                            ${data?.extras1}</p>
+                    </td>
+                </tr>`
+                : ``
+                }
+                <tr>
+                    <td style='padding: 10px 15px 0px 15px !important;'>
+                        <p style="margin: 0;font-size: 13px;">1º Almoço:</p>
+                        <p
+                            style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                            ${data?.almoco1}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='padding: 10px 15px 0px 15px !important;'>
+                        <p style="margin: 0;font-size: 13px;">2º Almoço:</p>
+                        <p
+                            style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                            ${data?.almoco2}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='padding: 10px 15px 0px 15px !important;'>
+                        <p style='margin: 0;font-size: 13px;'>Sobremesa:</p>
+                        <p
+                            style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                            ${data?.sobremesa}</p>
+                    </td>
+                </tr>
+                ${data?.porcao_extras2 !== "" && data?.porcao_extras2 !== null && data?.porcao_extras2 !== undefined
+                ? `<tr>
+                    <td style='padding: 10px 15px 0px 15px !important;'>
+                        <p style='margin: 0;font-size: 13px;'>Refeição especial:</p>
+                        <p
+                            style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                            ${data?.extras2}</p>
+                    </td>
+                </tr>`
+                : ``
+                }
+                <tr>
+                    <td style='padding: 10px 15px 0px 15px !important;'>
+                        <p style='margin: 0;font-size: 13px;'>Lanche:</p>
+                        <p
+                            style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                            ${data?.lanche}</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </tr>
+        <tr>
+            <td bgcolor="#ffffff" align="center" style="padding: 20px 20px 0px 20px !important;"
+                class="section-padding">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                    style="max-width: 650px;border: 1px solid #dddddd;border-radius: 10px !important;padding: 10px 5px 20px 5px;"
+                    class="responsive-table">
+                    <!-- <tr> -->
+                    <!-- <td> -->
                     <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <h1
-                                style="font-size: 16px;margin-top: 20px !important;padding-bottom: 4px; border-bottom: 1px solid #ddd;">
-                                Refeições</h1>
-                        </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <h1
-                                style="font-size: 16px;margin-top: 20px !important;margin-left: auto !important;padding-bottom: 4px; border-bottom: 1px solid #ddd;">
+                        <td style="padding: 0px 0px 0px 15px !important;">
+                            <h1 style="font-size: 15px;margin: 5px 0 10px 0px !important;padding: 0px 0px 4px 0px;">
                                 Porção</h1>
                         </td>
                     </tr>
                     <tr>
                         <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;"><b>Pequeno-almoço:</b> ${data?.pequeno_almoco}</p>
-                        </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.porcao_pequeno_almoco}</p>
+                            <p style="margin: 0;font-size: 13px;">Pequeno-almoço:
+                            </p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.porcao_pequeno_almoco}</p>
                         </td>
                     </tr>
-                    ${data?.porcao_extras1 !== "" 
-                        ? `<tr>
-                                <td style='padding: 0px 15px 0px 15px !important;'>
-                                    <p style='margin: 0;'><b>Extra da manhã:</b> ${data?.extras1}</p>
-                                </td>
-                                <td style='padding: 0px 15px 0px 15px !important;'>
-                                    <p style='margin: 0;'>${data?.porcao_extras1}</p>
-                                </td>
-                            </tr>`
-                        : ``
+                    ${data?.porcao_extras1 !== "" && data?.porcao_extras1 !== null && data?.porcao_extras1 !== undefined
+                    ? `<tr>
+                        <td style='padding: 10px 15px 0px 15px !important;'>
+                            <p style='margin: 0;font-size: 13px;'>Refeição especial:</p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.porcao_extras1}</p>
+                        </td>
+                    </tr>`
+                    : ``
                     }
                     <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;"><b>1º Almoço:</b> ${data?.almoco1}</p>
-                        </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.porcao_almoco1}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;"><b>2º Almoço:</b> ${data?.almoco2}</p>
-                        </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.porcao_almoco2}</p>
+                        <td style='padding: 10px 15px 0px 15px !important;'>
+                            <p style="margin: 0;font-size: 13px;">1º Almoço:</p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.porcao_almoco1}</p>
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;"><b>Sobremesa:</b> ${data?.sobremesa}</p>
-                        </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.porcao_sobremesa}</p>
+                        <td style='padding: 10px 15px 0px 15px !important;'>
+                            <p style="margin: 0;font-size: 13px;">2º Almoço:</p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.porcao_almoco2}</p>
                         </td>
                     </tr>
-                    ${data?.porcao_extras2 !== ""
-                        ? `<tr>
-                                <td style='padding: 0px 15px 0px 15px !important;'>
-                                    <p style='margin: 0;'><b>Extra da tarde:</b> ${data?.extras2}</p>
-                                </td>
-                                <td style='padding: 0px 15px 0px 15px !important;'>
-                                    <p style='margin: 0;'>${data?.porcao_extras2}</p>
-                                </td>
-                            </tr>`
-                        : ``
+                    <tr>
+                        <td style='padding: 10px 15px 0px 15px !important;'>
+                            <p style='margin: 0;font-size: 13px;'>Sobremesa:</p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.porcao_sobremesa}</p>
+                        </td>
+                    </tr>
+                    ${data?.porcao_extras2 !== "" && data?.porcao_extras2 !== null && data?.porcao_extras2 !== undefined
+                    ? `<tr>
+                        <td style='padding: 10px 15px 0px 15px !important;'>
+                            <p style='margin: 0;font-size: 13px;'>Refeição especial:</p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.porcao_extras2}</p>
+                        </td>
+                    </tr>`
+                    : ``
                     }
                     <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;"><b>Lanche:</b> ${data?.lanche}</p>
+                        <td style='padding: 10px 15px 0px 15px !important;'>
+                            <p style='margin: 0;font-size: 13px;'>Lanche:</p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.porcao_lanche}</p>
                         </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.porcao_lanche}</p>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td bgcolor="#ffffff" align="center" style="padding: 20px 20px 0px 20px !important;"
+                class="section-padding">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                    style="max-width: 650px;padding: 0px 5px 20px 5px;" class="responsive-table">
+                    <tr>
+                        <td style='padding: 0px 0px 0px 0px !important;'>
+                            <p style="margin: 0;font-size: 13px;">Fezes:</p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.fezes}${data?.nr_fezes > 0 ? `: ${data?.nr_fezes}x` : ``}</p>
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;"><br /></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">Fezes:</p>
-                        </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.fezes} ${data?.nr_fezes > 0 ? `: ${data?.nr_fezes}x` : ``}</p>
+                        <td style='padding: 10px 0px 0px 0px !important;'>
+                            <p style='margin: 0;font-size: 13px;'>Vômitos:</p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.vomitos}${data?.nr_vomitos > 0 ? `: ${data?.nr_vomitos}x` : ``}</p>
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">Vômitos:</p>
+                        <td style='padding: 10px 0px 0px 0px !important;'>
+                            <p style='margin: 0;font-size: 13px;'>Febres:</p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.febres} ${data?.nr_febres > 0 ? `: ${data?.nr_febres}° C` : ``}</p>
                         </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.vomitos} ${data?.nr_vomitos > 0 ? `: ${data?.nr_vomitos}x` : ``}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">Febres:</p>
-                        </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;">${data?.febres} ${data?.nr_febres > 0 ? `: ${data?.nr_febres}° C` : ``}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;"><br /></td>
                     </tr>
                     ${data?.message !== "" && data?.message !== null && data?.message !== undefined
-                        ? `<tr>
-                                <td style="padding: 0px 15px 0px 15px !important;">
-                                    <p style="margin: 0;"><b>Outras ocorrências:</b> ${data?.message}</p>
-                                </td>
-                            </tr>`
-                        : ``
+                    ? `<tr>
+                        <td style='padding: 20px 0px 0px 0px !important;'>
+                            <p style='margin: 0;font-size: 13px;'>Outras ocorrências:</p>
+                            <p
+                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
+                                ${data?.message}</p>
+                        </td>
+                    </tr>`
+                    : ``
                     }
-                    <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;"><br /></td>
-                    </tr>
                 </table>
             </td>
         </tr>
     </table>
 </body>
+
 </html>`,
       };
 }
