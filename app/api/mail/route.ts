@@ -107,11 +107,9 @@ const generateEmailContent = (data: any) => {
                                 alt="Fraldario Logo" alt="ofraldario" border="0">
                         </td>
                         <td style="padding: 0px 15px 0px 15px !important;">
-                            <p
-                                style="margin: 0;text-align: right !important;font-size: 13px;color: #888;">
+                            <p style="margin: 0;text-align: right !important;font-size: 13px;color: #888;">
                                 ${data.createdAtIntDTF}</p>
-                            <p
-                                style="float: right;margin: 0;text-align: right !important;font-size: 13px;color: #888;">
+                            <p style="float: right;margin: 0;text-align: right !important;font-size: 13px;color: #888;">
                                 Ref#: ${data?.id ? data.id.slice(0, 5) : ''}</p>
                         </td>
                     </tr>
@@ -145,7 +143,7 @@ const generateEmailContent = (data: any) => {
         </tr>
         <td bgcolor="#ffffff" align="center" style="padding: 0px 20px 0px 20px !important;" class="section-padding">
             <table border="0" cellpadding="0" cellspacing="0" width="100%"
-                style="max-width: 650px;border: 1px solid #dddddd;border-radius: 10px !important;padding: 10px 5px 20px 5px;"
+                style="max-width: 650px;border: 1px solid #dddddd;border-radius: 10px !important;padding: 10px 5px 20px 5px !important;"
                 class="responsive-table">
                 <!-- <tr> -->
                 <!-- <td> -->
@@ -157,7 +155,7 @@ const generateEmailContent = (data: any) => {
                 </tr>
                 <tr>
                     <td style="padding: 0px 15px 0px 15px !important;">
-                        <p style="margin: 0;font-size: 13px;">Pequeno-almoço:
+                        <p style="margin: 0;font-size: 13px;">Pequeno-almoço: ${data?.porcao_pequeno_almoco}
                         </p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
@@ -167,7 +165,7 @@ const generateEmailContent = (data: any) => {
                 ${data?.porcao_extras1 !== "" && data?.porcao_extras1 !== null && data?.porcao_extras1 !== undefined
                 ? `<tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style='margin: 0;font-size: 13px;'>Refeição especial:</p>
+                        <p style='margin: 0;font-size: 13px;'>Refeição especial: ${data?.porcao_extras1}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.extras1}</p>
@@ -177,7 +175,7 @@ const generateEmailContent = (data: any) => {
                 }
                 <tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style="margin: 0;font-size: 13px;">1º Almoço:</p>
+                        <p style="margin: 0;font-size: 13px;">1º Almoço: ${data?.porcao_almoco1}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.almoco1}</p>
@@ -185,7 +183,7 @@ const generateEmailContent = (data: any) => {
                 </tr>
                 <tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style="margin: 0;font-size: 13px;">2º Almoço:</p>
+                        <p style="margin: 0;font-size: 13px;">2º Almoço: ${data?.porcao_almoco2}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.almoco2}</p>
@@ -193,7 +191,7 @@ const generateEmailContent = (data: any) => {
                 </tr>
                 <tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style='margin: 0;font-size: 13px;'>Sobremesa:</p>
+                        <p style='margin: 0;font-size: 13px;'>Sobremesa: ${data?.porcao_sobremesa}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.sobremesa}</p>
@@ -202,7 +200,7 @@ const generateEmailContent = (data: any) => {
                 ${data?.porcao_extras2 !== "" && data?.porcao_extras2 !== null && data?.porcao_extras2 !== undefined
                 ? `<tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style='margin: 0;font-size: 13px;'>Refeição especial:</p>
+                        <p style='margin: 0;font-size: 13px;'>Refeição especial: ${data?.porcao_extras2}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.extras2}</p>
@@ -212,7 +210,7 @@ const generateEmailContent = (data: any) => {
                 }
                 <tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style='margin: 0;font-size: 13px;'>Lanche:</p>
+                        <p style='margin: 0;font-size: 13px;'>Lanche: ${data?.porcao_lanche}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.lanche}</p>
@@ -220,86 +218,6 @@ const generateEmailContent = (data: any) => {
                 </tr>
             </table>
         </td>
-        </tr>
-        <tr>
-            <td bgcolor="#ffffff" align="center" style="padding: 20px 20px 0px 20px !important;"
-                class="section-padding">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%"
-                    style="max-width: 650px;border: 1px solid #dddddd;border-radius: 10px !important;padding: 10px 5px 20px 5px;"
-                    class="responsive-table">
-                    <!-- <tr> -->
-                    <!-- <td> -->
-                    <tr>
-                        <td style="padding: 0px 0px 0px 15px !important;">
-                            <h1 style="font-size: 15px;margin: 5px 0 10px 0px !important;padding: 0px 0px 4px 0px;">
-                                Porção</h1>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;font-size: 13px;">Pequeno-almoço:
-                            </p>
-                            <p
-                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
-                                ${data?.porcao_pequeno_almoco}</p>
-                        </td>
-                    </tr>
-                    ${data?.porcao_extras1 !== "" && data?.porcao_extras1 !== null && data?.porcao_extras1 !== undefined
-                    ? `<tr>
-                        <td style='padding: 10px 15px 0px 15px !important;'>
-                            <p style='margin: 0;font-size: 13px;'>Refeição especial:</p>
-                            <p
-                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
-                                ${data?.porcao_extras1}</p>
-                        </td>
-                    </tr>`
-                    : ``
-                    }
-                    <tr>
-                        <td style='padding: 10px 15px 0px 15px !important;'>
-                            <p style="margin: 0;font-size: 13px;">1º Almoço:</p>
-                            <p
-                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
-                                ${data?.porcao_almoco1}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style='padding: 10px 15px 0px 15px !important;'>
-                            <p style="margin: 0;font-size: 13px;">2º Almoço:</p>
-                            <p
-                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
-                                ${data?.porcao_almoco2}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style='padding: 10px 15px 0px 15px !important;'>
-                            <p style='margin: 0;font-size: 13px;'>Sobremesa:</p>
-                            <p
-                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
-                                ${data?.porcao_sobremesa}</p>
-                        </td>
-                    </tr>
-                    ${data?.porcao_extras2 !== "" && data?.porcao_extras2 !== null && data?.porcao_extras2 !== undefined
-                    ? `<tr>
-                        <td style='padding: 10px 15px 0px 15px !important;'>
-                            <p style='margin: 0;font-size: 13px;'>Refeição especial:</p>
-                            <p
-                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
-                                ${data?.porcao_extras2}</p>
-                        </td>
-                    </tr>`
-                    : ``
-                    }
-                    <tr>
-                        <td style='padding: 10px 15px 0px 15px !important;'>
-                            <p style='margin: 0;font-size: 13px;'>Lanche:</p>
-                            <p
-                                style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
-                                ${data?.porcao_lanche}</p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
         </tr>
 
         <tr>
