@@ -69,11 +69,11 @@ export const endSession = async () => {
 //       });
 // }
 
-export const sendMessage = async (values: any, fileName?: string, fileUrl?: string) => {
+export const sendMessage = async (values: any, sendTo?: any, fileName?: string, fileUrl?: string) => {
     try {
         const response = await fetch("/api/mail/all", {
             method: "POST",
-            body: JSON.stringify({values, fileName, fileUrl}),
+            body: JSON.stringify({values, sendTo, fileName, fileUrl}),
         });
 
         if (!response.ok) {

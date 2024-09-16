@@ -169,6 +169,10 @@ h3 {
 }
 
 
+div[data-radix-popper-content-wrapper] {
+  pointer-events: all;
+}
+
 
 
 

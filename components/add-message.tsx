@@ -53,6 +53,10 @@ type Student = {
   email: string;
 }
 
+type Receptor = {
+  email: string;
+}
+
 const formSchema = z.object({
   subject: z.string().min(2),
   message: z.string().min(2),
@@ -75,17 +79,16 @@ export default function AddMessage() {
   const [uploadedFile, setUploadedFile] = useState<string | null>(null);
 
 
-  const sendTo: string[] = []
+  const { control, handleSubmit, watch, setValue } = useForm();
+  const [receptors, setReceptors] = useState<string[]>([]);
 
-  const addStudent = (row: string) => {
-    if(sendTo.includes(row)) {
-      console.log("Already added.");
-    } else {
-      sendTo.push(row);
-    }
-
-    console.log(sendTo);
-  }
+  const handleCheckboxChange = (email: string, checked: any) => {
+    setReceptors(prevSelected =>
+      checked
+        ? [...prevSelected, email]
+        : prevSelected.filter(e => e !== email)
+    );
+  };
 
   const submitHandler = (state: boolean) => {
     setSubmitting(!state)
@@ -133,6 +136,7 @@ export default function AddMessage() {
 
     const supabase = createClient();
     const bucket = 'fraldario';
+    const newReceptors = receptors; // Use os e-mails dos alunos selecionados
 
     try {
       submitHandler(isSubmitting)
@@ -174,9 +178,9 @@ export default function AddMessage() {
           console.log(values)
           console.log(data)
 
-        await sendMessage(values, fileName, publicUrl)
+        await sendMessage(values, newReceptors, fileName, publicUrl)
       } else {
-        await sendMessage(values)
+        await sendMessage(values, newReceptors)
         console.log("Nenhum arquivo selecionado.");
       }
     } catch (error) {
@@ -197,7 +201,7 @@ export default function AddMessage() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto" encType="multipart/form-data">
       <div className="flex flex-col mb-4 gap-2">
-        <span className='text-sm'>Enviar para: Todos</span>
+        <span className='text-sm'>Para: {receptors.length > 0 ? `${receptors[0]} ${receptors.length > 1 ? `+ ${receptors.length - 1}` : ''}` : 'Todos'}</span>
         <div className=''>
           {/* <SendTo/> */}
       {isDesktop ? (
@@ -208,7 +212,7 @@ export default function AddMessage() {
               <Button variant="secondary" className="w-full justify-start">
                 <div className="flex items-center gap-2 text-[13px]">
                   <i className="ri-search-line text-[16px]"></i>
-                  {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+                  {selectedStudent ? selectedStudent.name : 'Selecionar'}
                 </div>
               </Button>
             </PopoverTrigger>
@@ -231,7 +235,7 @@ export default function AddMessage() {
             <Button variant="outline" className="w-full justify-start">
               <div className="flex items-center gap-2 text-[13px]">
                 <i className="ri-search-line text-[16px]"></i>
-                {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+                {selectedStudent ? selectedStudent.name : 'Selecionar'}
               </div>
             </Button>
           </DrawerTrigger>
@@ -335,7 +339,7 @@ function SendTo({ className }: React.ComponentProps<"form">) {
     return (
       <div>
         <Popover open={open} onOpenChange={setOpen}>
-          <div className="flex items-center relative">
+          <div className="flex items-center relative z-50">
             <PopoverTrigger asChild className="flex-1 cursor-text">
               <Button variant="secondary" className="w-full justify-start">
                 <div className="flex items-center gap-2 text-[13px]">
@@ -397,45 +401,28 @@ function StudentList({
 }) {
   return (
     <Command className="w-full">
-      <CommandInput className="w-full" placeholder="Digite o nome..." />
+      {/* <CommandInput className="w-full" placeholder="Digite o nome..." /> */}
       <CommandList>
         <CommandGroup>
           {students
             ? students.map((student) => (
-                <FormField
-                  control={form.control}
-                  key={student.id}
-                  name="subject"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      {/* <FormLabel className="text-[12px]">Assunto</FormLabel> */}
-                      <FormControl>
-                      <Checkbox
-                          value={student.name}
-                            // checked={field.value?.includes(student?.id)}
-                            onCheckedChange={(checked) => {
-                              addStudent(student.email)
-                              // return checked
-                              //   ? field.onChange([...field.value, item.id])
-                              //   : field.onChange(
-                              //       field.value?.filter(
-                              //         (value) => value !== item.id
-                              //       )
-                              //     )
-                            }}
-                          />
-                      </FormControl>
-                      <FormLabel className="font-normal">
+              <div key={student.id} className='flex items-center gap-2 mb-1'>
+                <Checkbox
+                  value={student.email}
+                  id={student.id}
+                  checked={receptors.includes(student.email)}
+                  onCheckedChange={(checked) => handleCheckboxChange(student.email, checked)}
+                />
+                      <FormLabel htmlFor={student.id} className="font-normal cursor-pointer w-full">
                           {student.name}
                         </FormLabel>
                       <FormMessage />
-                    </FormItem>
-                  )} />
+              </div>
             ))
             : <i className="ri-loader-line animate-spin text-[14px]"></i>}
         </CommandGroup>
       </CommandList>
     </Command>
   )
-}
+  }
 }
