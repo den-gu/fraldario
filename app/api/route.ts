@@ -261,6 +261,20 @@ const generateEmailContent = (data: any) => {
                 </table>
             </td>
         </tr>
+        <tr>
+            <td bgcolor="#ffffff" align="center" style="padding: 0px 20px 0px 20px !important;" class="section-padding">
+                <!-- </td> -->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                    style="max-width: 650px;padding: 10px 5px 20px 5px;" class="responsive-table">
+                    <tr>
+                        <td style='padding: 15px 0px 0px 0px !important;'>
+                            <img src="https://i.ibb.co/T1xPxgY/Footer-Go-Green-800px-01.png" alt="Footer-Go-Green-800px-01" width="100%" height="auto"
+                                alt="ofraldario" border="0">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
     </table>
 </body>
 

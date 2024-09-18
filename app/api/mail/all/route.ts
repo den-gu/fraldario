@@ -85,9 +85,23 @@ const generateEmailContent = (data: any) => {
 export async function POST(req: Request): Promise<NextResponse>{
 
     const supabase = createClient();
-    const {values, sendTo, fileName, fileUrl} = await req.json()
+    const {values, sendTo, fileUrl} = await req.json()
 
-    console.log(sendTo)
+    console.log(fileUrl);
+
+    // Create attachments dynamically
+    const files = fileUrl.map((file: any) => {
+        const filename = file.split('https://njbriflsmqmsypzewuuo.supabase.co/storage/v1/object/public/fraldario/').pop() // Extract the filename from the path
+        const path = file // Full path to the file
+
+        console.log(filename, path)
+        // return {
+        //     filename: file.split('https://njbriflsmqmsypzewuuo.supabase.co/storage/v1/object/public/fraldario/').pop(), // Extract the filename from the path
+        //     path: file, // Full path to the file
+        // };
+    });
+
+    // console.log(sendTo)
 
     const { data, error } = await supabase
         .from("alunos")
@@ -108,12 +122,7 @@ export async function POST(req: Request): Promise<NextResponse>{
                 to: email,
                 ...generateEmailContent(values),
                 subject: values.subject,
-                attachments: [
-                    {
-                      filename: fileName,
-                      path: `${fileUrl}`,
-                    },
-                  ],
+                attachments: files,
             };
             await transporter.sendMail(updatedMailOptions);
         }
@@ -139,18 +148,13 @@ export async function POST(req: Request): Promise<NextResponse>{
                 to: row.email,
                 ...generateEmailContent(values),
                 subject: values.subject,
-                attachments: [
-                    {
-                      filename: fileName,
-                      path: `${fileUrl}`,
-                    },
-                  ],
+                attachments: files
             };
             await transporter.sendMail(updatedMailOptions);
         }
     }
 
-    const sendNoAttachmentToAll = async () => {
+    const sendWithoutAttachmentToAll = async () => {
         for(const row of sendTo) {
             const updatedMailOptions = {
                 ...mailOptions,
@@ -172,16 +176,16 @@ export async function POST(req: Request): Promise<NextResponse>{
     }
 
     if(sendTo.length > 0) {
-        if(fileName && fileUrl) {
+        if(fileUrl !== "" && fileUrl !== null && fileUrl !== undefined) {
             sendWithAttachment()
         } else {
             sendNoAttachment()
         }
     } else {
-        if(fileName && fileUrl) {
+        if(fileUrl !== "" && fileUrl !== null && fileUrl !== undefined) {
             sendWithAttachmentToAll()
         } else {
-            sendNoAttachmentToAll()
+            sendWithoutAttachmentToAll()
         }
     }
     

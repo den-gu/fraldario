@@ -64,8 +64,6 @@ const formSchema = z.object({
 
 export default function AddMessage() {
   const [isSubmitting, setSubmitting] = useState(false)
-  const [attachment, setAttachment] = useState(null);
-  const [btnText, setBtnText] = useState('Submit');
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -77,10 +75,20 @@ export default function AddMessage() {
 
   const fileInput = useRef<HTMLInputElement>(null);
   const [uploadedFile, setUploadedFile] = useState<string | null>(null);
-
-
-  const { control, handleSubmit, watch, setValue } = useForm();
   const [receptors, setReceptors] = useState<string[]>([]);
+
+
+  const [files, setFiles] = useState<File[] | null>([])
+  const [fileURL, setFileURL] = useState<string[]>([]);
+
+  const handleFilesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFiles(null)
+    if(event.target.files) {
+      const selectedFiles = Array.from(event.target.files);
+      setFiles(selectedFiles)
+      return files;
+    }
+  }
 
   const handleCheckboxChange = (email: string, checked: any) => {
     setReceptors(prevSelected =>
@@ -89,6 +97,10 @@ export default function AddMessage() {
         : prevSelected.filter(e => e !== email)
     );
   };
+
+  const handleURLChange = (url: string) => {
+    setFileURL(prevSelected => [...prevSelected, url]
+    )};
 
   const submitHandler = (state: boolean) => {
     setSubmitting(!state)
@@ -138,54 +150,101 @@ export default function AddMessage() {
     const bucket = 'fraldario';
     const newReceptors = receptors; // Use os e-mails dos alunos selecionados
 
+    console.log(files)
+
     try {
-      submitHandler(isSubmitting)
-      let fileName = "";
-
-      if (fileInput.current?.files?.length) {
-        const file = fileInput.current.files[0];
-        fileName = file.name;
-
-        const fileExtension = fileName.split('.').pop(); // Extrai a extensão
-        console.log(`Nome do arquivo: ${fileName}`);
-        console.log(`Extensão do arquivo: ${fileExtension}`);
-
-        const formData = new FormData();
-        formData.append("file", file);
-
-        const filePath = `${fileName}`;
-        // Upload the file
-        const { data, error } = await supabase
-          .storage
-          .from(bucket)
-          .upload(filePath, file);
-
-        console.log(fileName)
-
-        if (error) {
-          console.error('Error uploading file:', error);
-        }
-
-
-        // Generate the public URL
-        const { data: { publicUrl } } = supabase
-          .storage
-          .from(bucket)
-          .getPublicUrl(filePath);
-
-          console.log('File URL:', publicUrl);
-
-          console.log(values)
-          console.log(data)
-
-        await sendMessage(values, newReceptors, fileName, publicUrl)
+      if(files?.length) {
+        // files?.forEach(file => {
+          // console.log(file.name)
+          // console.log(file.size)
+  
+          const formData = new FormData();
+  
+          files.forEach(async file => {
+            formData.append('files[]', file);
+  
+            const fileName = file.name;
+            const { data, error } = await supabase
+            .storage
+            .from(bucket)
+            .upload(fileName, file);
+  
+            if (error) {
+              console.error('Error uploading file:', error);
+            }
+  
+            const { data: { publicUrl } } = supabase
+            .storage
+            .from(bucket)
+            .getPublicUrl(fileName);
+  
+            handleURLChange(publicUrl)
+            // console.log('File URL:', publicUrl);
+          })
+  
+        // })
+      
+        await sendMessage(values, newReceptors, fileURL)
+      
       } else {
-        await sendMessage(values, newReceptors)
-        console.log("Nenhum arquivo selecionado.");
-      }
-    } catch (error) {
+          await sendMessage(values, newReceptors)
+          console.log("Nenhum arquivo selecionado.");
+        }
+    } catch(error) {
       console.log(error)
+    } finally {
+      // console.log(fileURL)
     }
+
+    // try {
+    //   submitHandler(isSubmitting)
+    //   let fileName = "";
+
+    //   if (fileInput.current?.files?.length) {
+
+    //     const file = fileInput.current.files[0];
+    //     fileName = file.name;
+
+    //     const fileExtension = fileName.split('.').pop(); // Extrai a extensão
+    //     console.log(`Nome do arquivo: ${fileName}`);
+    //     console.log(`Extensão do arquivo: ${fileExtension}`);
+
+    //     const formData = new FormData();
+    //     formData.append("file", file);
+
+    //     const filePath = `${fileName}`;
+    //     // Upload the file
+    //     const { data, error } = await supabase
+    //       .storage
+    //       .from(bucket)
+    //       .upload(filePath, file);
+
+    //     console.log(fileName)
+
+    //     if (error) {
+    //       console.error('Error uploading file:', error);
+    //     }
+
+
+    //     // Generate the public URL
+    //     const { data: { publicUrl } } = supabase
+    //       .storage
+    //       .from(bucket)
+    //       .getPublicUrl(filePath);
+
+    //       console.log('File URL:', publicUrl);
+
+    //       console.log(values)
+    //       console.log(data)
+
+    //     await sendMessage(values, newReceptors, fileName, publicUrl)
+    //   } else {
+    //     await sendMessage(values, newReceptors)
+    //     console.log("Nenhum arquivo selecionado.");
+    //   }
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
 
   function handleFileChange() {
@@ -313,8 +372,9 @@ export default function AddMessage() {
             name="attachment"
             type="file"
             ref={fileInput}
+            multiple
             className="hidden"
-            onChange={handleFileChange}
+            onChange={handleFilesChange}
           />
         </div>
       </form>
@@ -343,7 +403,8 @@ function SendTo({ className }: React.ComponentProps<"form">) {
             <PopoverTrigger asChild className="flex-1 cursor-text">
               <Button variant="secondary" className="w-full justify-start">
                 <div className="flex items-center gap-2 text-[13px]">
-                  <i className="ri-search-line text-[16px]"></i>
+                  {/* <i className="ri-search-line text-[16px]"></i> */}
+                  <i className="ri-equalizer-2-line text-[16px]"></i>
                   {selectedStudent ? selectedStudent.name : 'Pesquisar'}
                 </div>
               </Button>
@@ -369,7 +430,7 @@ function SendTo({ className }: React.ComponentProps<"form">) {
           <DrawerTrigger asChild className="cursor-text">
             <Button variant="outline" className="w-full justify-start">
               <div className="flex items-center gap-2 text-[13px]">
-                <i className="ri-search-line text-[16px]"></i>
+              <i className="ri-equalizer-2-line text-[16px]"></i>
                 {selectedStudent ? selectedStudent.name : 'Pesquisar'}
               </div>
             </Button>
