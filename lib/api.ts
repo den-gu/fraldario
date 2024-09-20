@@ -69,18 +69,18 @@ export const endSession = async () => {
 //       });
 // }
 
-export const sendMessage = async (values: any, sendTo?: any, fileUrl?: string[]) => {
+export const sendMessage = async (values: any, sendTo?: any, fileName?: string, fileUrl?: any) => {
     try {
         const response = await fetch("/api/mail/all", {
             method: "POST",
-            body: JSON.stringify({values, sendTo, fileUrl}),
+            body: JSON.stringify({values, sendTo, fileName, fileUrl}),
         });
 
         if (!response.ok) {
             throw new Error("Failed to send message");
         }
 
-        return response.json();
+        return response.json(); 
     } catch (error) {
         console.error(error);
         throw error;

@@ -105,10 +105,14 @@ const generateEmailContent = (data: any) => {
                                 alt="Fraldario Logo" alt="ofraldario" border="0">
                         </td>
                         <td style="padding: 0px 15px 0px 15px !important;">
-                            <p style="margin: 0;text-align: right !important;font-size: 13px;color: #888;">
-                                ${data.createdAtIntDTF}</p>
-                            <p style="float: right;margin: 0;text-align: right !important;font-size: 13px;color: #888;">
-                                Ref#: ${data?.id ? data.id.slice(0, 5) : ''}</p>
+                        ${data?.createdAtIntDTF !== "" && data?.createdAtIntDTF !== null && data?.createdAtIntDTF !== undefined
+                            ? ` <p style="margin: 0;text-align: right !important;font-size: 13px;color: #888;">
+                                ${data.createdAtIntDTF}</p>`
+                            : ''}
+                            ${data?.id !== "" && data?.id !== null && data?.id !== undefined
+                                ? ` <p style="margin: 0;text-align: right !important;font-size: 13px;color: #888;">
+                                    ${data.id.slice(0, 5)}</p>`
+                                : ''}
                         </td>
                     </tr>
                 </table>
@@ -265,9 +269,9 @@ const generateEmailContent = (data: any) => {
             <td bgcolor="#ffffff" align="center" style="padding: 0px 20px 0px 20px !important;" class="section-padding">
                 <!-- </td> -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%"
-                    style="max-width: 650px;padding: 10px 5px 20px 5px;" class="responsive-table">
+                    style="max-width: 650px;padding: 0px 5px 20px 5px;" class="responsive-table">
                     <tr>
-                        <td style='padding: 15px 0px 0px 0px !important;'>
+                        <td style='padding: 5px 0px 0px 0px !important;'>
                             <img src="https://i.ibb.co/T1xPxgY/Footer-Go-Green-800px-01.png" alt="Footer-Go-Green-800px-01" width="100%" height="auto"
                                 alt="ofraldario" border="0">
                         </td>
