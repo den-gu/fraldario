@@ -168,7 +168,7 @@ export async function POST(req: Request): Promise<NextResponse>{
     }
 
     const sendWithAttachmentToAll = async () => {
-        for(const row of sendTo) {
+        for(const row of data) {
             const updatedMailOptions = {
                 ...mailOptions,
                 to: row.email,
@@ -186,7 +186,7 @@ export async function POST(req: Request): Promise<NextResponse>{
     }
 
     const sendNoAttachmentToAll = async () => {
-        for(const row of sendTo) {
+        for(const row of data) {
             const updatedMailOptions = {
                 ...mailOptions,
                 to: row.email,
@@ -223,118 +223,4 @@ export async function POST(req: Request): Promise<NextResponse>{
     return NextResponse.json({
         values
     })
-
-    // console.log(fileUrl);
-
-    // // const urls: URL[] = []
-
-    // console.log(typeof(fileUrl))
-
-    // // Create attachments dynamically
-    // // const files = fileUrl.map((file: any) => {
-    //     // const filename = file.split('https://njbriflsmqmsypzewuuo.supabase.co/storage/v1/object/public/fraldario/').pop() // Extract the filename from the path
-    //     // const path = file // Full path to the file
-
-    //     // console.log(filename, path)
-    //     // return {
-    //     //     filename: file.split('https://njbriflsmqmsypzewuuo.supabase.co/storage/v1/object/public/fraldario/').pop(), // Extract the filename from the path
-    //     //     path: file, // Full path to the file
-    //     // };
-    // // });
-
-    // // console.log(sendTo)
-
-    // const { data, error } = await supabase
-    //     .from("alunos")
-    //     .select('email')
-
-    // if (error || !data) {
-    //     return NextResponse.json({
-    //         message: "Não existem alunos na base de dados.",
-    // })}
-
-    // // console.log(values)
-    // // console.log(data)
-
-    // const sendWithAttachment = async () => {
-    //     for(const email of sendTo) {
-    //         const updatedMailOptions = {
-    //             ...mailOptions,
-    //             to: email,
-    //             ...generateEmailContent(values),
-    //             subject: values.subject,
-    //             attachments: [
-    //                 filename: fileName,
-    //                 path: 
-    //             ]
-    //             // attachments: files,
-    //         };
-    //         await transporter.sendMail(updatedMailOptions);
-    //     }
-    // }
-
-    // const sendNoAttachment = async () => {
-    //     for(const email of sendTo) {
-    //         const updatedMailOptions = {
-    //             ...mailOptions,
-    //             to: email,
-    //             ...generateEmailContent(values),
-    //             subject: values.subject,
-    //         };
-    
-    //         await transporter.sendMail(updatedMailOptions);
-    //     }
-    // }
-
-    // const sendWithAttachmentToAll = async () => {
-    //     for(const row of sendTo) {
-    //         const updatedMailOptions = {
-    //             ...mailOptions,
-    //             to: row.email,
-    //             ...generateEmailContent(values),
-    //             subject: values.subject,
-    //             // attachments: files
-    //         };
-    //         await transporter.sendMail(updatedMailOptions);
-    //     }
-    // }
-
-    // const sendWithoutAttachmentToAll = async () => {
-    //     for(const row of sendTo) {
-    //         const updatedMailOptions = {
-    //             ...mailOptions,
-    //             to: row.email,
-    //             ...generateEmailContent(values),
-    //             subject: values.subject,
-    //         };
-    
-    //         await transporter.sendMail(updatedMailOptions);
-    //     }
-    // }
-
-
-
-    // if(sendTo.length > 0) {
-    //     console.log('Greater than zero')
-    // } else {
-    //     console.log('Less or equal to zero')
-    // }
-
-    // if(sendTo.length > 0) {
-    //     if(fileUrl !== "" && fileUrl !== null && fileUrl !== undefined) {
-    //         // sendWithAttachment()
-    //     } else {
-    //         sendNoAttachment()
-    //     }
-    // } else {
-    //     if(fileUrl !== "" && fileUrl !== null && fileUrl !== undefined) {
-    //         // sendWithAttachmentToAll()
-    //     } else {
-    //         // sendWithoutAttachmentToAll()
-    //     }
-    // }
-    
-    // return NextResponse.json({
-    //     values
-    // })
 }
