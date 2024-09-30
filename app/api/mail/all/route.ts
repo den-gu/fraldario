@@ -208,15 +208,15 @@ export async function POST(req: Request): Promise<NextResponse>{
 
     if(sendTo.length > 0) {
         if(fileName && fileUrl) {
-            sendWithAttachment()
+            await sendWithAttachment()
         } else {
-            sendNoAttachment()
+            await sendNoAttachment()
         }
     } else {
         if(fileName && fileUrl) {
-            sendWithAttachmentToAll()
+            await sendWithAttachmentToAll()
         } else {
-            sendNoAttachmentToAll()
+            await sendNoAttachmentToAll()
         }
     }
     

@@ -372,7 +372,6 @@ export default function AddMessage() {
             name="attachment"
             type="file"
             ref={fileInput}
-            multiple
             className="hidden"
             onChange={handleFileChange}
           />
