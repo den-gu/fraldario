@@ -4,7 +4,7 @@ const email = process.env.EMAIL;
 const password = process.env.EMAIL_PASS;
 
 export const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: "fraldario.netlify.app",
     service: "gmail",
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
