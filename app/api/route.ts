@@ -95,16 +95,14 @@ const generateEmailContent = (data: any) => {
 <body style="background: #ffffff;">
     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding-bottom: 50px;padding-top: 30px;">
         <tr style="padding-bottom: 50px;">
-            <td bgcolor="#ffffff" align="center" class="section-padding">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 650px;"
-                    class="responsive-table">
-
-                    <tr style="margin-top: 5px !important;">
-                        <td style="padding: 0px 0px 0px 0px !important;">
-                            <img src="https://i.ibb.co/H4Wvchg/ofraldario.webp" width="170px" height="50px"
-                                alt="Fraldario Logo" alt="ofraldario" border="0">
+        <td bgcolor="#ffffff" align="center" style="padding: 0px 20px 0px 20px !important;" class="section-padding">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 650px;padding: 0px 5px 0px 5px;" class="responsive-table">
+                    <tr>
+                        <td style='padding: 5px 0px 0px 0px !important;'>
+                            <img src="https://i.ibb.co/Dk1CCRS/ofraldario.png" width="160px" height="50px"
+                                alt="Fraldario Logo" border="0">
                         </td>
-                        <td style="padding: 0px 15px 0px 15px !important;">
+                        <td style="padding: 0px 10px 0px 5px !important;">
                         ${data?.createdAtIntDTF !== "" && data?.createdAtIntDTF !== null && data?.createdAtIntDTF !== undefined
                             ? ` <p style="margin: 0;text-align: right !important;font-size: 13px;color: #888;">
                                 ${data.createdAtIntDTF}</p>`
