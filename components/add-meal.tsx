@@ -39,8 +39,8 @@ const formSchema = z.object({
     lanche: z.string({required_error: "Preencha este campo"}).min(1, {message: "Campo obrigatório"}),
     lanche_extra1: z.string().optional(),
     lanche_extra2: z.string().optional(),
-    extras1: z.string().optional(),
-    extras2: z.string().optional(),
+    extras1: z.string({required_error: "Preencha este campo"}).min(1, {message: "Campo obrigatório"}),
+    extras2: z.string({required_error: "Preencha este campo"}).min(1, {message: "Campo obrigatório"}),
 })
 
 export function AddMeal() {
