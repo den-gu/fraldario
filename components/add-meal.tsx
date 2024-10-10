@@ -24,19 +24,19 @@ import { addMeal } from "@/lib/api"
 
 
 const formSchema = z.object({
-    pequeno_almoco: z.string().optional(),
+    pequeno_almoco: z.string({required_error: "Preencha este campo"}).min(1, {message: "Campo obrigatório"}),
     pequeno_almoco_extra1: z.string().optional(),
     pequeno_almoco_extra2: z.string().optional(),
-    almoco1: z.string().optional(),
+    almoco1: z.string({required_error: "Preencha este campo"}).min(1, {message: "Campo obrigatório"}),
     almoco1_extra1: z.string().optional(),
     almoco1_extra2: z.string().optional(),
-    almoco2: z.string().optional(),
+    almoco2: z.string({required_error: "Preencha este campo"}).min(1, {message: "Campo obrigatório"}),
     almoco2_extra1: z.string().optional(),
     almoco2_extra2: z.string().optional(),
-    sobremesa: z.string().optional(),
+    sobremesa: z.string({required_error: "Preencha este campo"}).min(1, {message: "Campo obrigatório"}),
     sobremesa_extra1: z.string().optional(),
     sobremesa_extra2: z.string().optional(),
-    lanche: z.string().optional(),
+    lanche: z.string({required_error: "Preencha este campo"}).min(1, {message: "Campo obrigatório"}),
     lanche_extra1: z.string().optional(),
     lanche_extra2: z.string().optional(),
     extras1: z.string().optional(),
@@ -59,7 +59,7 @@ export function AddMeal() {
     }
 
     const sendingHandler = (state: boolean) => {
-        setSubmitting(!state)
+        setLoading(!state)
         setTimeout(() => {
             toast('Sucesso', {
                 description: 'A refeição do dia foi adicionada.',
@@ -69,24 +69,14 @@ export function AddMeal() {
                     onClick: () => console.log('Cancel!'),
                 },
             })
-            setSubmitting(state)
+            setLoading(state)
         }, 2000);
     }
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            pequeno_almoco: "",
-            almoco1: "",
-            almoco2: "",
-            sobremesa: "",
-            lanche: "",
-            extras1: "",
-            extras2: "",
-        },
     })
-
 
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -383,7 +373,9 @@ export function AddMeal() {
                         </div>
                     </div>
                 </div>
-                <Button type="submit" className="mt-4">Guardar</Button>
+                <Button type="submit" disabled={loading} className="mt-4">
+                    {loading ? <i className="ri-loader-line animate-spin text-[14px]"></i> : `Guardar`}
+                </Button>
             </form>
         </Form>
     )
