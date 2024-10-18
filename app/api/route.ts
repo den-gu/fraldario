@@ -109,7 +109,7 @@ const generateEmailContent = (data: any) => {
                             : ''}
                             ${data?.id !== "" && data?.id !== null && data?.id !== undefined
                                 ? ` <p style="margin: 0;text-align: right !important;font-size: 13px;color: #888;">
-                                    ${data.id.slice(0, 5)}</p>`
+                                    Ref#: ${data.id.slice(0, 5)}</p>`
                                 : ''}
                         </td>
                     </tr>
@@ -284,7 +284,6 @@ const generateEmailContent = (data: any) => {
       };
 }
 
-
 export async function GET(){
     return NextResponse.json({
         hello: "hello"
@@ -297,14 +296,15 @@ export async function POST(req: Request): Promise<NextResponse>{
     try {
       const updatedMailOptions = {
           ...mailOptions,
-          to: data.email, // Supondo que o e-mail para o qual você deseja enviar está dentro de data.email
+          to: "denilsondavid.me@gmail.com",
           ...generateEmailContent(data),
           subject: "O Fraldario - relatório diário",
       };
 
-      await transporter.sendMail(updatedMailOptions);
+      const response = await transporter.sendMail(updatedMailOptions);
 
       console.log('Email sent.')
+      console.log(response)
   } catch (error) {
       console.log(error);
   }

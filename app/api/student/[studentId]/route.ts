@@ -6,7 +6,6 @@ export async function PUT(req: Request): Promise<NextResponse> {
     const supabase = createClient();
     const data = await req.json();
 
-    
     console.log(data)
 
         try {
@@ -30,7 +29,6 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     const supabase = createClient();
     const data = await req.json();
 
-    
     console.log(data)
 
         try {

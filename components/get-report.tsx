@@ -336,11 +336,12 @@ for (const data of reports) {
     `${data?.student_name}`,
     `${data?.behavior}`,
     `${data?.pequeno_almoco}: ${data?.porcao_pequeno_almoco}`,
-    `${data?.extras1}: ${data?.porcao_extras1}`,
+    `${data?.porcao_extras1 !== '' && data?.porcao_extras1 !== null ? data?.extras1 + ': ' + data?.porcao_extras1 : ''}`,
     `${data?.almoco1}: ${data?.porcao_almoco1}`,
     `${data?.almoco2}: ${data?.porcao_almoco2}`,
     `${data?.sobremesa}: ${data?.porcao_sobremesa}`,
-    `${data?.extras2}: ${data?.porcao_extras2}`,
+    `${data?.porcao_extras2 !== '' && data?.porcao_extras2 !== null ? data?.extras2 + ': ' + data?.porcao_extras2 : ''}`,
+    // `${data?.extras2}: ${data?.porcao_extras2}`,
     `${data?.lanche}: ${data?.porcao_lanche}`,
     `${data?.fezes}${data?.nr_fezes > 0 ? `: ${data?.nr_fezes}x` : ``}`,
     `${data?.vomitos}${data?.nr_vomitos > 0 ? `: ${data?.nr_vomitos}x` : ``}`,
@@ -360,7 +361,7 @@ for (const data of reports) {
 
       // Generate the table
       autoTable(doc, {
-        head: [["Nome", "Comp.", "Peq.almoço", "Extra/Manhã", "1º Almoço", "2º Almoço", "Sobremesa", "Extra/Tarde", "Lanche", "Fezes", "Vômitos", "Febres"]],
+        head: [["Nome", "Comp.", "Peq.almoço", "Ref.Especial", "1º Almoço", "2º Almoço", "Sobremesa", "Ref.Especial", "Lanche", "Fezes", "Vômitos", "Febres"]],
         theme: 'grid',
         headStyles: {fillColor : [18, 105, 24], fontStyle: 'bold'},
         styles: {
@@ -404,25 +405,27 @@ for (const data of reports) {
     doc.setFontSize(10);
     doc.setTextColor("#666666");
     doc.text(`Data: ${data?.createdAtIntDTF}`, 75, 22);
+    doc.text(`Nome da criança: ${data?.student_name}`, 14, 32);
+    doc.text('Refeições', 14, 40);
 
     // Generate the table
     autoTable(doc, {
-      head: [["Pequeno-almoço", "Extra/Manhã", "1º Almoço", "2º Almoço", "Sobremesa", "Extra/Tarde", "Lanche"]],
-      theme: 'striped',
-      headStyles: {fillColor : [18, 105, 24]},
+      head: [["Pequeno-almoço", "Refeição especial", "1º Almoço", "2º Almoço", "Sobremesa", "Refeição especial", "Lanche"]],
+      theme: 'grid',
+      headStyles: {fillColor : [18, 105, 24], fontStyle: 'bold'},
       styles: {
         fontSize: 9
       },
-      margin: { top: 28 },
+      margin: { top: 43 },
       body: [
-        [`${data?.pequeno_almoco}`, `${data?.extras1}`, `${data?.almoco1}`, `${data?.almoco2}`, `${data?.sobremesa}`, `${data?.extras2}`, `${data?.lanche}`],
-        [`${data?.porcao_pequeno_almoco}`, `${data?.porcao_extras1}`, `${data?.porcao_almoco1}`, `${data?.porcao_almoco2}`, `${data?.porcao_sobremesa}`, `${data?.porcao_extras2}`, `${data?.porcao_lanche}`],
+        [`${data?.pequeno_almoco}`, `${data?.porcao_extras1 !== '' && data?.porcao_extras1 !== null ? data?.extras1 : ''}`, `${data?.almoco1}`, `${data?.almoco2}`, `${data?.sobremesa}`, `${data?.porcao_extras2 !== '' && data?.porcao_extras2 !== null ? data?.extras2 : ''}`, `${data?.lanche}`],
+        [`${data?.porcao_pequeno_almoco}`, `${data?.porcao_extras1 !== '' && data?.porcao_extras1 !== null ? data?.porcao_extras1 : ''}`, `${data?.porcao_almoco1}`, `${data?.porcao_almoco2}`, `${data?.porcao_sobremesa}`, `${data?.porcao_extras2 !== '' && data?.porcao_extras2 !== null ? data?.porcao_extras2 : ''}`, `${data?.porcao_lanche}`],
       ],
     })
 
     doc.setTextColor("#222222");
-    doc.text(`Fezes: ${data?.fezes}${data?.nr_fezes > 0 ? (': '+ data?.nr_fezes + 'x') : ''}             Vômitos: ${data?.vomitos}${data?.nr_vomitos > 0 ? (': '+ data?.nr_vomitos + 'x') : ''}             Febres: ${data?.febres}${data?.nr_febres > 0 ? (': '+ data?.nr_febres + '° C') : ''}`, 14, 55);
-    doc.text(`Outras ocorrências: ${data?.message}`, 14, 65);
+    doc.text(`Fezes: ${data?.fezes}${data?.nr_fezes > 0 ? (': '+ data?.nr_fezes + 'x') : ''}             Vômitos: ${data?.vomitos}${data?.nr_vomitos > 0 ? (': '+ data?.nr_vomitos + 'x') : ''}             Febres: ${data?.febres}${data?.nr_febres > 0 ? (': '+ data?.nr_febres + '° C') : ''}`, 14, 75);
+    doc.text(`Outras ocorrências: ${data?.message !== '' && data?.message !== null ? data?.message : '-------'}`, 14, 85);
 
     setTimeout(async () => {
       setDownloading(false);
