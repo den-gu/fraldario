@@ -11,18 +11,6 @@ export const transporter = nodemailer.createTransport({
       user: email,
       pass: password,
     },
-    tls: {
-      rejectUnauthorized: false,  // Accept self-signed certificates for dev
-    },
-    pool: true,  // Connection pooling enabled
-    maxConnections: 5,  // Max connections allowed
-    maxMessages: 100,  // Max messages per connection
-    // dkim: {
-    //   domainName: 'ofraldario.co.mz',
-    //   keySelector: 'default',
-    //   // privateKey: fs.readFileSync('/path/to/dkim-private-key.pem'),
-    // },
-    debug: true,  // Enable debugging
   });
 
 

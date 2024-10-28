@@ -8,7 +8,7 @@ import Providers from './providers';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Fraldario",
+  title: "O Fraldario",
   description: "- A escola que é a escolha.",
 };
 
