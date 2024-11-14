@@ -296,7 +296,7 @@ export async function POST(req: Request): Promise<NextResponse>{
     try {
       const updatedMailOptions = {
           ...mailOptions,
-          to: "denilsondavid.me@gmail.com",
+          to: data.email,
           ...generateEmailContent(data),
           subject: "O Fraldario - relatório diário",
       };
