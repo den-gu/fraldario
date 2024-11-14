@@ -4,7 +4,7 @@ const email = process.env.EMAIL;
 const password = process.env.EMAIL_PASS;
 
 export const transporter = nodemailer.createTransport({
-    host: "mail.ofraldario.co.mz",
+    host: "smtp.google.com",
     port: 465,
     secure: true, // Use `true` for port 465, `false` for all other ports
     auth: {
