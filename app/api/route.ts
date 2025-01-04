@@ -99,7 +99,7 @@ const generateEmailContent = (data: any) => {
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 650px;padding: 0px 5px 0px 5px;" class="responsive-table">
                     <tr>
                         <td style='padding: 5px 0px 0px 0px !important;'>
-                            <img src="https://i.ibb.co/Dk1CCRS/ofraldario.png" width="160px" height="50px"
+                            <img src="https://i.ibb.co/5FyqW29/temp-image-20240820-121851-caa55265-2605-48f3-83eb-c8f424ce232e-jpg.webp" width="160px" height="25px"
                                 alt="Fraldario Logo" border="0">
                         </td>
                         <td style="padding: 0px 10px 0px 5px !important;">
