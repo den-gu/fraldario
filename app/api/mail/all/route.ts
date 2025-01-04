@@ -62,7 +62,7 @@ const generateEmailContent = (data: any) => {
 
                     <tr style="margin-top: 5px !important;">
                         <td style="padding: 0px 0px 0px 0px !important;">
-                            <img src="https://i.ibb.co/H4Wvchg/ofraldario.webp" width="170px" height="50px"
+                            <img src="https://i.ibb.co/5FyqW29/temp-image-20240820-121851-caa55265-2605-48f3-83eb-c8f424ce232e-jpg.webp" width="160px" height="25px"
                                 alt="Fraldario Logo" alt="ofraldario" border="0">
                         </td>
                     </tr>
