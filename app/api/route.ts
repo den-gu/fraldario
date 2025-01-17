@@ -99,7 +99,7 @@ const generateEmailContent = (data: any) => {
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 650px;padding: 0px 5px 0px 5px;" class="responsive-table">
                     <tr>
                         <td style='padding: 5px 0px 0px 0px !important;'>
-                            <img src="https://i.ibb.co/5FyqW29/temp-image-20240820-121851-caa55265-2605-48f3-83eb-c8f424ce232e-jpg.webp" width="160px" height="25px"
+                            <img src="https://i.ibb.co/5FyqW29/temp-image-20240820-121851-caa55265-2605-48f3-83eb-c8f424ce232e-jpg.webp" width="160px" height="40px"
                                 alt="Fraldario Logo" border="0">
                         </td>
                         <td style="padding: 0px 10px 0px 5px !important;">
@@ -270,7 +270,7 @@ const generateEmailContent = (data: any) => {
                     style="max-width: 650px;padding: 0px 5px 20px 5px;" class="responsive-table">
                     <tr>
                         <td style='padding: 5px 0px 0px 0px !important;'>
-                            <img src="https://i.ibb.co/T1xPxgY/Footer-Go-Green-800px-01.png" alt="Footer-Go-Green-800px-01" width="100%" height="auto"
+                            <img src="https://i.ibb.co/26g36jK/Footer-Go-Green-800px-01.png" alt="Footer-Go-Green-800px-01" width="100%" height="auto"
                                 alt="ofraldario" border="0">
                         </td>
                     </tr>
