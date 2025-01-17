@@ -184,10 +184,10 @@ export default function AddMessage() {
   
         })
       
-        // await sendMessage(values, newReceptors, fileName, publicUrl)
+         await sendMessage(values, newReceptors, fileName, publicUrl)
       
       } else {
-          // await sendMessage(values, newReceptors)
+          await sendMessage(values, newReceptors)
           console.log("Nenhum arquivo selecionado.");
         }
     } catch(error) {
