@@ -184,10 +184,10 @@ export default function AddMessage() {
   
         })
       
-         await sendMessage(values, newReceptors, fileName, publicUrl)
+         // await sendMessage(values, newReceptors, fileName, publicUrl)
       
       } else {
-          await sendMessage(values, newReceptors)
+          // await sendMessage(values, newReceptors)
           console.log("Nenhum arquivo selecionado.");
         }
     } catch(error) {
@@ -196,55 +196,55 @@ export default function AddMessage() {
       console.log(fileURL)
     }
 
-    // try {
-    //   submitHandler(isSubmitting)
-    //   let fileName = "";
+    try {
+       submitHandler(isSubmitting)
+       let fileName = "";
 
-    //   if (fileInput.current?.files?.length) {
+       if (fileInput.current?.files?.length) {
 
-    //     const file = fileInput.current.files[0];
-    //     fileName = file.name;
+         const file = fileInput.current.files[0];
+         fileName = file.name;
 
-    //     const fileExtension = fileName.split('.').pop(); // Extrai a extensão
-    //     console.log(`Nome do arquivo: ${fileName}`);
-    //     console.log(`Extensão do arquivo: ${fileExtension}`);
+         const fileExtension = fileName.split('.').pop(); // Extrai a extensão
+         console.log(`Nome do arquivo: ${fileName}`);
+         console.log(`Extensão do arquivo: ${fileExtension}`);
 
-    //     const formData = new FormData();
-    //     formData.append("file", file);
+         const formData = new FormData();
+         formData.append("file", file);
 
-    //     const filePath = `${fileName}`;
-    // //     // Upload the file
-    //     const { data, error } = await supabase
-    //       .storage
-    //       .from(bucket)
-    //       .upload(filePath, file);
+         const filePath = `${fileName}`;
+         // Upload the file
+         const { data, error } = await supabase
+           .storage
+           .from(bucket)
+           .upload(filePath, file);
 
-    //     console.log(fileName)
+         console.log(fileName)
 
-    //     if (error) {
-    //       console.error('Error uploading file:', error);
-    //     }
+         if (error) {
+           console.error('Error uploading file:', error);
+         }
 
 
-    // //     // Generate the public URL
-    //     const { data: { publicUrl } } = supabase
-    //       .storage
-    //       .from(bucket)
-    //       .getPublicUrl(filePath);
+         // Generate the public URL
+         const { data: { publicUrl } } = supabase
+           .storage
+           .from(bucket)
+           .getPublicUrl(filePath);
 
     //       console.log('File URL:', publicUrl);
 
     //       console.log(values)
     //       console.log(data)
 
-    //     await sendMessage(values, newReceptors, fileName, publicUrl)
-    //   } else {
-    //     await sendMessage(values, newReceptors)
+         await sendMessage(values, newReceptors, fileName, publicUrl)
+       } else {
+         await sendMessage(values, newReceptors)
     //     console.log("Nenhum arquivo selecionado.");
-    //   }
-    // } catch (error) {
-    //   console.log(error)
-    // }
+      }
+     } catch (error) {
+       console.log(error)
+     }
   }
 
   function handleFileChange() {
