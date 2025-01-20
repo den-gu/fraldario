@@ -164,7 +164,7 @@ export function AddMeal() {
                             </div> */}
 
 
-                            <FormLabel className="text-[12px]">Refeição especial</FormLabel>
+                            <FormLabel className="text-[12px]">Snack</FormLabel>
                             <div className="flex flex-col mb-2">
                                 <FormField
                                     control={form.control}
@@ -172,7 +172,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Refeição especial" {...field} className="text-[13px]" />
+                                                <Input placeholder="Snack" {...field} className="text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -180,7 +180,7 @@ export function AddMeal() {
                             </div>
 
 
-                            <FormLabel className="text-[12px]">1º Almoço</FormLabel>
+                            <FormLabel className="text-[12px]">Almoço (Entrada)</FormLabel>
                             <div className="flex flex-col gap-2">
                                 <FormField
                                     control={form.control}
@@ -188,7 +188,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="1º Almoço" className="text-[13px]" {...field} />
+                                                <Input placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -200,7 +200,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="1º Almoço" className="text-[13px]" {...field} />
+                                                <Input placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -212,7 +212,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="1º Almoço" className="text-[13px]" {...field} />
+                                                <Input placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -223,14 +223,14 @@ export function AddMeal() {
                                 </Button>
 
                                 
-                            <FormLabel className="text-[12px]">2º Almoço</FormLabel>
+                            <FormLabel className="text-[12px]">Prato principal</FormLabel>
                                 <FormField
                                     control={form.control}
                                     name="almoco2"
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="2º Almoço" className="text-[13px]" {...field} />
+                                                <Input placeholder="Prato principal" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -242,7 +242,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="2º Almoço" className="text-[13px]" {...field} />
+                                                <Input placeholder="Prato principal" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -254,7 +254,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="2º Almoço" className="text-[13px]" {...field} />
+                                                <Input placeholder="Prato principal" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -310,7 +310,7 @@ export function AddMeal() {
                             </div>
 
 
-                            <FormLabel className="text-[12px]">Refeição especial</FormLabel>
+                            <FormLabel className="text-[12px]">Snack</FormLabel>
                             <div className="flex justify-between gap-4 mb-2">
                                 <FormField
                                     control={form.control}
@@ -318,7 +318,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Refeição especial" {...field} className="text-[13px]" />
+                                                <Input placeholder="Snack" {...field} className="text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
