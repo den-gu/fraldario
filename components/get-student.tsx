@@ -426,6 +426,7 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -443,7 +444,7 @@ export default function GetStudent(props: any) {
                   name="extras1"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Refeição especial</FormLabel>
+                      <FormLabel className="text-[12px]">Snack</FormLabel>
                       <Select
                         value={field.value}  // Use value instead of defaultValue
                         onValueChange={(e) => {
@@ -484,6 +485,7 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -502,7 +504,7 @@ export default function GetStudent(props: any) {
                   name="almoco1"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">1º Almoço</FormLabel>
+                      <FormLabel className="text-[12px]">Almoço (Entrada)</FormLabel>
                       <Select
                         value={field.value}  // Use value instead of defaultValue
                         onValueChange={(e) => {
@@ -545,6 +547,7 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -563,7 +566,7 @@ export default function GetStudent(props: any) {
                   name="almoco2"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">2º Almoço</FormLabel>
+                      <FormLabel className="text-[12px]">Prato principal</FormLabel>
                       <Select
                         value={field.value}  // Use value instead of defaultValue
                         onValueChange={(e) => {
@@ -605,6 +608,7 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -666,6 +670,7 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -683,7 +688,7 @@ export default function GetStudent(props: any) {
                   name="extras2"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Refeição especial</FormLabel>
+                      <FormLabel className="text-[12px]">Snack</FormLabel>
                       <Select
                         value={field.value}  // Use value instead of defaultValue
                         onValueChange={(e) => {
@@ -724,6 +729,7 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -784,6 +790,7 @@ export default function GetStudent(props: any) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
