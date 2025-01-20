@@ -349,7 +349,7 @@ for (const data of reports) {
   ]);
 }
 
-    image.src = 'https://i.ibb.co/H4Wvchg/ofraldario.webp';
+    image.src = 'https://i.ibb.co/5FyqW29/temp-image-20240820-121851-caa55265-2605-48f3-83eb-c8f424ce232e-jpg.webp';
 
     doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
     
@@ -361,7 +361,7 @@ for (const data of reports) {
 
       // Generate the table
       autoTable(doc, {
-        head: [["Nome", "Comp.", "Peq.almoço", "Ref.Especial", "1º Almoço", "2º Almoço", "Sobremesa", "Ref.Especial", "Lanche", "Fezes", "Vômitos", "Febres"]],
+        head: [["Nome", "Comp.", "Peq.almoço", "Snack", "Almoço(Entrada)", "Prato principal", "Sobremesa", "Snack", "Lanche", "Fezes", "Vômitos", "Febres"]],
         theme: 'grid',
         headStyles: {fillColor : [18, 105, 24], fontStyle: 'bold'},
         styles: {
@@ -396,7 +396,7 @@ for (const data of reports) {
     const doc = new jsPDF('l');
     let image = new Image();
 
-    image.src = 'https://i.ibb.co/H4Wvchg/ofraldario.webp';
+    image.src = 'https://i.ibb.co/5FyqW29/temp-image-20240820-121851-caa55265-2605-48f3-83eb-c8f424ce232e-jpg.webp';
 
     doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
 
@@ -410,7 +410,7 @@ for (const data of reports) {
 
     // Generate the table
     autoTable(doc, {
-      head: [["Pequeno-almoço", "Refeição especial", "1º Almoço", "2º Almoço", "Sobremesa", "Refeição especial", "Lanche"]],
+      head: [["Pequeno-almoço", "Snack", "Almoço(Entrada)", "Prato principal", "Sobremesa", "Snack", "Lanche"]],
       theme: 'grid',
       headStyles: {fillColor : [18, 105, 24], fontStyle: 'bold'},
       styles: {
