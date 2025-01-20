@@ -162,10 +162,10 @@ const generateEmailContent = (data: any) => {
                             ${data?.pequeno_almoco}</p>
                     </td>
                 </tr>
-                ${data?.porcao_extras1 !== "" && data?.porcao_extras1 !== null && data?.porcao_extras1 !== undefined
+                ${data?.porcao_extras1 !== "" && data?.porcao_extras1 !== "Não aplicável" && data?.porcao_extras1 !== null && data?.porcao_extras1 !== undefined
                 ? `<tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style='margin: 0;font-size: 13px;'>Refeição especial: ${data?.porcao_extras1}</p>
+                        <p style='margin: 0;font-size: 13px;'>Snack: ${data?.porcao_extras1}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.extras1}</p>
@@ -175,7 +175,7 @@ const generateEmailContent = (data: any) => {
                 }
                 <tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style="margin: 0;font-size: 13px;">1º Almoço: ${data?.porcao_almoco1}</p>
+                        <p style="margin: 0;font-size: 13px;">Almoço (Entrada): ${data?.porcao_almoco1}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.almoco1}</p>
@@ -183,7 +183,7 @@ const generateEmailContent = (data: any) => {
                 </tr>
                 <tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style="margin: 0;font-size: 13px;">2º Almoço: ${data?.porcao_almoco2}</p>
+                        <p style="margin: 0;font-size: 13px;">Prato principal: ${data?.porcao_almoco2}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.almoco2}</p>
@@ -197,10 +197,10 @@ const generateEmailContent = (data: any) => {
                             ${data?.sobremesa}</p>
                     </td>
                 </tr>
-                ${data?.porcao_extras2 !== "" && data?.porcao_extras2 !== null && data?.porcao_extras2 !== undefined
+                ${data?.porcao_extras2 !== "" && data?.porcao_extras2 !== "Não aplicável" && data?.porcao_extras2 !== null && data?.porcao_extras2 !== undefined
                 ? `<tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style='margin: 0;font-size: 13px;'>Refeição especial: ${data?.porcao_extras2}</p>
+                        <p style='margin: 0;font-size: 13px;'>Snack: ${data?.porcao_extras2}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.extras2}</p>
