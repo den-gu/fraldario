@@ -330,7 +330,7 @@ export default function GetStudent(props: any) {
         <Card className="mt-5">
           <CardContent className="space-y-2">
           <Form {...form}>
-        <form onSubmit={(e) => form.handleSubmit(onSubmit(e))} className="h-auto pb-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto pb-4">
           <div className="grid gap-7 grid-cols-4 mt-5">
             <div className="col-span-4">
             <div className="flex flex-col w-full gap-3">
