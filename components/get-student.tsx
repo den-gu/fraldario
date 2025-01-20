@@ -311,7 +311,9 @@ export default function GetStudent(props: any) {
 
 
     // 2. Define a submit handler.
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(event: React.FormEvent<HTMLFormElement>, values: z.infer<typeof formSchema>) {
+
+    event.preventDefault();
 
       try {
         sendingHandler(saving, selectedStudent?.email);
@@ -328,7 +330,7 @@ export default function GetStudent(props: any) {
         <Card className="mt-5">
           <CardContent className="space-y-2">
           <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto pb-4">
+        <form onSubmit={(e) => form.handleSubmit(onSubmit(e))} className="h-auto pb-4">
           <div className="grid gap-7 grid-cols-4 mt-5">
             <div className="col-span-4">
             <div className="flex flex-col w-full gap-3">
