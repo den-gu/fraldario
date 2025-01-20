@@ -329,6 +329,7 @@ export function EditReport(data: Report) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -346,7 +347,7 @@ export function EditReport(data: Report) {
                   name="extras1"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Refeição extra da manhã</FormLabel>
+                      <FormLabel className="text-[12px]">Snack</FormLabel>
                       <FormControl>
                         <Input placeholder={data.extras1} className="text-[13px]" disabled={disabled} {...field}
                           defaultValue={data.extras1} />
@@ -371,6 +372,7 @@ export function EditReport(data: Report) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -389,7 +391,7 @@ export function EditReport(data: Report) {
                   name="almoco1"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">1º Almoço</FormLabel>
+                      <FormLabel className="text-[12px]">Almoço (Entrada)</FormLabel>
                       <FormControl>
                         <Input placeholder={data.almoco1} className="text-[13px]" disabled={disabled} {...field}
                           defaultValue={data.almoco1} />
@@ -414,6 +416,7 @@ export function EditReport(data: Report) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -432,7 +435,7 @@ export function EditReport(data: Report) {
                   name="almoco2"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">2º Almoço</FormLabel>
+                      <FormLabel className="text-[12px]">Prato principal</FormLabel>
                       <FormControl>
                         <Input placeholder={data.almoco2} className="text-[13px]" disabled={disabled} {...field}
                           defaultValue={data.almoco2} />
@@ -457,6 +460,7 @@ export function EditReport(data: Report) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -499,6 +503,7 @@ export function EditReport(data: Report) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -541,6 +546,7 @@ export function EditReport(data: Report) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
@@ -558,7 +564,7 @@ export function EditReport(data: Report) {
                   name="extras2"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Refeição extra da tarde</FormLabel>
+                      <FormLabel className="text-[12px]">Snack</FormLabel>
                       <FormControl>
                         <Input placeholder={data.extras2} className="text-[13px]" disabled={disabled} {...field}
                           defaultValue={data.extras2} />
@@ -583,6 +589,7 @@ export function EditReport(data: Report) {
                         </FormControl>
                         <SelectContent>
                         <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
                         <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
