@@ -506,14 +506,14 @@ export default function GetStudent(props: any) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Almoço (Entrada)</FormLabel>
                       <Select
-                        value={field.value}  // Use value instead of defaultValue
+                        defaultValue={state.almoco1}  // Use value instead of defaultValue
                         onValueChange={(e) => {
                           field.onChange(e);
                           updateField('almoco1', e);
                         }} required>
                         <FormControl>
                           <SelectTrigger className="w-full text-[13px]">
-                            <SelectValue placeholder="..." className="text-[13px]" {...field} />
+                            <SelectValue placeholder={state.almoco1} className="text-[13px]" {...field} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
