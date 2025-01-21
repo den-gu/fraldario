@@ -349,7 +349,7 @@ for (const data of reports) {
   ]);
 }
 
-    image.src = 'https://i.ibb.co/5FyqW29/temp-image-20240820-121851-caa55265-2605-48f3-83eb-c8f424ce232e-jpg.webp';
+    image.src = 'https://i.postimg.cc/fbGYr66v/fraldario.webp';
 
     doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
     
@@ -396,7 +396,7 @@ for (const data of reports) {
     const doc = new jsPDF('l');
     let image = new Image();
 
-    image.src = 'https://i.ibb.co/5FyqW29/temp-image-20240820-121851-caa55265-2605-48f3-83eb-c8f424ce232e-jpg.webp';
+    image.src = 'https://i.postimg.cc/fbGYr66v/fraldario.webp';
 
     doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
 
@@ -410,7 +410,7 @@ for (const data of reports) {
 
     // Generate the table
     autoTable(doc, {
-      head: [["Pequeno-almoço", "Snack", "Almoço(Entrada)", "Prato principal", "Sobremesa", "Snack", "Lanche"]],
+      head: [["Pequeno-almoço", "Snack", "Almoço (Entrada)", "Prato principal", "Sobremesa", "Snack", "Lanche"]],
       theme: 'grid',
       headStyles: {fillColor : [18, 105, 24], fontStyle: 'bold'},
       styles: {
