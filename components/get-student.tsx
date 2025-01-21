@@ -293,8 +293,8 @@ export default function GetStudent(props: any) {
         student_name: selectedStudent?.name || "",
         email: selectedStudent?.email || "",
         pequeno_almoco: "",
-        almoco1: "",
-        almoco2: "",
+        almoco1: almoco1 || "",
+        almoco2: almoco2 || "",
         sobremesa: "",
         lanche: "",
         extras1: lastMeal?.extras1,
@@ -311,9 +311,7 @@ export default function GetStudent(props: any) {
 
 
     // 2. Define a submit handler.
-    async function onSubmit(event: React.FormEvent<HTMLFormElement>, values: z.infer<typeof formSchema>) {
-
-    event.preventDefault();
+    async function onSubmit(values: z.infer<typeof formSchema>) {
 
       try {
         sendingHandler(saving, selectedStudent?.email);
