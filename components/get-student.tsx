@@ -506,7 +506,7 @@ export default function GetStudent(props: any) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Almoço (Entrada)</FormLabel>
                       <Select
-                        defaultValue={state.almoco1}  // Use value instead of defaultValue
+                        value={state.almoco1}  // Use value instead of defaultValue
                         onValueChange={(e) => {
                           field.onChange(e);
                           updateField('almoco1', e);
