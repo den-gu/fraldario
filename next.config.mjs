@@ -13,7 +13,7 @@ const nextConfig = {
             },
           {
             protocol: 'https',
-            hostname: 'i.postimg.cc',
+            hostname: 'raw.githubusercontent.com',
             port: '',
           },
         ],
