@@ -71,7 +71,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
           </label>
 
           <Link href="/">
-            <Image src="https://i.postimg.cc/fbGYr66v/fraldario.webp" width={130} height={20} alt="Fraldario Logo" />
+            <Image src="https://raw.githubusercontent.com/den-gu/fraldario/refs/heads/main/fraldario.webp" width={130} height={20} alt="Fraldario Logo" />
           </Link>
         </div>
         <div className="drawer-side z-20">
