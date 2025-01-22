@@ -62,7 +62,7 @@ const generateEmailContent = (data: any) => {
 
                     <tr style="margin-top: 5px !important;">
                         <td style="padding: 0px 0px 0px 0px !important;">
-                            <img src="https://i.postimg.cc/fbGYr66v/fraldario.webp" width="160px" height="40px"
+                            <img src="https://raw.githubusercontent.com/den-gu/fraldario/refs/heads/main/fraldario.webp" width="160px" height="40px"
                                 alt="Fraldario Logo" alt="ofraldario" border="0">
                         </td>
                     </tr>
@@ -94,7 +94,7 @@ const generateEmailContent = (data: any) => {
                     style="max-width: 650px;padding: 0px 5px 20px 5px;" class="responsive-table">
                     <tr>
                         <td style='padding: 5px 0px 0px 0px !important;'>
-                            <img src="https://i.postimg.cc/7LGgXxQ6/stamp.png"
+                            <img src="https://raw.githubusercontent.com/den-gu/fraldario/refs/heads/main/stamp.png" 
                                 alt="Footer-Go-Green-800px-01" width="100%" height="auto" alt="ofraldario" border="0">
                         </td>
                     </tr>
