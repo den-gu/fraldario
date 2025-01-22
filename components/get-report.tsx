@@ -349,7 +349,7 @@ for (const data of reports) {
   ]);
 }
 
-    image.src = 'https://i.postimg.cc/fbGYr66v/fraldario.webp';
+    image.src = 'https://raw.githubusercontent.com/den-gu/fraldario/refs/heads/main/fraldario.webp';
 
     doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
     
@@ -396,7 +396,7 @@ for (const data of reports) {
     const doc = new jsPDF('l');
     let image = new Image();
 
-    image.src = 'https://i.postimg.cc/fbGYr66v/fraldario.webp';
+    image.src = 'https://raw.githubusercontent.com/den-gu/fraldario/refs/heads/main/fraldario.webp';
 
     doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
 
