@@ -323,25 +323,24 @@ export default function GetStudent(props: any) {
     }
 
     const handleReset = () => {
-      setState({
-      pequeno_almoco: "",
-      almoco1: "",
-      almoco2: "",
-      sobremesa: "",
-      lanche: "",
-      extras1: lastMeal?.extras1 || "",
-      extras2: lastMeal?.extras2 || "",
-      porcao_pequeno_almoco: "",
-      porcao_almoco1: "",
-      porcao_almoco2: "",
-      porcao_sobremesa: "",
-      porcao_lanche: "",
-      porcao_extras1: "",
-      porcao_extras2: "",
-      fezes: "",
-      vomitos: "",
-      febres: "",
-    })
+      updateField('behavior', '');
+      updateField('pequeno_almoco', '');
+      updateField('almoco1', '');
+      updateField('almoco2', '');
+      updateField('sobremesa', '');
+      updateField('lanche', '');
+      updateField('extras1', lastMeal?.extras1 || "");
+      updateField('extras2', lastMeal?.extras2 || "");
+      updateField('porcao_pequeno_almoco', "");
+      updateField('porcao_almoco1', "");
+      updateField('porcao_almoco2', "");
+      updateField('porcao_sobremesa', "");
+      updateField('porcao_lanche', "");
+      updateField('porcao_extras1', "");
+      updateField('porcao_extras2', "");
+      updateField('fezes', "");
+      updateField('vomitos', "");
+      updateField('febres', "");
     } 
 
 
