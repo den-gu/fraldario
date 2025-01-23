@@ -153,15 +153,17 @@ const generateEmailContent = (data: any) => {
                             Refeições</h1>
                     </td>
                 </tr>
-                <tr>
-                    <td style="padding: 0px 15px 0px 15px !important;">
-                        <p style="margin: 0;font-size: 13px;">Pequeno-almoço: ${data?.porcao_pequeno_almoco}
-                        </p>
+                ${data?.porcao_pequeno_almoco !== "" && data?.porcao_pequeno_almoco !== "Não aplicável"
+                ? `<tr>
+                    <td style='padding: 10px 15px 0px 15px !important;'>
+                        <p style='margin: 0;font-size: 13px;'>Pequeno-almoço: ${data?.porcao_pequeno_almoco}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.pequeno_almoco}</p>
                     </td>
-                </tr>
+                </tr>`
+                : ``
+                }
                 ${data?.porcao_extras1 !== "" && data?.porcao_extras1 !== "Não aplicável" && data?.porcao_extras1 !== null && data?.porcao_extras1 !== undefined
                 ? `<tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
@@ -173,30 +175,39 @@ const generateEmailContent = (data: any) => {
                 </tr>`
                 : ``
                 }
-                <tr>
+                ${data?.porcao_almoco1 !== "" && data?.porcao_almoco1 !== "Não aplicável"
+                ? `<tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style="margin: 0;font-size: 13px;">Almoço (Entrada): ${data?.porcao_almoco1}</p>
+                        <p style='margin: 0;font-size: 13px;'>Almoço (Entrada): ${data?.porcao_almoco1}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.almoco1}</p>
                     </td>
-                </tr>
-                <tr>
+                </tr>`
+                : ``
+                }
+                ${data?.porcao_almoco2 !== "" && data?.porcao_almoco2 !== "Não aplicável"
+                ? `<tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
-                        <p style="margin: 0;font-size: 13px;">Prato principal: ${data?.porcao_almoco2}</p>
+                        <p style='margin: 0;font-size: 13px;'>Prato principal: ${data?.porcao_almoco2}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.almoco2}</p>
                     </td>
-                </tr>
-                <tr>
+                </tr>`
+                : ``
+                }
+                ${data?.porcao_sobremesa !== "" && data?.porcao_sobremesa !== "Não aplicável"
+                ? `<tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
                         <p style='margin: 0;font-size: 13px;'>Sobremesa: ${data?.porcao_sobremesa}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.sobremesa}</p>
                     </td>
-                </tr>
+                </tr>`
+                : ``
+                }
                 ${data?.porcao_extras2 !== "" && data?.porcao_extras2 !== "Não aplicável" && data?.porcao_extras2 !== null && data?.porcao_extras2 !== undefined
                 ? `<tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
@@ -208,14 +219,17 @@ const generateEmailContent = (data: any) => {
                 </tr>`
                 : ``
                 }
-                <tr>
+                ${data?.porcao_lanche !== "" && data?.porcao_lanche !== "Não aplicável"
+                ? `<tr>
                     <td style='padding: 10px 15px 0px 15px !important;'>
                         <p style='margin: 0;font-size: 13px;'>Lanche: ${data?.porcao_lanche}</p>
                         <p
                             style="width: 100%;margin: 4px 0 0 0;font-size: 13px;padding: 8px 10px 8px 10px; border-radius: 8px; border: 1px solid #cccccc;">
                             ${data?.lanche}</p>
                     </td>
-                </tr>
+                </tr>`
+                : ``
+                }
             </table>
         </td>
         </tr>
@@ -298,7 +312,7 @@ export async function POST(req: Request): Promise<NextResponse>{
           ...mailOptions,
           to: data.email,
           ...generateEmailContent(data),
-          subject: "O Fraldario - relatório diário",
+          subject: "O Fraldário - Relatório Diário",
       };
 
       const response = await transporter.sendMail(updatedMailOptions);
