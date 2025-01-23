@@ -339,7 +339,7 @@ for (const data of reports) {
     `${data?.porcao_extras1 !== '' && data.porcao_extras1 !== 'Não aplicável' && data?.porcao_extras1 !== null ? data?.extras1 + ': ' + data?.porcao_extras1 : ''}`,
     `${data?.porcao_almoco1 !== 'Não aplicável' ? data?.almoco1 + ': ' + data?.porcao_almoco1 : ''}`,
     `${data?.porcao_almoco2 !== 'Não aplicável' ? data?.almoco2 + ': ' + data?.porcao_almoco2 : ''}`,
-    `${data?.porcao_sobremesa !== 'Não aplicável' ? data?.sobremesa + ': ' + data?.porção sobremesa : ''}`,
+    `${data?.porcao_sobremesa !== 'Não aplicável' ? data?.sobremesa + ': ' + data?.porcao_sobremesa : ''}`,
     `${data?.porcao_extras2 !== '' && data.porcao_extras2 !== 'Não aplicável' && data?.porcao_extras2 !== null ? data?.extras2 + ': ' + data?.porcao_extras2 : ''}`,
     // `${data?.extras2}: ${data?.porcao_extras2}`,
     `${data?.porcao_lanche !== 'Não aplicável' ? data?.lanche + ': ' + data?.porcao_lanche : ''}`,
