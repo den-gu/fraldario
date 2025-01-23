@@ -322,6 +322,28 @@ export default function GetStudent(props: any) {
       }
     }
 
+    const handleReset = () => {
+      setState({
+      pequeno_almoco: "",
+      almoco1: "",
+      almoco2: "",
+      sobremesa: "",
+      lanche: "",
+      extras1: lastMeal?.extras1 || "",
+      extras2: lastMeal?.extras2 || "",
+      porcao_pequeno_almoco: "",
+      porcao_almoco1: "",
+      porcao_almoco2: "",
+      porcao_sobremesa: "",
+      porcao_lanche: "",
+      porcao_extras1: "",
+      porcao_extras2: "",
+      fezes: "",
+      vomitos: "",
+      febres: "",
+    })
+    } 
+
 
     return (
       selectedStudent ? (
@@ -972,8 +994,8 @@ export default function GetStudent(props: any) {
             </div>
           </div>
   
-          <div className="flex justify-between mt-5">
-            <div className="flex items-center gap-4">
+          <div className="flex mt-5">
+            <div className="w-full flex items-center gap-4">
             {/* <Button type="button" onClick={downloadPDF} disabled={isLoading} variant="secondary" className="w-full md:w-fit flex items-center text-[13px]">
               {isLoading ? (
                 <i className="ri-loader-line animate-spin text-[14px]"></i>
@@ -985,7 +1007,7 @@ export default function GetStudent(props: any) {
                   </>
                 )}
             </Button> */}
-            <Button type="reset" disabled={saving} variant="secondary" className="w-full md:w-fit flex items-center text-[13px]">
+            <Button type="button" disabled={saving} onClick={handleReset} variant="secondary" className="w-full md:w-fit text-[13px]">
               Limpar campos
             </Button>
             <Button type="submit" disabled={saving} className="w-full md:w-fit flex items-center text-[13px]">
