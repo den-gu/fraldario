@@ -335,14 +335,14 @@ for (const data of reports) {
   tableData.push([
     `${data?.student_name}`,
     `${data?.behavior}`,
-    `${data?.pequeno_almoco}: ${data?.porcao_pequeno_almoco}`,
-    `${data?.porcao_extras1 !== '' && data?.porcao_extras1 !== null ? data?.extras1 + ': ' + data?.porcao_extras1 : ''}`,
-    `${data?.almoco1}: ${data?.porcao_almoco1}`,
-    `${data?.almoco2}: ${data?.porcao_almoco2}`,
-    `${data?.sobremesa}: ${data?.porcao_sobremesa}`,
-    `${data?.porcao_extras2 !== '' && data?.porcao_extras2 !== null ? data?.extras2 + ': ' + data?.porcao_extras2 : ''}`,
+    `${data?.porcao_pequeno_almoco !== 'Não aplicável' ? data?.pequeno_almoco + ': ' + data?.porcao_pequeno_almoco : ''}`,
+    `${data?.porcao_extras1 !== '' && data.porcao_extras1 !== 'Não aplicável' && data?.porcao_extras1 !== null ? data?.extras1 + ': ' + data?.porcao_extras1 : ''}`,
+    `${data?.porcao_almoco1 !== 'Não aplicável' ? data?.almoco1 + ': ' + data?.porcao_almoco1 : ''}`,
+    `${data?.porcao_almoco2 !== 'Não aplicável' ? data?.almoco2 + ': ' + data?.porcao_almoco2 : ''}`,
+    `${data?.porcao_sobremesa !== 'Não aplicável' ? data?.sobremesa + ': ' + data?.porção sobremesa : ''}`,
+    `${data?.porcao_extras2 !== '' && data.porcao_extras2 !== 'Não aplicável' && data?.porcao_extras2 !== null ? data?.extras2 + ': ' + data?.porcao_extras2 : ''}`,
     // `${data?.extras2}: ${data?.porcao_extras2}`,
-    `${data?.lanche}: ${data?.porcao_lanche}`,
+    `${data?.porcao_lanche !== 'Não aplicável' ? data?.lanche + ': ' + data?.porcao_lanche : ''}`,
     `${data?.fezes}${data?.nr_fezes > 0 ? `: ${data?.nr_fezes}x` : ``}`,
     `${data?.vomitos}${data?.nr_vomitos > 0 ? `: ${data?.nr_vomitos}x` : ``}`,
     `${data?.febres}${data?.nr_febres > 0 ? `: ${data?.nr_febres}° C` : ``}`
@@ -418,8 +418,8 @@ for (const data of reports) {
       },
       margin: { top: 43 },
       body: [
-        [`${data?.pequeno_almoco}`, `${data?.porcao_extras1 !== '' && data?.porcao_extras1 !== null ? data?.extras1 : ''}`, `${data?.almoco1}`, `${data?.almoco2}`, `${data?.sobremesa}`, `${data?.porcao_extras2 !== '' && data?.porcao_extras2 !== null ? data?.extras2 : ''}`, `${data?.lanche}`],
-        [`${data?.porcao_pequeno_almoco}`, `${data?.porcao_extras1 !== '' && data?.porcao_extras1 !== null ? data?.porcao_extras1 : ''}`, `${data?.porcao_almoco1}`, `${data?.porcao_almoco2}`, `${data?.porcao_sobremesa}`, `${data?.porcao_extras2 !== '' && data?.porcao_extras2 !== null ? data?.porcao_extras2 : ''}`, `${data?.porcao_lanche}`],
+        [`${data?.porcao_pequeno_almoco !== 'Não aplicável' ? data?.pequeno_almoco : ''}`, `${data?.porcao_extras1 !== '' && data.porcao_extras1 !== 'Não aplicável' && data?.porcao_extras1 !== null ? data?.extras1 : ''}`, `${data?.porcao_almoco1 !== 'Não aplicável' ? data?.almoco1 : ''}`, `${data?.porcao_almoco2 !== 'Não aplicável' ? data?.almoco2 : ''}`, `${data?.porcao_sobremesa !== 'Não aplicável' ? data?.sobremesa : ''}`, `${data?.porcao_extras2 !== '' && data?.porcao_extras2 !== 'Não aplicável' && data?.porcao_extras2 !== null ? data?.extras2 : ''}`, `${data?.porcao_lanche !== 'Não aplicável' ? data?.lanche : ''}`],
+        [`${data?.porcao_pequeno_almoco !== 'Não aplicável' ? data?.porcao_pequeno_almoco : ''}`, `${data?.porcao_extras1 !== '' && data?.porcao_extras1 !== 'Não aplicável' ? data?.porcao_extras1 : ''}`, `${data?.porcao_almoco1 !== 'Não aplicável' ? data?.porcao_almoco1 : ''}`, `${data?.porcao_almoco2 !== 'Não aplicável' ? data?.porcao_almoco2 : ''}`, `${data?.porcao_sobremesa !== 'Não aplicável' ? data?.sobremesa : '' }`, `${data?.porcao_extras2 !== '' && data?.porcao_extras2 !== 'Não aplicável' ? data?.porcao_extras2 : ''}`, `${data?.porcao_lanche !== 'Não aplicável' ? data?.porcao_lanche}`],
       ],
     })
 
