@@ -972,8 +972,8 @@ export default function GetStudent(props: any) {
             </div>
           </div>
   
-          {/* <div className="flex justify-between mt-5">
-            <div className="flex items-center gap-4"> */}
+          <div className="flex justify-between mt-5">
+            <div className="flex items-center gap-4">
             {/* <Button type="button" onClick={downloadPDF} disabled={isLoading} variant="secondary" className="w-full md:w-fit flex items-center text-[13px]">
               {isLoading ? (
                 <i className="ri-loader-line animate-spin text-[14px]"></i>
@@ -985,7 +985,10 @@ export default function GetStudent(props: any) {
                   </>
                 )}
             </Button> */}
-            <Button type="submit" disabled={saving} className="w-full md:w-fit flex items-center text-[13px] mt-5">
+            <Button type="reset" disabled={saving} variant="secondary" className="w-full md:w-fit flex items-center text-[13px]">
+              Limpar campos
+            </Button>
+            <Button type="submit" disabled={saving} className="w-full md:w-fit flex items-center text-[13px]">
               {saving ? (
                 <i className="ri-loader-line animate-spin text-[14px]"></i>
               )
@@ -996,8 +999,8 @@ export default function GetStudent(props: any) {
                   </>
                 )}
             </Button>
-            {/* </div>
-          </div> */}
+            </div>
+          </div> 
         </form>
       </Form>
           </CardContent>
