@@ -374,7 +374,7 @@ for (const data of reports) {
     setTimeout(async () => {
       setDownloadAll(false);
       // Save the PDF
-      doc.save(`Report-${createdAt}.pdf`);
+      doc.save(`Relatório-${createdAt}.pdf`);
       toast('Sucesso', {
         description: 'O relatório foi descarregado.',
         duration: 12000,
@@ -419,7 +419,7 @@ for (const data of reports) {
       margin: { top: 43 },
       body: [
         [`${data?.porcao_pequeno_almoco !== 'Não aplicável' ? data?.pequeno_almoco : ''}`, `${data?.porcao_extras1 !== '' && data.porcao_extras1 !== 'Não aplicável' && data?.porcao_extras1 !== null ? data?.extras1 : ''}`, `${data?.porcao_almoco1 !== 'Não aplicável' ? data?.almoco1 : ''}`, `${data?.porcao_almoco2 !== 'Não aplicável' ? data?.almoco2 : ''}`, `${data?.porcao_sobremesa !== 'Não aplicável' ? data?.sobremesa : ''}`, `${data?.porcao_extras2 !== '' && data?.porcao_extras2 !== 'Não aplicável' && data?.porcao_extras2 !== null ? data?.extras2 : ''}`, `${data?.porcao_lanche !== 'Não aplicável' ? data?.lanche : ''}`],
-        [`${data?.porcao_pequeno_almoco !== 'Não aplicável' ? data?.porcao_pequeno_almoco : ''}`, `${data?.porcao_extras1 !== '' && data?.porcao_extras1 !== 'Não aplicável' ? data?.porcao_extras1 : ''}`, `${data?.porcao_almoco1 !== 'Não aplicável' ? data?.porcao_almoco1 : ''}`, `${data?.porcao_almoco2 !== 'Não aplicável' ? data?.porcao_almoco2 : ''}`, `${data?.porcao_sobremesa !== 'Não aplicável' ? data?.sobremesa : '' }`, `${data?.porcao_extras2 !== '' && data?.porcao_extras2 !== 'Não aplicável' ? data?.porcao_extras2 : ''}`, `${data?.porcao_lanche !== 'Não aplicável' ? data?.porcao_lanche : ''}`],
+        [`${data?.porcao_pequeno_almoco !== 'Não aplicável' ? data?.porcao_pequeno_almoco : ''}`, `${data?.porcao_extras1 !== '' && data?.porcao_extras1 !== 'Não aplicável' ? data?.porcao_extras1 : ''}`, `${data?.porcao_almoco1 !== 'Não aplicável' ? data?.porcao_almoco1 : ''}`, `${data?.porcao_almoco2 !== 'Não aplicável' ? data?.porcao_almoco2 : ''}`, `${data?.porcao_sobremesa !== 'Não aplicável' ? data?.porcao_sobremesa : '' }`, `${data?.porcao_extras2 !== '' && data?.porcao_extras2 !== 'Não aplicável' ? data?.porcao_extras2 : ''}`, `${data?.porcao_lanche !== 'Não aplicável' ? data?.porcao_lanche : ''}`],
       ],
     })
 
@@ -430,7 +430,7 @@ for (const data of reports) {
     setTimeout(async () => {
       setDownloading(false);
       // Save the PDF
-      doc.save(`Relatorio-${data?.createdAtIntDTF}-${data?.student_name}.pdf`);
+      doc.save(`Relatório-${data?.createdAtIntDTF}-${data?.student_name}.pdf`);
       toast('Sucesso', {
         description: 'O ficheiro foi descarregado.',
         duration: 5000,
