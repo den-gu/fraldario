@@ -431,6 +431,7 @@ export default function GetStudent(props: any) {
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -552,6 +553,7 @@ export default function GetStudent(props: any) {
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -613,6 +615,7 @@ export default function GetStudent(props: any) {
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -675,6 +678,7 @@ export default function GetStudent(props: any) {
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -795,6 +799,7 @@ export default function GetStudent(props: any) {
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
