@@ -329,8 +329,8 @@ export default function GetStudent(props: any) {
       updateField('almoco2', '');
       updateField('sobremesa', '');
       updateField('lanche', '');
-      updateField('extras1', lastMeal?.extras1 || "");
-      updateField('extras2', lastMeal?.extras2 || "");
+     // updateField('extras1', lastMeal?.extras1 || "");
+      //updateField('extras2', lastMeal?.extras2 || "");
       updateField('porcao_pequeno_almoco', "");
       updateField('porcao_almoco1', "");
       updateField('porcao_almoco2', "");
@@ -1006,7 +1006,7 @@ export default function GetStudent(props: any) {
                   </>
                 )}
             </Button> */}
-            <Button type="button" disabled={saving} onClick={handleReset} variant="secondary" className="w-full md:w-fit hidden text-[13px]">
+            <Button type="button" disabled={saving} onClick={handleReset()} variant="secondary" className="w-full md:w-fit text-[13px]">
               Limpar campos
             </Button>
             <Button type="submit" disabled={saving} className="w-full md:w-fit flex items-center text-[13px]">
