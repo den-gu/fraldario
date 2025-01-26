@@ -322,7 +322,7 @@ export default function GetStudent(props: any) {
       }
     }
 
-    const handleReset = () => {
+    const handleReset = (state1: any, state2: any) => {
       //setState('behavior', '');
       //setState('pequeno_almoco', '');
       //setState('almoco1', '');
@@ -342,11 +342,18 @@ export default function GetStudent(props: any) {
       //updateField('vomitos', "");
       //updateField('febres', "");
       //updateField('behavior', '');
+
+    //updateField = (, value: any) => {
       setState((prevState) => ({
         ...prevState,
-        [state.behavior]: '',
+        [state1]: '',
       }));
-    } 
+      setState((prevState) => ({
+        ...prevState,
+        [state2]: '',
+      }));
+    //};
+   } 
 
 
     return (
@@ -1011,7 +1018,7 @@ export default function GetStudent(props: any) {
                   </>
                 )}
             </Button> */}
-            <Button type="button" disabled={saving} onClick={handleReset} variant="secondary" className="w-full md:w-fit text-[13px]">
+            <Button type="button" disabled={saving} onClick={handleReset(state.behavior, state.pequeno_almoco)} variant="secondary" className="w-full md:w-fit text-[13px]">
               Limpar campos
             </Button>
             <Button type="submit" disabled={saving} className="w-full md:w-fit flex items-center text-[13px]">
