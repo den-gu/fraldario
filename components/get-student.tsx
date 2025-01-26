@@ -323,24 +323,29 @@ export default function GetStudent(props: any) {
     }
 
     const handleReset = () => {
-      setState('behavior', '');
-      setState('pequeno_almoco', '');
-      setState('almoco1', '');
-      updateField('almoco2', '');
-      updateField('sobremesa', '');
-      updateField('lanche', '');
-     // updateField('extras1', lastMeal?.extras1 || "");
+      //setState('behavior', '');
+      //setState('pequeno_almoco', '');
+      //setState('almoco1', '');
+      //updateField('almoco2', '');
+      //updateField('sobremesa', '');
+      //updateField('lanche', '');
+      //updateField('extras1', lastMeal?.extras1 || "");
       //updateField('extras2', lastMeal?.extras2 || "");
-      updateField('porcao_pequeno_almoco', "");
-      updateField('porcao_almoco1', "");
-      updateField('porcao_almoco2', "");
-      updateField('porcao_sobremesa', "");
-      updateField('porcao_lanche', "");
-      updateField('porcao_extras1', "");
-      updateField('porcao_extras2', "");
-      updateField('fezes', "");
-      updateField('vomitos', "");
-      updateField('febres', "");
+      //updateField('porcao_pequeno_almoco', "");
+      //updateField('porcao_almoco1', "");
+      //updateField('porcao_almoco2', "");
+      //updateField('porcao_sobremesa', "");
+      //updateField('porcao_lanche', "");
+      //updateField('porcao_extras1', "");
+      //updateField('porcao_extras2', "");
+      //updateField('fezes', "");
+      //updateField('vomitos', "");
+      //updateField('febres', "");
+      //updateField('behavior', '');
+      setState((prevState) => ({
+        ...prevState,
+        [behavior]: '',
+      }));
     } 
 
 
