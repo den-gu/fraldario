@@ -344,7 +344,7 @@ export default function GetStudent(props: any) {
       //updateField('behavior', '');
       setState((prevState) => ({
         ...prevState,
-        [behavior]: '',
+        [state.behavior]: '',
       }));
     } 
 
