@@ -345,17 +345,17 @@ export default function GetStudent(props: any) {
       const value = "";
 
     //updateField = (, value: any) => {
-      setState((prevState) => ({
-        ...prevState,
+      //setState((prevState) => ({
+      //  ...prevState,
+   //     [state1]: value,
+     // }));
+    //  setState((prevState) => ({
+ //       ...prevState,
+   //     [state2]: value,
+     // }));
+      setState(() => ({
         [state1]: value,
       }));
-      setState((prevState) => ({
-        ...prevState,
-        [state2]: value,
-      }));
-      //setState(() => ({
-      //  [state1]: value,
-      //}));
     //};
    } 
 
