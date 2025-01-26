@@ -342,16 +342,20 @@ export default function GetStudent(props: any) {
       //updateField('vomitos', "");
       //updateField('febres', "");
       //updateField('behavior', '');
+      const value = "";
 
     //updateField = (, value: any) => {
       setState((prevState) => ({
         ...prevState,
-        [state1]: '',
+        [state1]: value,
       }));
       setState((prevState) => ({
         ...prevState,
-        [state2]: '',
+        [state2]: value,
       }));
+      //setState(() => ({
+      //  [state1]: value,
+      //}));
     //};
    } 
 
