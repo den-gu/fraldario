@@ -323,9 +323,9 @@ export default function GetStudent(props: any) {
     }
 
     const handleReset = () => {
-      updateField('behavior', '');
-      updateField('pequeno_almoco', '');
-      updateField('almoco1', '');
+      setState('behavior', '');
+      setState('pequeno_almoco', '');
+      setState('almoco1', '');
       updateField('almoco2', '');
       updateField('sobremesa', '');
       updateField('lanche', '');
@@ -1006,7 +1006,7 @@ export default function GetStudent(props: any) {
                   </>
                 )}
             </Button> */}
-            <Button type="button" disabled={saving} onClick={() => handleReset} variant="secondary" className="w-full md:w-fit text-[13px]">
+            <Button type="button" disabled={saving} onClick={handleReset} variant="secondary" className="w-full md:w-fit text-[13px]">
               Limpar campos
             </Button>
             <Button type="submit" disabled={saving} className="w-full md:w-fit flex items-center text-[13px]">
