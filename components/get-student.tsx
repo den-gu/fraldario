@@ -353,9 +353,9 @@ export default function GetStudent(props: any) {
  //       ...prevState,
    //     [state2]: value,
      // }));
-      setState(() => ({
-        [state1]: value,
-      }));
+     // setState(() => ({
+       // [state1]: value,
+     // }));
 
       alert(state1, state2)
     //};
