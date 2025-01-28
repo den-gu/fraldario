@@ -303,6 +303,9 @@ export default function GetStudent(props: any) {
       fezes: lastReport?.fezes || "",
       vomitos: lastReport?.vomitos || "",
       febres: lastReport?.febres || "",
+      nr_fezes: lastReport?.nr_fezes || null,
+      nr_vomitos: lastReport?.nr_vomitos || null,
+      nr_febres: lastReport?.nr_febres || null,
     })
 
     const loadHandler = (state: boolean) => {
@@ -566,7 +569,9 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select 
+                        value={field.value}
+                        onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_extras1', e);  // Chama a função que actualiza o estado
                         }}>
@@ -628,7 +633,9 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select 
+                        value={field.value}
+                        onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_almoco1', e);  // Chama a função que actualiza o estado
                         }}>
@@ -690,7 +697,9 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select 
+                        value={field.value}
+                        onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_almoco2', e);  // Chama a função que actualiza o estado
                         }}>
@@ -753,7 +762,9 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select 
+                        value={field.value}
+                        onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_sobremesa', e);  // Chama a função que actualiza o estado
                         }}>
@@ -813,7 +824,9 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select 
+                        value={field.value}
+                        onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_extras2', e);  // Chama a função que actualiza o estado
                         }}>
@@ -874,7 +887,9 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select 
+                        value={field.value}
+                        onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_lanche', e);  // Chama a função que actualiza o estado
                         }}>
@@ -911,6 +926,7 @@ export default function GetStudent(props: any) {
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Fezes</FormLabel>
                       <Select
+                        value={field.value}
                         onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('fezes', e);  // Chama a função que actualiza o estado
@@ -938,6 +954,7 @@ export default function GetStudent(props: any) {
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Vômitos</FormLabel>
                       <Select
+                        value={field.value}
                         onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('vomitos', e);  // Chama a função que actualiza o estado
@@ -964,6 +981,7 @@ export default function GetStudent(props: any) {
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Febres</FormLabel>
                       <Select
+                        value={field.value}
                         onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('febres', e);  // Chama a função que actualiza o estado
@@ -995,7 +1013,7 @@ export default function GetStudent(props: any) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Quantas vezes?</FormLabel>
                       <FormControl>
-                        <Input placeholder="..." type="number" className="text-[13px]" {...field} min={1} />
+                        <Input defaultValue={state.nr_fezes} placeholder="..." type="number" className="text-[13px]" {...field} min={1} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -1011,7 +1029,7 @@ export default function GetStudent(props: any) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Quantas vezes?</FormLabel>
                       <FormControl>
-                        <Input placeholder="..." type="number" className="text-[13px]" {...field} min={1} />
+                        <Input defaultValue={state.nr_vomitos} placeholder="..." type="number" className="text-[13px]" {...field} min={1} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -1027,7 +1045,7 @@ export default function GetStudent(props: any) {
                     <FormItem className="w-full">
                       <FormLabel className="text-[12px]">Temperatura</FormLabel>
                       <FormControl>
-                        <Input placeholder="..." className="text-[13px]" {...field} min={1} />
+                        <Input defaultValue={state.nr_febres} placeholder="..." className="text-[13px]" {...field} min={1} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
