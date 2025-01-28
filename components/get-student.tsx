@@ -160,8 +160,11 @@ export default function GetStudent(props: any) {
 
       if (error) {
         console.error('Erro ao buscar último relatório:', error);
+        alert(today + data);
       } else {
         setLastReport(data);
+
+        alert(today + data);
 
         alert(data);
       }
