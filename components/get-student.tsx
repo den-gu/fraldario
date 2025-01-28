@@ -1058,9 +1058,9 @@ export default function GetStudent(props: any) {
                   </>
                 )}
             </Button> */}
-            <Button type="button" disabled={saving} onClick={handleReset(state?.behavior, state?.pequeno_almoco)} variant="secondary" className="w-full md:w-fit text-[13px]">
+              {/*<Button type="button" disabled={saving} onClick={handleReset(state?.behavior, state?.pequeno_almoco)} variant="secondary" className="w-full md:w-fit text-[13px]">
               Limpar campos
-            </Button>
+            </Button>*/}
             <Button type="submit" disabled={saving} className="w-full md:w-fit flex items-center text-[13px]">
               {saving ? (
                 <i className="ri-loader-line animate-spin text-[14px]"></i>
