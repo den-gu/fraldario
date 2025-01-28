@@ -161,17 +161,9 @@ export default function GetStudent(props: any) {
 
       if (error) {
         console.error('Erro ao buscar último relatório:', error);
-        alert(today);
-        if(data) {
-          alert(today + data);
-        } 
       } else {
         if(data) {
           setLastReport(data);
-
-        alert(today + data);
-
-        alert(data);
         } 
       }
     };
@@ -283,23 +275,24 @@ export default function GetStudent(props: any) {
     const [state, setState] = useState({
       student_name: selectedStudent?.name || "",
       email: selectedStudent?.email || "",
-      pequeno_almoco: "",
-      almoco1: "",
-      almoco2: "",
-      sobremesa: "",
-      lanche: "",
+      behavior: lastReport?.behavior || "",
+      pequeno_almoco: lastReport?.pequeno_almoco || "",
+      almoco1: lastReport?.almoco1 || "",
+      almoco2: lastReport?.almoco2 || "",
+      sobremesa: lastReport?.sobremesa || "",
+      lanche: lastReport?.lanche || "",
       extras1: lastMeal?.extras1 || "",
       extras2: lastMeal?.extras2 || "",
-      porcao_pequeno_almoco: "",
-      porcao_almoco1: "",
-      porcao_almoco2: "",
-      porcao_sobremesa: "",
-      porcao_lanche: "",
-      porcao_extras1: "",
-      porcao_extras2: "",
-      fezes: "",
-      vomitos: "",
-      febres: "",
+      porcao_pequeno_almoco: lastReport?.porcao_pequeno_almoco || "",
+      porcao_almoco1: lastReport?.porcao_almoco1 || "",
+      porcao_almoco2: lastReport?.porcao_almoco2 || "",
+      porcao_sobremesa: lastReport?.porcao_sobremesa || "",
+      porcao_lanche: lastReport?.porcao_lanche || "",
+      porcao_extras1: lastReport?.porcao_extras1 || "",
+      porcao_extras2: lastReport?.porcao_extras2 || "",
+      fezes: lastReport?.fezes || "",
+      vomitos: lastReport?.vomitos || "",
+      febres: lastReport?.febres || "",
     })
 
     const loadHandler = (state: boolean) => {
@@ -335,20 +328,21 @@ export default function GetStudent(props: any) {
       defaultValues: {
         student_name: selectedStudent?.name || "",
         email: selectedStudent?.email || "",
-        pequeno_almoco: "",
-        almoco1: state.almoco1 || "",
-        almoco2: state.almoco2 || "",
-        sobremesa: "",
-        lanche: "",
+        behavior: lastReport?.behavior || "",
+        pequeno_almoco: lastReport?.pequeno_almoco || "",
+        almoco1: lastReport?.almoco1 || "",
+        almoco2: lastReport?.almoco2 || "",
+        sobremesa: lastReport?.sobremesa || "",
+        lanche: lastReport?.lanche || "",
         extras1: lastMeal?.extras1,
         extras2: lastMeal?.extras2,
-        porcao_pequeno_almoco: "",
-        porcao_almoco1: "",
-        porcao_almoco2: "",
-        porcao_sobremesa: "",
-        porcao_lanche: "",
-        porcao_extras1: "",
-        porcao_extras2: "",
+        porcao_pequeno_almoco: lastReport?.porcao_pequeno_almoco || "",
+        porcao_almoco1: lastReport?.porcao_almoco1 || "",
+        porcao_almoco2: lastReport?.porcao_almoco2 || "",
+        porcao_sobremesa: lastReport?.porcao_sobremesa || "",
+        porcao_lanche: lastReport?.porcao_lanche || "",
+        porcao_extras1: lastReport?.porcao_extras1 || "",
+        porcao_extras2: lastReport?.porcao_extras2 || "",
       },
     })
 
