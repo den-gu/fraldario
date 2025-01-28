@@ -78,6 +78,9 @@ type Report = {
   porcao_lanche: string | undefined;
   porcao_extras1: string | undefined;
   porcao_extras2: string | undefined;
+  fezes: string | undefined;
+  vomitos: string | undefined;
+  febres: string | undefined;
 }
 
 const formSchema = z.object({
@@ -350,6 +353,9 @@ export default function GetStudent(props: any) {
         porcao_lanche: lastReport?.porcao_lanche || "",
         porcao_extras1: lastReport?.porcao_extras1 || "",
         porcao_extras2: lastReport?.porcao_extras2 || "",
+        fezes: lastReport?.fezes || "",
+        vomitos: lastReport?.vomitos || "",
+        febres: lastReport?.febres || "",
       },
     })
 
