@@ -71,6 +71,13 @@ type Report = {
   lanche: string | undefined;
   extras1: string | undefined,
   extras2: string | undefined,
+  porcao_pequeno_almoco: string | undefined,
+  porcao_almoco1: string | undefined,
+  porcao_almoco2: string | undefined,
+  porcao_sobremesa: string | undefined,
+  porcao_lanche: string | undefined,
+  porcao_extras1: string | undefined,
+  porcao_extras2: string | undefined,
 }
 
 const formSchema = z.object({
