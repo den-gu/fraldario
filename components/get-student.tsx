@@ -81,6 +81,9 @@ type Report = {
   fezes: string | undefined;
   vomitos: string | undefined;
   febres: string | undefined;
+  nr_fezes: number | string | null;
+  nr_vomitos: number | string | null;
+  nr_febres: number | string | null;
 }
 
 const formSchema = z.object({
