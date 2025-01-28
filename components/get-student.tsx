@@ -391,7 +391,7 @@ export default function GetStudent(props: any) {
        // [state1]: value,
      // }));
 
-      alert(state1, state2)
+      alert(state + state2)
     //};
    } 
 
