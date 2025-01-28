@@ -62,6 +62,17 @@ type Meal = {
   extras2: string | undefined,
 }
 
+type Report = {
+  behavior: string | undefined;
+  pequeno_almoco: string | undefined;
+  almoco1: string | undefined;
+  almoco2: string | undefined;
+  sobremesa: string | undefined;
+  lanche: string | undefined;
+  extras1: string | undefined,
+  extras2: string | undefined,
+}
+
 const formSchema = z.object({
   student_name: z.string().optional(),
   email: z.string().email().optional(),
@@ -103,6 +114,7 @@ export default function GetStudent(props: any) {
     null
   )
   const [lastMeal, setLastMeal] = useState<Meal | null>(null);
+  const [lastReport, setLastReport] = useState<Report | null>(null);
 
 
   useEffect(() => {
@@ -134,7 +146,29 @@ export default function GetStudent(props: any) {
       }
     };
 
+    const fetchLastReport = async () => {
+      
+      const today = new Date();
+      
+      const { data, error } = await supabase
+        .from('reports')
+        .select('*')
+        .eq('created_at', today)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+
+      if (error) {
+        console.error('Erro ao buscar último relatório:', error);
+      } else {
+        setLastReport(data);
+
+        alert(data);
+      }
+    };
+
     fetchLastMeal();
+    fetchLastReport();
     getData();
   }, []);
 
