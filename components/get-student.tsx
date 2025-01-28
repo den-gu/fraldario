@@ -504,7 +504,9 @@ export default function GetStudent(props: any) {
                   render={({ field }) => (
                     <FormItem className="min-w-[140px]">
                       <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select onValueChange={(e) => {
+                      <Select 
+                        value={field.value}
+                        onValueChange={(e) => {
                           field.onChange(e);  // Chama o onChange original do field
                           updateField('porcao_pequeno_almoco', e);  // Chama a função que actualiza o estado
                         }}>
