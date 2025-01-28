@@ -147,13 +147,14 @@ export default function GetStudent(props: any) {
     };
 
     const fetchLastReport = async () => {
-      
-      const today = new Date();
+
+      const date = new Date();
+      const today = new Intl.DateTimeFormat('pt-BR').format(date);
       
       const { data, error } = await supabase
         .from('reports')
         .select('*')
-        .eq('created_at', today)
+        .eq('createdAtIntDTF', today)
         .order('created_at', { ascending: false })
         .limit(1)
         .single();
