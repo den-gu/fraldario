@@ -20,7 +20,7 @@ import { CardTitle } from "@/components/ui/card"
 import { initiateSession } from "@/lib/api"
 import { toast } from 'sonner';
 import { useRouter } from "next/navigation"
-
+import Image from "next/image";
 
 const FormSchema = z.object({
   username: z.string().min(1, {
