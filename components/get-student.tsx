@@ -372,6 +372,10 @@ export default function GetStudent(props: any) {
         sendingHandler(saving, selectedStudent?.email);
         await sendReport(values);
         await saveReport(values);
+
+        setTimeout(() => {
+         fetchLastMeal();
+        }, 1500);
       } catch (error) {
         console.log(error);
       }
