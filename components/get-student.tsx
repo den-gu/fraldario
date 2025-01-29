@@ -129,28 +129,6 @@ export default function GetStudent(props: any) {
   const [lastMeal, setLastMeal] = useState<Meal | null>(null);
   const [lastReport, setLastReport] = useState<Report | null>(null);
 
-  const fetchLastReport = async () => {
-
-      const date = new Date();
-      const today = new Intl.DateTimeFormat('pt-BR').format(date);
-      
-      const { data, error } = await supabase
-        .from('reports')
-        .select('*')
-        .eq('createdAtIntDTF', today)
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
-
-      if (error) {
-        console.error('Erro ao buscar último relatório:', error);
-      } else {
-        if(data) {
-          setLastReport(data);
-        } 
-      }
-    };
-
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
@@ -177,6 +155,28 @@ export default function GetStudent(props: any) {
         console.error('Erro ao buscar última refeição:', error);
       } else {
         setLastMeal(data);
+      }
+    };
+
+    const fetchLastReport = async () => {
+
+      const date = new Date();
+      const today = new Intl.DateTimeFormat('pt-BR').format(date);
+      
+      const { data, error } = await supabase
+        .from('reports')
+        .select('*')
+        .eq('createdAtIntDTF', today)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+
+      if (error) {
+        console.error('Erro ao buscar último relatório:', error);
+      } else {
+        if(data) {
+          setLastReport(data);
+        } 
       }
     };
 
@@ -373,49 +373,12 @@ export default function GetStudent(props: any) {
         await sendReport(values);
         await saveReport(values);
       } catch (error) {
-        console.log(error)
-      } finally {
-        await fetchLastReport();
+        console.log(error);
       }
     }
 
     const handleReset = () => {
-      //setState('behavior', '');
-      //setState('pequeno_almoco', '');
-      //setState('almoco1', '');
-      //updateField('almoco2', '');
-      //updateField('sobremesa', '');
-      //updateField('lanche', '');
-      //updateField('extras1', lastMeal?.extras1 || "");
-      //updateField('extras2', lastMeal?.extras2 || "");
-      //updateField('porcao_pequeno_almoco', "");
-      //updateField('porcao_almoco1', "");
-      //updateField('porcao_almoco2', "");
-      //updateField('porcao_sobremesa', "");
-      //updateField('porcao_lanche', "");
-      //updateField('porcao_extras1', "");
-      //updateField('porcao_extras2', "");
-      //updateField('fezes', "");
-      //updateField('vomitos', "");
-      //updateField('febres', "");
-      //updateField('behavior', '');
-      const value = "";
-
-    //updateField = (, value: any) => {
-      //setState((prevState) => ({
-      //  ...prevState,
-   //     [state1]: value,
-     // }));
-    //  setState((prevState) => ({
- //       ...prevState,
-   //     [state2]: value,
-     // }));
-     // setState(() => ({
-       // [state1]: value,
-     // }));
-
       setLastReport(null);
-    //};
    } 
 
 
