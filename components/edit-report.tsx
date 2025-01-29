@@ -334,6 +334,7 @@ export function EditReport(data: Report) {
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                          <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -421,6 +422,7 @@ export function EditReport(data: Report) {
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                          <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -465,6 +467,7 @@ export function EditReport(data: Report) {
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                          <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -508,49 +511,7 @@ export function EditReport(data: Report) {
                         <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-              </div>
-  
-              <div className="flex justify-between gap-4">
-                <FormField
-                  control={form.control}
-                  name="lanche"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel className="text-[12px]">Lanche</FormLabel>
-                      <FormControl>
-                        <Input placeholder={data.lanche} className="text-[13px]" disabled={disabled} {...field}
-                          defaultValue={data.lanche} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                <FormField
-                  control={form.control}
-                  name="porcao_lanche"
-                  render={({ field }) => (
-                    <FormItem className="min-w-[140px]">
-                      <FormLabel className="text-[12px]">Porção</FormLabel>
-                      <Select disabled={disabled} onValueChange={(e) => {
-                          field.onChange(e);  // Chama o onChange original do field
-                          updateField('porcao_lanche', e);  // Chama a função que actualiza o estado
-                        }}>
-                        <FormControl>
-                          <SelectTrigger className="w-full text-[13px]">
-                            <SelectValue placeholder={data.porcao_lanche} className="text-[13px]" {...field} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                        <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
-                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
-                        <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
-                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                          <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -595,6 +556,50 @@ export function EditReport(data: Report) {
                         <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
                         <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
                         <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+              </div>
+
+              <div className="flex justify-between gap-4">
+                <FormField
+                  control={form.control}
+                  name="lanche"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel className="text-[12px]">Lanche</FormLabel>
+                      <FormControl>
+                        <Input placeholder={data.lanche} className="text-[13px]" disabled={disabled} {...field}
+                          defaultValue={data.lanche} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                <FormField
+                  control={form.control}
+                  name="porcao_lanche"
+                  render={({ field }) => (
+                    <FormItem className="min-w-[140px]">
+                      <FormLabel className="text-[12px]">Porção</FormLabel>
+                      <Select disabled={disabled} onValueChange={(e) => {
+                          field.onChange(e);  // Chama o onChange original do field
+                          updateField('porcao_lanche', e);  // Chama a função que actualiza o estado
+                        }}>
+                        <FormControl>
+                          <SelectTrigger className="w-full text-[13px]">
+                            <SelectValue placeholder={data.porcao_lanche} className="text-[13px]" {...field} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                        <SelectItem className="text-[13px]" value="2 Porções">2 Porções</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção e meia">1 Porção e meia</SelectItem>
+                        <SelectItem className="text-[13px]" value="1 Porção">1 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="1/2 Porção">1/2 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="1/4 Porção">1/4 Porção</SelectItem>
+                        <SelectItem className="text-[13px]" value="Não comeu">Não comeu</SelectItem>
+                          <SelectItem className="text-[13px]" value="Não aplicável">Não aplicável</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
