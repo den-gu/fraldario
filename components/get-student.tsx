@@ -129,6 +129,27 @@ export default function GetStudent(props: any) {
   const [lastMeal, setLastMeal] = useState<Meal | null>(null);
   const [lastReport, setLastReport] = useState<Report | null>(null);
 
+  const fetchLastReport = async () => {
+
+      const date = new Date();
+      const today = new Intl.DateTimeFormat('pt-BR').format(date);
+      
+      const { data, error } = await supabase
+        .from('reports')
+        .select('*')
+        .eq('createdAtIntDTF', today)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+
+      if (error) {
+        console.error('Erro ao buscar último relatório:', error);
+      } else {
+        if(data) {
+          setLastReport(data);
+        } 
+      }
+    };
 
   useEffect(() => {
     const getData = async () => {
@@ -156,28 +177,6 @@ export default function GetStudent(props: any) {
         console.error('Erro ao buscar última refeição:', error);
       } else {
         setLastMeal(data);
-      }
-    };
-
-    const fetchLastReport = async () => {
-
-      const date = new Date();
-      const today = new Intl.DateTimeFormat('pt-BR').format(date);
-      
-      const { data, error } = await supabase
-        .from('reports')
-        .select('*')
-        .eq('createdAtIntDTF', today)
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
-
-      if (error) {
-        console.error('Erro ao buscar último relatório:', error);
-      } else {
-        if(data) {
-          setLastReport(data);
-        } 
       }
     };
 
@@ -373,6 +372,7 @@ export default function GetStudent(props: any) {
         sendingHandler(saving, selectedStudent?.email);
         await sendReport(values);
         await saveReport(values);
+        await fetchLastReport();
       } catch (error) {
         console.log(error)
       }
