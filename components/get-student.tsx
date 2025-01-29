@@ -306,9 +306,9 @@ export default function GetStudent(props: any) {
       fezes: lastReport?.fezes || "",
       vomitos: lastReport?.vomitos || "",
       febres: lastReport?.febres || "",
-      nr_fezes: lastReport?.nr_fezes || null,
-      nr_vomitos: lastReport?.nr_vomitos || null,
-      nr_febres: lastReport?.nr_febres || null,
+      nr_fezes: lastReport?.nr_fezes || "",
+      nr_vomitos: lastReport?.nr_vomitos || "",
+      nr_febres: lastReport?.nr_febres || "",
     })
 
     const loadHandler = (state: boolean) => {
