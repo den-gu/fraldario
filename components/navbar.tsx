@@ -70,7 +70,7 @@ const NavBar: React.FC<INavBar> = (props: INavBar) => {
             <i className="ri-menu-line text-[17px] font-normal"></i>
           </label>
 
-          <Link href="/">
+          <Link href="/home">
             <Image src="https://raw.githubusercontent.com/den-gu/fraldario/refs/heads/main/fraldario.webp" width={130} height={20} alt="Fraldario Logo" />
           </Link>
         </div>
