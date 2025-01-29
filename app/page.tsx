@@ -79,7 +79,7 @@ const SignIn: React.FC = () => {
       <Form {...form}>
       <form onSubmit={form.handleSubmit(OnSubmit)} className="flex flex-col gap-4 w-full max-w-[320px] shadow-md py-6 px-5 self-center border border-slate-200 rounded-lg">
         {/*<CardTitle className="text-center text-[18px]">O Fraldario</CardTitle>*/}
-        <Link href="/" className="text-center">
+        <Link href="/" className="flex justify-center text-center">
           <Image src="https://raw.githubusercontent.com/den-gu/fraldario/refs/heads/main/fraldario.webp" width={130} height={20} alt="Fraldario Logo" />
         </Link>
         <FormField
