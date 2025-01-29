@@ -372,9 +372,10 @@ export default function GetStudent(props: any) {
         sendingHandler(saving, selectedStudent?.email);
         await sendReport(values);
         await saveReport(values);
-        await fetchLastReport();
       } catch (error) {
         console.log(error)
+      } finally {
+        await fetchLastReport();
       }
     }
 
@@ -413,8 +414,7 @@ export default function GetStudent(props: any) {
        // [state1]: value,
      // }));
 
-      alert(lastReport);
-      console.log("Hello")
+      setLastReport(null);
     //};
    } 
 
