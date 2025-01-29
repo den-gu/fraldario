@@ -376,7 +376,7 @@ export default function GetStudent(props: any) {
 
         setTimeout(() => {
          fetchLastReport();
-        }, 1500);
+        }, 1000);
       } catch (error) {
         console.log(error);
       }
