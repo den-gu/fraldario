@@ -22,6 +22,15 @@ import { toast } from "sonner"
 import { CardTitle } from "./ui/card"
 import { addMeal } from "@/lib/api"
 
+type Meal = {
+    pequeno_almoco: string | undefined;
+    almoco1: string | undefined;
+    almoco2: string | undefined;
+    sobremesa: string | undefined; 
+    lanche: string | undefined;
+    extras1: string | undefined,
+    extras2: string | undefined,
+  }
 
 const formSchema = z.object({
     pequeno_almoco: z.string({required_error: "Preencha este campo"}).min(1, {message: "Campo obrigatório"}),
@@ -47,7 +56,8 @@ export function AddMeal() {
 
     const [isSubmitting, setSubmitting] = useState(false)
     const [loading, setLoading] = useState(false)
-
+    const [lastMeal, setLastMeal] = useState<Meal | null>(null);
+  
     let [pCounter, setPCounter] = useState(0)
     let [am1Counter, setAm1Counter] = useState(0)
     let [am2Counter, setAm2Counter] = useState(0)
@@ -73,9 +83,48 @@ export function AddMeal() {
         }, 2000);
     }
 
+  useEffect(() => {
+    const fetchLastMeal = async () => {
+      const { data, error } = await supabase
+        .from('meals')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single();
+
+      if (error) {
+        console.error('Erro ao buscar última refeição:', error);
+      } else {
+        setLastMeal(data);
+      }
+    };
+
+    fetchLastMeal();
+  }, []);
+
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+        pequeno_almoco: data.pequeno_almoco,
+        pequeno_almoco_extra1: data.pequeno_almoco_extra1,
+        pequeno_almoco_extra2: data.pequeno_almoco_extra2,
+        almoco1: data.almoco1,
+        almoco1_extra1: data.almoco1_extra1,
+        almoco1_extra2: data.almoco1_extra2,
+        almoco2: data.almoco2,
+        almoco2_extra1: data.almoco2_extra1,
+        almoco2_extra2: data.almoco2_extra2,
+        sobremesa: data.sobremesa,
+        sobremesa_extra1: data.sobremesa_extra1,
+        sobremesa_extra2: data.sobremesa_extra2,
+        lanche: data.lanche,
+        lanche_extra1: data.lanche_extra1,
+        lanche_extra2: data.lanche_extra2,
+        extras1: data.extras1,
+        extras2: data.extras2,
+        
+        },
     })
 
     // 2. Define a submit handler.
