@@ -21,6 +21,7 @@ import { z } from "zod"
 import { toast } from "sonner"
 import { CardTitle } from "./ui/card"
 import { addMeal } from "@/lib/api"
+import { supabase } from "@/lib/supabaseClient"
 
 type Meal = {
     pequeno_almoco: string | undefined | null;
