@@ -23,13 +23,22 @@ import { CardTitle } from "./ui/card"
 import { addMeal } from "@/lib/api"
 
 type Meal = {
-    pequeno_almoco: string | undefined;
-    almoco1: string | undefined;
-    almoco2: string | undefined;
-    sobremesa: string | undefined; 
-    lanche: string | undefined;
-    extras1: string | undefined,
-    extras2: string | undefined,
+    pequeno_almoco: string | undefined | null;
+  pequeno_almoco_extra1: string | undefined | null;
+        pequeno_almoco_extra2: string | undefined | null;
+    almoco1: string | undefined | null;
+  almoco1_extra1: string | undefined | null;
+        almoco1_extra2: string | undefined | null;
+    almoco2: string | undefined | null;
+  almoco2_extra1: string | undefined | null;
+        almoco2_extra2: string | undefined | null;
+    sobremesa_extra1: string | undefined | null;
+        sobremesa_extra2: string | undefined | null;
+        lanche: string | undefined | null;
+        lanche_extra1: string | undefined | null;
+        lanche_extra2: string | undefined | null;
+    extras1: string | undefined | null;
+    extras2: string | undefined | null;
   }
 
 const formSchema = z.object({
