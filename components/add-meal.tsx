@@ -152,6 +152,10 @@ export function AddMeal() {
         }
     }
 
+  const handleReset = () => {
+      setLastMeal(null);
+   }
+
 
     return (
         <Form {...form}>
@@ -182,7 +186,7 @@ export function AddMeal() {
                                         </FormItem>
                                     )} />
 
-                                {pCounter >= 1 || lastMeal?.pequeno_almoco_extra1 !== undefined ?
+                                {pCounter >= 1 || lastMeal?.pequeno_almoco_extra1 !== null ?
                                     <FormField
                                         control={form.control}
                                         name="pequeno_almoco_extra1"
@@ -261,7 +265,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                    {am1Counter >= 1 ?
+                                    {am1Counter >= 1 || am1Counter !== null ?
                                     <FormField
                                     control={form.control}
                                     name="almoco1_extra1"
@@ -273,7 +277,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} /> : ''}
-                                    {am1Counter >= 2 ?
+                                    {am1Counter >= 2 || am1Counter !== null ?
                                     <FormField
                                     control={form.control}
                                     name="almoco1_extra2"
@@ -303,7 +307,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                    {am2Counter >= 1 ?
+                                    {am2Counter >= 1 || am2Counter !== null ?
                                     <FormField
                                     control={form.control}
                                     name="almoco2_extra1"
@@ -315,7 +319,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} /> : ''}
-                                    {am2Counter >= 2 ?
+                                    {am2Counter >= 2 || am2Counter !== null ?
                                     <FormField
                                     control={form.control}
                                     name="almoco2_extra2"
@@ -347,7 +351,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                    {sbCounter >= 1 ?
+                                    {sbCounter >= 1 || sbCounter !== null ?
                                     <FormField
                                     control={form.control}
                                     name="sobremesa_extra1"
@@ -359,7 +363,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} /> : ''}
-                                    {sbCounter >= 2 ?
+                                    {sbCounter >= 2 || sbCounter !== null ?
                                     <FormField
                                     control={form.control}
                                     name="sobremesa_extra2"
@@ -407,7 +411,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                    {lnCounter >= 1 || lnCounter !== undefined ?
+                                    {lnCounter >= 1 || lnCounter !== null ?
                                     <FormField
                                     control={form.control}
                                     name="lanche_extra1"
@@ -419,7 +423,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} /> : ''}
-                                    {lnCounter >= 2 ?
+                                    {lnCounter >= 2 || lnCounter !== null ?
                                     <FormField
                                     control={form.control}
                                     name="lanche_extra2"
@@ -441,9 +445,14 @@ export function AddMeal() {
                         </div>
                     </div>
                 </div>
-                <Button type="submit" disabled={loading} className="mt-4">
+              <div className="w-full flex items-center gap-4 mt-4">
+                <Button type="button" disabled={loading} onClick={handleReset} variant="secondary" className="w-full md:w-fit text-[13px]">
+              Limpar campos
+            </Button>
+                <Button type="submit" disabled={loading} className="w-full md:w-fit text-[13px]">
                     {loading ? <i className="ri-loader-line animate-spin text-[14px]"></i> : `Guardar`}
                 </Button>
+                </div>
             </form>
         </Form>
     )
