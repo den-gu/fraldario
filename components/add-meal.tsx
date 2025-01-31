@@ -176,7 +176,7 @@ export function AddMeal() {
                                         <FormItem className="w-full">
                                             {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                                             <FormControl>
-                                                <Input placeholder="Pequeno-almoço" {...field} className="disabled:placeholder:text-[#000000] text-[13px]" />
+                                                <Input defaultValue={lastMeal?.pequeno_almoco} placeholder="Pequeno-almoço" {...field} className="disabled:placeholder:text-[#000000] text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -196,7 +196,7 @@ export function AddMeal() {
                                             </FormItem>
                                         )} /> : ''}
 
-                                {pCounter >= 2 || lastMeal?.pequeno_almoco_extra2 !== undefined ?
+                                {pCounter >= 2 || lastMeal?.pequeno_almoco_extra2 !== "" ?
                                     <FormField
                                         control={form.control}
                                         name="pequeno_almoco_extra2"
@@ -204,7 +204,7 @@ export function AddMeal() {
                                             <FormItem className="w-full">
                                                 {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                                                 <FormControl>
-                                                    <Input placeholder="Pequeno-almoço" {...field} className="text-[13px]" />
+                                                    <Input defaultValue={lastMeal?.pequeno_almoco_extra2} placeholder="Pequeno-almoço" {...field} className="text-[13px]" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -256,7 +256,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.almoco1} placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -268,7 +268,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.almoco1_extra1} placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -280,7 +280,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.almoco1_extra2} placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -298,7 +298,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Prato principal" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.almoco2} placeholder="Prato principal" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -310,7 +310,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Prato principal" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.almoco2_extra1} placeholder="Prato principal" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -322,7 +322,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Prato principal" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.almoco2_extra2} placeholder="Prato principal" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -342,7 +342,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Sobremesa" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.sobremesa} placeholder="Sobremesa" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -354,7 +354,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Sobremesa" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.sobremesa_extra1} placeholder="Sobremesa" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -366,7 +366,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Sobremesa" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.sobremesa_extra2} placeholder="Sobremesa" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -402,7 +402,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Lanche" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.lanche} placeholder="Lanche" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -414,7 +414,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Lanche" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.lanche_extra1} placeholder="Lanche" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -426,7 +426,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Lanche" className="text-[13px]" {...field} />
+                                                <Input defaultValue={lastMeal?.lanche_extra2} placeholder="Lanche" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
