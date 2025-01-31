@@ -25,22 +25,22 @@ import { supabase } from "@/lib/supabaseClient"
 
 type Meal = {
     pequeno_almoco: string | undefined;
-  pequeno_almoco_extra1: string | undefined | null;
-        pequeno_almoco_extra2: string | undefined | null;
+  pequeno_almoco_extra1: string | undefined;
+        pequeno_almoco_extra2: string | undefined;
     almoco1: string | undefined;
-  almoco1_extra1: string | undefined | null;
-        almoco1_extra2: string | undefined | null;
+  almoco1_extra1: string | undefined;
+        almoco1_extra2: string | undefined;
     almoco2: string | undefined;
-  almoco2_extra1: string | undefined | null;
-        almoco2_extra2: string | undefined | null;
+  almoco2_extra1: string | undefined;
+        almoco2_extra2: string | undefined;
   sobremesa: string | undefined;
-    sobremesa_extra1: string | undefined | null;
-        sobremesa_extra2: string | undefined | null;
+    sobremesa_extra1: string | undefined;
+        sobremesa_extra2: string | undefined;
         lanche: string | undefined;
-        lanche_extra1: string | undefined | null;
-        lanche_extra2: string | undefined | null;
-    extras1: string | undefined | null;
-    extras2: string | undefined | null;
+        lanche_extra1: string | undefined;
+        lanche_extra2: string | undefined;
+    extras1: string | undefined;
+    extras2: string | undefined;
   }
 
 const formSchema = z.object({
@@ -182,7 +182,7 @@ export function AddMeal() {
                                         </FormItem>
                                     )} />
 
-                                {pCounter >= 1 || lastMeal?.pequeno_almoco_extra1 !== null ?
+                                {pCounter >= 1 || lastMeal?.pequeno_almoco_extra1 !== null || lastMeal?.pequeno_almoco_extra1 !== undefined ?
                                     <FormField
                                         control={form.control}
                                         name="pequeno_almoco_extra1"
@@ -196,7 +196,7 @@ export function AddMeal() {
                                             </FormItem>
                                         )} /> : ''}
 
-                                {pCounter >= 2 || lastMeal?.pequeno_almoco_extra2 !== null ?
+                                {pCounter >= 2 || lastMeal?.pequeno_almoco_extra2 !== null || lastMeal?.pequeno_almoco_extra2 !== undefined ?
                                     <FormField
                                         control={form.control}
                                         name="pequeno_almoco_extra2"
