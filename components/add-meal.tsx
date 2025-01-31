@@ -24,18 +24,19 @@ import { addMeal } from "@/lib/api"
 import { supabase } from "@/lib/supabaseClient"
 
 type Meal = {
-    pequeno_almoco: string | undefined | null;
+    pequeno_almoco: string | undefined;
   pequeno_almoco_extra1: string | undefined | null;
         pequeno_almoco_extra2: string | undefined | null;
-    almoco1: string | undefined | null;
+    almoco1: string | undefined;
   almoco1_extra1: string | undefined | null;
         almoco1_extra2: string | undefined | null;
-    almoco2: string | undefined | null;
+    almoco2: string | undefined;
   almoco2_extra1: string | undefined | null;
         almoco2_extra2: string | undefined | null;
+  sobremesa: string | undefined;
     sobremesa_extra1: string | undefined | null;
         sobremesa_extra2: string | undefined | null;
-        lanche: string | undefined | null;
+        lanche: string | undefined;
         lanche_extra1: string | undefined | null;
         lanche_extra2: string | undefined | null;
     extras1: string | undefined | null;
