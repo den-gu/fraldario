@@ -109,34 +109,34 @@ export function AddMeal() {
       } else {
         setLastMeal(data);
 
-        if (lastMeal?.pequeno_almoco_extra1 !== undefined && lastMeal?.pequeno_almoco_extra1 !== null && lastMeal?.pequeno_almoco_extra1 !== "") {
+        if (data?.pequeno_almoco_extra1 !== undefined && data?.pequeno_almoco_extra1 !== null && data?.pequeno_almoco_extra1 !== "") {
           setPCounter(1);
         }
-        if (lastMeal?.pequeno_almoco_extra2 !== undefined && lastMeal?.pequeno_almoco_extra2 !== null && lastMeal?.pequeno_almoco_extra2 !== "") {
+        if (data?.pequeno_almoco_extra2 !== undefined && data?.pequeno_almoco_extra2 !== null && data?.pequeno_almoco_extra2 !== "") {
           setPCounter(2);
         }
-        if (lastMeal?.almoco1_extra1 !== undefined && lastMeal?.almoco1_extra1 !== null && lastMeal?.almoco1_extra1 !== "") {
+        if (data?.almoco1_extra1 !== undefined && data?.almoco1_extra1 !== null && data?.almoco1_extra1 !== "") {
           setAm1Counter(1);
         }
-        if (lastMeal?.almoco1_extra2 !== undefined && lastMeal?.almoco1_extra2 !== null && lastMeal?.almoco1_extra2 !== "") {
+        if (data?.almoco1_extra2 !== undefined && data?.almoco1_extra2 !== null && data?.almoco1_extra2 !== "") {
           setAm1Counter(2);
         }
-        if (lastMeal?.almoco2_extra1 !== undefined && lastMeal?.almoco2_extra1 !== null && lastMeal?.almoco2_extra1 !== "") {
+        if (data?.almoco2_extra1 !== undefined && data?.almoco2_extra1 !== null && data?.almoco2_extra1 !== "") {
           setAm2Counter(1);
         }
-        if (lastMeal?.almoco2_extra2 !== undefined && lastMeal?.almoco2_extra2 !== null && lastMeal?.almoco2_extra2 !== "") {
+        if (data?.almoco2_extra2 !== undefined && data?.almoco2_extra2 !== null && data?.almoco2_extra2 !== "") {
           setAm2Counter(2);
         }
-        if (lastMeal?.sobremesa_extra1 !== undefined && lastMeal?.sobremesa_extra1 !== null && lastMeal?.sobremesa_extra1 !== "") {
+        if (data?.sobremesa_extra1 !== undefined && data?.sobremesa_extra1 !== null && data?.sobremesa_extra1 !== "") {
           setSbCounter(1);
         }
-        if (lastMeal?.sobremesa_extra2 !== undefined && lastMeal?.sobremesa_extra2 !== null && lastMeal?.sobremesa_extra2 !== "") {
+        if (data?.sobremesa_extra2 !== undefined && data?.sobremesa_extra2 !== null && data?.sobremesa_extra2 !== "") {
           setSbCounter(2);
         }
-        if (lastMeal?.lanche_extra1 !== undefined && lastMeal?.lanche_extra1 !== null && lastMeal?.lanche_extra1 !== "") {
+        if (data?.lanche_extra1 !== undefined && data?.lanche_extra1 !== null && data?.lanche_extra1 !== "") {
           setLnCounter(1);
         }
-        if (lastMeal?.lanche_extra2 !== undefined && lastMeal?.lanche_extra2 !== null && lastMeal?.lanche_extra2 !== "") {
+        if (data?.lanche_extra2 !== undefined && data?.lanche_extra2 !== null && data?.lanche_extra2 !== "") {
           setLnCounter(2);
         }
       }
@@ -275,7 +275,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Snack" {...field} className="text-[13px]" />
+                                                <Input defaultValue={lastMeal?.extras1} placeholder="Snack" {...field} className="text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -421,7 +421,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Snack" {...field} className="text-[13px]" />
+                                                <Input defaultValue={lastMeal?.extras2} placeholder="Snack" {...field} className="text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
