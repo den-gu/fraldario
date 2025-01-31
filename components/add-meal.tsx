@@ -108,6 +108,37 @@ export function AddMeal() {
         console.error('Erro ao buscar última refeição:', error);
       } else {
         setLastMeal(data);
+
+        if (lastMeal?.pequeno_almoco_extra1 !== undefined && lastMeal?.pequeno_almoco_extra1 !== null && lastMeal?.pequeno_almoco_extra1 !== "") {
+          setPCounter(1);
+        }
+        if (lastMeal?.pequeno_almoco_extra2 !== undefined && lastMeal?.pequeno_almoco_extra2 !== null && lastMeal?.pequeno_almoco_extra2 !== "") {
+          setPCounter(2);
+        }
+        if (lastMeal?.almoco1_extra1 !== undefined && lastMeal?.almoco1_extra1 !== null && lastMeal?.almoco1_extra1 !== "") {
+          setAm1Counter(1);
+        }
+        if (lastMeal?.almoco1_extra2 !== undefined && lastMeal?.almoco1_extra2 !== null && lastMeal?.almoco1_extra2 !== "") {
+          setAm1Counter(2);
+        }
+        if (lastMeal?.almoco2_extra1 !== undefined && lastMeal?.almoco2_extra1 !== null && lastMeal?.almoco2_extra1 !== "") {
+          setAm2Counter(1);
+        }
+        if (lastMeal?.almoco2_extra2 !== undefined && lastMeal?.almoco2_extra2 !== null && lastMeal?.almoco2_extra2 !== "") {
+          setAm2Counter(2);
+        }
+        if (lastMeal?.sobremesa_extra1 !== undefined && lastMeal?.sobremesa_extra1 !== null && lastMeal?.sobremesa_extra1 !== "") {
+          setSbCounter(1);
+        }
+        if (lastMeal?.sobremesa_extra2 !== undefined && lastMeal?.sobremesa_extra2 !== null && lastMeal?.sobremesa_extra2 !== "") {
+          setSbCounter(2);
+        }
+        if (lastMeal?.lanche_extra1 !== undefined && lastMeal?.lanche_extra1 !== null && lastMeal?.lanche_extra1 !== "") {
+          setLnCounter(1);
+        }
+        if (lastMeal?.lanche_extra2 !== undefined && lastMeal?.lanche_extra2 !== null && lastMeal?.lanche_extra2 !== "") {
+          setLnCounter(2);
+        }
       }
     };
 
@@ -186,7 +217,7 @@ export function AddMeal() {
                                         </FormItem>
                                     )} />
 
-                                {pCounter >= 1 || lastMeal?.pequeno_almoco_extra1 !== null ?
+                                {pCounter >= 1 ?
                                     <FormField
                                         control={form.control}
                                         name="pequeno_almoco_extra1"
@@ -200,7 +231,7 @@ export function AddMeal() {
                                             </FormItem>
                                         )} /> : ''}
 
-                                {pCounter >= 2 || lastMeal?.pequeno_almoco_extra2 !== null ?
+                                {pCounter >= 2 ?
                                     <FormField
                                         control={form.control}
                                         name="pequeno_almoco_extra2"
@@ -265,7 +296,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                    {am1Counter >= 1 || am1Counter !== null ?
+                                    {am1Counter >= 1 ?
                                     <FormField
                                     control={form.control}
                                     name="almoco1_extra1"
@@ -277,7 +308,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} /> : ''}
-                                    {am1Counter >= 2 || am1Counter !== null ?
+                                    {am1Counter >= 2 ?
                                     <FormField
                                     control={form.control}
                                     name="almoco1_extra2"
@@ -307,7 +338,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                    {am2Counter >= 1 || am2Counter !== null ?
+                                    {am2Counter >= 1 ?
                                     <FormField
                                     control={form.control}
                                     name="almoco2_extra1"
@@ -319,7 +350,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} /> : ''}
-                                    {am2Counter >= 2 || am2Counter !== null ?
+                                    {am2Counter >= 2 ?
                                     <FormField
                                     control={form.control}
                                     name="almoco2_extra2"
@@ -351,7 +382,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                    {sbCounter >= 1 || sbCounter !== null ?
+                                    {sbCounter >= 1 ?
                                     <FormField
                                     control={form.control}
                                     name="sobremesa_extra1"
@@ -363,7 +394,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} /> : ''}
-                                    {sbCounter >= 2 || sbCounter !== null ?
+                                    {sbCounter >= 2 ?
                                     <FormField
                                     control={form.control}
                                     name="sobremesa_extra2"
@@ -411,7 +442,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                    {lnCounter >= 1 || lnCounter !== null ?
+                                    {lnCounter >= 1 ?
                                     <FormField
                                     control={form.control}
                                     name="lanche_extra1"
@@ -423,7 +454,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} /> : ''}
-                                    {lnCounter >= 2 || lnCounter !== null ?
+                                    {lnCounter >= 2 ?
                                     <FormField
                                     control={form.control}
                                     name="lanche_extra2"
