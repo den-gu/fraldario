@@ -57,6 +57,7 @@ export function AddMeal() {
     const [isSubmitting, setSubmitting] = useState(false)
     const [loading, setLoading] = useState(false)
     const [lastMeal, setLastMeal] = useState<Meal | null>(null);
+    const [disabled, setDisabled] = useState(true)
   
     let [pCounter, setPCounter] = useState(0)
     let [am1Counter, setAm1Counter] = useState(0)
@@ -146,6 +147,13 @@ export function AddMeal() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="h-auto">
                 <div className="grid gap-7 grid-cols-4">
                     <div className="col-span-4 gap-4">
+                      <p>
+                        Edite a refeição do dia e clique em &#34;Actualizar&#34; assim que terminar.
+                    </p>
+                    <Button variant="outline" onClick={() => setDisabled(false)} className="md:w-fit mt-2">
+                      <i className="ri-edit-line mr-1 text-[14px]"></i>
+                      Editar
+                    </Button>
                         <div className="flex flex-col gap-2">
 
                             <FormLabel className="text-[12px]">Pequeno-almoço</FormLabel>
@@ -157,13 +165,13 @@ export function AddMeal() {
                                         <FormItem className="w-full">
                                             {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                                             <FormControl>
-                                                <Input placeholder="Pequeno-almoço" {...field} className="text-[13px]" />
+                                                <Input defaultValue={lastMeal?.pequeno_almoco} placeholder="Pequeno-almoço" disabled={disabled} {...field} className="disabled:placeholder:text-[#000000] text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
                                     )} />
 
-                                {pCounter >= 1 ?
+                                {pCounter >= 1 || lastMeal?.pequeno_almoco_extra1 !== null ?
                                     <FormField
                                         control={form.control}
                                         name="pequeno_almoco_extra1"
@@ -171,13 +179,13 @@ export function AddMeal() {
                                             <FormItem className="w-full">
                                                 {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                                                 <FormControl>
-                                                    <Input placeholder="Pequeno-almoço" {...field} className="text-[13px]" />
+                                                    <Input defaultValue={lastMeal?.pequeno_almoco_extra1} disabled={disabled} placeholder="Pequeno-almoço" {...field} className="disabled:placeholder:text-[#000000] text-[13px]" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )} /> : ''}
 
-                                {pCounter >= 2 ?
+                                {pCounter >= 2 || lastMeal?.pequeno_almoco_extra2 !== null ?
                                     <FormField
                                         control={form.control}
                                         name="pequeno_almoco_extra2"
