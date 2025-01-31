@@ -196,7 +196,7 @@ export function AddMeal() {
                                             </FormItem>
                                         )} /> : ''}
 
-                                {pCounter >= 2 || lastMeal?.pequeno_almoco_extra2 !== "" ?
+                                {pCounter >= 2 || lastMeal?.pequeno_almoco_extra2 !== null ?
                                     <FormField
                                         control={form.control}
                                         name="pequeno_almoco_extra2"
@@ -407,7 +407,7 @@ export function AddMeal() {
                                             <FormMessage />
                                         </FormItem>
                                     )} />
-                                    {lnCounter >= 1 ?
+                                    {lnCounter >= 1 || lnCounter !== undefined ?
                                     <FormField
                                     control={form.control}
                                     name="lanche_extra1"
