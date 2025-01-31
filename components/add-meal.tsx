@@ -185,6 +185,11 @@ export function AddMeal() {
 
   const handleReset = () => {
       setLastMeal(null);
+      setPCounter(0);
+      setAm1Counter(0);
+      setAm2Counter(0);
+      setSbCounter(0);
+      setLnCounter(0);
    }
 
 
