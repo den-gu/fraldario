@@ -216,7 +216,7 @@ export function AddMeal() {
                                         <FormItem className="w-full">
                                             {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                                             <FormControl>
-                                                <Input defaultValue={lastMeal?.pequeno_almoco} placeholder="Pequeno-almoço" {...field} className="disabled:placeholder:text-[#000000] text-[13px]" />
+                                                <Input value={lastMeal?.pequeno_almoco} placeholder="Pequeno-almoço" {...field} className="disabled:placeholder:text-[#000000] text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -296,7 +296,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input defaultValue={lastMeal?.almoco1} placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
+                                                <Input value={lastMeal?.almoco1} placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
