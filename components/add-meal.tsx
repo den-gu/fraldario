@@ -143,6 +143,28 @@ export function AddMeal() {
     };
 
     fetchLastMeal();
+
+    if (lastMeal) {
+    form.reset({
+      pequeno_almoco: lastMeal.pequeno_almoco || "",
+      pequeno_almoco_extra1: lastMeal.pequeno_almoco_extra1 || "",
+      pequeno_almoco_extra2: lastMeal.pequeno_almoco_extra2 || "",
+      almoco1: lastMeal.almoco1 || "",
+      almoco1_extra1: lastMeal.almoco1_extra1 || "",
+      almoco1_extra2: lastMeal.almoco1_extra2 || "",
+      almoco2: lastMeal.almoco2 || "",
+      almoco2_extra1: lastMeal.almoco2_extra1 || "",
+      almoco2_extra2: lastMeal.almoco2_extra2 || "",
+      sobremesa: lastMeal.sobremesa || "",
+      sobremesa_extra1: lastMeal.sobremesa_extra1 || "",
+      sobremesa_extra2: lastMeal.sobremesa_extra2 || "",
+      lanche: lastMeal.lanche || "",
+      lanche_extra1: lastMeal.lanche_extra1 || "",
+      lanche_extra2: lastMeal.lanche_extra2 || "",
+      extras1: lastMeal.extras1 || "",
+      extras2: lastMeal.extras2 || "",
+    });
+  }
   }, []);
 
     // 1. Define your form.
@@ -216,7 +238,7 @@ export function AddMeal() {
                                         <FormItem className="w-full">
                                             {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                                             <FormControl>
-                                                <Input {...field} value={field.value ?? lastMeal?.pequeno_almoco ?? ""} placeholder="Pequeno-almoço" className="disabled:placeholder:text-[#000000] text-[13px]" />
+                                                <Input {...field} placeholder="Pequeno-almoço" className="disabled:placeholder:text-[#000000] text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -296,7 +318,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input value={field.value ?? lastMeal?.almoco1 ?? ""} placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
+                                                <Input value={...field} placeholder="Almoço (Entrada)" className="text-[13px]" {...field} />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
