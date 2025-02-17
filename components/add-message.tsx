@@ -280,7 +280,7 @@ export default function AddMessage() {
                 <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
               </Button> : ''}
           </div>
-          <PopoverContent className="w-[200px] p-0" align="start">
+          <PopoverContent className="w-[200px] p-0 overflow-y-scroll" align="start">
             <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
           </PopoverContent>
         </Popover>
