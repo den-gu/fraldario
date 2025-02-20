@@ -23,6 +23,8 @@ import { CardTitle } from "./ui/card"
 import { addMeal } from "@/lib/api"
 import { supabase } from "@/lib/supabaseClient"
 
+type FormData = z.infer<typeof formSchema>;
+
 type Meal = {
     pequeno_almoco: string | undefined;
   pequeno_almoco_extra1: string | undefined;
@@ -95,6 +97,17 @@ export function AddMeal() {
         }, 2000);
     }
 
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      pequeno_almoco: "",
+      almoco1: "",
+      almoco2: "",
+      sobremesa: "",
+      lanche: "",
+    },
+  });
+
   useEffect(() => {
     const fetchLastMeal = async () => {
       const { data, error } = await supabase
@@ -108,6 +121,7 @@ export function AddMeal() {
         console.error('Erro ao buscar última refeição:', error);
       } else {
         setLastMeal(data);
+        reset(data);
 
         if (data?.pequeno_almoco_extra1 !== undefined && data?.pequeno_almoco_extra1 !== null && data?.pequeno_almoco_extra1 !== "") {
           setPCounter(1);
@@ -165,10 +179,10 @@ export function AddMeal() {
       extras2: lastMeal.extras2,
     });
   }*/}
-  }, []);
+  }, [reset]);
 
     // 1. Define your form.
-    const form = useForm<z.infer<typeof formSchema>>({
+  {/*const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
         pequeno_almoco: lastMeal?.pequeno_almoco,
@@ -190,7 +204,7 @@ export function AddMeal() {
         extras2: lastMeal?.extras2,
         
         },
-    })
+    })*/} 
 
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -238,7 +252,7 @@ export function AddMeal() {
                                         <FormItem className="w-full">
                                             {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                                             <FormControl>
-                                                <Input defaultValue={lastMeal?.pequeno_almoco} {...field} placeholder="Pequeno-almoço" className="disabled:placeholder:text-[#000000] text-[13px]" />
+                                                <Input {...register("pequeno_almoco")} placeholder="Pequeno-almoço" className="disabled:placeholder:text-[#000000] text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
