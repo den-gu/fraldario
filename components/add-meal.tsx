@@ -171,7 +171,7 @@ export function AddMeal() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-        //pequeno_almoco: lastMeal?.pequeno_almoco,
+        pequeno_almoco: lastMeal?.pequeno_almoco,
         pequeno_almoco_extra1: lastMeal?.pequeno_almoco_extra1,
         pequeno_almoco_extra2: lastMeal?.pequeno_almoco_extra2,
         almoco1: lastMeal?.almoco1,
@@ -238,7 +238,7 @@ export function AddMeal() {
                                         <FormItem className="w-full">
                                             {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                                             <FormControl>
-                                                <Input value={lastMeal?.pequeno_almoco} {...field} placeholder="Pequeno-almoço" className="disabled:placeholder:text-[#000000] text-[13px]" />
+                                                <Input value={lastMeal?.pequeno_almoco} placeholder="Pequeno-almoço" className="disabled:placeholder:text-[#000000] text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
