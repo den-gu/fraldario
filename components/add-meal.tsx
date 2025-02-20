@@ -101,10 +101,22 @@ export function AddMeal() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       pequeno_almoco: "",
+      pequeno_almoco_extra1: "",
+      pequeno_almoco_extra2: "",
+      extras1: "",
       almoco1: "",
+      almoco1_extra1: "",
+      almoco1_extra2: "",
       almoco2: "",
+      almoco2_extra1: "",
+      almoco2_extra2: "",
       sobremesa: "",
+      sobremesa_extra1: "",
+      sobremesa_extra2: "",
+      extras2: "",
       lanche: "",
+      lanche_extra1: "",
+      lanche_extra2: "",
     },
   });
 
