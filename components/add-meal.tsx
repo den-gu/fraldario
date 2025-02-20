@@ -144,7 +144,7 @@ export function AddMeal() {
 
     fetchLastMeal();
 
-    if (lastMeal) {
+    {/*if (lastMeal) {
     form.reset({
       pequeno_almoco: lastMeal.pequeno_almoco,
       pequeno_almoco_extra1: lastMeal.pequeno_almoco_extra1,
@@ -164,7 +164,7 @@ export function AddMeal() {
       extras1: lastMeal.extras1,
       extras2: lastMeal.extras2,
     });
-  }
+  }*/}
   }, []);
 
     // 1. Define your form.
@@ -238,7 +238,7 @@ export function AddMeal() {
                                         <FormItem className="w-full">
                                             {/* <FormLabel className="text-muted-foreground text-[13px]">Pequeno-almoço</FormLabel> */}
                                             <FormControl>
-                                                <Input value={lastMeal?.pequeno_almoco} placeholder="Pequeno-almoço" className="disabled:placeholder:text-[#000000] text-[13px]" />
+                                                <Input defaultValue={lastMeal?.pequeno_almoco} {...field} placeholder="Pequeno-almoço" className="disabled:placeholder:text-[#000000] text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -318,7 +318,7 @@ export function AddMeal() {
                                     render={({ field }) => (
                                         <FormItem className="w-full">
                                             <FormControl>
-                                                <Input placeholder="Almoço (Entrada)" {...field} className="text-[13px]" />
+                                                <Input defaultValue={lastMeal?.almoco1} placeholder="Almoço (Entrada)" {...field} className="text-[13px]" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
