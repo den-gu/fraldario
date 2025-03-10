@@ -78,6 +78,7 @@ const GetReport: React.FC = () => {
   const [isSendingEmail, setSending] = useState(false)
   const [reports, setReports] = useState<any[]>([])
   const [selectedDate, setSelectedDate] = useState<any>()
+  const [time, setTime] = useState("day")
 
 
   const sendingHandler = (state: boolean, email: string) => {
@@ -134,7 +135,11 @@ const GetReport: React.FC = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex items-center gap-4 mt-2">
-        <FormField
+        <h3 className="scroll-m-20 text-lg font-extrabold tracking-tight lg:text-xl">
+          Período/Data
+        </h3>
+        {time === "day" 
+          ?  <FormField
           control={form.control}
           name="reportDate"
           render={({ field }) => (
@@ -176,7 +181,9 @@ const GetReport: React.FC = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> 
+          : {time === "weekly" ? <div>Weekly</div> : <div>Monthly</div>}
+        }
         <Button type="submit">Pesquisar</Button>
       </form>
       {loading
