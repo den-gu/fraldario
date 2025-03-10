@@ -182,7 +182,7 @@ const GetReport: React.FC = () => {
             </FormItem>
           )}
         /> 
-          : {time === "weekly" ? <div>Weekly</div> : <div>Monthly</div>}
+          : time === "weekly" ? <div>Weekly</div> : <div>Monthly</div>
         }
         <Button type="submit">Pesquisar</Button>
       </form>
