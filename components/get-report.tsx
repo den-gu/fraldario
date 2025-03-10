@@ -78,7 +78,7 @@ const GetReport: React.FC = () => {
   const [isSendingEmail, setSending] = useState(false)
   const [reports, setReports] = useState<any[]>([])
   const [selectedDate, setSelectedDate] = useState<any>()
-  const [time, setTime] = useState("day")
+  const [time, setTime] = useState("weekly")
 
 
   const sendingHandler = (state: boolean, email: string) => {
