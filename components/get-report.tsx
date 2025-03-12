@@ -143,7 +143,7 @@ const GetReport: React.FC = () => {
         <h3 className="scroll-m-20 text-lg font-extrabold tracking-tight lg:text-xl">
           Período/Data
         </h3>
-        {time === "day" 
+        {time === "daily" 
           ?  <FormField
           control={form.control}
           name="reportDate"
@@ -199,7 +199,7 @@ const GetReport: React.FC = () => {
               !date && "text-muted-foreground"
             )}
           >
-            <CalendarIcon />
+            {/*<CalendarIcon />*/} 
             {date?.from ? (
               date.to ? (
                 <>
