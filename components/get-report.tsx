@@ -9,6 +9,7 @@ import { z } from "zod"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
+import { DateRange } from "react-day-picker"
 import {
   Form,
   FormControl,
@@ -23,7 +24,7 @@ import {
 } from "@/components/ui/popover"
 import { toast } from "sonner"
 import { supabase } from "@/lib/supabaseClient";
-import { format } from 'date-fns';
+import { addDays, format } from 'date-fns';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
 import { sendReport, sendReports } from "@/lib/api"
 import jsPDF from 'jspdf'
@@ -80,6 +81,10 @@ const GetReport: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<any>()
   const [time, setTime] = useState("weekly")
 
+  const [date, setDate] = React.useState<DateRange | undefined>({
+    from: new Date(2022, 0, 20),
+    to: addDays(new Date(2022, 0, 20), 20),
+  })
 
   const sendingHandler = (state: boolean, email: string) => {
     setSending(!state)
@@ -182,7 +187,46 @@ const GetReport: React.FC = () => {
             </FormItem>
           )}
         /> 
-          : time === "weekly" ? <div>Weekly</div> : <div>Monthly</div>
+          : time === "weekly" 
+          ?  <div className={cn("grid gap-2", className)}>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            id="date"
+            variant={"outline"}
+            className={cn(
+              "w-[300px] justify-start text-left font-normal",
+              !date && "text-muted-foreground"
+            )}
+          >
+            <CalendarIcon />
+            {date?.from ? (
+              date.to ? (
+                <>
+                  {format(date.from, "LLL dd, y")} -{" "}
+                  {format(date.to, "LLL dd, y")}
+                </>
+              ) : (
+                format(date.from, "LLL dd, y")
+              )
+            ) : (
+              <span>Pick a date</span>
+            )}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            initialFocus
+            mode="range"
+            defaultMonth={date?.from}
+            selected={date}
+            onSelect={setDate}
+            numberOfMonths={2}
+          />
+        </PopoverContent>
+      </Popover>
+    </div>
+          : <div>Monthly</div>
         }
         <Button type="submit">Pesquisar</Button>
       </form>
