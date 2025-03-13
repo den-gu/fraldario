@@ -153,12 +153,8 @@ const GetReport: React.FC = () => {
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-full pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
+                      variant="outline"
+                      className="w-full pl-3 text-left font-normal">
                       {field.value ? (
                         format(field.value, "PPP")
                       ) : (
