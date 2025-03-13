@@ -184,16 +184,13 @@ const GetReport: React.FC = () => {
           )}
         /> 
           : time === "weekly" 
-          ?  <div className={cn("grid gap-2", className)}>
+          ?  <div className="grid gap-2">
       <Popover>
         <PopoverTrigger asChild>
           <Button
             id="date"
-            variant={"outline"}
-            className={cn(
-              "w-[300px] justify-start text-left font-normal",
-              !date && "text-muted-foreground"
-            )}
+            variant="outline"
+            className="w-[300px] justify-start text-left font-normal"
           >
             {/*<CalendarIcon />*/} 
             {date?.from ? (
