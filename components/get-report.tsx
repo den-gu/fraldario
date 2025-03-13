@@ -143,6 +143,19 @@ const GetReport: React.FC = () => {
         <h3 className="scroll-m-20 text-lg font-extrabold tracking-tight lg:text-xl">
           Período/Data
         </h3>
+        <br/>
+        <Select value={time} onValueChange={(e) => {
+                          //field.onChange(e);
+                          setTime(e);
+                        }} >
+  <SelectTrigger className="w-[180px]">
+    <SelectValue placeholder="Período" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem className="text-[13px]" value="Daily">Daily</SelectItem>
+    <SelectItem className="text-[13px]" value="Weekly">Weekly</SelectItem>
+  </SelectContent>
+</Select>
         {time === "daily" 
           ?  <FormField
           control={form.control}
