@@ -140,7 +140,7 @@ const GetReport: React.FC = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex items-center gap-4 mt-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col items-center gap-4 mt-2">
         <div className="w-full max-w-[800px]">
         <h3 className="scroll-m-20 text-lg font-extrabold tracking-tight lg:text-xl">
           Calendário
