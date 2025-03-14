@@ -140,9 +140,9 @@ const GetReport: React.FC = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col items-center gap-4 mt-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-4 mt-2">
         <div className="w-full max-w-[800px] pt-4">
-        <h3 className="text-lg font-extrabold tracking-tight lg:text-xl">
+        <h3 className="text-lg font-extrabold tracking-tight m-0 p-0 lg:text-xl">
           Calendário
         </h3>
     </div>
@@ -151,7 +151,7 @@ const GetReport: React.FC = () => {
                           //field.onChange(e);
                           setTime(e);
                         }} >
-  <SelectTrigger className="w-[180px]">
+  <SelectTrigger className="w-full md:w-[180px]">
     <SelectValue placeholder={time} />
   </SelectTrigger>
   <SelectContent>
@@ -161,12 +161,12 @@ const GetReport: React.FC = () => {
 </Select>
         </div>
         {time === "single" 
-          ? <div className="w-full md:flex gap-4 max-w-[800px]">
+          ? <div className="w-full md:flex gap-3 max-w-[800px]">
             <FormField
           control={form.control}
           name="reportDate"
           render={({ field }) => (
-            <FormItem className="flex flex-col w-full max-w-[400px]">
+            <FormItem className="flex flex-col w-full md:w-fit">
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -203,7 +203,7 @@ const GetReport: React.FC = () => {
         /> 
           <Button type="submit">Pesquisar</Button>
           </div>
-          : <div className="w-full max-w-[800px] gap-4">
+          : <div className="flex flex-col md:flex-row w-full max-w-[800px] gap-3">
       <Popover>
         <PopoverTrigger asChild>
           <Button
