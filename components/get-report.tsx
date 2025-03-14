@@ -151,7 +151,7 @@ const GetReport: React.FC = () => {
                           //field.onChange(e);
                           setTime(e);
                         }} >
-  <SelectTrigger className="w-full md:w-[180px]">
+  <SelectTrigger className="w-full md:w-[180px] py-2">
     <SelectValue placeholder={time} />
   </SelectTrigger>
   <SelectContent>
@@ -161,12 +161,12 @@ const GetReport: React.FC = () => {
 </Select>
         </div>
         {time === "single" 
-          ? <div className="w-full md:flex gap-3 max-w-[800px]">
+          ? <div className="flex flex-col md:flex-row w-full max-w-[800px] gap-3">
             <FormField
           control={form.control}
           name="reportDate"
           render={({ field }) => (
-            <FormItem className="flex flex-col w-full md:w-fit">
+            <FormItem className="">
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
