@@ -146,7 +146,7 @@ const GetReport: React.FC = () => {
           Calendário
         </h3>
     </div>
-        <div className="flex w-full md:w-fit">
+        <div className="w-full max-w-[800px]">
           <Select value={time} onValueChange={(e) => {
                           //field.onChange(e);
                           setTime(e);
@@ -203,8 +203,7 @@ const GetReport: React.FC = () => {
         /> 
           <Button type="submit">Pesquisar</Button>
           </div>
-          : time === "range" 
-          ?  <div className="flex flex-col gap-2">
+          : <div className="flex flex-col gap-2">
       <Popover>
         <PopoverTrigger asChild>
           <Button
