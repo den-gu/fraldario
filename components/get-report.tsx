@@ -141,8 +141,8 @@ const GetReport: React.FC = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col items-center gap-4 mt-2">
-        <div className="w-full max-w-[800px]">
-        <h3 className="scroll-m-20 text-lg font-extrabold tracking-tight lg:text-xl">
+        <div className="w-full max-w-[800px] pt-4">
+        <h3 className="text-lg font-extrabold tracking-tight lg:text-xl">
           Calendário
         </h3>
     </div>
@@ -161,18 +161,18 @@ const GetReport: React.FC = () => {
 </Select>
         </div>
         {time === "single" 
-          ? <div className="w-full max-w-[800px]">
+          ? <div className="w-full md:flex gap-4 max-w-[800px]">
             <FormField
           control={form.control}
           name="reportDate"
           render={({ field }) => (
-            <FormItem className="flex flex-col w-full">
+            <FormItem className="flex flex-col w-full max-w-[400px]">
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
                       variant="outline"
-                      className="w-full pl-3 text-left font-normal">
+                      className="w-full md:w-fit font-normal">
                       {field.value ? (
                         format(field.value, "PPP")
                       ) : (
@@ -203,13 +203,13 @@ const GetReport: React.FC = () => {
         /> 
           <Button type="submit">Pesquisar</Button>
           </div>
-          : <div className="flex flex-col gap-2">
+          : <div className="w-full max-w-[800px] gap-4">
       <Popover>
         <PopoverTrigger asChild>
           <Button
             id="date"
             variant="outline"
-            className="w-[300px] justify-start text-left font-normal"
+            className="w-full md:w-fit font-normal"
           >
             {/*<CalendarIcon />*/} 
             {date?.from ? (
