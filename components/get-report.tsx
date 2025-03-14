@@ -80,7 +80,7 @@ const GetReport: React.FC = () => {
   const [isSendingEmail, setSending] = useState(false)
   const [reports, setReports] = useState<any[]>([])
   const [selectedDate, setSelectedDate] = useState<any>()
-  const [time, setTime] = useState("daily")
+  const [time, setTime] = useState("single")
 
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(2025, 0, 20),
@@ -141,10 +141,11 @@ const GetReport: React.FC = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex items-center gap-4 mt-2">
+        <div className="w-full max-w-[800px]">
         <h3 className="scroll-m-20 text-lg font-extrabold tracking-tight lg:text-xl">
-          Período/Data
+          Calendário
         </h3>
-        <br/>
+    </div>
         <div className="flex w-full md:w-fit">
           <Select value={time} onValueChange={(e) => {
                           //field.onChange(e);
@@ -154,13 +155,14 @@ const GetReport: React.FC = () => {
     <SelectValue placeholder={time} />
   </SelectTrigger>
   <SelectContent>
-    <SelectItem className="text-[13px]" value="daily">Daily</SelectItem>
-    <SelectItem className="text-[13px]" value="weekly">Weekly</SelectItem>
+    <SelectItem className="text-[13px]" value="single">Singular</SelectItem>
+    <SelectItem className="text-[13px]" value="range">Intervalo de dias</SelectItem>
   </SelectContent>
 </Select>
         </div>
-        {time === "daily" 
-          ?  <FormField
+        {time === "single" 
+          ? <div className="w-full max-w-[800px]">
+            <FormField
           control={form.control}
           name="reportDate"
           render={({ field }) => (
@@ -199,8 +201,10 @@ const GetReport: React.FC = () => {
             </FormItem>
           )}
         /> 
-          : time === "weekly" 
-          ?  <div className="flex gap-2">
+          <Button type="submit">Pesquisar</Button>
+          </div>
+          : time === "range" 
+          ?  <div className="flex flex-col gap-2">
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -219,7 +223,7 @@ const GetReport: React.FC = () => {
                 format(date.from, "LLL dd, y")
               )
             ) : (
-              <span>Pick a date</span>
+              <span>Escolha uma data</span>
             )}
           </Button>
         </PopoverTrigger>
@@ -234,10 +238,9 @@ const GetReport: React.FC = () => {
           />
         </PopoverContent>
       </Popover>
+            <Button type="submit">Pesquisar</Button>
     </div>
-          : <div>Monthly</div>
         }
-        <Button type="submit">Pesquisar</Button>
       </form>
       {loading
         ? <div className="flex justify-center items-center mt-20">
