@@ -80,11 +80,11 @@ const GetReport: React.FC = () => {
   const [isSendingEmail, setSending] = useState(false)
   const [reports, setReports] = useState<any[]>([])
   const [selectedDate, setSelectedDate] = useState<any>()
-  const [time, setTime] = useState("weekly")
+  const [time, setTime] = useState("daily")
 
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
+    from: new Date(2025, 0, 20),
+    to: addDays(new Date(2025, 0, 20), 20),
   })
 
   const sendingHandler = (state: boolean, email: string) => {
@@ -145,18 +145,20 @@ const GetReport: React.FC = () => {
           Período/Data
         </h3>
         <br/>
-        <Select value={time} onValueChange={(e) => {
+        <div className="flex w-full md:w-fit">
+          <Select value={time} onValueChange={(e) => {
                           //field.onChange(e);
                           setTime(e);
                         }} >
   <SelectTrigger className="w-[180px]">
-    <SelectValue placeholder="Período" />
+    <SelectValue placeholder={time} />
   </SelectTrigger>
   <SelectContent>
-    <SelectItem className="text-[13px]" value="Daily">Daily</SelectItem>
-    <SelectItem className="text-[13px]" value="Weekly">Weekly</SelectItem>
+    <SelectItem className="text-[13px]" value="daily">Daily</SelectItem>
+    <SelectItem className="text-[13px]" value="weekly">Weekly</SelectItem>
   </SelectContent>
 </Select>
+        </div>
         {time === "daily" 
           ?  <FormField
           control={form.control}
@@ -198,7 +200,7 @@ const GetReport: React.FC = () => {
           )}
         /> 
           : time === "weekly" 
-          ?  <div className="grid gap-2">
+          ?  <div className="flex gap-2">
       <Popover>
         <PopoverTrigger asChild>
           <Button
