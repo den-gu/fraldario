@@ -187,7 +187,7 @@ const GetReport: React.FC = () => {
       const { data, error } = await supabase
         .from('reports')
         .select('*')
-        .eq("student_name", selectedStudent.name)
+        .eq("student_name", selectedStudent?.name)
         .order('created_at', { ascending: true })
         .lt('createdAtIntDTF', dateFrom)
         .gt('createdAtIntDTF', dateTo);
