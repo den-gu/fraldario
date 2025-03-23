@@ -101,7 +101,7 @@ const GetReport: React.FC = () => {
   const [isSendingEmail, setSending] = useState(false)
   const [reports, setReports] = useState<any[]>([])
   const [selectedDate, setSelectedDate] = useState<any>()
-  const [time, setTime] = useState("single")
+  const [calendar, setCalendar] = useState("single")
 
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(2025, 0, 20),
@@ -155,7 +155,10 @@ const GetReport: React.FC = () => {
     setLoading(true);
 
     const formDate = new Intl.DateTimeFormat('pt-BR').format(values.reportDate);
+    const dateFrom = new Intl.DateTimeFormat('pt-BR').format(date.from);
+    const dateTo = new Intl.DateTimeFormat('pt-BR').format(date.to);
 
+    if (calendar === "single") {
     const fetchReportsByDate = async () => {
       const { data, error } = await supabase
         .from('reports')
@@ -178,8 +181,34 @@ const GetReport: React.FC = () => {
 
       setLoading(false);
     };
-
     fetchReportsByDate()
+     } else {
+      const fetchReportsByRange = async () => {
+      const { data, error } = await supabase
+        .from('reports')
+        .select('*')
+        .eq("student_name", selectedStudent.name)
+        .order('created_at', { ascending: true })
+        .lt('createdAtIntDTF', dateFrom)
+        .gt('createdAtIntDTF', dateTo);
+
+      if (error) {
+        toast('Ops... Algo deu errado', {
+          description: 'Não foi possível efectuar a operação.',
+          duration: 12000,
+          cancel: {
+            label: 'Fechar',
+            onClick: () => console.log('Cancel!'),
+          },
+        })
+      } else {
+        setReports(data);
+      }
+
+      setLoading(false);
+    };
+    fetchReportsByRange()
+     }
   }
 
   return (
@@ -191,12 +220,12 @@ const GetReport: React.FC = () => {
         </h3>
     </div>
         <div className="w-full max-w-[800px]">
-          <Select value={time} onValueChange={(e) => {
+          <Select value={calendar} onValueChange={(e) => {
                           //field.onChange(e);
-                          setTime(e);
+                          setCalendar(e);
                         }} >
   <SelectTrigger className="w-full md:w-[180px] py-2">
-    <SelectValue placeholder={time} />
+    <SelectValue placeholder={calendar} />
   </SelectTrigger>
   <SelectContent>
     <SelectItem className="text-[13px]" value="single">Singular</SelectItem>
@@ -204,7 +233,7 @@ const GetReport: React.FC = () => {
   </SelectContent>
 </Select>
         </div>
-        {time === "single" 
+        {calendar === "single" 
           ? <div className="flex flex-col md:flex-row w-full max-w-[800px] gap-3">
             <FormField
           control={form.control}
