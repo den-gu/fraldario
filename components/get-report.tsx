@@ -541,7 +541,7 @@ function StudentList({
     setDownloadAll(true)
 
     const doc = new jsPDF('l');
-    const createdAt = calendar === "single" ? new Intl.DateTimeFormat('pt-BR').format(selectedDate) : `${date.from} - ${date.to}`;
+    const createdAt = calendar === "single" ? new Intl.DateTimeFormat('pt-BR').format(selectedDate) : `${date?.from} - ${date?.to}`;
     const tableData = [];
     let image = new Image();
 
