@@ -352,9 +352,10 @@ const toDate = formatDateToEndOfDay(date?.to);
         </Popover>
               {/*<StudentData></StudentData>*/}
       </div>
-            <Button type="submit">Pesquisar</Button>
+            
     </div>
         }
+        <Button type="submit">Pesquisar</Button>
       </form>
       {loading
         ? <div className="flex justify-center items-center mt-20">
