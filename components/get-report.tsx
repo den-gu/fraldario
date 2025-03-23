@@ -156,21 +156,19 @@ const GetReport: React.FC = () => {
 
     const formDate = new Intl.DateTimeFormat('pt-BR').format(values.reportDate);
 
-    if(date) {
+    //if(date) {
       const fromDate = date?.from.toISOString();  // Converte para ISO 8601
       const toDate = date?.to.toISOString();      // Converte para ISO 8601
-    }
+    //}
     
     if (calendar === "single") {
     const fetchReportsByDate = async () => {
       const { data, error } = await supabase
-    .from('reports')
-    .select('*')
-    .eq('student_name', selectedStudent?.name)
-    .rangeAdjacent('created_at', `${fromDate ? fromDate : ''}, ${toDate ? toDate : ''}`)
-    .order('created_at', { ascending: true });
- 
-
+        .from('reports')
+         .select('*')
+         .eq("createdAtIntDTF", formDate)
+         .order('student_name', { ascending: true });
+    
       if (error) {
         toast('Ops... Algo deu errado', {
           description: 'Não foi possível efectuar a operação.',
@@ -192,9 +190,10 @@ const GetReport: React.FC = () => {
       const { data, error } = await supabase
         .from('reports')
         .select('*')
-        .eq("student_name", selectedStudent?.name)
-        .rangeAdjacent('created_at', `${dateFrom}, ${dateTo}`)
-        .order('created_at', { ascending: true });
+        .eq('student_name', selectedStudent?.name)
+    .rangeAdjacent('created_at', `${fromDate ? fromDate : ''}, ${toDate ? toDate : ''}`)
+    .order('created_at', { ascending: true });
+ 
 
       if (error) {
         toast('Ops... Algo deu errado', {
