@@ -196,8 +196,8 @@ const GetReport: React.FC = () => {
         .from('reports')
         .select('*')
         .eq('student_name', selectedStudent?.name)
-        .gte('createdAtIntDTF', fromDate)  // Filtra para ser maior ou igual à data de início
-        .lte('createdAtIntDTF', toDate)    // Filtra para ser menor ou igual à data de término 
+        .gte('created_at', new Date(fromDate).toISOString())  // Filtra para ser maior ou igual à data de início
+        .lte('created_at', new Date(toDate).toISOString())    // Filtra para ser menor ou igual à data de término 
         .order('created_at', { ascending: true });
  
 
