@@ -188,8 +188,8 @@ const GetReport: React.FC = () => {
         .from('reports')
         .select('*')
         .eq("student_name", selectedStudent?.name)
-        .order('created_at', { ascending: true })
-        .rangeAdjacent("during", `${dateFrom, dateTo}`);
+        .rangeAdjacent('created_at', `${dateFrom}, ${dateTo}`)
+        .order('created_at', { ascending: true });
 
       if (error) {
         toast('Ops... Algo deu errado', {
