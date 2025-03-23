@@ -163,14 +163,19 @@ const GetReport: React.FC = () => {
     //const toDate = date ? date.to.toISOString() : null;      // Converte para ISO 8601
     //const fromDate = new Intl.DateTimeFormat('pt-BR').format(date?.from); 
     //const toDate = new Intl.DateTimeFormat('pt-BR').format(date?.to);
-    function formatDateToSupabase(date?: Date) {
-    return date ? date.toISOString().replace('T', ' ').replace('Z', '+00') : null;
-}
-
-const fromDate = formatDateToSupabase(date?.from);
-const toDate = formatDateToSupabase(date?.to);
     //}
     
+    function formatDateToStartOfDay(date: any) {
+    return date ? new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0)).toISOString() : null;
+}
+
+function formatDateToEndOfDay(date: any) {
+    return date ? new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999)).toISOString() : null;
+}
+
+const fromDate = formatDateToStartOfDay(date?.from);
+const toDate = formatDateToEndOfDay(date?.to);
+
     if (calendar === "single") {
     const fetchReportsByDate = async () => {
       const { data, error } = await supabase
