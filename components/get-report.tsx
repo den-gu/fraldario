@@ -27,11 +27,18 @@ import { toast } from "sonner"
 import { supabase } from "@/lib/supabaseClient";
 import { addDays, format } from 'date-fns';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
-import { sendReport, sendReports } from "@/lib/api"
+import { getStudents, sendReport, sendReports } from "@/lib/api"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { Report } from "./report";
 import { EditReport } from "./edit-report";
+import { useMediaQuery } from "@react-hook/media-query"
+
+type Student = {
+  id: string | undefined;
+  name: string | undefined;
+  email: string | undefined;
+}
 
 type Report = {
   id: string;
@@ -73,6 +80,7 @@ const FormSchema = z.object({
 const GetReport: React.FC = () => {
 
   let i = 0;
+  const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [downloading, setDownloading] = useState(false)
   const [downloadAll, setDownloadAll] = useState(false)
@@ -86,6 +94,11 @@ const GetReport: React.FC = () => {
     from: new Date(2025, 0, 20),
     to: addDays(new Date(2025, 0, 20), 20),
   })
+  const [students, setStudents] = useState<Student[]>([])
+  const isDesktop = useMediaQuery("(min-width: 768px)")
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(
+    null
+  )
 
   const sendingHandler = (state: boolean, email: string) => {
     setSending(!state)
@@ -101,6 +114,24 @@ const GetReport: React.FC = () => {
       setSending(state)
     }, 2000);
   }
+
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      try {
+        const response = await getStudents();
+        const { data } = await response?.json();
+        setStudents(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getData();
+  }, []);
+
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -237,6 +268,28 @@ const GetReport: React.FC = () => {
           />
         </PopoverContent>
       </Popover>
+            <div>
+        <Popover open={open} onOpenChange={setOpen}>
+          <div className="flex items-center relative">
+            <PopoverTrigger asChild className="flex-1 cursor-text">
+              <Button variant="secondary" className="w-full justify-start">
+                <div className="flex items-center gap-2 text-[13px]">
+                  <i className="ri-search-line text-[16px]"></i>
+                  {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+                </div>
+              </Button>
+            </PopoverTrigger>
+            {selectedStudent ?
+              <Button variant="secondary" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none">
+                <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
+              </Button> : ''}
+          </div>
+          <PopoverContent className="w-[200px] p-0" align="start">
+            <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
+          </PopoverContent>
+        </Popover>
+              {/*<StudentData></StudentData>*/}
+      </div>
             <Button type="submit">Pesquisar</Button>
     </div>
         }
@@ -346,7 +399,44 @@ const GetReport: React.FC = () => {
     </Form>
   )
 
-
+  
+function StudentList({
+    setOpen,
+    setSelectedStudent,
+  }: {
+    setOpen: (open: boolean) => void
+    setSelectedStudent: (student: Student | null) => void
+  }) {
+    return (
+      <Command className="w-full">
+        <CommandInput className="w-full" placeholder="Digite o nome..." />
+        <CommandList>
+          <CommandEmpty>
+            <i className="ri-loader-line animate-spin text-[14px]"></i>
+            {/* <span>No results found.</span> */}
+          </CommandEmpty>
+          <CommandGroup>
+            {students
+              ? students.map((student) => (
+                <CommandItem
+                  key={student.id}
+                  value={student.name}
+                  onSelect={(value) => {
+                    setSelectedStudent(
+                      students.find((priority) => priority.id === student.id) || null
+                    )
+                    setOpen(false)
+                  }}
+                >
+                  {student.name}
+                </CommandItem>
+              ))
+              : <i className="ri-loader-line animate-spin text-[14px]"></i>}
+          </CommandGroup>
+        </CommandList>
+      </Command>
+    )
+  }
 
   async function sendEmail(data: any) {
     // 2. Define a submit handler.
