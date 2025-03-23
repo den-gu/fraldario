@@ -84,9 +84,10 @@ type Report = {
 
 
 const FormSchema = z.object({
-  reportDate: z.date({
-    required_error: "Data do relatório é obrigatória.",
-  }),
+  reportDate: z.date().optional()
+  //reportDate: z.date({
+   // required_error: "Data do relatório é obrigatória.",
+ // }),
 })
 
 
@@ -294,7 +295,6 @@ const toDate = formatDateToEndOfDay(date?.to);
             </FormItem>
           )}
         /> 
-          <Button type="submit">Pesquisar</Button>
           </div>
           : <div className="flex flex-col md:flex-row w-full max-w-[800px] gap-3">
       <Popover>
