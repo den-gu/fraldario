@@ -337,7 +337,7 @@ const toDate = formatDateToEndOfDay(date?.to);
               <Button variant="secondary" className="w-full justify-start">
                 <div className="flex items-center gap-2 text-[13px]">
                   <i className="ri-search-line text-[16px]"></i>
-                  {selectedStudent ? selectedStudent.name : 'Pesquisar'}
+                  {selectedStudent ? selectedStudent.name : 'Aluno(a)'}
                 </div>
               </Button>
             </PopoverTrigger>
@@ -379,11 +379,12 @@ const toDate = formatDateToEndOfDay(date?.to);
             {sendAll ? (
               <i className="ri-loader-line animate-spin text-[14px]"></i>
             )
-              : (
+              : calendar === 'single' ? 
+              (
                 <>
                   <i className="ri-mail-send-line mr-1 text-[13px]"></i> Enviar todos
                 </>
-              )}
+              ) : ''} 
           </Button>
           </div>
             <Table className="rounded-sm overflow-hidden mt-2">
@@ -540,7 +541,7 @@ function StudentList({
     setDownloadAll(true)
 
     const doc = new jsPDF('l');
-    const createdAt = new Intl.DateTimeFormat('pt-BR').format(selectedDate);
+    const createdAt = calendar === "single" ? new Intl.DateTimeFormat('pt-BR').format(selectedDate) : `${date.from} - ${date.to}`;
     const tableData = [];
     let image = new Image();
 
