@@ -155,16 +155,19 @@ const GetReport: React.FC = () => {
     setLoading(true);
 
     const formDate = new Intl.DateTimeFormat('pt-BR').format(values.reportDate);
-    const fromDate = new Date(date?.from).toISOString();  // Converte para ISO 8601
-    const toDate = new Date(date?.to).toISOString();      // Converte para ISO 8601
 
+    if(date) {
+      const fromDate = new Date(date?.from).toISOString();  // Converte para ISO 8601
+      const toDate = new Date(date?.to).toISOString();      // Converte para ISO 8601
+    }
+    
     if (calendar === "single") {
     const fetchReportsByDate = async () => {
       const { data, error } = await supabase
     .from('reports')
     .select('*')
     .eq('student_name', selectedStudent?.name)
-    .rangeAdjacent('created_at', `${fromDate}, ${toDate}`)
+    .rangeAdjacent('created_at', `${fromDate?}, ${toDate?}`)
     .order('created_at', { ascending: true });
  
 
