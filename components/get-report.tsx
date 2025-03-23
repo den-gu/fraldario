@@ -155,8 +155,8 @@ const GetReport: React.FC = () => {
     setLoading(true);
 
     const formDate = new Intl.DateTimeFormat('pt-BR').format(values.reportDate);
-    const fromDate = new Date(dateFrom).toISOString();  // Converte para ISO 8601
-    const toDate = new Date(dateTo).toISOString();      // Converte para ISO 8601
+    const fromDate = new Date(date?.from).toISOString();  // Converte para ISO 8601
+    const toDate = new Date(date?.to).toISOString();      // Converte para ISO 8601
 
     if (calendar === "single") {
     const fetchReportsByDate = async () => {
