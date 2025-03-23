@@ -159,8 +159,8 @@ const GetReport: React.FC = () => {
     //if(date) {
       //const fromDate = date ? date?.from.toISOString() : undefined;  // Converte para ISO 8601
       //const toDate = date ? date?.to.toISOString() : undefined;      // Converte para ISO 8601
-    const fromDate = new Date(date?.from).toISOString();  // Converte para ISO 8601
-    const toDate = new Date(date?.to).toISOString();      // Converte para ISO 8601
+    const fromDate = new Date(date ? date.from : null).toISOString();  // Converte para ISO 8601
+    const toDate = new Date(date ? date.to : null).toISOString();      // Converte para ISO 8601
 
     //}
     
