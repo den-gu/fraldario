@@ -161,8 +161,14 @@ const GetReport: React.FC = () => {
       //const toDate = date ? date?.to.toISOString() : undefined;      // Converte para ISO 8601
     //const fromDate = date ? date.from.toISOString() :null;  // Converte para ISO 8601
     //const toDate = date ? date.to.toISOString() : null;      // Converte para ISO 8601
-    const fromDate = new Intl.DateTimeFormat('pt-BR').format(date?.from); 
-    const toDate = new Intl.DateTimeFormat('pt-BR').format(date?.to);
+    //const fromDate = new Intl.DateTimeFormat('pt-BR').format(date?.from); 
+    //const toDate = new Intl.DateTimeFormat('pt-BR').format(date?.to);
+    function formatDateToSupabase(date: Date) {
+    return date ? date.toISOString().replace('T', ' ').replace('Z', '+00') : null;
+}
+
+const fromDate = formatDateToSupabase(date?.from);
+const toDate = formatDateToSupabase(date?.to);
     //}
     
     if (calendar === "single") {
@@ -196,8 +202,8 @@ const GetReport: React.FC = () => {
         .from('reports')
         .select('*')
         .eq('student_name', selectedStudent?.name)
-        .gte('created_at', new Date(fromDate).toISOString())  // Filtra para ser maior ou igual à data de início
-        .lte('created_at', new Date(toDate).toISOString())    // Filtra para ser menor ou igual à data de término 
+        .gte('created_at', fromDate)  // Filtra para ser maior ou igual à data de início
+        .lte('created_at', toDate)    // Filtra para ser menor ou igual à data de término 
         .order('created_at', { ascending: true });
  
 
