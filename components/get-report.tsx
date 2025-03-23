@@ -167,7 +167,7 @@ const GetReport: React.FC = () => {
     .from('reports')
     .select('*')
     .eq('student_name', selectedStudent?.name)
-    .rangeAdjacent('created_at', `${fromDate?}, ${toDate?}`)
+    .rangeAdjacent('created_at', `${fromDate ? fromDate : ''}, ${toDate ? toDate : ''}`)
     .order('created_at', { ascending: true });
  
 
