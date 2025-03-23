@@ -157,8 +157,8 @@ const GetReport: React.FC = () => {
     const formDate = new Intl.DateTimeFormat('pt-BR').format(values.reportDate);
 
     //if(date) {
-      const fromDate = date ? date.from.toISOString() : undefined;  // Converte para ISO 8601
-      const toDate = date ? date.to.toISOString() : undefined;      // Converte para ISO 8601
+      const fromDate = date ? date?.from.toISOString() : undefined;  // Converte para ISO 8601
+      const toDate = date ? date?.to.toISOString() : undefined;      // Converte para ISO 8601
     //}
     
     if (calendar === "single") {
