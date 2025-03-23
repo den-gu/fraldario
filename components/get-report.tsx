@@ -1,4 +1,4 @@
-0"use client"
+"use client"
 
 import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -198,7 +198,7 @@ const GetReport: React.FC = () => {
         .eq('student_name', selectedStudent?.name)
         .gte('createdAtIntDTF', fromDate)  // Filtra para ser maior ou igual à data de início
         .lte('createdAtIntDTF', toDate)    // Filtra para ser menor ou igual à data de término 
-        .order('createdAtIntDTF', { ascending: true });
+        .order('created_at', { ascending: true });
  
 
       if (error) {
