@@ -163,7 +163,7 @@ const GetReport: React.FC = () => {
     //const toDate = date ? date.to.toISOString() : null;      // Converte para ISO 8601
     //const fromDate = new Intl.DateTimeFormat('pt-BR').format(date?.from); 
     //const toDate = new Intl.DateTimeFormat('pt-BR').format(date?.to);
-    function formatDateToSupabase(date: Date) {
+    function formatDateToSupabase(date?: Date) {
     return date ? date.toISOString().replace('T', ' ').replace('Z', '+00') : null;
 }
 
