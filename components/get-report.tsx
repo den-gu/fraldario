@@ -155,8 +155,8 @@ const GetReport: React.FC = () => {
     setLoading(true);
 
     const formDate = new Intl.DateTimeFormat('pt-BR').format(values.reportDate);
-    const dateFrom = new Intl.DateTimeFormat('pt-BR').format(date.from);
-    const dateTo = new Intl.DateTimeFormat('pt-BR').format(date.to);
+    const dateFrom = new Intl.DateTimeFormat('pt-BR').format(date?.from);
+    const dateTo = new Intl.DateTimeFormat('pt-BR').format(date?.to);
 
     if (calendar === "single") {
     const fetchReportsByDate = async () => {
