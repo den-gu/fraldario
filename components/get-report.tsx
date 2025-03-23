@@ -189,8 +189,8 @@ const GetReport: React.FC = () => {
         .select('*')
         .eq("student_name", selectedStudent?.name)
         .order('created_at', { ascending: true })
-        .lt('createdAtIntDTF', dateFrom)
-        .gt('createdAtIntDTF', dateTo);
+        .gte('createdAtIntDTF', dateFrom)
+        .lte('createdAtIntDTF', dateTo);
 
       if (error) {
         toast('Ops... Algo deu errado', {
