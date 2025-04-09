@@ -571,16 +571,16 @@ for (const data of reports) {
     
     doc.setFontSize(13);
     if(calendar === "single") {
-     doc.text('Relatório diário', 75, 16);
-     doc.setFontSize(8);
-     doc.setTextColor("#666666"); 
-     doc.text(`Data: ${createdAt}`, 75, 20);
-     doc.text(`Nome: ${selectedStudent?.name}`, 75, 24);
-    } else {
-      doc.text('Relatório diário', 75, 20);
+     doc.text('Relatório diário', 75, 19);
       doc.setFontSize(8);
       doc.setTextColor("#666666");
-      doc.text(`Data: ${createdAt}`, 75, 24);
+      doc.text(`Data: ${createdAt}`, 75, 23); 
+    } else {
+      doc.text('Relatório diário', 75, 15);
+     doc.setFontSize(8);
+     doc.setTextColor("#666666"); 
+     doc.text(`Data: ${createdAt}`, 75, 19);
+     doc.text(`Nome: ${selectedStudent?.name}`, 75, 23);
      }
 
       // Generate the table
