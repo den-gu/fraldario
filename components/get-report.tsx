@@ -575,7 +575,7 @@ for (const data of reports) {
      doc.setFontSize(8);
      doc.setTextColor("#666666"); 
      doc.text(`Data: ${createdAt}`, 75, 20);
-     doc.text(`Nome: ${selectedStudent.name}`, 75, 24);
+     doc.text(`Nome: ${selectedStudent?.name}`, 75, 24);
     } else {
       doc.text('Relatório diário', 75, 20);
       doc.setFontSize(8);
