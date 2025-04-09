@@ -598,7 +598,7 @@ for (const data of reports) {
     setTimeout(async () => {
       setDownloadAll(false);
       // Save the PDF
-      doc.save(`Relatório-${calendar === "single" ? "" : data?.student_name}-${createdAt}.pdf`);
+      doc.save(`Relatório-${calendar === "single" ? "" : selectedStudent?.name}-${createdAt}.pdf`);
       toast('Sucesso', {
         description: 'O relatório foi descarregado.',
         duration: 12000,
