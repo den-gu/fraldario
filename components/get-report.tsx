@@ -541,7 +541,7 @@ function StudentList({
     setDownloadAll(true)
 
     const doc = new jsPDF('l');
-    const createdAt = calendar === "single" ? new Intl.DateTimeFormat('pt-BR').format(selectedDate) : `${date?.from} - ${date?.to}`;
+    const createdAt = calendar === "single" ? new Intl.DateTimeFormat('pt-BR').format(selectedDate) : `${new Intl.DateTimeFormat('pt-BR').format(date?.from)} - ${new Intl.DateTimeFormat('pt-BR').format(date?.to)}`;
     const tableData = [];
     let image = new Image();
 
@@ -549,7 +549,7 @@ function StudentList({
 for (const data of reports) {
 
   tableData.push([
-    `${data?.student_name}`,
+    `${calendar === "single" ? data?.student_name : data?.createdAtIntDTF}`,
     `${data?.behavior}`,
     `${data?.porcao_pequeno_almoco !== 'Não aplicável' ? data?.pequeno_almoco + ': ' + data?.porcao_pequeno_almoco : ''}`,
     `${data?.porcao_extras1 !== '' && data.porcao_extras1 !== 'Não aplicável' && data?.porcao_extras1 !== null ? data?.extras1 + ': ' + data?.porcao_extras1 : ''}`,
@@ -570,14 +570,22 @@ for (const data of reports) {
     doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
     
     doc.setFontSize(13);
-    doc.text('Relatório diário', 75, 18);
-    doc.setFontSize(8);
-    doc.setTextColor("#666666");
-    doc.text(`Data: ${createdAt}`, 75, 22);
+    if(calendar === "single") {
+     doc.text('Relatório diário', 75, 16);
+     doc.setFontSize(8);
+     doc.setTextColor("#666666"); 
+     doc.text(`Data: ${createdAt}`, 75, 20);
+     doc.text(`Nome: ${data?.student_name}`, 75, 24);
+    } else {
+      doc.text('Relatório diário', 75, 20);
+      doc.setFontSize(8);
+      doc.setTextColor("#666666");
+      doc.text(`Data: ${createdAt}`, 75, 24);
+     }
 
       // Generate the table
       autoTable(doc, {
-        head: [["Nome", "Comp.", "Peq.almoço", "Snack", "Almoço(Entrada)", "Prato principal", "Sobremesa", "Snack", "Lanche", "Fezes", "Vômitos", "Febres"]],
+        head: [[`${calendar === 'single' ? 'Nome' : 'Data'}`, "Comp.", "Peq.almoço", "Snack", "Almoço(Entrada)", "Prato principal", "Sobremesa", "Snack", "Lanche", "Fezes", "Vômitos", "Febres"]],
         theme: 'grid',
         headStyles: {fillColor : [18, 105, 24], fontStyle: 'bold'},
         styles: {
@@ -590,7 +598,7 @@ for (const data of reports) {
     setTimeout(async () => {
       setDownloadAll(false);
       // Save the PDF
-      doc.save(`Relatório-${createdAt}.pdf`);
+      doc.save(`Relatório-${calendar === "single" ? "" : data?.student_name}-${createdAt}.pdf`);
       toast('Sucesso', {
         description: 'O relatório foi descarregado.',
         duration: 12000,
