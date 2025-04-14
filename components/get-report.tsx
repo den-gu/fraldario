@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 // import { CalendarIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -9,6 +9,7 @@ import { z } from "zod"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
+import { DateRange } from "react-day-picker"
 import {
   Form,
   FormControl,
@@ -16,6 +17,20 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
 import {
   Popover,
   PopoverContent,
@@ -23,13 +38,20 @@ import {
 } from "@/components/ui/popover"
 import { toast } from "sonner"
 import { supabase } from "@/lib/supabaseClient";
-import { format } from 'date-fns';
+import { addDays, format } from 'date-fns';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
-import { sendReport, sendReports } from "@/lib/api"
+import { getStudents, sendReport, sendReports } from "@/lib/api"
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { Report } from "./report";
 import { EditReport } from "./edit-report";
+import { useMediaQuery } from "@react-hook/media-query"
+
+type Student = {
+  id: string | undefined;
+  name: string | undefined;
+  email: string | undefined;
+}
 
 type Report = {
   id: string;
@@ -62,15 +84,17 @@ type Report = {
 
 
 const FormSchema = z.object({
-  reportDate: z.date({
-    required_error: "Data do relatório é obrigatória.",
-  }),
+  reportDate: z.date().optional()
+  //reportDate: z.date({
+   // required_error: "Data do relatório é obrigatória.",
+ // }),
 })
 
 
 const GetReport: React.FC = () => {
 
   let i = 0;
+  const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [downloading, setDownloading] = useState(false)
   const [downloadAll, setDownloadAll] = useState(false)
@@ -78,7 +102,17 @@ const GetReport: React.FC = () => {
   const [isSendingEmail, setSending] = useState(false)
   const [reports, setReports] = useState<any[]>([])
   const [selectedDate, setSelectedDate] = useState<any>()
+  const [calendar, setCalendar] = useState("single")
 
+  const [date, setDate] = React.useState<DateRange | undefined>({
+    from: new Date(2025, 0, 20),
+    to: addDays(new Date(2025, 0, 20), 20),
+  })
+  const [students, setStudents] = useState<Student[]>([])
+  const isDesktop = useMediaQuery("(min-width: 768px)")
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(
+    null
+  )
 
   const sendingHandler = (state: boolean, email: string) => {
     setSending(!state)
@@ -95,6 +129,24 @@ const GetReport: React.FC = () => {
     }, 2000);
   }
 
+  useEffect(() => {
+    const getData = async () => {
+      setLoading(true);
+      try {
+        const response = await getStudents();
+        const { data } = await response?.json();
+        setStudents(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getData();
+  }, []);
+
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -105,12 +157,61 @@ const GetReport: React.FC = () => {
 
     const formDate = new Intl.DateTimeFormat('pt-BR').format(values.reportDate);
 
+    //if(date) {
+      //const fromDate = date ? date?.from.toISOString() : undefined;  // Converte para ISO 8601
+      //const toDate = date ? date?.to.toISOString() : undefined;      // Converte para ISO 8601
+    //const fromDate = date ? date.from.toISOString() :null;  // Converte para ISO 8601
+    //const toDate = date ? date.to.toISOString() : null;      // Converte para ISO 8601
+    //const fromDate = new Intl.DateTimeFormat('pt-BR').format(date?.from); 
+    //const toDate = new Intl.DateTimeFormat('pt-BR').format(date?.to);
+    //}
+    
+    function formatDateToStartOfDay(date: any) {
+    return date ? new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0)).toISOString() : null;
+}
+
+function formatDateToEndOfDay(date: any) {
+    return date ? new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999)).toISOString() : null;
+}
+
+const fromDate = formatDateToStartOfDay(date?.from);
+const toDate = formatDateToEndOfDay(date?.to);
+
+    if (calendar === "single") {
     const fetchReportsByDate = async () => {
       const { data, error } = await supabase
         .from('reports')
+         .select('*')
+         .eq("createdAtIntDTF", formDate)
+         .order('student_name', { ascending: true });
+    
+      if (error) {
+        toast('Ops... Algo deu errado', {
+          description: 'Não foi possível efectuar a operação.',
+          duration: 12000,
+          cancel: {
+            label: 'Fechar',
+            onClick: () => console.log('Cancel!'),
+          },
+        })
+      } else {
+        setReports(data);
+      }
+
+      setLoading(false);
+    };
+    fetchReportsByDate()
+     
+    } else {
+      const fetchReportsByRange = async () => {
+      const { data, error } = await supabase
+        .from('reports')
         .select('*')
-        .eq("createdAtIntDTF", formDate)
-        .order('student_name', { ascending: true });
+        .eq('student_name', selectedStudent?.name)
+        .gte('created_at', fromDate)  // Filtra para ser maior ou igual à data de início
+        .lte('created_at', toDate)    // Filtra para ser menor ou igual à data de término 
+        .order('created_at', { ascending: true });
+ 
 
       if (error) {
         toast('Ops... Algo deu errado', {
@@ -127,28 +228,45 @@ const GetReport: React.FC = () => {
 
       setLoading(false);
     };
-
-    fetchReportsByDate()
+    fetchReportsByRange()
+     }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex items-center gap-4 mt-2">
-        <FormField
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col gap-4 mt-2">
+        <div className="w-full max-w-[800px] pt-4">
+        <h3 className="text-lg font-extrabold tracking-tight m-0 p-0 lg:text-xl">
+          Calendário
+        </h3>
+    </div>
+        <div className="w-full max-w-[800px]">
+          <Select value={calendar} onValueChange={(e) => {
+                          //field.onChange(e);
+                          setCalendar(e);
+                        }} >
+  <SelectTrigger className="w-full md:w-[180px] py-2">
+    <SelectValue placeholder={calendar} />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem className="text-[13px]" value="single">Singular</SelectItem>
+    <SelectItem className="text-[13px]" value="range">Intervalo de dias</SelectItem>
+  </SelectContent>
+</Select>
+        </div>
+        {calendar === "single" 
+          ? <div className="flex flex-col md:flex-row w-full max-w-[800px] gap-3">
+            <FormField
           control={form.control}
           name="reportDate"
           render={({ field }) => (
-            <FormItem className="flex flex-col w-full">
+            <FormItem className="">
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-full pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
+                      variant="outline"
+                      className="w-full md:w-fit font-normal">
                       {field.value ? (
                         format(field.value, "PPP")
                       ) : (
@@ -176,7 +294,67 @@ const GetReport: React.FC = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> 
+          </div>
+          : <div className="flex flex-col md:flex-row w-full max-w-[800px] gap-3">
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            id="date"
+            variant="outline"
+            className="w-full md:w-fit font-normal"
+          >
+            {/*<CalendarIcon />*/} 
+            {date?.from ? (
+              date.to ? (
+                <>
+                  {format(date.from, "LLL dd, y")} -{" "}
+                  {format(date.to, "LLL dd, y")}
+                </>
+              ) : (
+                format(date.from, "LLL dd, y")
+              )
+            ) : (
+              <span>Escolha uma data</span>
+            )}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            initialFocus
+            mode="range"
+            defaultMonth={date?.from}
+            selected={date}
+            onSelect={setDate}
+            numberOfMonths={2}
+          />
+        </PopoverContent>
+      </Popover>
+            <div>
+        <Popover open={open} onOpenChange={setOpen}>
+          <div className="flex items-center relative">
+            <PopoverTrigger asChild className="flex-1 cursor-text">
+              <Button variant="secondary" className="w-full justify-start">
+                <div className="flex items-center gap-2 text-[13px]">
+                  <i className="ri-search-line text-[16px]"></i>
+                  {selectedStudent ? selectedStudent.name : 'Aluno(a)'}
+                </div>
+              </Button>
+            </PopoverTrigger>
+            {selectedStudent ?
+              <Button variant="secondary" onClick={() => setSelectedStudent(null)} className="text-[16px] absolute right-0 shadow-none">
+                <div className="flex items-center gap-2"><i className="ri-close-circle-line"></i></div>
+              </Button> : ''}
+          </div>
+          <PopoverContent className="w-[200px] p-0" align="start">
+            <StudentList setOpen={setOpen} setSelectedStudent={setSelectedStudent} />
+          </PopoverContent>
+        </Popover>
+              {/*<StudentData></StudentData>*/}
+      </div>
+            
+    </div>
+        }
         <Button type="submit">Pesquisar</Button>
       </form>
       {loading
@@ -201,11 +379,12 @@ const GetReport: React.FC = () => {
             {sendAll ? (
               <i className="ri-loader-line animate-spin text-[14px]"></i>
             )
-              : (
+              : calendar === 'single' ? 
+              (
                 <>
                   <i className="ri-mail-send-line mr-1 text-[13px]"></i> Enviar todos
                 </>
-              )}
+              ) : ''} 
           </Button>
           </div>
             <Table className="rounded-sm overflow-hidden mt-2">
@@ -284,7 +463,44 @@ const GetReport: React.FC = () => {
     </Form>
   )
 
-
+  
+function StudentList({
+    setOpen,
+    setSelectedStudent,
+  }: {
+    setOpen: (open: boolean) => void
+    setSelectedStudent: (student: Student | null) => void
+  }) {
+    return (
+      <Command className="w-full">
+        <CommandInput className="w-full" placeholder="Digite o nome..." />
+        <CommandList>
+          <CommandEmpty>
+            <i className="ri-loader-line animate-spin text-[14px]"></i>
+            {/* <span>No results found.</span> */}
+          </CommandEmpty>
+          <CommandGroup>
+            {students
+              ? students.map((student) => (
+                <CommandItem
+                  key={student.id}
+                  value={student.name}
+                  onSelect={(value) => {
+                    setSelectedStudent(
+                      students.find((priority) => priority.id === student.id) || null
+                    )
+                    setOpen(false)
+                  }}
+                >
+                  {student.name}
+                </CommandItem>
+              ))
+              : <i className="ri-loader-line animate-spin text-[14px]"></i>}
+          </CommandGroup>
+        </CommandList>
+      </Command>
+    )
+  }
 
   async function sendEmail(data: any) {
     // 2. Define a submit handler.
@@ -325,7 +541,7 @@ const GetReport: React.FC = () => {
     setDownloadAll(true)
 
     const doc = new jsPDF('l');
-    const createdAt = new Intl.DateTimeFormat('pt-BR').format(selectedDate);
+    const createdAt = calendar === "single" ? new Intl.DateTimeFormat('pt-BR').format(selectedDate) : `${new Intl.DateTimeFormat('pt-BR').format(date?.from)} - ${new Intl.DateTimeFormat('pt-BR').format(date?.to)}`;
     const tableData = [];
     let image = new Image();
 
@@ -333,7 +549,7 @@ const GetReport: React.FC = () => {
 for (const data of reports) {
 
   tableData.push([
-    `${data?.student_name}`,
+    `${calendar === "single" ? data?.student_name : data?.createdAtIntDTF}`,
     `${data?.behavior}`,
     `${data?.porcao_pequeno_almoco !== 'Não aplicável' ? data?.pequeno_almoco + ': ' + data?.porcao_pequeno_almoco : ''}`,
     `${data?.porcao_extras1 !== '' && data.porcao_extras1 !== 'Não aplicável' && data?.porcao_extras1 !== null ? data?.extras1 + ': ' + data?.porcao_extras1 : ''}`,
@@ -354,14 +570,22 @@ for (const data of reports) {
     doc.addImage(image, 'JPG', 14, 8, 50, 0); //base64 image, format, x-coordinate, y-coordinate, width, height
     
     doc.setFontSize(13);
-    doc.text('Relatório diário', 75, 18);
-    doc.setFontSize(8);
-    doc.setTextColor("#666666");
-    doc.text(`Data: ${createdAt}`, 75, 22);
+    if(calendar === "single") {
+     doc.text('Relatório diário', 75, 19);
+      doc.setFontSize(8);
+      doc.setTextColor("#666666");
+      doc.text(`Data: ${createdAt}`, 75, 23); 
+    } else {
+      doc.text('Relatório diário', 75, 15);
+     doc.setFontSize(8);
+     doc.setTextColor("#666666"); 
+     doc.text(`Data: ${createdAt}`, 75, 19);
+     doc.text(`Nome: ${selectedStudent?.name}`, 75, 23);
+     }
 
       // Generate the table
       autoTable(doc, {
-        head: [["Nome", "Comp.", "Peq.almoço", "Snack", "Almoço(Entrada)", "Prato principal", "Sobremesa", "Snack", "Lanche", "Fezes", "Vômitos", "Febres"]],
+        head: [[`${calendar === 'single' ? 'Nome' : 'Data'}`, "Comp.", "Peq.almoço", "Snack", "Almoço(Entrada)", "Prato principal", "Sobremesa", "Snack", "Lanche", "Fezes", "Vômitos", "Febres"]],
         theme: 'grid',
         headStyles: {fillColor : [18, 105, 24], fontStyle: 'bold'},
         styles: {
@@ -374,7 +598,7 @@ for (const data of reports) {
     setTimeout(async () => {
       setDownloadAll(false);
       // Save the PDF
-      doc.save(`Relatório-${createdAt}.pdf`);
+      doc.save(`Relatório-${calendar === "single" ? "" : selectedStudent?.name}-${createdAt}.pdf`);
       toast('Sucesso', {
         description: 'O relatório foi descarregado.',
         duration: 12000,
